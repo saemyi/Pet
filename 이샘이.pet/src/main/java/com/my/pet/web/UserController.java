@@ -31,7 +31,7 @@ public class UserController {
 	@GetMapping("login")
 	public String loginIn(@CookieValue(required=false) String userId, @ModelAttribute("user") User user) {
 		user.setUserId(userId);
-	return "user/01";
+	return "user/login";
 	}
 	
 	@PostMapping("login")
@@ -51,7 +51,7 @@ public class UserController {
 			return "main";
 			} else {
 			request.setAttribute("errMsg", "아이디 또는 비밀번호를 확인해주세요.");
-			return "user/01";
+			return "user/login";
 		}
 	}
 	
@@ -59,6 +59,6 @@ public class UserController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		
-		return "redirect:login";
+		return "main";
 	}
 }
