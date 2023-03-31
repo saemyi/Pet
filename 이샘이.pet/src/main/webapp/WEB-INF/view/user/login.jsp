@@ -28,7 +28,7 @@ $(() => {
     var userId = $(this).val();
     if( userId == '' || userId == 'undefined') return;
     if(! userId_pw_check(userId) ) {
-        $(".result-userId").html('<small>4자이상 20자이하 영어소문자 숫자 조합으로 입력하세요.</small>').css('color', 'red');
+        $(".result-userId").html('<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>').css('color', 'red');
         $(this).focus();
         return false;
     }else {
