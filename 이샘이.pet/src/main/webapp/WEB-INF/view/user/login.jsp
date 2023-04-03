@@ -19,10 +19,9 @@
 </style>
 <script>
     function userId_pw_check(input) {    
-    var regex=/^[0-9a-z]{4,20}$/;
-    return (input != '' && input != 'undefined' && regex.test(input)); 
-}
-
+	    var regex=/^[0-9a-z]{4,20}$/;
+	    return (input != '' && input != 'undefined' && regex.test(input)); 
+	}
 $(() => {        
     $("#userId").blur(function(){
     var userId = $(this).val();
@@ -79,7 +78,7 @@ $(() => {
             </div>
         </div>
         <div class='row mb-3'>
-            <div class='col'>
+            <div class='col d-md-none'>
                 <input type='checkbox' class='mt-3 d-inline' name='rememberMe'/> 아이디 저장
             </div>
         </div>
@@ -93,7 +92,7 @@ $(() => {
         </div>
         <div class='row'>
             <div class='col'>
-                <div class='gap-2 d-flex justify-content-center'>
+                <div class='gap-2 d-flex justify-content-center d-md-none'>
                     <button type='button' class='form-control' onclick="location.href='03.html'">ID 찾기</button>
                     <button type='button' class='form-control' onclick="location.href='04.html'">PW 찾기</button>
                     <button type='button' class='form-control' onclick="location.href='02.html'">회원가입</button>

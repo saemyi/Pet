@@ -11,7 +11,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired private UserDao userDao;
 	
 	@Override
-	public UserDto getUser(String userId, String pw) {
+	public UserDto loginUser(String userId, String pw) {
 		return userDao.selectUser(userId, pw);
 	}
 }

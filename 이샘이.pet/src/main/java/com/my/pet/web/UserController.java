@@ -27,19 +27,17 @@ public class UserController {
 	      return "main";
 	   }
 	
-	//쿠기 값이 있으면 userId에 값을 담는다.
 	@GetMapping("login")
 	public String loginIn(@CookieValue(required=false) String userId, @ModelAttribute("user") User user) {
 		user.setUserId(userId);
-	return "user/login";
+		return "user/login";
 	}
 	
 	@PostMapping("login")
 	public String login(@ModelAttribute("user") UserDto user, String rememberMe,
 			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 			
-			UserDto userData = userService.getUser(user.getUserId(), user.getPw());
-			
+			UserDto userData = userService.loginUser(user.getUserId(), user.getPw());
 			if(userData != null) {
 			session.setAttribute("userId", user.getUserId());
 
