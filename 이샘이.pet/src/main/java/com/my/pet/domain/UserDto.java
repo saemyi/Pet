@@ -11,7 +11,7 @@ public class UserDto {
 	private String userName;
     private String intro;
     private String profileImageFileName;
-    private String phone;
+    private String phone; 
     private String email;
     private String address;
     private String detailedAddress;

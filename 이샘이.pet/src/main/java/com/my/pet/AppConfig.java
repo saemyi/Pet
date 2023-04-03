@@ -10,4 +10,4 @@ public class AppConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("res/**").addResourceLocations("WEB-INF/res/"); 
 	}
-}
+} 

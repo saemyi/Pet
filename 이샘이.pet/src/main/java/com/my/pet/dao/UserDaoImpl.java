@@ -13,5 +13,5 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public UserDto selectUser(String userId, String pw) {
 		return userMap.selectUser(userId, pw);
-	}
+	} 
 }

@@ -31,7 +31,7 @@ public class UserController {
 	public String loginIn(@CookieValue(required=false) String userId, @ModelAttribute("user") User user) {
 		user.setUserId(userId);
 		return "user/login";
-	}
+	} 
 	
 	@PostMapping("login")
 	public String login(@ModelAttribute("user") UserDto user, String rememberMe,
