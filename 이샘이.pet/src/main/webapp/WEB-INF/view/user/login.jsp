@@ -23,11 +23,6 @@
 	    return (input != '' && input != 'undefined' && regex.test(input)); 
 	}
 
-function userId_pw_check(input) {    
-    var regex=/^[0-9a-z]{4,20}$/;
-    return (input != '' && input != 'undefined' && regex.test(input)); 
-}
-
 $(() => {        
     $("#userId").blur(function(){
     var userId = $(this).val();
