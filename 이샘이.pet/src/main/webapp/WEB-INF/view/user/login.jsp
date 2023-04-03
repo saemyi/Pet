@@ -18,18 +18,16 @@
    
 </style>
 <script>
-<<<<<<< HEAD
     function userId_pw_check(input) {    
 	    var regex=/^[0-9a-z]{4,20}$/;
 	    return (input != '' && input != 'undefined' && regex.test(input)); 
 	}
-=======
+
 function userId_pw_check(input) {    
     var regex=/^[0-9a-z]{4,20}$/;
     return (input != '' && input != 'undefined' && regex.test(input)); 
 }
 
->>>>>>> branch 'main' of https://github.com/saemyi/Pet.git
 $(() => {        
     $("#userId").blur(function(){
     var userId = $(this).val();
@@ -103,7 +101,7 @@ $(() => {
                 <div class='gap-2 d-flex justify-content-center d-md-none'>
                     <button type='button' class='form-control' onclick="location.href='03.html'">ID 찾기</button>
                     <button type='button' class='form-control' onclick="location.href='04.html'">PW 찾기</button>
-                    <button type='button' class='form-control' onclick="location.href='02.html'">회원가입</button>
+                    <button type='button' class='form-control'><a href='join' style='text-decoration: none; color: black;'>회원가입</a></button>
                 </div>
             </div>
         </div>
