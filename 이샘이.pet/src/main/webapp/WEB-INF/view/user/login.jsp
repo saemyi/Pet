@@ -18,16 +18,24 @@
    
 </style>
 <script>
+<<<<<<< HEAD
     function userId_pw_check(input) {    
 	    var regex=/^[0-9a-z]{4,20}$/;
 	    return (input != '' && input != 'undefined' && regex.test(input)); 
 	}
+=======
+function userId_pw_check(input) {    
+    var regex=/^[0-9a-z]{4,20}$/;
+    return (input != '' && input != 'undefined' && regex.test(input)); 
+}
+
+>>>>>>> branch 'main' of https://github.com/saemyi/Pet.git
 $(() => {        
     $("#userId").blur(function(){
     var userId = $(this).val();
     if( userId == '' || userId == 'undefined') return;
     if(! userId_pw_check(userId) ) {
-        $(".result-userId").html('<small>4자이상 20자이하 영어소문자 숫자 조합으로 입력하세요.</small>').css('color', 'red');
+        $(".result-userId").html('<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>').css('color', 'red');
         $(this).focus();
         return false;
     }else {
