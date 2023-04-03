@@ -8,6 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.my.pet.dao.map")
 public class Application {
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(Application.class, args); 
 	}
 }

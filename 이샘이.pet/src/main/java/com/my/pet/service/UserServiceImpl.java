@@ -12,6 +12,6 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public UserDto loginUser(String userId, String pw) {
-		return userDao.selectUser(userId, pw);
+		return userDao.selectUser(userId, pw); 
 	}
 }
