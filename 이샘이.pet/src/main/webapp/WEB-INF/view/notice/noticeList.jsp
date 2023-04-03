@@ -38,7 +38,7 @@
 						$('#notices').append(notices.join(''))
 				} else $('#notices').append(
 					`<ul class='list-group list-group-flush'>
-		                <li class='list-group-item' type='button' onclick='location.herf="02.html"'>
+		                <li class='list-group-item' type='button' onclick='location.href="meetingAdd.jsp"'>
 		                    <div class='row pt-2'>
 		                        <div class='col'>
 		                            <p class='text-center'>공지사항이 없습니다.</p>
