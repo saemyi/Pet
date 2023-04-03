@@ -67,18 +67,5 @@ public class UserController {
 		return mv;
 	}
 	
-	@GetMapping("join")
-	public String joinIn() {
-		return "user/join";
-	}
 	
-	@PostMapping("join")
-	public String join() {
-		
-	}
-	
-	@GetMapping("petJoin")
-	public String petJoinIn() {
-		return "pet/join";
-	}
 }
