@@ -201,7 +201,7 @@ if(userId == null) {
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='./meeting/02.html'">
+            <li class="nav-item" type="button" onclick="location.href='meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>
