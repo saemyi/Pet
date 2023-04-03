@@ -1,12 +1,13 @@
 package com.my.pet.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.domain.User;
 import com.my.pet.domain.UserDto;
@@ -17,27 +18,29 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@Controller
+@RestController
 @RequestMapping("/")
 public class UserController {
 	@Autowired private UserService userService;
 	
 	@GetMapping
-	   public String main() {
-	      return "main";
-	   }
-	
+	public ModelAndView main(ModelAndView mv) {
+		mv.setViewName("main");
+		return mv;
+	}
 	@GetMapping("login")
-	public String loginIn(@CookieValue(required=false) String userId, @ModelAttribute("user") User user) {
+	public ModelAndView loginIn(ModelAndView mv, @CookieValue(required=false) String userId, @ModelAttribute("user") User user) {
 		user.setUserId(userId);
-		return "user/login";
+		mv.setViewName("user/login");
+		return mv;
 	} 
 	
 	@PostMapping("login")
-	public String login(@ModelAttribute("user") UserDto user, String rememberMe,
+	public ModelAndView login(ModelAndView mv, @ModelAttribute("user") UserDto user, String rememberMe,
 			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 			
 			UserDto userData = userService.loginUser(user.getUserId(), user.getPw());
+			
 			if(userData != null) {
 			session.setAttribute("userId", user.getUserId());
 
@@ -46,17 +49,36 @@ public class UserController {
 				cookie.setMaxAge(10);
 				response.addCookie(cookie);
 			}
-			return "main";
+			mv.setViewName("main");
+			return mv;
+			
 			} else {
 			request.setAttribute("errMsg", "아이디 또는 비밀번호를 확인해주세요.");
-			return "user/login";
+			mv.setViewName("user/login");
+			return mv;
 		}
 	}
 	
 	@GetMapping("logout")
-	public String logout(HttpSession session) {
+	public ModelAndView logout(ModelAndView mv, HttpSession session) {
 		session.invalidate();
 		
-		return "main";
+		mv.setViewName("main");
+		return mv;
+	}
+	
+	@GetMapping("join")
+	public String joinIn() {
+		return "user/join";
+	}
+	
+	@PostMapping("join")
+	public String join() {
+		
+	}
+	
+	@GetMapping("petJoin")
+	public String petJoinIn() {
+		return "pet/join";
 	}
 }

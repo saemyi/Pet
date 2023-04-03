@@ -3,8 +3,16 @@
 	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 	<mapper namespace='com.my.pet.dao.map.UserMap'>
 		<select id='selectUser' resultType='userdto'>
-			select user_id, pw
+			select *
 			from users
 			where user_id = #{userId} and pw = #{pw}
 		</select>
+		<select id='selectUsers' resultType='userdto'>
+			select *
+			from users
+		</select>
+		<insert id='insertUser'>
+			insert into users (user_id, user_name, user_profile_image_filename, phone, email, address, detailed_address, birthdate, pw, nickname)
+			values (#{userId}, #{userName}, #{profileImageFileName}, #{phone}, #{email}, #{address}, #{birthdate}, #{pw}, #{nickname})
+		</insert>
 	</mapper>
