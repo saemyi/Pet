@@ -9,7 +9,7 @@ public class User {
 	private String userId;
 	private String pw;
 	private String userName;
-    private String intro;
+    private String intro; 
     private String profileImageFileName;
     private String phone;
     private String email;

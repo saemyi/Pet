@@ -18,7 +18,7 @@ public class UserDto {
     private LocalDate birthDate;
     private String nickName;
     private int hasAdminRights;
-    private int isNotifyAll;
+    private int isNotifyAll; 
     private int isNotifyMeetingClose;
     private int isNotifyComment;
     private int isNotifyReply;
