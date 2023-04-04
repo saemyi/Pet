@@ -47,6 +47,7 @@ $(() => {
         $(".result-password").text('');
     }
     })  
+    
   	$("#loginBtn").click(() => {
   		if(isVal($('#userId')) && isVal($('#password'))) {
   			$('#loginForm').submit();

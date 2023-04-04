@@ -26,7 +26,7 @@
     		type:'post',
     		data:{userId:userId},
     		success: function(cnt) {
-    			if($('#userId').val() != '') {
+    			if(isVal('#userId')) {
     				if(cnt == 0) {
         				confirmModal('사용가능한 아이디 입니다.')
         				$("input[name=checked_id]").val('y');
@@ -35,7 +35,7 @@
         				$("input[name=checked_id]").val('');
         				$('#userId').val('');
         			}
-    			} else confirmModal("아이디를 입력하세요.")
+    			} else confirmModal("아이디 입력하세요.")
     		},
     		error:function() {
     			confirmModal('다시 시도해주세요.');
@@ -50,7 +50,7 @@
     		type:'post',
     		data:{nickname:nickname},
     		success: function(cnt) {
-    			if($('#nickname').val() != '') {
+    			if(isVal('#nickname')) {
 	    			if(cnt == 0) {
 	    				confirmModal('사용가능한 닉네임 입니다.')
 	    				$("input[name=checked_nickname]").val('y');    				
@@ -59,7 +59,7 @@
 	    				$('#nickname').val('');
 	    				$("input[name=checked_nickname]").val('');
 	    			}
-    			} else confirmModal('닉네임을 입력하세요.')
+    			} else confirmModal("닉네임 입력하세요.")
     		},
     		error:function() {
     			confirmModal('다시 시도해주세요.');
@@ -69,7 +69,9 @@
 	
 
 	$('#nextBtn').click(() => {
-		if($("input[name='checked_id']").val()=='y' && $("input[name='checked_nickname']").val()=='y') {
+		if($("input[name='checked_id']").val()=='y' && $("input[name='checked_nickname']").val()=='y' && 
+				isVal($('#pw')) && isVal($('#pwCheck')) && isVal($('#phone')) && isVal($('#email')) && isVal($('#sample6_address')) &&
+				&& isVal($('#sample6_detailAddress')) && isVal($('#birthdate'))) {
     		$('#userJoinForm').submit();
     	} else {
     		if($("input[name='checked_id']").val()=='') {
@@ -96,40 +98,6 @@
  
  $(upLoadImg)
  $(pwCheck)
- 
- //카카오 주소 api
-function sample6_execDaumPostcode() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            var addr = '';
-            var extraAddr = '';
-            if (data.userSelectedType === 'R') {
-                addr = data.roadAddress;
-            } else {
-                addr = data.jibunAddress;
-            }
-            if(data.userSelectedType === 'R'){
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraAddr += data.bname;
-                }
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                if(extraAddr !== ''){
-                    extraAddr = ' (' + extraAddr + ')';
-                }
-                document.getElementById('sample6_extraAddress').value = extraAddr;
-            
-            } else {
-                document.getElementById('sample6_extraAddress').value = '';
-            }
-
-            document.getElementById('sample6_postcode').value = data.zonecode;
-            document.getElementById('sample6_address').value = addr;
-            document.getElementById('sample6_detailAddress').focus();
-        }
-    }).open();
-}
 
 </script>
 </head>
@@ -221,7 +189,7 @@ function sample6_execDaumPostcode() {
                 <label for='birtday'>생년월일</label>
             </div>
             <div class='col-9'>
-                <input type='date' class='form-control' id='birthday' name='birthdate' placeholder='생년월일' required/>
+                <input type='date' class='form-control' id='birthdate' name='birthdate' placeholder='생년월일'/>
             </div>
         </div>
         <div class='row mb-1'>
