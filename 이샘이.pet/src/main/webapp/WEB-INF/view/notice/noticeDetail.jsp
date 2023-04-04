@@ -10,53 +10,11 @@
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
-	function NoticesList() {
-		$.ajax({
-			url: 'notice/get',
-			success: noticeList => {
-				if(noticeList.length){
-					notices = []
-					noticeList.forEach(notice => {
-						notices.unshift(
-							'<li class="list-group-item">' +  
-								'<a href="notice/noticeDetail/'+ notice.noticeId + '">' + 
-								'<div class="row pt-2">' +
-									'<div class="col-6 pt-1">' + 
-									'<p>' + notice.noticeTitle + '</p>' +
-									'</div>' +
-									'<div class="col-4 pt-1">' +
-									'<p>' + notice.noticeTime + '</p>' +
-									'</div>' +
-									'<div class="col">' +
-										'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">' +
-											'<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>' +
-										'</svg>' +
-									'</div>' +
-								'</div>' +
-								'</a>' +
-							'</li>')
-					})
-					
-						$('#notices').append(notices.join(''))
-				} else $('#notices').append(
-					`<ul class='list-group list-group-flush'>
-		                <li class='list-group-item'>
-		                    <div class='row pt-2'>
-		                        <div class='col'>
-		                            <p class='text-center'>공지사항이 없습니다.</p>
-		                        </div>
-		                    </div>
-		                </li>
-		            </ul>`)
-				}
-		})
-	}
 	
-$(NoticesList)
 </script>
 <title>공지사항</title>
 <style>
-    p {
+   p {
     font-size: 12px;
 }
 </style>
@@ -70,24 +28,19 @@ $(NoticesList)
                 </div>
             </div>
             <div class='col text-center me-4'>
-                <b>공지</b>
+                <b>공지상세조회</b>
             </div>
         </nav>
     </div>
 <div class='container'>
-    <div class='row pt-3'>
+    <div class='row'>
         <div class='col'>
-            <div class='card'>
-                <div class='card-header pt-3'>
-                <h4>공지사항</h4>
-            </div>
-        </div>
-        <div class='card-body'>
-        <form action='noticeDetail'>
-            <ul class='list-group list-group-flush' id='notices'>
-                                
-            </ul>
-        </form>
+            <hr>
+            <h6 id='title'>${notice.noticeTitle}</h6>
+            <hr>
+            <p id='noticeconnent'>
+                ${notice.noticeContent}
+            </p>
         </div>
     </div>
 </div>
