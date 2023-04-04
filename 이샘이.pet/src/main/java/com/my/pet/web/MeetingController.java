@@ -29,7 +29,7 @@ public class MeetingController {
 		return mv;
 	}
 	
-	@GetMapping("get/{meetingId}")
+	@PostMapping("get/{meetingId}")
 	public Meeting getMeeting(@PathVariable int meetingId) {
 		return meetingService.getMeeting(meetingId);
 	}
