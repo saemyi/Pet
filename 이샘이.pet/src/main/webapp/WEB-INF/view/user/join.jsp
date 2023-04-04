@@ -1,5 +1,4 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
-<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,23 +11,125 @@
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>회원가입</title>
 <style>
     
 </style>
 <script>
  $(() => {
-
     $('#confirmPw').after('')
     $('#idCheck').click(() => {
-            confirmModal('사용가능한 아이디 입니다.')
+    	var userId = $('#userId').val();
+    	$.ajax({
+    		url:'./idCheck',
+    		type:'post',
+    		data:{userId:userId},
+    		success: function(cnt) {
+    			if($('#userId').val() != '') {
+    				if(cnt == 0) {
+        				confirmModal('사용가능한 아이디 입니다.')
+        				$("input[name=checked_id]").val('y');
+        			} else {
+        				confirmModal('이미 존재하는 아이디 입니다.')
+        				$("input[name=checked_id]").val('');
+        				$('#userId').val('');
+        			}
+    			} else confirmModal("아이디를 입력하세요.")
+    		},
+    		error:function() {
+    			confirmModal('다시 시도해주세요.');
+    		}
+    	})
     })
 
     $('#nicknameCheck').click(() => {
-        confirmModal('사용가능한 닉네임 입니다.')})
-})
+    	var nickname = $('#nickname').val();
+    	$.ajax({
+    		url:'./nicknameCheck',
+    		type:'post',
+    		data:{nickname:nickname},
+    		success: function(cnt) {
+    			if($('#nickname').val() != '') {
+	    			if(cnt == 0) {
+	    				confirmModal('사용가능한 닉네임 입니다.')
+	    				$("input[name=checked_nickname]").val('y');    				
+	    			} else {
+	    				confirmModal('이미 존재하는 닉네임 입니다.')
+	    				$('#nickname').val('');
+	    				$("input[name=checked_nickname]").val('');
+	    			}
+    			} else confirmModal('닉네임을 입력하세요.')
+    		},
+    		error:function() {
+    			confirmModal('다시 시도해주세요.');
+    		}
+    	})
+	})
+	
 
-$(upLoadImg)
+	$('#nextBtn').click(() => {
+		if($("input[name='checked_id']").val()=='y' && $("input[name='checked_nickname']").val()=='y') {
+    		$('#userJoinForm').submit();
+    	} else {
+    		if($("input[name='checked_id']").val()=='') {
+    			confirmModal('아이디 중복확인 해주세요.')
+    		} else if($("input[name='checked_id']").val()=='') {
+    			confirmModal('닉네임 중복확인 해주세요.');
+    		} else confirmModal('비밀번호가 일치하지 않습니다.')
+    	}
+	})
+ })
+      function setThumbnail(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          img.setAttribute("class", 'img-fluid circle');
+          document.querySelector("div#image_container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+ 
+ $(upLoadImg)
+ $(pwCheck)
+ 
+ //카카오 주소 api
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = '';
+            var extraAddr = '';
+            if (data.userSelectedType === 'R') {
+                addr = data.roadAddress;
+            } else {
+                addr = data.jibunAddress;
+            }
+            if(data.userSelectedType === 'R'){
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                document.getElementById('sample6_extraAddress').value = extraAddr;
+            
+            } else {
+                document.getElementById('sample6_extraAddress').value = '';
+            }
+
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            document.getElementById('sample6_address').value = addr;
+            document.getElementById('sample6_detailAddress').focus();
+        }
+    }).open();
+}
 
 </script>
 </head>
@@ -46,17 +147,17 @@ $(upLoadImg)
         </nav>
     </div>
 <div class='container text-center'>
+<form method='post' encType='multipart/form-data' id='userJoinForm'>
     <div class='row'>
       <div class='col mb-3'>
             <div class="wrapper d-flex justify-content-center">
                 <div id="uploadProfileBtn" type='button' class='circle'>
-                    <img src='../res/defaultUserProfile.png' class='img-fluid circle'/>
+                	<div id="image_container"></div>
                 </div>
             </div>
-        <input type='file' id='uploadProfile' hidden>
+            <input type="file" id="uploadProfile" class='image' name='userProfile'  accept="image/*" onchange="setThumbnail(event);" hidden/>
         </div>
     </div>
-    <form id='userForm'>
         <div class='row'>
             <div class='col'>
                 <input type='text' class='form-control mb-3' id='userName' name='userName' placeholder='이름'>
@@ -68,6 +169,7 @@ $(upLoadImg)
             </div>
             <div class='col-4'>
                 <button type='button' class='btn btn-lightgray form-control' id='idCheck'>중복확인</button>
+                <input type="hidden" name="checked_id" value="">
             </div>
         </div>
         <div class='row'>
@@ -76,6 +178,7 @@ $(upLoadImg)
             </div>
             <div class='col-4'>
                 <button type='button' class='btn btn-lightgray form-control' id='nicknameCheck'>중복확인</button>
+                <input type="hidden" name="checked_nickname" value="">
             </div>
         </div>
         <div class='row'>
@@ -100,7 +203,7 @@ $(upLoadImg)
         </div>
         <div class='row'>
             <div class='col'>
-                <input type='text' id='sample6_address' class='form-control mb-3' name='address' placeholder='주소'>
+                <input type='text' id='sample6_address' class='form-control mb-3' name='address' placeholder='주소' readonly/>
             </div>
         </div>
         <div class='row'>
@@ -110,7 +213,7 @@ $(upLoadImg)
                 <input type='text' id='sample6_extraAddress' placeholder='참고항목' hidden>
             </div>
             <div class='col-4'>
-                <button type='button' class='btn btn-lightgray form-control' value='주소 검색'>주소 검색</button>
+                <button type='button' class='btn btn-lightgray form-control' value='주소 검색' onclick="sample6_execDaumPostcode()">주소 검색</button>
             </div>
         </div>
         <div class='row '>
@@ -127,7 +230,7 @@ $(upLoadImg)
             </div>
         </div>
         <div class='row p-3'>
-            <button type='button' id='nextBtn' class='btn btn-orange'><a href='petJoin'>다음</a></button>
+            <button type='button' id='nextBtn' class='btn btn-orange'>다음</button>
         </div>
     </form>
   </div>

@@ -46,15 +46,20 @@ $(() => {
     }else {
         $(".result-password").text('');
     }
-    });
-});
+    })  
+  	$("#loginBtn").click(() => {
+  		if(isVal($('#userId')) && isVal($('#password'))) {
+  			$('#loginForm').submit();
+  		}
+  	})  
+})
 </script>
 </head>
 <body>
 <div class='container'>
     <div class='row mt-5'>
         <div class='col'>
-        <form method='post'>
+        <form method='post' id='loginForm'>
             <div class='row'>
                 <div class='col d-flex justify-content-center'>
                     <div class='logoBox p-5'>
@@ -88,7 +93,7 @@ $(() => {
         </div>
         <div class='row mb-3'>
             <div class='col'>
-                <button type='submit' class='btn btn-warning col-12'>로그인</button>
+                <button type='button' id='loginBtn' class='btn btn-warning col-12'>로그인</button>
             </div>
         </div>
         <div class='row'>
@@ -103,6 +108,27 @@ $(() => {
     </form>
     </div>
 </div>
+</div>
+<div class='modal fade' id='modal'>
+    <div class='modal-dialog modal-dialog-centered'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='btn-close' data-bs-dismiss="modal"></button>
+            </div>
+            <div class='modal-body'>
+                <p id='modalMsg'></p>
+            </div>
+            <div class='modal-footer' id='modalBtn'>
+                <button type='button' class='btn btn-orange' id='confirmBtn' data-bs-dismiss="modal">확인</button>
+            </div>
+            <div class='modal-footer' id='modalBtnDouble'>
+                <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
+                    아니오
+                </button>
+                <button type='button' class='btn btn-orange' id='okBtn' data-bs-dismiss="modal">네</button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

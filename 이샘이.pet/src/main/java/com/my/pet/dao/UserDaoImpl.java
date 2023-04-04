@@ -13,31 +13,36 @@ import com.my.pet.domain.UserDto;
 @Repository
 public class UserDaoImpl implements UserDao{
 	@Autowired private UserMap userMap;
+	@Override
+	public int selectUserId(String userId) {
+		return userMap.selectUserId(userId);
+	}
 	
 	@Override
-	public List<User> selectUsers() {
-		return userMap.selectUsers();
+	public int selectNickname(String nickname) {
+		return userMap.selectNickname(nickname);
 	}
+	
 	@Override
 	public UserDto selectUser(String userId, String pw) {
 		return userMap.selectUser(userId, pw);
 	} 
 	
 	@Override
-	public UserDto insertUser(String userId, String userName, String profileImageFileName,
+	public int insertUser(String userId, String userName, String profileImageFilename,
 			 String phone, String email, String address, String detailedAddress,
 			 LocalDate birthdate, String pw, String nickname) {
-		return userMap.insertUser(userId, userName, profileImageFileName, phone, email, 
+		return userMap.insertUser(userId, userName, profileImageFilename, phone, email, 
 				address, detailedAddress, birthdate, pw, nickname);
 	}
 	
 	@Override
-	public UserDto updateUser(User user) {
+	public int updateUser(User user) {
 		return userMap.updateUser(user);
 	}
 	
 	@Override
-	public UserDto deleteUser(String userId) {
+	public int deleteUser(String userId) {
 		return userMap.deleteUser(userId);
 	}
 }

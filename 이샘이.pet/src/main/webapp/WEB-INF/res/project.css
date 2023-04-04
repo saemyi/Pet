@@ -25,6 +25,12 @@ body {
    background: none;
 }
 
+.DefaultProfile {
+	font-size: 22px;
+    line-height: 22px;
+    color:crimson;
+}
+
 .logoutBtn {
    text-decoration: none;
    color:#000;

@@ -13,12 +13,26 @@ public class UserServiceImpl implements UserService{
 	@Autowired private UserDao userDao;
 	
 	@Override
+	public int duplicateCheckUserId(String userId) {
+		int cnt =  userDao.selectUserId(userId);
+		System.out.println("userId cnt: " + cnt);
+		return cnt;
+	}
+	
+	@Override
+	public int duplicateCheckNickname(String nickname) {
+		int cnt = userDao.selectNickname(nickname);
+		System.out.println("nickname cnt: " + cnt);
+		return cnt;
+	}
+	
+	@Override
 	public UserDto loginUser(String userId, String pw) {
 		return userDao.selectUser(userId, pw); 
 	}
 
 	@Override
-	public UserDto joinUser(String userId, String userName, String profileImageFileName,
+	public int joinUser(String userId, String userName, String profileImageFileName,
 			 String phone, String email, String address, String detailedAddress,
 			 LocalDate birthdate, String pw, String nickname) {
 		return userDao.insertUser(userId, userName, profileImageFileName, phone, email, 
