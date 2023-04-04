@@ -14,6 +14,11 @@ public class MeetingServiceImpl implements MeetingService {
 	@Autowired private MeetingDao meetingDao;
 	
 	@Override
+	public int getLastMeetingId() {
+		return meetingDao.selectLastMeetingId();
+	}
+	
+	@Override
 	public List<Meeting> getAllMeetings() {
 		return meetingDao.selectAllMeetings();
 	}
@@ -39,10 +44,10 @@ public class MeetingServiceImpl implements MeetingService {
 	}
 	
 	@Override
-	public void addMeeting(String title, String meetingContent, 
-			LocalDateTime datetime, int recruitmentNumber, int applicantNumber, 
+	public void addMeeting(String meetingTitle, String meetingContent, 
+			LocalDateTime meetingTime, int recruitmentNumber, int applicantNumber, 
 			String userId, String sidoId, String sigunguId, String dongId) {
-		meetingDao.insertMeeting(title, meetingContent, datetime, recruitmentNumber, 
+		meetingDao.insertMeeting(meetingTitle, meetingContent, meetingTime, recruitmentNumber, 
 				applicantNumber, userId, sidoId, sigunguId, dongId);
 	}
 	

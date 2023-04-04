@@ -2,21 +2,27 @@
 <!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 
 	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 <mapper namespace='com.my.pet.dao.map.MeetingMap'>
+	<select id='selectLastMeetingId' parameterType="int" resultType="int">
+		select meeting_id
+		from meetings
+		where meeting_id=(select max(meeting_id) from meetings)
+	</select>
+	
 	<select id='selectAllMeetings' resultType='meeting'>
-		select meeting_id, title, meeting_content, datetime, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
 		from meetings
 		order by meeting_id
 	</select>
 	
 	<select id='selectMeetingsByAddress' resultType='meeting'>
-		select meeting_id, title, meeting_content, datetime, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
 		from meetings
 		where sido_id = #{sidoId} and sigungu_id = #{sigunguId} and dong_id = #{dongId}
 		order by meeting_id
 	</select>
 	
 	<select id='selectMeetingsByParticipant' resultType='meeting'>
-		select meeting_id, title, meeting_content, datetime, recruitment_number, applicant_number, m.user_id, sido_id, sigungu_id, dong_id
+		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, m.user_id, sido_id, sigungu_id, dong_id
 		from meetings m join participants p
 		using (meeting_id)
 		where p.user_id = #{userId}
@@ -24,26 +30,26 @@
 	</select>
 	
 	<select id='selectMeetingsByCreator' resultType='meeting'>
-		select meeting_id, title, meeting_content, datetime, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
 		from meetings
 		where user_id = #{userId}
 		order by meeting_id
 	</select>
 	
 	<select id='selectMeeting' resultType='meeting'>
-		select meeting_id, title, meeting_content, datetime, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
 		from meetings
 		where meeting_id = #{meetingId}
 	</select>
 	
 	<insert id='insertMeeting'>
-		insert into meetings (meeting_id, title, meeting_content, datetime, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id) 
-		values (meeting_id_seq.nextval, #{title}, #{meetingContent}, #{datetime}, #{recruitmentNumber}, #{applicantNumber}, #{userId}, #{sidoId}, #{sigunguId}, #{dongId})
+		insert into meetings (meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id) 
+		values (meeting_id_seq.nextval, #{meetingTitle}, #{meetingContent}, #{meetingTime}, #{recruitmentNumber}, #{applicantNumber}, #{userId}, #{sidoId}, #{sigunguId}, #{dongId})
 	</insert>
 	
 	<update id='updateMeeting'>
 		update meetings
-		set title = #{title}, meeting_content = #{meetingContent}, datetime = #{datetime}, recruitment_number = #{recruitmentNumber}, sido_id = #{sidoId}, sigungu_id = #{sigunguId}, dong_id = #{dongId}
+		set meeting_title = #{meetingTitle}, meeting_content = #{meetingContent}, meeting_time = #{meetingTime}, recruitment_number = #{recruitmentNumber}, sido_id = #{sidoId}, sigungu_id = #{sigunguId}, dong_id = #{dongId}
 		where meeting_id = #{meetingId}
 	</update>
 	

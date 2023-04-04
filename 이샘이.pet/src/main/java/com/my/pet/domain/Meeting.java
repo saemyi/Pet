@@ -11,11 +11,11 @@ import lombok.Data;
 @Data
 public class Meeting {
 	private int meetingId;
-	private String title;
+	private String meetingTitle;
 	private String meetingContent;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-	private LocalDateTime datetime;
+	private LocalDateTime meetingTime;
 	private int recruitmentNumber;
 	private int applicantNumber;
 	private String userId;

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.my.pet.domain.Meeting;
 
 public interface MeetingMap {
+	int selectLastMeetingId();
 	List<Meeting> selectAllMeetings();
 	List<Meeting> selectMeetingsByAddress(@Param("sidoId") String sidoId,
 								@Param("sigunguId") String sigunguId,
@@ -16,9 +17,9 @@ public interface MeetingMap {
 	List<Meeting> selectMeetingsByParticipant(String userId);
 	List<Meeting> selectMeetingsByCreator(String userId);
 	Meeting selectMeeting(int meetingId);
-	int insertMeeting(@Param("title") String title, 
+	int insertMeeting(@Param("meetingTitle") String meetingTitle, 
 					@Param("meetingContent") String meetingContent,
-					@Param("datetime") LocalDateTime datetime,
+					@Param("meetingTime") LocalDateTime meetingTime,
 					@Param("recruitmentNumber") int recruitmentNumber,
 					@Param("applicantNumber") int applicantNumber,
 					@Param("userId") String userId,

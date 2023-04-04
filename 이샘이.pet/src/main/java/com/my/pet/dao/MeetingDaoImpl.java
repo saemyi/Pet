@@ -12,7 +12,12 @@ import com.my.pet.domain.Meeting;
 @Repository
 public class MeetingDaoImpl implements MeetingDao {
 	@Autowired private MeetingMap meetingMap;
-
+	
+	@Override
+	public int selectLastMeetingId() {
+		return meetingMap.selectLastMeetingId();
+	}
+	
 	@Override
 	public List<Meeting> selectAllMeetings() {
 		return meetingMap.selectAllMeetings();
@@ -39,10 +44,10 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 	
 	@Override
-	public void insertMeeting(String title, String meetingContent, 
-			LocalDateTime datetime, int recruitmentNumber, int applicantNumber, 
+	public void insertMeeting(String meetingTitle, String meetingContent, 
+			LocalDateTime meetingTime, int recruitmentNumber, int applicantNumber, 
 			String userId, String sidoId, String sigunguId, String dongId) {
-		meetingMap.insertMeeting(title, meetingContent, datetime, recruitmentNumber, 
+		meetingMap.insertMeeting(meetingTitle, meetingContent, meetingTime, recruitmentNumber, 
 				applicantNumber, userId, sidoId, sigunguId, dongId);
 	}
 	
