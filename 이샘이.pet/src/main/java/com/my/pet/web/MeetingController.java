@@ -2,8 +2,6 @@ package com.my.pet.web;
 
 import java.time.LocalDateTime;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,20 +16,29 @@ import org.springframework.web.servlet.ModelAndView;
 import com.my.pet.domain.Meeting;
 import com.my.pet.service.MeetingService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("meeting")
 public class MeetingController {
 	@Autowired private MeetingService meetingService;
 	
-	@GetMapping("get")
+	@GetMapping("view")
 	public ModelAndView getMeeting(ModelAndView mv) {
 		mv.setViewName("meeting/meetingView");
 		return mv;
 	}
 	
-	@PostMapping("get/{meetingId}")
-	public Meeting getMeeting(@PathVariable int meetingId) {
+	@GetMapping("get")
+	public Meeting getMeeting(HttpSession session) {
+		int meetingId = (int)session.getAttribute("lastMeetingId");
 		return meetingService.getMeeting(meetingId);
+	}
+	
+	@GetMapping("fix")
+	public ModelAndView fixMeeting(ModelAndView mv) {
+		mv.setViewName("meeting/meetingFix");
+		return mv;
 	}
 	
 	@GetMapping("add")
@@ -42,13 +49,11 @@ public class MeetingController {
 	
 	// @RequestParam으로 받는다. @RequestBody도 쓸 수 있다.
 	@PostMapping("add")
-	public void addMeeting(String title, String meetingContent, 
-					LocalDateTime datetime, int recruitmentNumber, int applicantNumber, 
-					String userId, String sidoId, String sigunguId, String dongId) {
-		meetingService.addMeeting(title, meetingContent, datetime, recruitmentNumber, applicantNumber, userId, sidoId, sigunguId, dongId);
-	}
-	
-	private void setLastMeetingId(HttpSession session) {
+	public void addMeeting(String meetingTitle, String meetingContent, 
+					LocalDateTime meetingTime, int recruitmentNumber, int applicantNumber, 
+					String userId, String sidoId, String sigunguId, String dongId,
+					HttpSession session) {
+		meetingService.addMeeting(meetingTitle, meetingContent, meetingTime, recruitmentNumber, applicantNumber, userId, sidoId, sigunguId, dongId);
 		session.setAttribute("lastMeetingId", meetingService.getLastMeetingId());
 	}
 	

@@ -14,7 +14,7 @@ public class Meeting {
 	private String meetingTitle;
 	private String meetingContent;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
 	private LocalDateTime meetingTime;
 	private int recruitmentNumber;
 	private int applicantNumber;

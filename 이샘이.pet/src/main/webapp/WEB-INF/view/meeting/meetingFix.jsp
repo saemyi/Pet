@@ -14,19 +14,164 @@
 <link rel='stylesheet' href='../res/project.css'>
 <script src='../res/projectJs.js'></script>
 <script>
+let isAddressComplete = false
+
 $(() => {
-    let title = '퍼피퍼니 애견카페 2시 모임!'
-    $('#meetingTitle').val(title)
+    //sido option 추가
+    jQuery.each(hangjungdong.sido, function (idx, code) {
+        //append를 이용하여 option 하위에 붙여넣음
+        jQuery('#sido').append(fn_option(code.sido, code.codeNm));
+    });
 
-    let dateTime = '2023-03-16T14:00:00'
-    $('#meetingDateTime').val(dateTime)
+    //sido 변경시 시군구 option 추가
+    jQuery('#sido').change(function () {
+    	isAddressComplete = false
+        jQuery('#sigugun').show();
+        jQuery('#sigugun').empty();
+        jQuery('#sigugun').append(fn_option('', '시/군/구')); //
+        jQuery.each(hangjungdong.sigugun, function (idx, code) {
+            if (jQuery('#sido > option:selected').val() == code.sido)
+                jQuery('#sigugun').append(fn_option(code.sigugun, code.codeNm));
+        });
 
-    let recruitmentNumber = 4
-    $('#recruitmentNumber').val(recruitmentNumber)
+        //세종특별자치시 예외처리
+        //옵션값을 읽어 비교
+        if (jQuery('#sido option:selected').val() == '36') {
+            jQuery('#sigugun').hide();
+            //index를 이용해서 selected 속성(attr)추가
+            //기본 선택 옵션이 최상위로 index 0을 가짐
+            jQuery('#sigugun option').eq(1).attr('selected', 'selected');
+            //trigger를 이용해 change 실행
+            jQuery('#sigugun').trigger('change');
+        }
+    });
 
-    let content = '안녕하세요~\n1살 포메 남아 사랑이 키우고 있는\n30대 초반 여자입니다!\n얼마전에 이 동네로 이사와서\n사랑이 새 친구 만들어주고\n저도 좋은 친구 만들고 싶네요!\n제 또래 여자분들 특히 환영합니당!'
-    $('#meetingContent').text(content)
+    //시군구 변경시 행정동 옵션추가
+    jQuery('#sigugun').change(function () {
+        //option 제거
+    	isAddressComplete = false
+        jQuery('#dong').empty();
+        jQuery.each(hangjungdong.dong, function (idx, code) {
+            if (jQuery('#sido > option:selected').val() == code.sido && jQuery('#sigugun > option:selected').val() == code.sigugun)
+                jQuery('#dong').append(fn_option(code.dong, code.codeNm));
+        });
+        //option의 맨앞에 추가
+        jQuery('#dong').prepend(fn_option('', '읍/면/동'));
+        //option중 선택을 기본으로 선택
+        jQuery('#dong option').eq(0).attr('selected', 'selected');
+    });
+
+    jQuery('#dong').change(function () {
+    	isAddressComplete = true
+        var sido = jQuery('#sido option:selected');
+        var sigugun = jQuery('#sigugun option:selected');
+        var dong = jQuery('#dong option:selected');
+
+        var addressText = sido.text() + ' ' + sigugun.text() + ' ' + dong.text(); // 시도/시군구/읍면동 이름
+        jQuery('#addressText').text(addressText);
+
+        var addressCode = sido.val() + ' ' + sigugun.val() + ' ' + dong.val(); // 읍면동코드
+        jQuery('#addressCode').text(addressCode);
+    });
 })
+
+function fn_option(code, name) {
+    return '<option value="' + code + '">' + name + '</option>';
+}
+
+function moveToMeetingView() {
+	window.location.href = "view"
+}
+
+function getMeetingData() {
+	$.ajax({
+		url: 'get',
+		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
+		// method 생략: get
+		success: meeting => {
+			console.log("${lastMeetingId}")
+			console.log(meeting)
+			console.log()
+			
+			console.log(meeting.meetingTitle)
+			console.log(meeting.meetingContent)
+			console.log(meeting.meetingTime)
+			console.log(meeting.recruitmentNumber)
+			console.log(meeting.applicantNumber)
+			console.log(meeting.userId)
+			console.log(meeting.sidoId)
+			console.log(meeting.sigunguId)
+			console.log(meeting.dongId)
+			console.log()
+			
+			$('#meetingTitle').val(meeting.meetingTitle)
+			$('#meetingContent').val(meeting.meetingContent)
+			$('#meetingDateTime').val(meeting.meetingTime)
+			$('#recruitmentNumber').val(meeting.recruitmentNumber)
+			$('#applicantNumber').text(meeting.applicantNumber)
+			$('#userId').text(meeting.userId)
+			$('#sido').val(meeting.sidoId).trigger('change')
+			$('#sigugun').val(meeting.sigunguId).trigger('change')
+			$('#dong').val(meeting.dongId).trigger('change')
+			
+			console.log($('#meetingTitle').val())
+			console.log($('#meetingContent').val())
+			console.log($('#meetingDateTime').val())
+			console.log($('#recruitmentNumber').val())
+			console.log($('#applicantNumber').text())
+			console.log($('#userId').text())
+			console.log($('#sido').val())
+			console.log($('#sigugun').val())
+			console.log($('#dong').val())
+			
+			$('#applicantNumber').css("display", "none")
+		}
+    })
+}
+
+function init() {
+	getMeetingData()
+	
+    $('#submitBtn').click(() => {
+    	console.log($('#meetingTitle').val())
+    	console.log($('#meetingContent').val())
+    	console.log($('#meetingDateTime').val())
+    	console.log($('#recruitmentNumber').val())
+    	console.log($('#applicantNumber').text())
+    	console.log("${userId}")
+    	console.log($('#sido').val())
+    	console.log($('#sigugun').val())
+    	console.log($('#dong').val())
+    	console.log(isAddressComplete)
+        if($('#meetingTitle').val() && $('#meetingContent').val()
+        		&& $('#meetingDateTime').val() && isAddressComplete) {
+            let meeting = {
+            	meetingId: "${lastMeetingId}",
+                meetingTitle: $('#meetingTitle').val(),
+                meetingContent: $('#meetingContent').val(),
+				meetingTime: $('#meetingDateTime').val(),
+				recruitmentNumber: $('#recruitmentNumber').val(),
+				applicantNumber: $('#applicantNumber').text(),
+				userId: "${userId}",
+				sidoId: $('#sido').val(),
+				sigunguId: $('#sigugun').val(),
+				dongId: $('#dong').val()
+			}
+
+            $.ajax({
+            	url: 'fix',
+            	method: 'put',
+            	contentType: 'application/json',
+            	data: JSON.stringify(meeting),
+            	success: moveToMeetingView
+            })
+        } else {
+        	confirmModal("모든 정보를 입력해 주세요.")
+        }
+    })
+}
+
+$(init)
 </script>
 <title>모임수정</title>
 <style>
@@ -125,11 +270,12 @@ $(() => {
     </div>
 </div>
 </form>
+<span id='applicantNumber'></span>
 </div>
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='meeting/add'">
+            <li class="nav-item" type="button" onclick="location.href='add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>

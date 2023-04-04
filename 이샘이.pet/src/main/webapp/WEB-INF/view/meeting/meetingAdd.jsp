@@ -80,7 +80,7 @@ function fn_option(code, name) {
 }
 
 function moveToMeetingView() {
-	window.location.href = "meeting/view/" + "${lastMeetingId}"
+	window.location.href = "view"
 }
 
 function init() {
@@ -97,9 +97,9 @@ function init() {
         if($('#meetingTitle').val() && $('#meetingContent').val()
         		&& $('#meetingDateTime').val() && isAddressComplete) {
             let meeting = {
-                title: $('#meetingTitle').val(),
+                meetingTitle: $('#meetingTitle').val(),
                 meetingContent: $('#meetingContent').val(),
-				datetime: $('#meetingDateTime').val(),
+				meetingTime: $('#meetingDateTime').val(),
 				recruitmentNumber: $('#recruitmentNumber').val(),
 				applicantNumber: 1,
 				userId: "${userId}",
@@ -250,7 +250,7 @@ $(init)
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='meeting/add'">
+            <li class="nav-item" type="button" onclick="location.href='add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>

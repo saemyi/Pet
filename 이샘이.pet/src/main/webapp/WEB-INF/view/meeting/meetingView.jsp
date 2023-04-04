@@ -5,55 +5,167 @@
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<!-- https://zelkun.tistory.com/entry/004-jQuery-%EC%8B%9C%EB%8F%84%EC%8B%9C%EA%B5%B0%EA%B5%AC%EC%9D%8D%EB%A9%B4%EB%8F%99%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-selectbox-%EC%A0%9C%EC%96%B4-with-%EA%B8%B0%EC%83%81%EC%B2%AD-%EB%8F%99%EB%84%A4%EC%98%88%EB%B3%B4 -->
+<script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 <link rel='stylesheet' href='../res/project.css'>
 <script src='../res/projectJs.js'></script>
-<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
     let isParticipationCancel = false
-$(() => {
-    let completionStatusMsg = '모집중' // 마감, 완료
-    $('#completionStatus').text(completionStatusMsg)
-
-    let title = '퍼피퍼니 애견카페 2시 모임!'
-    $('#meetingTitle').html('<b>' + title + '</b>')
-
-    let place = '서울 관악구 신림동'
-    $('#meetingPlace').prop('disabled', (i, v) => !v)
-    $('#meetingPlace').val(place)
     
-    let dateTime = '2023-03-16T14:00:00'
-    $('#meetingDateTime').prop('disabled', (i, v) => !v)
-    $('#meetingDateTime').val(dateTime)
+	$(() => {
+	    //sido option 추가
+	    jQuery.each(hangjungdong.sido, function (idx, code) {
+	        //append를 이용하여 option 하위에 붙여넣음
+	        jQuery('#sido').append(fn_option(code.sido, code.codeNm));
+	    });
 
-    let recruited = 2
-    let totalRecruitment = 4
-    let percentage = 100 * recruited / totalRecruitment
-    $('.progress-bar').eq(0).text(Math.floor(percentage) + '%')
-    $('.progress-bar').eq(0).css('width', percentage + '%')
-    $('#participantStatus').html('<a href="05.html" style="text-decoration: none; color: black;"><b class="text-primary">' + recruited + '/' + totalRecruitment + '</b><small> 참여중</small>' + '</a>')
+	    //sido 변경시 시군구 option 추가
+	    jQuery('#sido').change(function () {
+	        jQuery('#sigugun').show();
+	        jQuery('#sigugun').empty();
+	        jQuery('#sigugun').append(fn_option('', '시/군/구')); //
+	        jQuery.each(hangjungdong.sigugun, function (idx, code) {
+	            if (jQuery('#sido > option:selected').val() == code.sido)
+	                jQuery('#sigugun').append(fn_option(code.sigugun, code.codeNm));
+	        });
 
-    let content = '안녕하세요~\n1살 포메 남아 사랑이 키우고 있는\n30대 초반 여자입니다!\n얼마전에 이 동네로 이사와서\n사랑이 새 친구 만들어주고\n저도 좋은 친구 만들고 싶네요!\n제 또래 여자분들 특히 환영합니당!'
-    $('#meetingContent').prop('disabled', (i, v) => !v)
-    $('#meetingContent').text(content)
+	        //세종특별자치시 예외처리
+	        //옵션값을 읽어 비교
+	        if (jQuery('#sido option:selected').val() == '36') {
+	            jQuery('#sigugun').hide();
+	            //index를 이용해서 selected 속성(attr)추가
+	            //기본 선택 옵션이 최상위로 index 0을 가짐
+	            jQuery('#sigugun option').eq(1).attr('selected', 'selected');
+	            //trigger를 이용해 change 실행
+	            jQuery('#sigugun').trigger('change');
+	        }
+	    });
 
-    $('#editBtn').show() 
-    $('#deleteBtn').show()
-    $('#participateBtn').show()
+	    //시군구 변경시 행정동 옵션추가
+	    jQuery('#sigugun').change(function () {
+	        //option 제거
+	        jQuery('#dong').empty();
+	        jQuery.each(hangjungdong.dong, function (idx, code) {
+	            if (jQuery('#sido > option:selected').val() == code.sido && jQuery('#sigugun > option:selected').val() == code.sigugun)
+	                jQuery('#dong').append(fn_option(code.dong, code.codeNm));
+	        });
+	        //option의 맨앞에 추가
+	        jQuery('#dong').prepend(fn_option('', '읍/면/동'));
+	        //option중 선택을 기본으로 선택
+	        jQuery('#dong option').eq(0).attr('selected', 'selected');
+	    });
 
-})
+	    jQuery('#dong').change(function () {
+	        var sido = jQuery('#sido option:selected');
+	        var sigugun = jQuery('#sigugun option:selected');
+	        var dong = jQuery('#dong option:selected');
 
-function init() {
-    $('#editBtn').click(() => {
-        window.location.href = "meetingFix.jsp"
-    })
+	        var addressText = sido.text() + ' ' + sigugun.text() + ' ' + dong.text(); // 시도/시군구/읍면동 이름
+	        jQuery('#addressText').text(addressText);
+	        $('#sidoNm').text(sido.text())
+	        $('#sigugunNm').text(sigugun.text())
+	        $('#dongNm').text(dong.text())
 
-    $('#deleteBtn').click(() => {
-        yesNoModal('모임을 삭제하시겠습니까?', 'meetingList.jsp')
-    })
-}
+	        var addressCode = sido.val() + ' ' + sigugun.val() + ' ' + dong.val(); // 읍면동코드
+	        jQuery('#addressCode').text(addressCode);
+	    });
+	})
+
+	function fn_option(code, name) {
+	    return '<option value="' + code + '">' + name + '</option>';
+	}
+
+	function getMeetingData() {
+		$.ajax({
+			url: 'get',
+			dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
+			// method 생략: get
+			success: meeting => {
+				console.log("${lastMeetingId}")
+				console.log(meeting)
+				console.log()
+				
+				console.log(meeting.meetingTitle)
+				console.log(meeting.meetingContent)
+				console.log(meeting.meetingTime)
+				console.log(meeting.recruitmentNumber)
+				console.log(meeting.applicantNumber)
+				console.log(meeting.userId)
+				console.log(meeting.sidoId)
+				console.log(meeting.sigunguId)
+				console.log(meeting.dongId)
+				console.log()
+				
+				$('#meetingTitle').text(meeting.meetingTitle)
+				$('#meetingContent').val(meeting.meetingContent)
+				$('#meetingDateTime').val(meeting.meetingTime)
+				$('#recruitmentNumber').text(meeting.recruitmentNumber)
+				$('#applicantNumber').text(meeting.applicantNumber)
+				$('#userId').text(meeting.userId)
+				$('#sido').val(meeting.sidoId).trigger('change')
+				$('#sigugun').val(meeting.sigunguId).trigger('change')
+				$('#dong').val(meeting.dongId).trigger('change')
+				
+				console.log($('#meetingTitle').text())
+				console.log($('#meetingContent').val())
+				console.log($('#meetingDateTime').val())
+				console.log($('#recruitmentNumber').text())
+				console.log($('#applicantNumber').text())
+				console.log($('#userId').text())
+				console.log($('#sido').val())
+				console.log($('#sigugun').val())
+				console.log($('#dong').val())
+				
+			    let recruited = parseInt($('#applicantNumber').text())
+			    let totalRecruitment = parseInt($('#recruitmentNumber').text())
+			    let percentage = 100 * recruited / totalRecruitment
+			    $('.progress-bar').eq(0).text(Math.floor(percentage) + '%')
+			    $('.progress-bar').eq(0).css('width', percentage + '%')
+			    
+			    // 모집중, 마감, 완료
+			    let completionStatusMsg
+			    if (new Date() > new Date($('#meetingDateTime').val())) {
+			    	completionStatusMsg = '완료'
+			    } else if (recruited == totalRecruitment) {
+			    	completionStatusMsg = '마감'
+			    } else {
+				    completionStatusMsg = '모집중'
+			    }
+				$('#completionStatus').text(completionStatusMsg)
+				
+				if ("${userId}" == meeting.userId) {
+					$('#editBtn').show()
+					$('#deleteBtn').show()
+					$('#participateBtn').hide()
+				} else {
+					$('#editBtn').hide()
+					$('#deleteBtn').hide()
+					$('#participateBtn').show()
+				}
+				
+				$('#userId').css("display", "none")
+			    $('#sido').css("display", "none")
+			    $('#sigugun').css("display", "none")
+			    $('#dong').css("display", "none")
+	   		}
+		})
+	}
+	
+    function init() {
+    	getMeetingData()
+    	
+	    $('#editBtn').click(() => {
+	        window.location.href = "fix"
+	    })
+	
+	    $('#deleteBtn').click(() => {
+	        yesNoModal('모임을 삭제하시겠습니까?', 'main.jsp')
+	    })
+	}
 
 $(init)
 </script>
@@ -78,26 +190,27 @@ $(init)
 <div class='container'>
 <div class='row'>
     <div class='col'>
-        <form>
-            <div class='row pt-3' style='background-color: rgb(245, 244, 252);'>
-                <div class='col'>
-                    <div class='mb-3 text-center text-secondary'>
-                        <h6><b><mark class="bg-orange">
-                            <span id='completionStatus'></span></mark></b>
-                            <span id='meetingTitle'></span>
-                        </h6>
-                    </div>
+		<div class='row pt-3' style='background-color: rgb(245, 244, 252);'>
+            <div class='col'>
+                <div class='mb-3 text-center text-secondary'>
+                    <h6><b><mark class="bg-orange">
+                        <span id='completionStatus'></span></mark>
+                        <span id='meetingTitle'></span></b>
+                    </h6>
                 </div>
             </div>
+        </div>
         <hr>
         <div class='row'>
             <div class='col'>
                 <div class='row'>
                     <div class='col-2 p-2 text-center'>
-                        <label for='meetingPlace'><b>장 소</b></label>
+                        <b>장 소</b>
                     </div>
-                    <div class='col'>
-                        <input type='text' class='form-control' name='meetingPlace' id='meetingPlace' style='border:none; background: none;'/>
+                    <div class='col p-2'>
+                    	<span id='sidoNm'></span>
+                    	<span id='sigugunNm'></span>
+                    	<span id='dongNm'></span>
                     </div>
                 </div>
             </div>
@@ -124,6 +237,9 @@ $(init)
             </div>
             <div class='col-3'>
                 <div class='mb-3 align-baseline d-flex justify-content-start' id='participantStatus'>
+                	<a href="participantView.jsp" style="text-decoration: none; color: black;"><b class="text-primary">
+                		<span id='applicantNumber'></span>/<span id='recruitmentNumber'></span>
+					</b><small>참여중</small></a>
                 </div>
             </div>
         </div>
@@ -149,7 +265,7 @@ $(init)
                     </div>
                     <div class='col p-1' onclick="location.href='../comment/01.html'">
                         <small>댓글</small>
-                        <i class="bi bi-chat-square-text" type='button'></i>
+                        <i class="bi bi-chat-square-text"></i>
                     </div>
                 </div>
             </div>
@@ -163,8 +279,29 @@ $(init)
                 </div>
             </div>
         </div>
+        <div class='row'>
+            <div class='col'>
+            	<span id='userId'></span>
+				<div class='row'>
+				    <div class='col'>
+				        <select class='form-select' name='sido' id='sido'>
+				            <option value=''>시/도</option>
+				        </select>
+				    </div>
+				    <div class='col'>
+				        <select class='form-select' name='sigugun' id='sigugun'>
+				            <option value=''>시/군/구</option>
+				        </select>
+				    </div>
+				    <div class='col'>
+				        <select class='form-select' name='dong' id='dong'>
+				            <option value=''>읍/면/동</option>
+				        </select>
+				    </div>
+				</div>
+			</div>
+		</div>
     </div>
-    </form>
 </div>
 </div>
 <div class='modal fade' id='modal'>
@@ -191,7 +328,7 @@ $(init)
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='meeting/add'">
+            <li class="nav-item" type="button" onclick="location.href='add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>
