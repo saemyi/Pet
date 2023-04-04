@@ -23,6 +23,12 @@ import com.my.pet.service.MeetingService;
 public class MeetingController {
 	@Autowired private MeetingService meetingService;
 	
+	@GetMapping("get")
+	public ModelAndView getMeeting(ModelAndView mv) {
+		mv.setViewName("meeting/meetingView");
+		return mv;
+	}
+	
 	@GetMapping("get/{meetingId}")
 	public Meeting getMeeting(@PathVariable int meetingId) {
 		return meetingService.getMeeting(meetingId);
