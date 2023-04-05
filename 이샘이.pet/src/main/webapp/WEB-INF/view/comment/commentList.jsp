@@ -25,8 +25,56 @@ maximum-scale=1.0, minimum-scale=1.0'>
 }
 
 </style>
+
+<body>
+    <div class='row d-flex justify-content-end'>
+        <nav class="navbar fixed-top bg-orange p-3">
+            <div class='row'>
+                <div class='col d-flex justify-content-start'>
+                    <i class='bi bi-chevron-left' onclick="history.back();"></i>
+                </div>
+            </div>
+            <div class='col text-center me-4'>
+                <b>댓글</b>
+            </div>
+        </nav>
+    </div>
+    <div class='container' id='comments'>
+		
+    </div>
+    <nav class="navbar fixed-bottom bg-orange">
+        <div class='input-group mt-2' style='padding-inline: .5rem;'>
+            <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
+            <button type='button' class='btn border-0 send bg-white'>
+                <i class='bi bi-arrow-up-circle fa-2x'></i>
+            </button>
+        </div>
+    </nav>
+    <div class='modal fade' id='modal'>
+        <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <button type='button' class='btn-close' data-bs-dismiss="modal"></button>
+                </div>
+                <div class='modal-body'>
+                    <p id='modalMsg'></p>
+                </div>
+                <div class='modal-footer' id='modalBtn'>
+                    <button type='button' class='btn btn-orange' id='confirmBtn' data-bs-dismiss="modal">확인</button>
+                </div>
+                <div class='modal-footer' id='modalBtnDouble'>
+                    <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
+                        아니오
+                    </button>
+                    <button type='button' class='btn bg-orange' id='okBtn' data-bs-dismiss="modal">네</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 <script>
-	function listComments() {  	 
+	function listComments() { 
+		 console.log("listComments 실행");
     	 $('#comments').empty()
     	 
     	 $.ajax({
@@ -54,8 +102,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
 						                            </button>
 						                            <div class='dropdown-menu'>
 						                                <nav>
-						                                    <button class='dropdown-item' id='fixComment\${comment.commentId}'>수정</button>
-						                                    <button type='button' class='dropdown-item' id='delComment\${comment.commentId}'>삭제</button>
+						                                    <button type='button' class='dropdown-item fixComment'>수정</button>
+						                                    <button type='button' class='dropdown-item delComment'>삭제</button>
 						                                </nav>
 						                            </div>
 						                        </div>
@@ -80,12 +128,14 @@ maximum-scale=1.0, minimum-scale=1.0'>
 		            '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')
     		 }
     	 })
+  
      }
-      
+	
      function init() {
+    	 console.log("시작")
     	 listComments()
     	 
-    	 $('#button-comment').click(() => {
+    	 $('.send').click(() => {
     		 let comment = {
     				 commentContent: $('.comment').val(),
     				 commentTime: $('#commentTime').val(),
@@ -104,7 +154,18 @@ maximum-scale=1.0, minimum-scale=1.0'>
     		 
     	 })
     	 
-    	 $('#fixComment\${comment.commentId}').click(() => {
+    	 function temp(){
+             if($(".fixComment").length){
+                 console.log("있음!!!");
+             } else{
+                 console.log("타겟없음.");
+             };
+         };
+         temp();
+         
+                
+    	 $('.fixComment').on('click', function() {
+    		 console.log('작동')
     		$('.comment').text($('#commentContent').val()) 
     		let comment = {
    				 commentContent: $('#commentContent').val(),
@@ -119,7 +180,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
     		 })
     	 })
     	 
-    	 $('#delComment').click(() => {
+    	 $('.delComment').on('click', function()  {
+    		 console.log('작동')
         	yesNoModal('댓글을 삭제하시겠습니까?','commentList.jsp')
 	    	 $('#okBtn').click(() => {
 	    		 $(yesNoModal)('댓글을 삭제하시겠습니까?','commentList'),
@@ -132,53 +194,9 @@ maximum-scale=1.0, minimum-scale=1.0'>
 	
 	    	 })  
     	 })
+    	 
      }
-     $(init)
+     
+$(init)
 </script>
-<body>
-    <div class='row d-flex justify-content-end'>
-        <nav class="navbar fixed-top bg-orange p-3">
-            <div class='row'>
-                <div class='col d-flex justify-content-start'>
-                    <i class='bi bi-chevron-left' onclick="history.back();"></i>
-                </div>
-            </div>
-            <div class='col text-center me-4'>
-                <b>댓글</b>
-            </div>
-        </nav>
-    </div>
-    <div class='container' id='comments'>
-		
-    </div>
-    <nav class="navbar fixed-bottom bg-orange">
-        <div class='input-group mt-2' style='padding-inline: .5rem;'>
-            <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
-            <button type='button' class='btn border-0 send bg-white' id='button-comment'>
-                <i class='bi bi-arrow-up-circle fa-2x'></i>
-            </button>
-        </div>
-    </nav>
-    <div class='modal fade' id='modal'>
-        <div class='modal-dialog modal-dialog-centered'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <button type='button' class='btn-close' data-bs-dismiss="modal"></button>
-                </div>
-                <div class='modal-body'>
-                    <p id='modalMsg'></p>
-                </div>
-                <div class='modal-footer' id='modalBtn'>
-                    <button type='button' class='btn btn-orange' id='confirmBtn' data-bs-dismiss="modal">확인</button>
-                </div>
-                <div class='modal-footer' id='modalBtnDouble'>
-                    <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
-                        아니오
-                    </button>
-                    <button type='button' class='btn bg-orange' id='okBtn' data-bs-dismiss="modal">네</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
 </html>
