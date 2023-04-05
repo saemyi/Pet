@@ -1,6 +1,7 @@
 package com.my.pet.web;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.domain.Meeting;
+import com.my.pet.domain.Participant;
 import com.my.pet.service.MeetingService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,10 +31,28 @@ public class MeetingController {
 		return mv;
 	}
 	
+	@GetMapping("participantView")
+	public ModelAndView getParticipants(ModelAndView mv) {
+		mv.setViewName("meeting/participantView");
+		return mv;
+	}
+	
 	@GetMapping("get")
 	public Meeting getMeeting(HttpSession session) {
 		int meetingId = (int)session.getAttribute("lastMeetingId");
 		return meetingService.getMeeting(meetingId);
+	}
+	
+	@GetMapping("getMeetingCreator")
+	public Participant getMeetingCreator(HttpSession session) {
+		int meetingId = (int)session.getAttribute("lastMeetingId");
+		return meetingService.getMeetingCreator(meetingId);
+	}
+	
+	@GetMapping("getParticipants")
+	public List<Participant> getParticipants(HttpSession session) {
+		int meetingId = (int)session.getAttribute("lastMeetingId");
+		return meetingService.getParticipants(meetingId);
 	}
 	
 	@GetMapping("fix")

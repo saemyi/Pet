@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.my.pet.domain.Meeting;
+import com.my.pet.domain.Participant;
 
 public interface MeetingMap {
 	int selectLastMeetingId();
@@ -29,13 +30,15 @@ public interface MeetingMap {
 					);
 	int updateMeeting(Meeting meeting);
 	int deleteMeeting(int meetingId);
-	int insertParticipation(@Param("meetingId") int meetingId,
+	Participant selectMeetingCreator(int meetingId);
+	List<Participant> selectParticipants(int meetingId);
+	int insertParticipant(@Param("meetingId") int meetingId,
 					@Param("userId") String userId
 					);
 	int updateApplicantNumber(@Param("meetingId") int meetingId,
 					@Param("applicantNumber") int applicantNumber
 					);
-	int deleteParticipation(@Param("meetingId") int meetingId,
+	int deleteParticipant(@Param("meetingId") int meetingId,
 							@Param("userId") String userId
 							);
 }

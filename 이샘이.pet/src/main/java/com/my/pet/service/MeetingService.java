@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.my.pet.domain.Meeting;
+import com.my.pet.domain.Participant;
 
 public interface MeetingService {
 	int getLastMeetingId();
@@ -17,7 +18,9 @@ public interface MeetingService {
 			String userId, String sidoId, String sigunguId, String dongId);
 	void fixMeeting(Meeting meeting);
 	void delMeeting(int meetingId);
-	void addParticipation(int meetingId, String userId);
+	Participant getMeetingCreator(int meetingId);
+	List<Participant> getParticipants(int meetingId);
+	void addParticipant(int meetingId, String userId);
 	void fixApplicantNumber(int meetingId, int applicantNumber);
-	void delParticipation(int meetingId, String userId);
+	void delParticipant(int meetingId, String userId);
 }

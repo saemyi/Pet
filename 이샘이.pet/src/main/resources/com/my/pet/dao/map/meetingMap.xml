@@ -58,7 +58,21 @@
 		where meeting_id = #{meetingId}
 	</delete>
 	
-	<update id='insertParticipation'>
+	<select id='selectCreator'>
+		select user_id, user_intro, user_profile_image_filename
+		from meetings m join users u
+		using (user_id)
+		where meeting_id = #{meetingId}
+	</select>
+	
+	<select id='selectParticipants'>
+		select user_id, user_intro, user_profile_image_filename
+		from participants p join users u
+		using (user_id)
+		where meeting_id = #{meetingId}
+	</select>
+	
+	<update id='insertParticipants'>
 		insert into participants (participant_id, meeting_id, user_id)
 		values (participant_id_seq.nextval, #{meetingId}, #{userId})
 	</update>
@@ -69,7 +83,7 @@
 		where meeting_id = #{meetingId}
 	</update>
 	
-	<delete id='deleteParticipation'>
+	<delete id='deleteParticipants'>
 		delete participants
 		where meeting_id = #{meetingId} and user_id = #{userId}
 	</delete>

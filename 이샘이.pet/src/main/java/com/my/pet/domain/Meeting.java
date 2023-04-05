@@ -13,7 +13,7 @@ public class Meeting {
 	private int meetingId;
 	private String meetingTitle;
 	private String meetingContent;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
 	private LocalDateTime meetingTime;
 	private int recruitmentNumber;

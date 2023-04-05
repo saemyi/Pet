@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.my.pet.dao.map.MeetingMap;
 import com.my.pet.domain.Meeting;
+import com.my.pet.domain.Participant;
 
 @Repository
 public class MeetingDaoImpl implements MeetingDao {
@@ -62,8 +63,19 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 	
 	@Override
-	public void insertParticipation(int meetingId, String userId) {
-		meetingMap.insertParticipation(meetingId, userId);
+	
+	public Participant selectMeetingCreator(int meetingId) {
+		return meetingMap.selectMeetingCreator(meetingId);
+	}
+	
+	@Override
+	public List<Participant> selectParticipants(int meetingId) {
+		return meetingMap.selectParticipants(meetingId);
+	}
+	
+	@Override
+	public void insertParticipant(int meetingId, String userId) {
+		meetingMap.insertParticipant(meetingId, userId);
 	}
 	
 	@Override
@@ -72,7 +84,7 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 	
 	@Override
-	public void deleteParticipation(int meetingId, String userId) {
-		meetingMap.deleteParticipation(meetingId, userId);
+	public void deleteParticipant(int meetingId, String userId) {
+		meetingMap.deleteParticipant(meetingId, userId);
 	}
 }

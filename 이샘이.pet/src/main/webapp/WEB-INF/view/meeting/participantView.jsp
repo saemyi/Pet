@@ -14,20 +14,61 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
 $(() => {
-    let userId = 'User2'
-    $('.userId').eq(0).html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + userId)
-    userId = 'User3'
-    $('.userId').eq(1).html(userId)
-
-    let userIntro = '잘 부탁드려요~~'
-    $('.userIntro').eq(0).text(userIntro)
-    userIntro = '안녕하세요! 치와와 두마리아빠입니다.'
-    $('.userIntro').eq(1).text(userIntro)
+	let userId = 'User2'
+	$('.userId').eq(0).html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + userId)
+	userId = 'User3'
+	$('.userId').eq(1).html(userId)
+	
+	let userIntro = '잘 부탁드려요~~'
+	$('.userIntro').eq(0).text(userIntro)
+	userIntro = '안녕하세요! 치와와 두마리아빠입니다.'
+	$('.userIntro').eq(1).text(userIntro)
 })
+
+function getParticipantData() {
+	$.ajax({
+		url: 'get',
+		dataType: 'json',
+		success: meeting => {
+			$('.userId').eq(0).html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + meeting.userId)
+		}
+	})
+	
+	$.ajax({
+		url: 'getParticipants',
+		dataType: 'json',
+		success: userIds => {
+			if(userIds.length) {
+				const userIdArr = []
+				
+				$.each(userIds, (i, userId) => {
+					userIdArr.push(
+				        `<div class="card shadow mb-3">
+				            <div class="card-body">
+				                <div class="row">
+				                    <div class='joinBox text-center p-3' onclick='location.href="../user/08.html"'>
+				                        <p class='mt-4'><small>프로필이미지</small></p>
+				                    </div>
+				                    <div class="col-8">
+				                        <h6><b class='userId'>` + userId + `</b></h6>
+				                        <hr>
+				                        <p class='card-text userIntro'></p>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>`
+					)
+				})
+				
+				$('#userIds').append(userIdArr.join(''))
+			}
+		}
+	})
+}
 </script>
 <title>참여자 목록</title>
 <style>
-        p {
+p {
     font-size: 12px;
 }
 </style>
@@ -59,19 +100,7 @@ $(() => {
             </div>
         </div>
         <hr>
-        <div class="card shadow mb-3">
-            <div class="card-body">
-                <div class="row">
-                    <div class='joinBox text-center p-3' onclick='location.href="../user/08.html"'>
-                        <p class='mt-4'><small>프로필이미지</small></p>
-                    </div>
-                    <div class="col-8">
-                        <h6><b class='userId'></b></h6>
-                        <hr>
-                        <p class='card-text userIntro'></p>
-                    </div>
-                </div>
-            </div>
+        <div id='userIds'>
         </div>
     </div>
 </div>
@@ -86,7 +115,7 @@ $(() => {
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../main.html'">
+            <li class="nav-item" type="button" onclick="location.href='/'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>

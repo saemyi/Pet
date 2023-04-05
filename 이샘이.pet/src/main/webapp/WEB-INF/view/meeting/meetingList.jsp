@@ -179,7 +179,7 @@ $(() => {
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../main.html'">
+            <li class="nav-item" type="button" onclick="location.href='/'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>

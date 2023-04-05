@@ -14,158 +14,172 @@
 <link rel='stylesheet' href='../res/project.css'>
 <script src='../res/projectJs.js'></script>
 <script>
-    let isParticipationCancel = false
-    
-	$(() => {
-	    //sido option 추가
-	    jQuery.each(hangjungdong.sido, function (idx, code) {
-	        //append를 이용하여 option 하위에 붙여넣음
-	        jQuery('#sido').append(fn_option(code.sido, code.codeNm));
-	    });
+let isParticipationCancel = false
 
-	    //sido 변경시 시군구 option 추가
-	    jQuery('#sido').change(function () {
-	        jQuery('#sigugun').show();
-	        jQuery('#sigugun').empty();
-	        jQuery('#sigugun').append(fn_option('', '시/군/구')); //
-	        jQuery.each(hangjungdong.sigugun, function (idx, code) {
-	            if (jQuery('#sido > option:selected').val() == code.sido)
-	                jQuery('#sigugun').append(fn_option(code.sigugun, code.codeNm));
-	        });
+$(() => {
+    //sido option 추가
+    jQuery.each(hangjungdong.sido, function (idx, code) {
+        //append를 이용하여 option 하위에 붙여넣음
+        jQuery('#sido').append(fn_option(code.sido, code.codeNm));
+    });
 
-	        //세종특별자치시 예외처리
-	        //옵션값을 읽어 비교
-	        if (jQuery('#sido option:selected').val() == '36') {
-	            jQuery('#sigugun').hide();
-	            //index를 이용해서 selected 속성(attr)추가
-	            //기본 선택 옵션이 최상위로 index 0을 가짐
-	            jQuery('#sigugun option').eq(1).attr('selected', 'selected');
-	            //trigger를 이용해 change 실행
-	            jQuery('#sigugun').trigger('change');
-	        }
-	    });
+    //sido 변경시 시군구 option 추가
+    jQuery('#sido').change(function () {
+        jQuery('#sigugun').show();
+        jQuery('#sigugun').empty();
+        jQuery('#sigugun').append(fn_option('', '시/군/구')); //
+        jQuery.each(hangjungdong.sigugun, function (idx, code) {
+            if (jQuery('#sido > option:selected').val() == code.sido)
+                jQuery('#sigugun').append(fn_option(code.sigugun, code.codeNm));
+        });
 
-	    //시군구 변경시 행정동 옵션추가
-	    jQuery('#sigugun').change(function () {
-	        //option 제거
-	        jQuery('#dong').empty();
-	        jQuery.each(hangjungdong.dong, function (idx, code) {
-	            if (jQuery('#sido > option:selected').val() == code.sido && jQuery('#sigugun > option:selected').val() == code.sigugun)
-	                jQuery('#dong').append(fn_option(code.dong, code.codeNm));
-	        });
-	        //option의 맨앞에 추가
-	        jQuery('#dong').prepend(fn_option('', '읍/면/동'));
-	        //option중 선택을 기본으로 선택
-	        jQuery('#dong option').eq(0).attr('selected', 'selected');
-	    });
+        //세종특별자치시 예외처리
+        //옵션값을 읽어 비교
+        if (jQuery('#sido option:selected').val() == '36') {
+            jQuery('#sigugun').hide();
+            //index를 이용해서 selected 속성(attr)추가
+            //기본 선택 옵션이 최상위로 index 0을 가짐
+            jQuery('#sigugun option').eq(1).attr('selected', 'selected');
+            //trigger를 이용해 change 실행
+            jQuery('#sigugun').trigger('change');
+        }
+    });
 
-	    jQuery('#dong').change(function () {
-	        var sido = jQuery('#sido option:selected');
-	        var sigugun = jQuery('#sigugun option:selected');
-	        var dong = jQuery('#dong option:selected');
+    //시군구 변경시 행정동 옵션추가
+    jQuery('#sigugun').change(function () {
+        //option 제거
+        jQuery('#dong').empty();
+        jQuery.each(hangjungdong.dong, function (idx, code) {
+            if (jQuery('#sido > option:selected').val() == code.sido && jQuery('#sigugun > option:selected').val() == code.sigugun)
+                jQuery('#dong').append(fn_option(code.dong, code.codeNm));
+        });
+        //option의 맨앞에 추가
+        jQuery('#dong').prepend(fn_option('', '읍/면/동'));
+        //option중 선택을 기본으로 선택
+        jQuery('#dong option').eq(0).attr('selected', 'selected');
+    });
 
-	        var addressText = sido.text() + ' ' + sigugun.text() + ' ' + dong.text(); // 시도/시군구/읍면동 이름
-	        jQuery('#addressText').text(addressText);
-	        $('#sidoNm').text(sido.text())
-	        $('#sigugunNm').text(sigugun.text())
-	        $('#dongNm').text(dong.text())
+    jQuery('#dong').change(function () {
+        var sido = jQuery('#sido option:selected');
+        var sigugun = jQuery('#sigugun option:selected');
+        var dong = jQuery('#dong option:selected');
 
-	        var addressCode = sido.val() + ' ' + sigugun.val() + ' ' + dong.val(); // 읍면동코드
-	        jQuery('#addressCode').text(addressCode);
-	    });
+        var addressText = sido.text() + ' ' + sigugun.text() + ' ' + dong.text(); // 시도/시군구/읍면동 이름
+        jQuery('#addressText').text(addressText);
+        $('#sidoNm').text(sido.text())
+        $('#sigugunNm').text(sigugun.text())
+        $('#dongNm').text(dong.text())
+
+        var addressCode = sido.val() + ' ' + sigugun.val() + ' ' + dong.val(); // 읍면동코드
+        jQuery('#addressCode').text(addressCode);
+    });
+})
+
+function fn_option(code, name) {
+    return '<option value="' + code + '">' + name + '</option>';
+}
+
+function getMeetingData() {
+	$.ajax({
+		url: 'get',
+		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
+		// method 생략: get
+		success: meeting => {
+			console.log("${lastMeetingId}")
+			console.log(meeting)
+			console.log()
+			
+			console.log(meeting.meetingTitle)
+			console.log(meeting.meetingContent)
+			console.log(meeting.meetingTime)
+			console.log(meeting.recruitmentNumber)
+			console.log(meeting.applicantNumber)
+			console.log(meeting.userId)
+			console.log(meeting.sidoId)
+			console.log(meeting.sigunguId)
+			console.log(meeting.dongId)
+			console.log()
+			
+			$('#meetingTitle').text(meeting.meetingTitle)
+			$('#meetingContent').val(meeting.meetingContent)
+			$('#meetingDateTime').val(meeting.meetingTime)
+			$('#recruitmentNumber').text(meeting.recruitmentNumber)
+			$('#applicantNumber').text(meeting.applicantNumber)
+			$('#userId').text(meeting.userId)
+			$('#sido').val(meeting.sidoId).trigger('change')
+			$('#sigugun').val(meeting.sigunguId).trigger('change')
+			$('#dong').val(meeting.dongId).trigger('change')
+			
+			console.log($('#meetingTitle').text())
+			console.log($('#meetingContent').val())
+			console.log($('#meetingDateTime').val())
+			console.log($('#recruitmentNumber').text())
+			console.log($('#applicantNumber').text())
+			console.log($('#userId').text())
+			console.log($('#sido').val())
+			console.log($('#sigugun').val())
+			console.log($('#dong').val())
+			
+		    let recruited = parseInt($('#applicantNumber').text())
+		    let totalRecruitment = parseInt($('#recruitmentNumber').text())
+		    let percentage = 100 * recruited / totalRecruitment
+		    $('.progress-bar').eq(0).text(Math.floor(percentage) + '%')
+		    $('.progress-bar').eq(0).css('width', percentage + '%')
+		    
+		    // 모집중, 마감, 완료
+		    let completionStatusMsg
+		    if (new Date() > new Date($('#meetingDateTime').val())) {
+		    	completionStatusMsg = '완료'
+		    } else if (recruited == totalRecruitment) {
+		    	completionStatusMsg = '마감'
+		    } else {
+			    completionStatusMsg = '모집중'
+		    }
+			$('#completionStatus').text(completionStatusMsg)
+			
+			if ("${userId}" == meeting.userId) {
+				$('#editBtn').show()
+				$('#deleteBtn').show()
+				$('#participateBtn').hide()
+			} else {
+				$('#editBtn').hide()
+				$('#deleteBtn').hide()
+				$('#participateBtn').show()
+			}
+			
+			$('#userId').css("display", "none")
+		    $('#sido').css("display", "none")
+		    $('#sigugun').css("display", "none")
+		    $('#dong').css("display", "none")
+   		}
 	})
-
-	function fn_option(code, name) {
-	    return '<option value="' + code + '">' + name + '</option>';
-	}
-
-	function getMeetingData() {
+}
+	
+function moveToMain() {
+	window.location.href = "/"
+}
+	
+function init() {
+	getMeetingData()
+	
+	$('#editBtn').click(() => {
+	    window.location.href = "fix"
+	})
+	
+	$('#deleteBtn').click(() => {
+	    yesNoModal('모임을 삭제하시겠습니까?')
+	})
+	
+	$('#okBtn').click(() => {
 		$.ajax({
-			url: 'get',
-			dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
-			// method 생략: get
-			success: meeting => {
-				console.log("${lastMeetingId}")
-				console.log(meeting)
-				console.log()
-				
-				console.log(meeting.meetingTitle)
-				console.log(meeting.meetingContent)
-				console.log(meeting.meetingTime)
-				console.log(meeting.recruitmentNumber)
-				console.log(meeting.applicantNumber)
-				console.log(meeting.userId)
-				console.log(meeting.sidoId)
-				console.log(meeting.sigunguId)
-				console.log(meeting.dongId)
-				console.log()
-				
-				$('#meetingTitle').text(meeting.meetingTitle)
-				$('#meetingContent').val(meeting.meetingContent)
-				$('#meetingDateTime').val(meeting.meetingTime)
-				$('#recruitmentNumber').text(meeting.recruitmentNumber)
-				$('#applicantNumber').text(meeting.applicantNumber)
-				$('#userId').text(meeting.userId)
-				$('#sido').val(meeting.sidoId).trigger('change')
-				$('#sigugun').val(meeting.sigunguId).trigger('change')
-				$('#dong').val(meeting.dongId).trigger('change')
-				
-				console.log($('#meetingTitle').text())
-				console.log($('#meetingContent').val())
-				console.log($('#meetingDateTime').val())
-				console.log($('#recruitmentNumber').text())
-				console.log($('#applicantNumber').text())
-				console.log($('#userId').text())
-				console.log($('#sido').val())
-				console.log($('#sigugun').val())
-				console.log($('#dong').val())
-				
-			    let recruited = parseInt($('#applicantNumber').text())
-			    let totalRecruitment = parseInt($('#recruitmentNumber').text())
-			    let percentage = 100 * recruited / totalRecruitment
-			    $('.progress-bar').eq(0).text(Math.floor(percentage) + '%')
-			    $('.progress-bar').eq(0).css('width', percentage + '%')
-			    
-			    // 모집중, 마감, 완료
-			    let completionStatusMsg
-			    if (new Date() > new Date($('#meetingDateTime').val())) {
-			    	completionStatusMsg = '완료'
-			    } else if (recruited == totalRecruitment) {
-			    	completionStatusMsg = '마감'
-			    } else {
-				    completionStatusMsg = '모집중'
-			    }
-				$('#completionStatus').text(completionStatusMsg)
-				
-				if ("${userId}" == meeting.userId) {
-					$('#editBtn').show()
-					$('#deleteBtn').show()
-					$('#participateBtn').hide()
-				} else {
-					$('#editBtn').hide()
-					$('#deleteBtn').hide()
-					$('#participateBtn').show()
-				}
-				
-				$('#userId').css("display", "none")
-			    $('#sido').css("display", "none")
-			    $('#sigugun').css("display", "none")
-			    $('#dong').css("display", "none")
-	   		}
+			url: 'del/' + "${lastMeetingId}",
+			method: 'delete',
+			success: moveToMain
 		})
-	}
-	
-    function init() {
-    	getMeetingData()
-    	
-	    $('#editBtn').click(() => {
-	        window.location.href = "fix"
-	    })
-	
-	    $('#deleteBtn').click(() => {
-	        yesNoModal('모임을 삭제하시겠습니까?', 'main.jsp')
-	    })
-	}
+		
+		$('#modal').modal('hide')
+	})
+}
 
 $(init)
 </script>
@@ -237,7 +251,7 @@ $(init)
             </div>
             <div class='col-3'>
                 <div class='mb-3 align-baseline d-flex justify-content-start' id='participantStatus'>
-                	<a href="participantView.jsp" style="text-decoration: none; color: black;"><b class="text-primary">
+                	<a href="participantView" style="text-decoration: none; color: black;"><b class="text-primary">
                 		<span id='applicantNumber'></span>/<span id='recruitmentNumber'></span>
 					</b><small>참여중</small></a>
                 </div>
@@ -335,7 +349,7 @@ $(init)
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../main.html'">
+            <li class="nav-item" type="button" onclick="location.href='/'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
