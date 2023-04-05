@@ -33,4 +33,4 @@ public class User {
     private int isNotifyReply;
     private int isNotifyMeetingDeletion;
     private int isNotifyMeetingReOpening;
-}
+}  

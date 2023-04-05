@@ -26,13 +26,13 @@ public class UserDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
     private LocalDate birthdate;
-    private String nickname;
+    private String nickname; 
     private int hasAdminRights;
     private int isSuspended;
-    private int isNotifyAll; 
+    private int isNotifyAll;  
     private int isNotifyMeetingClose;
     private int isNotifyComment;
-    private int isNotifyReply;
+    private int isNotifyReply; 
     private int isNotifyMeetingDeletion;
     private int isNotifyMeetingReOpening;
 }
