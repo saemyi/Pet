@@ -14,57 +14,56 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
 $(() => {
-	let userId = 'User2'
-	$('.userId').eq(0).html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + userId)
-	userId = 'User3'
-	$('.userId').eq(1).html(userId)
 	
-	let userIntro = '잘 부탁드려요~~'
-	$('.userIntro').eq(0).text(userIntro)
-	userIntro = '안녕하세요! 치와와 두마리아빠입니다.'
-	$('.userIntro').eq(1).text(userIntro)
 })
 
 function getParticipantData() {
 	$.ajax({
-		url: 'get',
+		url: 'getMeetingCreator',
 		dataType: 'json',
-		success: meeting => {
-			$('.userId').eq(0).html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + meeting.userId)
+		success: participant => {
+			$('.userId').eq(0).html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + participant.userId)
+			$('.userIntro').eq(0).text(participant.userIntro)
 		}
 	})
 	
 	$.ajax({
 		url: 'getParticipants',
 		dataType: 'json',
-		success: userIds => {
-			if(userIds.length) {
-				const userIdArr = []
+		success: participants => {
+			if(participants.length) {
+				const participantArr = []
 				
-				$.each(userIds, (i, userId) => {
-					userIdArr.push(
-				        `<div class="card shadow mb-3">
-				            <div class="card-body">
-				                <div class="row">
-				                    <div class='joinBox text-center p-3' onclick='location.href="../user/08.html"'>
-				                        <p class='mt-4'><small>프로필이미지</small></p>
-				                    </div>
-				                    <div class="col-8">
-				                        <h6><b class='userId'>` + userId + `</b></h6>
-				                        <hr>
-				                        <p class='card-text userIntro'></p>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>`
+				$.each(participants, (i, participant) => {
+					participantArr.push(
+						`<div class="card shadow mb-3">
+							<div class="card-body">
+								<div class="row">
+									<div class='joinBox text-center p-3' onclick='location.href="../user/08.html"'>
+										<p class='mt-4'><small>프로필이미지</small></p>
+									</div>
+									<div class="col-8">
+										<h6><b class='userId'>` + participant.userId + `</b></h6>
+										<hr>
+										<p class='card-text userIntro'>` + participant.userIntro + `</p>
+									</div>
+								</div>
+							</div>
+						</div>`
 					)
 				})
 				
-				$('#userIds').append(userIdArr.join(''))
+				$('#participants').append(participantArr.join(''))
 			}
 		}
 	})
 }
+
+function init() {
+	getParticipantData()
+}
+
+$(init)
 </script>
 <title>참여자 목록</title>
 <style>
@@ -100,7 +99,7 @@ p {
             </div>
         </div>
         <hr>
-        <div id='userIds'>
+        <div id='participants'>
         </div>
     </div>
 </div>
@@ -108,7 +107,7 @@ p {
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='add'">
+            <li class="nav-item" type="button" onclick="location.href='/meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>

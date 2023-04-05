@@ -76,7 +76,7 @@ $(() => {
 })
 
 function fn_option(code, name) {
-    return '<option value="' + code + '">' + name + '</option>';
+	return '<option value="' + code + '">' + name + '</option>';
 }
 
 function moveToMeetingView() {
@@ -84,21 +84,21 @@ function moveToMeetingView() {
 }
 
 function init() {
-    $('#submitBtn').click(() => {
-    	console.log($('#meetingTitle').val())
-    	console.log($('#meetingContent').val())
-    	console.log($('#meetingDateTime').val())
-    	console.log($('#recruitmentNumber').val())
-    	console.log("${userId}")
-    	console.log($('#sido').val())
-    	console.log($('#sigugun').val())
-    	console.log($('#dong').val())
-    	console.log(isAddressComplete)
-        if($('#meetingTitle').val() && $('#meetingContent').val()
-        		&& $('#meetingDateTime').val() && isAddressComplete) {
-            let meeting = {
-                meetingTitle: $('#meetingTitle').val(),
-                meetingContent: $('#meetingContent').val(),
+	$('#submitBtn').click(() => {
+		console.log($('#meetingTitle').val())
+		console.log($('#meetingContent').val())
+		console.log($('#meetingDateTime').val())
+		console.log($('#recruitmentNumber').val())
+		console.log("${userId}")
+		console.log($('#sido').val())
+		console.log($('#sigugun').val())
+		console.log($('#dong').val())
+		console.log(isAddressComplete)
+		if($('#meetingTitle').val() && $('#meetingContent').val()
+				&& $('#meetingDateTime').val() && isAddressComplete) {
+			let meeting = {
+				meetingTitle: $('#meetingTitle').val(),
+				meetingContent: $('#meetingContent').val(),
 				meetingTime: $('#meetingDateTime').val(),
 				recruitmentNumber: $('#recruitmentNumber').val(),
 				applicantNumber: 1,
@@ -107,17 +107,17 @@ function init() {
 				sigunguId: $('#sigugun').val(),
 				dongId: $('#dong').val()
 			}
-
-            $.ajax({
-            	url: 'add',
-            	method: 'post',
-            	data: meeting,
-            	success: moveToMeetingView
-            })
-        } else {
-        	confirmModal("모든 정보를 입력해 주세요.")
-        }
-    })
+			
+			$.ajax({
+				url: '/meeting/add',
+				method: 'post',
+				data: meeting,
+				success: moveToMeetingView
+			})
+		} else {
+			confirmModal("모든 정보를 입력해 주세요.")
+		}
+	})
 }
 
 $(init)
@@ -250,7 +250,7 @@ $(init)
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='add'">
+            <li class="nav-item" type="button" onclick="location.href='/meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>

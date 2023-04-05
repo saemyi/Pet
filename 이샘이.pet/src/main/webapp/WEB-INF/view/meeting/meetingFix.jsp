@@ -85,7 +85,7 @@ function moveToMeetingView() {
 
 function getMeetingData() {
 	$.ajax({
-		url: 'get',
+		url: '/meeting/get',
 		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
 		// method 생략: get
 		success: meeting => {
@@ -159,7 +159,7 @@ function init() {
 			}
 
             $.ajax({
-            	url: 'fix',
+            	url: '/meeting/fix',
             	method: 'put',
             	contentType: 'application/json',
             	data: JSON.stringify(meeting),
@@ -275,7 +275,7 @@ $(init)
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='add'">
+            <li class="nav-item" type="button" onclick="location.href='/meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>

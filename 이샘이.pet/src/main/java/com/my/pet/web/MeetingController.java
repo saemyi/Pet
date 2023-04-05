@@ -31,6 +31,13 @@ public class MeetingController {
 		return mv;
 	}
 	
+	@GetMapping("viewById/{meetingId}")
+	public ModelAndView getMeetingById(@PathVariable int meetingId, ModelAndView mv, HttpSession session) {
+		session.setAttribute("lastMeetingId", meetingId);
+		mv.setViewName("meeting/meetingView");
+		return mv;
+	}
+	
 	@GetMapping("participantView")
 	public ModelAndView getParticipants(ModelAndView mv) {
 		mv.setViewName("meeting/participantView");
@@ -45,13 +52,15 @@ public class MeetingController {
 	
 	@GetMapping("getMeetingCreator")
 	public Participant getMeetingCreator(HttpSession session) {
-		int meetingId = (int)session.getAttribute("lastMeetingId");
+		//int meetingId = (int)session.getAttribute("lastMeetingId");
+		int meetingId = 2;
 		return meetingService.getMeetingCreator(meetingId);
 	}
 	
 	@GetMapping("getParticipants")
 	public List<Participant> getParticipants(HttpSession session) {
-		int meetingId = (int)session.getAttribute("lastMeetingId");
+		//int meetingId = (int)session.getAttribute("lastMeetingId");
+		int meetingId = 2;
 		return meetingService.getParticipants(meetingId);
 	}
 	

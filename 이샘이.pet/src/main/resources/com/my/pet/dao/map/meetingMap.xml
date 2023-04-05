@@ -58,14 +58,14 @@
 		where meeting_id = #{meetingId}
 	</delete>
 	
-	<select id='selectCreator'>
+	<select id='selectMeetingCreator' resultType='participant'>
 		select user_id, user_intro, user_profile_image_filename
 		from meetings m join users u
 		using (user_id)
 		where meeting_id = #{meetingId}
 	</select>
 	
-	<select id='selectParticipants'>
+	<select id='selectParticipants' resultType='participant'>
 		select user_id, user_intro, user_profile_image_filename
 		from participants p join users u
 		using (user_id)
