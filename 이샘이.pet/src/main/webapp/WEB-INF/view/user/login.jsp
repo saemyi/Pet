@@ -21,7 +21,6 @@
 $(() => {        
 	err("#userId", userId_pw_check, ".result-userId", '<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
   	err("#password", userId_pw_check, ".result-password", '<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
-  	console.log(idError)
   	
   	$("#loginBtn").click(() => {
   		if(isVal($('#userId')) && isVal($('#password'))) {
