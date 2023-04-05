@@ -23,8 +23,8 @@ public class UserDto {
     private String email;
     private String address;
     private String detailedAddress;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
     private LocalDate birthdate;
     private String nickname;
     private int hasAdminRights;
