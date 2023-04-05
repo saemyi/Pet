@@ -9,8 +9,24 @@
 		</select>
 		
 		<select id='selectNotice' resultType='notice'>
-			select notice_title, notice_content
+			select notice_title, notice_content, notice_id
 			from notices
 			where notice_id = #{noticeId}
 		</select>
+		
+		<insert id='insertNotice'>
+			insert into notices
+			values(notice_id_seq.nextval, sysdate, #{noticeTitle}, #{noticeContent}, 'user')
+		</insert>
+		
+		<update id='updateNotice'>
+			update notices
+			set notice_title = #{noticeTitle}, notice_content = #{noticeContent}
+			where notice_id = #{noticeId}
+		</update>
+		
+		<delete id='deleteNotice'>
+			delete notices
+			where notice_id = #{noticeId}
+		</delete>
 	</mapper>
