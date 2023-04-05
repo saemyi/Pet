@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.my.pet.dao.map.ReportMap'>
+	<select id='selectReport' resultType='report'>
+		select report_id, target_id, reason, user_id, is_processed
+		from reports
+		order by report_id
+	</select>
+	
+	<select id='selectDetailReport' resultType='report'>
+		select  target_id, user_id, reason, report_content, is_processed
+		from reports
+		where report_id = #{reportId}
+	</select>
+	
+	<insert id='insertReport'>
+		insert into reports (report_id, target_id, reason, report_content)
+		values (report_id_seq.nextval, #{targetId}, #{reason}, #{reportContent})
+	</insert>
+	
+</mapper>
