@@ -45,7 +45,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
     <nav class="navbar fixed-bottom bg-orange">
         <div class='input-group mt-2' style='padding-inline: .5rem;'>
             <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
-            <button type='button' class='btn border-0 send bg-white'>
+            <button type='button' class='btn border-0 bg-white' id='send'>
                 <i class='bi bi-arrow-up-circle fa-2x'></i>
             </button>
         </div>
@@ -102,8 +102,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
 						                            </button>
 						                            <div class='dropdown-menu'>
 						                                <nav>
-						                                    <button type='button' class='dropdown-item fixComment'>수정</button>
-						                                    <button type='button' class='dropdown-item delComment'>삭제</button>
+						                                    <button type='button' class='dropdown-item' id='fixComment'>수정</button>
+						                                    <button type='button' class='dropdown-item' id='delComment'>삭제</button>
 						                                </nav>
 						                            </div>
 						                        </div>
@@ -135,7 +135,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
     	 console.log("시작")
     	 listComments()
     	 
-    	 $('.send').click(() => {
+    	 $('#send').click(() => {
     		 let comment = {
     				 commentContent: $('.comment').val(),
     				 commentTime: $('#commentTime').val(),
@@ -154,17 +154,9 @@ maximum-scale=1.0, minimum-scale=1.0'>
     		 
     	 })
     	 
-    	 function temp(){
-             if($(".fixComment").length){
-                 console.log("있음!!!");
-             } else{
-                 console.log("타겟없음.");
-             };
-         };
-         temp();
          
                 
-    	 $('.fixComment').on('click', function() {
+    	 $('#fixComment').click(() => {
     		 console.log('작동')
     		$('.comment').text($('#commentContent').val()) 
     		let comment = {
@@ -180,12 +172,9 @@ maximum-scale=1.0, minimum-scale=1.0'>
     		 })
     	 })
     	 
-    	 $('.delComment').on('click', function()  {
+    	 $('#delComment').click(() => {
     		 console.log('작동')
         	yesNoModal('댓글을 삭제하시겠습니까?','commentList.jsp')
-	    	 $('#okBtn').click(() => {
-	    		 $(yesNoModal)('댓글을 삭제하시겠습니까?','commentList'),
-	    		 
 	    		 $.ajax({
 	    			 url: 'comment/del/' + $('#commentId').val(),
 	    			 method: 'delete',
@@ -193,10 +182,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
 	    		 })
 	
 	    	 })  
-    	 })
-    	 
-     }
-     
+    	 } 
 $(init)
 </script>
 </html>
