@@ -48,14 +48,11 @@ function listPets() {
 
             $.each(pets, (i, pet) => {
                 petArr.unshift(
-                    `<tr>
-                        <td><input type='radio' value='${pet.petNum}' id='choice'/></td>
-                        <td>${pet.petName}</td>
-                        <td hidden>${pet.petIntro}</td>
-                     </tr>
-                    `
-                )
-            })
+                    	'<tr><td>' + 
+                        '<input type="radio" value="' + pet.petNum + '"id="choice"/>' + '</td><td>'+ 
+                        pet.petName + '</td><td hidden>' + 
+                        pet.petIntro + '</td></tr>')
+            		})
 
             $('#pets').append(petArr.join(''))
         } else $('#pets').append (
@@ -97,10 +94,28 @@ function listPets() {
             listPets()
         })
         
-        $('#joinBtn').click(() => {
+       $('#joinBtn').click(() => {
             if(!pets.length) {
                 confirmModal('반려견을 등록해주세요.')
-            } else $('#petForm').submit();
+            } else {
+            	let user = {
+          			userId: "<c:out value='${user.userId}'/>",
+              		userName: "<c:out value='${user.userName}'/>",
+              		profileImageFilename : "<c:out value='${user.profileImageFilename}'/>",
+              		phone :"<c:out value='${user.phone}'/>",
+              		email :"<c:out value='${user.email}'/>",
+              		address : "<c:out value='${user.address}'/>",
+              		detailedAddress : "<c:out value='${user.detailedAddress}'/>",
+              		birthdate : "<c:out value='${user.birthdate}'/>",
+              		pw : "<c:out value='${user.pw}'/>",
+              		nickname : "<c:out value='${user.nickname}'/>",
+            	}	
+	            $.ajax({
+	            	url: 'add',
+	            	method: 'post',
+	            	data: user
+           		 })
+            }
         })
     }
 
@@ -124,7 +139,7 @@ $(init)
         </nav>
     </div>
 <div class='container text-center'>
-    <form id='petForm' method='post' encType='multipart/form-data'>
+    <form id='petForm' method='post'>
         <div class='row'>
             <div class='col mb-3'>
                   <div class="wrapper d-flex justify-content-center">

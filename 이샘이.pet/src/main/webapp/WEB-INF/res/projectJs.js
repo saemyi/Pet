@@ -80,10 +80,16 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
+function userId_pw_check(input) {    
+    var regex=/^[0-9a-z]{4,20}$/;
+    return (input != '' && input != 'undefined' && regex.test(input)); 
+}
+
+
 function isVal(field) {
     let isGood = false
 
-    if(!field.val()) errMsg = field.attr('placeholder') + '입력하세요'
+    if(!field.val()) errMsg = field.attr('placeholder') + ' 입력하세요'
     else isGood = true
 
     if(!isGood) {
@@ -92,3 +98,19 @@ function isVal(field) {
     
     return isGood
 }
+
+function err(id, func, className, errMsg) {
+	 $(id).blur(function(){
+	    var input = $(this).val();
+	    if(input == '' || input == 'undefined') return;
+	    if(!func(input)) {
+	        $(className).html(errMsg).css('color', 'red');
+	        $(this).focus();
+	        
+	    }else {
+	        $(className).text('');
+	        isGood=true
+	    }
+	})
+}
+

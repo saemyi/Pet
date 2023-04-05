@@ -2,9 +2,11 @@ package com.my.pet.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -88,10 +90,11 @@ public class UserController {
 	}
 	
 	@PostMapping("join")
-	public ModelAndView join(ModelAndView mv, UserDto userDto, User user) {
+	public ModelAndView joinUser(ModelAndView mv, UserDto userDto, User user) {
 		String filename = userDto.getUserProfile().getOriginalFilename();
+		System.out.println(userDto);
+		System.out.println(userDto.getUserProfile());
 		saveFile(attachPath + "/" + filename, userDto.getUserProfile());
-		
 		user.setProfileImageFilename(filename);
 		mv.setViewName("pet/join");
 		return mv;
@@ -112,10 +115,19 @@ public class UserController {
 	}
 	
 	//닉네임 중복체크
-		@PostMapping("nicknameCheck")
-		@ResponseBody
-		public int nicknameCheck(@RequestParam("nickname") String nickname) {
-			int cnt = userService.duplicateCheckNickname(nickname);
-			return cnt;
-		}
+	@PostMapping("nicknameCheck")
+	@ResponseBody
+	public int nicknameCheck(@RequestParam("nickname") String nickname) {
+		int cnt = userService.duplicateCheckNickname(nickname);
+		return cnt;
+	}
+	
+	//회원추가
+	@PostMapping("add")
+	public void addUser(String userId, String userName, String profileImageFilename,
+			 String phone, String email, String address, String detailedAddress,
+			 @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate birthdate, String pw, String nickname) {
+		System.out.println(profileImageFilename);
+		userService.joinUser(userId, userName, profileImageFilename, phone, email, address, detailedAddress, birthdate, pw, nickname);
+	}
 }

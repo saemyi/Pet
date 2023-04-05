@@ -18,42 +18,18 @@
    
 </style>
 <script>
-    function userId_pw_check(input) {    
-	    var regex=/^[0-9a-z]{4,20}$/;
-	    return (input != '' && input != 'undefined' && regex.test(input)); 
-	}
-
 $(() => {        
-    $("#userId").blur(function(){
-    var userId = $(this).val();
-    if( userId == '' || userId == 'undefined') return;
-    if(! userId_pw_check(userId) ) {
-        $(".result-userId").html('<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>').css('color', 'red');
-        $(this).focus();
-        return false;
-    }else {
-        $(".result-userId").text('');
-    }
-    });
-
-    $("#password").blur(function(){
-    var password = $(this).val();
-    if( password == '' || password == 'undefined') return;
-    if(! userId_pw_check(password) ) {
-        $(".result-password").html('<small>4자이상 20자이하 영어소문자 숫자 조합으로 입력하세요.</small>').css('color', 'red');
-        $(this).focus();
-        return false;
-    }else {
-        $(".result-password").text('');
-    }
-    })  
-    
+	err("#userId", userId_pw_check, ".result-userId", '<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
+  	err("#password", userId_pw_check, ".result-password", '<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
+  	console.log(idError)
+  	
   	$("#loginBtn").click(() => {
   		if(isVal($('#userId')) && isVal($('#password'))) {
   			$('#loginForm').submit();
-  		}
+  		} else $("#errMsg").hide()
   	})  
 })
+
 </script>
 </head>
 <body>
@@ -71,17 +47,17 @@ $(() => {
             <div class='row mt-5 mb-2'>
             <div class='col'>
                 <div class='d-flex justify-content-center'>
-                    <input type='text' class='form-control' value='${user.userId}' name='userId' id='userId' placeholder='ID'/>
+                    <input type='text' class='form-control' value='${user.userId}' name='userId' id='userId' placeholder='아이디'/>
                 </div>
-                <div id="error_id" class="result-userId result-check"></div>
+                <div id="errorMsg" class="result-userId result-check"></div>
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <div class='d-flex justify-content-center'>
-                    <input type='password' class='form-control' name='pw' id='password' placeholder='PW' autocomplete="off"/>
+                    <input type='password' class='form-control' name='pw' id='password' placeholder='비밀번호' autocomplete="off"/>
                 </div>
-                <div id="error_pw" class="result-password result-check"></div>
+                <div id="errorMsg" class="result-password result-check"></div>
             </div>
         </div>
         <div class='row mb-3'>
@@ -89,7 +65,7 @@ $(() => {
                 <input type='checkbox' class='mt-3 d-inline' name='rememberMe'/> 아이디 저장
             </div>
         </div>
-        <div class='text-center'>
+        <div class='text-center' id='errMsg'>
         	<small style='color:red;'>${requestScope.errMsg}</small>
         </div>
         <div class='row mb-3'>

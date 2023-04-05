@@ -26,7 +26,7 @@
     		type:'post',
     		data:{userId:userId},
     		success: function(cnt) {
-    			if(isVal('#userId')) {
+    			if(isVal($('#userId'))) {
     				if(cnt == 0) {
         				confirmModal('사용가능한 아이디 입니다.')
         				$("input[name=checked_id]").val('y');
@@ -50,7 +50,7 @@
     		type:'post',
     		data:{nickname:nickname},
     		success: function(cnt) {
-    			if(isVal('#nickname')) {
+    			if(isVal($('#nickname'))) {
 	    			if(cnt == 0) {
 	    				confirmModal('사용가능한 닉네임 입니다.')
 	    				$("input[name=checked_nickname]").val('y');    				
@@ -69,19 +69,11 @@
 	
 
 	$('#nextBtn').click(() => {
-		if($("input[name='checked_id']").val()=='y' && $("input[name='checked_nickname']").val()=='y' && 
-				isVal($('#pw')) && isVal($('#pwCheck')) && isVal($('#phone')) && isVal($('#email')) && isVal($('#sample6_address')) &&
-				&& isVal($('#sample6_detailAddress')) && isVal($('#birthdate'))) {
     		$('#userJoinForm').submit();
-    	} else {
-    		if($("input[name='checked_id']").val()=='') {
-    			confirmModal('아이디 중복확인 해주세요.')
-    		} else if($("input[name='checked_id']").val()=='') {
-    			confirmModal('닉네임 중복확인 해주세요.');
-    		} else confirmModal('비밀번호가 일치하지 않습니다.')
-    	}
 	})
+	
  })
+ 
       function setThumbnail(event) {
         var reader = new FileReader();
 
