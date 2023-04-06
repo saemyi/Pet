@@ -251,7 +251,7 @@ $(init)
             </div>
             <div class='col-3'>
                 <div class='mb-3 align-baseline d-flex justify-content-start' id='participantStatus'>
-                	<a href="participantView" style="text-decoration: none; color: black;"><b class="text-primary">
+                	<a href="/meeting/participantView" style="text-decoration: none; color: black;"><b class="text-primary">
                 		<span id='applicantNumber'></span>/<span id='recruitmentNumber'></span>
 					</b><small>참여중</small></a>
                 </div>

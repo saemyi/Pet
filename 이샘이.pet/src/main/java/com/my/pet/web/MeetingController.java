@@ -52,16 +52,19 @@ public class MeetingController {
 	
 	@GetMapping("getMeetingCreator")
 	public Participant getMeetingCreator(HttpSession session) {
-		//int meetingId = (int)session.getAttribute("lastMeetingId");
-		int meetingId = 2;
+		int meetingId = (int)session.getAttribute("lastMeetingId");
 		return meetingService.getMeetingCreator(meetingId);
 	}
 	
 	@GetMapping("getParticipants")
 	public List<Participant> getParticipants(HttpSession session) {
-		//int meetingId = (int)session.getAttribute("lastMeetingId");
-		int meetingId = 2;
+		int meetingId = (int)session.getAttribute("lastMeetingId");
 		return meetingService.getParticipants(meetingId);
+	}
+	
+	@GetMapping("getAllMeetings")
+	public List<Meeting> getAllMeetings() {
+		return meetingService.getAllMeetings();
 	}
 	
 	@GetMapping("fix")
