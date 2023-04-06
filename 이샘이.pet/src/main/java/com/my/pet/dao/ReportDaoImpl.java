@@ -26,4 +26,10 @@ public class ReportDaoImpl implements ReportDao{
 	public Report selectDetailReport(int reportId) {
 		return reportMap.selectDetailReport(reportId);
 	}
+	
+	@Override
+	public Report selectSuspended(String loginId) {
+		return reportMap.selectSuspended(loginId);
+	}
+
 }

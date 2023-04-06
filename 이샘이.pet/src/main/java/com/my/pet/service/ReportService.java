@@ -8,4 +8,5 @@ public interface ReportService {
 	List<Report> getReports();
 	void addReport(String nickName, String reason, String reportContent);
 	Report getDetailReport(int reportId);
+	Report getSuspended(String loginId);
 }

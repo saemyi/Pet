@@ -10,4 +10,5 @@ public interface ReportMap {
 	List<Report> selectReport();
 	int insertReport(@Param("nickName")String nickName, @Param("reason")String reason, @Param("reportContent")String reportContent);
 	Report selectDetailReport(int reportId);
+	Report selectSuspended(String loginId);
 }

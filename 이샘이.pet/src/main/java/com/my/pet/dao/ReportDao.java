@@ -8,4 +8,5 @@ public interface ReportDao {
 	List<Report> selectReport();
 	void insertReport(String nickName, String reason, String reportContent);
 	Report selectDetailReport(int reportId);
+	Report selectSuspended(String loginId);
 }

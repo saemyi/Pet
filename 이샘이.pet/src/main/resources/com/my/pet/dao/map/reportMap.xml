@@ -14,6 +14,12 @@
 		where report_id = #{reportId}
 	</select>
 	
+	<select id='selectSuspended' resultType='report'>
+		select reason
+		from reports
+		where target_id = #{loginId}
+	</select>
+	
 	<insert id='insertReport'><!-- 정상흐름연결후 values의 user_id session으로 바꿔 -->
 		insert into reports (report_id,  reason, report_content, is_processed, user_id, target_id)
 		values (report_id_seq.nextval, #{reason}, #{reportContent}, 0, 'user', 

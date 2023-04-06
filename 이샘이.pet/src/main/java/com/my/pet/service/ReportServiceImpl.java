@@ -26,4 +26,9 @@ public class ReportServiceImpl implements ReportService{
 	public Report getDetailReport(int reportId) {
 		return reportDao.selectDetailReport(reportId);
 	}
+	
+	@Override
+	public Report getSuspended(String loginId) {
+		return reportDao.selectSuspended(loginId);
+	}
 }
