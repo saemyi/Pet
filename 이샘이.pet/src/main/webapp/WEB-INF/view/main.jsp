@@ -101,11 +101,83 @@ $(() => {
 		
 		var addressCode = sido.val() + ' ' + sigugun.val() + ' ' + dong.val(); // 읍면동코드
 		jQuery('#addressCode').text(addressCode);
+		
+		getMeetingsByAddress(sido.val(), sigugun.val(), dong.val())
 	});
 })
 
 function fn_option(code, name) {
     return '<option value="' + code + '">' + name + '</option>';
+}
+
+function getMeetingsByAddress(sido, sigugun, dong) {
+	$('#meetings').empty()
+	
+	let address = {
+		sidoId: sido,
+		sigunguId: sigugun,
+		dongId: dong
+	}
+	
+	$.ajax({
+		url: 'meeting/getMeetingsByAddress',
+		method: 'post',
+		data: address,
+		dataType: 'json',
+		success: meetings => {
+			if(meetings.length) {
+				const meetingArr = []
+				
+				$.each(meetings, (i, meeting) => {
+					meetingArr.push(
+						`<div class='mb-2'>
+							<div class="card" type="button" onclick="location.href='meeting/viewById/` + meeting.meetingId + `'">
+								<div class="card-body">
+									<div class='row'>
+										<div class='col'>
+											<div class='row'>
+												<div class='col-3'>
+													<b><mark class='bg-orange'><span class='completionStatus'>` + 
+													(new Date() > new Date(meeting.meetingTime) ? "완료" : meeting.applicantNumber == meeting.recruitmentNumber ? "마감" : "모집중") +
+													`</span></mark></b>
+												</div>
+												<div class='col'>
+													<h6 class="card-title"><b><span class='meetingTitle'>` + meeting.meetingTitle + `</span></b></h6>
+												</div>
+											</div>
+											<div class="row">
+												<div class='col-3'></div>
+												<div class='col'>
+													<input type='datetime-local' class='form-control' name='meetingDateTime' id='meetingDateTime' style='border:none; background: none;' value='` + meeting.meetingTime + `' disabled/>
+												</div>
+											</div>
+											<div class='row'>
+												<div class="col-8 pt-1">
+													<div class='progress'>
+														<div class='progress-bar progress-bar-striped progress-bar-animated bg-primary' role='progressbar' ` + 
+														"style='width:" + 100 * meeting.applicantNumber / meeting.recruitmentNumber + '%' + ";'>" +
+														Math.floor(100 * meeting.applicantNumber / meeting.recruitmentNumber) + '%' + `</div>
+													</div>
+												</div>
+												<div class="col-4 d-flex justify-content-center">
+													<div class='mt-1 align-baseline d-flex justify-content-start participantStatus'>` +
+													'인원 ' + meeting.applicantNumber + '/' + meeting.recruitmentNumber + `</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>`
+					)
+				})
+				
+				$('#meetings').append(meetingArr.join(''))
+			} else {
+				$('#meetings').append(`<p class='text-center text-secondary mt-3'>모임이 없습니다.</p>`)
+			}
+		}
+	})
 }
 
 function getAllMeetingsData() {
@@ -162,7 +234,7 @@ function getAllMeetingsData() {
 				
 				$('#meetings').append(meetingArr.join(''))
 			} else {
-				$('#meetings').append('모임이 없습니다.')
+				$('#meetings').append(`<p class='text-center text-secondary mt-3'>모임이 없습니다.</p>`)
 			}
 		}
 	})

@@ -147,6 +147,17 @@ function getMeetingData() {
 				$('#participateBtn').show()
 			}
 			
+			if(isParticipationCancel) {
+				$('#participateBtn').text('참여취소')
+				$('#participateBtn').removeClass('btn-orange')
+				$('#participateBtn').addClass('btn-secondary')
+			}
+			else {
+				$('#participateBtn').text('참여신청')
+				$('#participateBtn').addClass('btn-orange')
+				$('#participateBtn').removeClass('btn-secondary')
+			}
+			
 			$('#userId').css("display", "none")
 		    $('#sido').css("display", "none")
 		    $('#sigugun').css("display", "none")
@@ -287,7 +298,7 @@ $(init)
         <div class='row'>
             <div class='col'>
                 <div class='d-grid gap-2 mb-3'>
-                    <button type='button' class='btn btn-orange' id='participateBtn'>
+                    <button type='button' class='btn' id='participateBtn'>
                         참여신청
                     </button>
                 </div>
