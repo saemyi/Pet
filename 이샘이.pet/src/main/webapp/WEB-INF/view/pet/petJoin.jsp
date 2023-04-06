@@ -37,7 +37,9 @@ function petName(input) {
         $(".result-petName").text('');
     }
     });
+
 })
+
 
 function listPets() {
         $('input').not(':radio').val('')
@@ -50,7 +52,8 @@ function listPets() {
                 petArr.unshift(
                     	'<tr><td>' + 
                         '<input type="radio" value="' + pet.petNum + '"id="choice"/>' + '</td><td>'+ 
-                        pet.petName + '</td><td hidden>' + 
+                        pet.petProfile + '</td><td>' +
+                        pet.petName  + '</td><td>' + 
                         pet.petIntro + '</td></tr>')
             		})
 
@@ -58,15 +61,34 @@ function listPets() {
         } else $('#pets').append (
             `<tr><td colspan='3' class='text-center'>반려견을 등록해주세요.</td></tr>`)
     }
+  
+function petJoin() {
+	//펫 DB에 추가
+	$.each(pets, (i, pet) => {
+		petArr = {
+			petName: pet.petName,
+			petProfile: pet.petProfile,
+			petIntro: pet.petIntro,
+			userId: pet.userId
+		}
+		$.ajax({
+			url: 'pet/add',
+ 			method: 'post',
+ 			data: petArr
+		})
+	})	
+}
 
     function init() {
         //반려견 테이블에 추가
         $('#addPetBtn').click(() => {
             if($('#petName').val()) {
                 let pet = {
+                 	petProfile: $('#uploadProfile')[0].files[0],
                     petNum: petNum.next().value,
                     petName: $('#petName').val(),
-                    petIntro: $('#petIntro').val()
+                    petIntro: $('#petIntro').val(),
+                    userId: "${user.userId}"
                 }
 
                 pets.push(pet)
@@ -94,33 +116,62 @@ function listPets() {
             listPets()
         })
         
-       $('#joinBtn').click(() => {
+       $('#hello').click(() => {
             if(!pets.length) {
                 confirmModal('반려견을 등록해주세요.')
             } else {
             	let user = {
-          			userId: "<c:out value='${user.userId}'/>",
-              		userName: "<c:out value='${user.userName}'/>",
-              		profileImageFilename : "<c:out value='${user.profileImageFilename}'/>",
-              		phone :"<c:out value='${user.phone}'/>",
-              		email :"<c:out value='${user.email}'/>",
-              		address : "<c:out value='${user.address}'/>",
-              		detailedAddress : "<c:out value='${user.detailedAddress}'/>",
-              		birthdate : "<c:out value='${user.birthdate}'/>",
-              		pw : "<c:out value='${user.pw}'/>",
-              		nickname : "<c:out value='${user.nickname}'/>",
+          			userId: "${user.userId}",
+              		userName: "${user.userName}",
+              		profileImageFilename : "${user.profileImageFilename}",
+              		phone :"${user.phone}",
+              		email :"${user.email}",
+              		address : "${user.address}",
+              		detailedAddress : "${user.detailedAddress}",
+              		birthdate : "${user.birthdate}",
+              		pw : "${user.pw}",
+              		nickname : "${user.nickname}",
             	}	
 	            $.ajax({
-	            	url: 'add',
+	            	url: '../add',
 	            	method: 'post',
 	            	data: user
-           		 })
+           		})
             }
         })
+        
+        $('#joinBtn').click(() => {
+        	$.each(pets, (i, pet) => {
+        		petData = {
+        			petName: pet.petName,
+        			petProfile: pet.petProfile,
+        			petIntro: pet.petIntro,
+        			userId: "${user.userId}"
+        		}
+        		console.log(petData);
+        		$.ajax({
+	            	url: 'pet/add',
+	            	method: 'post',
+	            	data: petData
+           		})
+        	})
+        })
     }
+    
+    function setThumbnail(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          img.setAttribute("class", 'img-fluid circle');
+          document.querySelector("div#image_container").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
 
 $(upLoadImg)
-
 $(init)
 
 </script>
@@ -144,10 +195,10 @@ $(init)
             <div class='col mb-3'>
                   <div class="wrapper d-flex justify-content-center">
                       <div id="uploadProfileBtn" type='button' class='box'>
-                          <p class='mt-5'>펫이미지</p>
+                          <div id="image_container"></div>
                       </div>
                   </div>
-              <input type='file' id='uploadProfile'  hidden>
+              <input type='file' id='uploadProfile' hidden>
               </div>
           </div>
         <div class='row'>
@@ -159,7 +210,7 @@ $(init)
         </div>
         <div class='row mb-1'>
             <div class='col'>
-                <textarea class='form-control' rows='5' in='petIntro' placeholder='반려견 소개' maxlength='200'></textarea>
+                <textarea class='form-control' rows='5' id='petIntro' placeholder='반려견 소개' maxlength='200'></textarea>
             </div>
         </div>
         <div class='col gap-2 d-flex justify-content-end'>

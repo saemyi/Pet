@@ -33,10 +33,13 @@ public class PetController {
 	
 	//펫추가
 	@PostMapping("add")
-	public void addPet(int petId, String petName, MultipartFile file,
+	public void addPet(String petName, MultipartFile file,
 			String petIntro, String userId) {
-		String filename = file.getOriginalFilename();
-		saveFile(attachPath + "/" + filename, file);
-		petService.addPet(petId, petName, filename, petIntro, userId);
+		String filename = null;
+		if(file != null) {
+			filename = file.getOriginalFilename();
+			saveFile(attachPath + "/" + filename, file);
+		}
+		petService.addPet(petName, filename, petIntro, userId);
 	}
 }

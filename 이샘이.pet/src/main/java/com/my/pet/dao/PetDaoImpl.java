@@ -10,8 +10,8 @@ public class PetDaoImpl implements PetDao {
 	@Autowired private PetMap petMap;
 	
 	@Override
-	public int insertPet(int petId, String petName, String petProfileImageFilename,
+	public int insertPet(String petName, String petProfileImageFilename,
 			String petIntro, String userId) {
-		return petMap.insertPet(petId, petName, petProfileImageFilename, petIntro, userId);
+		return petMap.insertPet(petName, petProfileImageFilename, petIntro, userId);
 	}
 }

@@ -10,8 +10,8 @@ public class PetServiceImpl implements PetService {
 	@Autowired private PetDao petDao;
 	
 	@Override
-	public int addPet(int petId, String petName, String petProfileImageFilename,
+	public int addPet(String petName, String petProfileImageFilename,
 			String petIntro, String userId) {
-		return petDao.insertPet(petId, petName, petProfileImageFilename, petIntro, userId);
+		return petDao.insertPet(petName, petProfileImageFilename, petIntro, userId);
 	}
 }
