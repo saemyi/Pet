@@ -18,8 +18,8 @@ public class ReportServiceImpl implements ReportService{
 	}
 	
 	@Override
-	public void addReport(String targetId, String reason, String reportContent) {
-		reportDao.insertReport(targetId, reason, reportContent);
+	public void addReport(String nicKName, String reason, String reportContent) {
+		reportDao.insertReport(nicKName, reason, reportContent);
 	}
 	
 	@Override
