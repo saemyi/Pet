@@ -6,6 +6,7 @@ import com.my.pet.domain.Notice;
 
 public interface NoticeDao {
 	List<Notice> selectNotices();
+	List<Notice> searchNotices(String noticeTitle);
 	Notice selectNotice(int noticeId);
 	int insertNotice(String noticeTitle, String noticeContent);
 	int updateNotice(Notice notice);

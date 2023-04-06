@@ -7,7 +7,7 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='../../../res/projectJs.js'></script>
-<link rel='stylesheet' href='../../../res/admin.css'>
+<link rel='stylesheet' href='../../../res/admin.css'w>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지수정</title>
 <style>
@@ -71,7 +71,7 @@ function goPage() {
                         <a class="nav-link" href="../meeting/01.html">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../notice/01.html">공지</a>
+                        <a class="nav-link" href="../../notice">공지</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="../report/01.html">신고</a>

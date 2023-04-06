@@ -25,6 +25,7 @@ function goPage() {
 }
 
 function init() {
+	console.log("${userId}")
 	$('#noticeAdd').click(() => {
 		if(isVal($('#noticeTitle')) && isVal($('#noticeContent'))){
 			
@@ -67,7 +68,7 @@ $(init)
                         <a class="nav-link" href="../meeting/01.html">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../notice/01.html">공지</a>
+                        <a class="nav-link" href="../notice">공지</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="../report/01.html">신고</a>

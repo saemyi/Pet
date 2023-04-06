@@ -43,7 +43,40 @@
     	})
     }
     
-    $(NoticesList)
+    function init() {
+    	$(NoticesList)
+	    
+    	$('#search').click(() => {
+    		$('#notices').empty()
+    		let notice ={
+		    	noticeTitle : $('#searchValue').val()
+    		} 
+    		$.ajax({
+    			url: 'notice/search',
+    			data: notice,
+    			success: noticeList => {
+        			if(noticeList.length){
+        			notices = []
+        			noticeList.forEach(notice => {
+        				notices.unshift(
+    						'<tr>' +
+    							'<td>' + notice.noticeId + '</td>' + 
+    							'<td><a href="notice/adminNoticeDetail/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
+    							'<td>' + notice.noticeTime + '</td>' +
+    							'<td>' + notice.userId + '</td>' +
+    						'</tr>'
+        				)
+        			})
+        			
+        				$('#notices').append(notices.join(''))
+        			}else $('#notices').append(
+        				`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
+        			)
+        		}		
+    		})
+    	})
+    }
+    $(init)
 </script>
 </head>
 <body>
@@ -66,7 +99,7 @@
                         <a class="nav-link" href="../meeting/01.html">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../notice/01.html">공지</a>
+                        <a class="nav-link" href="./notice">공지</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="../report/01.html">신고</a>
@@ -92,9 +125,9 @@
                 <option>작성자</option>
               </select>
             <mx-auto>
-                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
+                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search" id="searchValue">
             </mx-auto>
-            <button class="btn botton-orange" type="submit" id="button-addon2">검색</button>
+            <button class="btn botton-orange" type="submit" id="search">검색</button>
         </div>
     </div>
 </div>
@@ -120,16 +153,11 @@
                             <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item" ><a class="page-link" href="#">1</a></li>
+                        <li class="page-item" ><a class="page-link" href="page1">1</a></li>
                         <li class="page-item"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"><a class="page-link" href="#">4</a></li>
                         <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                        <li class="page-item"><a class="page-link" href="#">10</a></li>
                         <li class="page-item">
                             <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>

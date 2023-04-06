@@ -18,6 +18,12 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
+	public List<Notice> searchNotices(String noticeTitle) {
+		System.out.println(noticeTitle);
+		return noticeDao.searchNotices(noticeTitle);
+	}
+	
+	@Override
 	public Notice getNotice(int noticeId) {
 		return noticeDao.selectNotice(noticeId);
 	}
