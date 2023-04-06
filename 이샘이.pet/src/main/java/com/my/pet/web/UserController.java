@@ -85,7 +85,7 @@ public class UserController {
 	//회원가입화면
 	@GetMapping("join")
 	public ModelAndView joinIn(ModelAndView mv) {
-		mv.setViewName("user/join");
+		mv.setViewName("user/userJoin");
 		return mv;
 	}
 	
@@ -96,7 +96,7 @@ public class UserController {
 		System.out.println(userDto.getUserProfile());
 		saveFile(attachPath + "/" + filename, userDto.getUserProfile());
 		user.setProfileImageFilename(filename);
-		mv.setViewName("pet/join");
+		mv.setViewName("pet/petJoin");
 		return mv;
 	}
 	
