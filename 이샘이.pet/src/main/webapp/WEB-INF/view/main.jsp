@@ -136,7 +136,7 @@ function getAllMeetingsData() {
 											<div class="row">
 												<div class='col-3'></div>
 												<div class='col'>
-													<p class='card-text meetingDateTime'>` + meeting.meetingTime + `</p>
+													<input type='datetime-local' class='form-control' name='meetingDateTime' id='meetingDateTime' style='border:none; background: none;' value='` + meeting.meetingTime + `' disabled/>
 												</div>
 											</div>
 											<div class='row'>
