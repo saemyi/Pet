@@ -24,8 +24,8 @@ public class ReplyServiceImpl implements ReplyService{
 	}  
 	
 	@Override
-	public void fixReply(String replyContent, LocalDateTime replyTime) {
-		replyDao.updateReply(replyContent, replyTime);
+	public void fixReply(Reply reply) {
+		replyDao.updateReply(reply);
 	}
 	
 	@Override

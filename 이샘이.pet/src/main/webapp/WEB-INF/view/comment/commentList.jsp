@@ -45,7 +45,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
     <nav class="navbar fixed-bottom bg-orange">
         <div class='input-group mt-2' style='padding-inline: .5rem;'>
             <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
-            <button type='button' class='btn border-0 bg-white' id='send'>
+            <button type='button' class='btn border-0 bg-white send'  onclick='CommentSend()'>
                 <i class='bi bi-arrow-up-circle fa-2x'></i>
             </button>
         </div>
@@ -75,28 +75,31 @@ maximum-scale=1.0, minimum-scale=1.0'>
 
 
 <script>
+
     function listComments() {   
-        
-        console.log("listComments 실행");
+        console.log("listComments 실행")
         $('#comments').empty()
         
         $.ajax({
         url:'comment/get', 
         dataType: 'json',
         success: comments => {
+        	
+        	console.log(comments)
+        	
             if(comments.length) {
                 const commentArr = []
                 
                 $.each(comments, (i, comment) => {
                     commentArr.unshift(
-                        `<div class='row'>
+                        `<div class='row' name='comment' id='\${comment.commentId}'>
                             <div class='col'>
                                 <div class='row'>
                                     <div class='col-2'>
-                                        <button type='button' class='border-0' onclick="location.href='../login'"><b>\${comment.nickname}</b></button>
+                                        <button type='button' class='border-0'onclick="location.href='../login'"><b id='nickname'>\${comment.nickname}</b></button>
                                     </div>
                                     <div class='col'>
-                                        <small>\${comment.commentTime}</small>
+                                        <small id='commentTime'>\${comment.commentTime}</small>
                                     </div>
                                     <div class='col-2' id='dropmenu'>
                                         <div class='dropdown'>
@@ -106,7 +109,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                             <div class='dropdown-menu'>
                                                 <nav>
                                                     <button type='button' class='dropdown-item' onclick="CommentFix()">수정</button>
-                                                    <button type='button' class='dropdown-item' onclick="CommentDel()">삭제</button>
+                                                    <button type='button' class='dropdown-item' onclick="CommentDel('\${comment.commentId}')">삭제</button>
                                                 </nav>
                                             </div>
                                         </div>
@@ -115,6 +118,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                 <div class='row mt-2'>
                                     <div class='col m-2'>
                                         <input type='text' class='border-0' id='commentContent' value='\${comment.commentContent}' readonly></input>
+                                        <button id='fix' style='display: none;' onclick='FixFinish()'>수정 완료</button>
                                     </div>
                                 </div>
                                 <div class='row'>
@@ -124,25 +128,21 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                 </div>
                             </div>
                         </div><hr>`)
-                         
-                }) 
+                })
                 $('#comments').append(commentArr.join(''))
             } else $('#comments').append(
                 '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')
         }
         })
-
-    };
-    listComments()
-         
-    function CommentSend(){
-        $('#send').click(() => {
+    }
+    listComments()   
+    function CommentSend(){ 
             let comment = {
                     commentContent: $('.comment').val(),
                     commentTime: $('#commentTime').val(),
                     userId: 'user',
                     meetingId: '1',
-                    nickname: 'User1',
+                    nickname: 'user123',
                     replycnt: '3'
             }
             
@@ -152,40 +152,51 @@ maximum-scale=1.0, minimum-scale=1.0'>
                 data: comment,
                 success: listComments
             })
-
-        })
     }
-    CommentSend();
-
-        
+    
     function CommentFix(){
-         
-        let comment = {
-            commentContent: $('#commentContent').val(),
-            commentTime: $('#commentTime').val()
-        }
-        $.ajax({
-            url:'comment/fix',
-            method:'put',
-            contentType:'application/json',
-            data: JSON.stringify(comment),
+    	$('#commentContent').removeAttr('readonly')
+    	$('#fix').removeAttr('style')
+    	console.log($('[name="comment"]').attr('id'))
+    	
+    }
+    
+    function FixFinish(){
+    	let comment = {
+    		commentId: $('[name="comment"]').attr('id'),
+    		commentContent: $('#commentContent').val(),
+    		commentTime: $('#commentTime').val(),
+    		userId: 'user',
+            meetingId: '1',
+            nickname: 'user123',
+            replycnt: '3'
+    	}
+    	console.log(comment)
+    	$.ajax({
+            url: 'comment/fix',
+            method: 'put',
+            contentType: 'application/json',
+        	data: JSON.stringify(comment),
             success: listComments
-        })
-    };
-        
-    function CommentDel(){
-        yesNoModal('댓글을 삭제하시겠습니까?','commentList.jsp')
-        $('#okBtn').click(() => {
-            $(yesNoModal)('댓글을 삭제하시겠습니까?','commentList'),
-            
+        })   
+        $('#commentContent').attr('readonly', true)
+    	$('#fix').attr('style', 'display: none;')
+    }
+    
+    let comId = 0; 
+    function CommentDel(comId){   
+        yesNoModal('댓글을 삭제하시겠습니까?')
+        $('#okBtn').click(() => { 
+        	console.log(comId)
             $.ajax({
-                url: 'comment/del/' + $('#commentId').val(),
+                url: 'comment/del/' + comId,
                 method: 'delete',
-                success: listComments
+                success: function(){
+                	window.location.href = '/comment'
+                }
             })
 
         })  
-    };
-
+    }
 </script>
 </html>
