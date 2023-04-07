@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.pet.domain.Report;
 import com.my.pet.domain.User;
 import com.my.pet.domain.UserDto;
+import com.my.pet.service.ReportService;
 import com.my.pet.service.UserService;
 
 import jakarta.servlet.http.Cookie;
@@ -31,6 +33,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/")
 public class UserController {
 	@Autowired private UserService userService;
+	@Autowired private ReportService reportService;
 	@Value("${attachPath}") private String attachPath;
 	
 	//메인화면
@@ -52,20 +55,26 @@ public class UserController {
 	@PostMapping("login")
 	public ModelAndView login(ModelAndView mv, @ModelAttribute("user") UserDto user, String rememberMe,
 			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-			
 			UserDto userData = userService.loginUser(user.getUserId(), user.getPw());
-			
-			if(userData != null) {
-			session.setAttribute("userId", user.getUserId());
 
-			if(rememberMe != null && rememberMe.equals("on")) {
-				Cookie cookie = new Cookie("userId", user.getUserId());
-				cookie.setMaxAge(10);
-				response.addCookie(cookie);
-			}
-			mv.setViewName("main");
-			return mv;
-			
+			if(userData != null) {
+				session.setAttribute("userId", user.getUserId());
+
+				if(rememberMe != null && rememberMe.equals("on")) {
+					Cookie cookie = new Cookie("userId", user.getUserId());
+					cookie.setMaxAge(10);
+					response.addCookie(cookie);
+				}
+				//이용정지 당한 유저
+				if(userData.getIsSuspended() == 1) {
+					Report report = reportService.getSuspended(user.getUserId());
+					mv.addObject("report", report);
+					mv.setViewName("report/suspended");
+					return mv;					
+				}
+				
+				mv.setViewName("main");
+				return mv;
 			} else {
 			request.setAttribute("errMsg", "아이디 또는 비밀번호를 확인해주세요.");
 			mv.setViewName("user/login");
