@@ -26,18 +26,49 @@ function petName(input) {
 }
 
   $(() => {
-    $("#petName").blur(function(){
-    var input = $(this).val();
-    if( input == '' || input == 'undefined') return;
-    if(!petName(input) ) {
-        $(".result-petName").html('<small>1자이상 10자이하 영어소문자와 한글만 입력가능합니다.</small>').css('color', 'red');
-        $(this).focus();
-        return false;
-    }else {
-        $(".result-petName").text('');
-    }
-    });
-
+	  
+	    $("#petName").blur(function(){
+	    var input = $(this).val();
+	    if( input == '' || input == 'undefined') return;
+	    if(!petName(input) ) {
+	        $(".result-petName").html('<small>1자이상 10자이하 영어소문자와 한글만 입력가능합니다.</small>').css('color', 'red');
+	        $(this).focus();
+	        return false;
+	    }else {
+	        $(".result-petName").text('');
+	    }
+	    });
+	
+	    $('#okBtn').click(() => {
+	        let petNum = $('#choice:checked').val()
+	        pets = pets.filter(pet => pet.petNum != petNum)
+	
+	        $('#modal').modal('hide')
+	        listPets()
+	    })
+	    
+	   $('#joinBtn').click(() => {
+	       
+	        	let user = {
+	      			userId: "${user.userId}",
+	          		userName: "${user.userName}",
+	          		profileImageFilename : "${user.profileImageFilename}",
+	          		phone :"${user.phone}",
+	          		email :"${user.email}",
+	          		address : "${user.address}",
+	          		detailedAddress : "${user.detailedAddress}",
+	          		birthdate : "${user.birthdate}",
+	          		pw : "${user.pw}",
+	          		nickname : "${user.nickname}",
+	        	}	
+	            $.ajax({
+	            	url: '../add',
+	            	method: 'post',
+	            	data: user,
+	            	success: petJoin
+	       		})
+	        
+	    })
 })
 
 
@@ -66,67 +97,6 @@ function petJoin() {
 	$('#petForm').submit()
 }
 
-    function init() {
-       /*  //반려견 테이블에 추가
-        $('#addPetBtn').click(() => {
-            if($('#petName').val()) {
-                let pet = {
-                 	petProfile: $('#uploadProfile')[0].files[0],
-                    petNum: petNum.next().value,
-                    petName: $('#petName').val(),
-                    petIntro: $('#petIntro').val(),
-                    userId: "${user.userId}"
-                }
-
-                pets.push(pet)
-                listPets()
-            } else {
-                confirmModal('반려견이름을 입력하세요.')
-            }
-        })
-
-        
-        $('#delBtn').click(() => {
-            if($('#choice:checked').val()) {
-                yesNoModal('정말로 삭제하시겠습니까?')
-            } else {
-                confirmModal('반려견을 선택하세요.')
-            }
-        })
- */
-        //반려견 테이블에서 삭제
-        $('#okBtn').click(() => {
-            let petNum = $('#choice:checked').val()
-            pets = pets.filter(pet => pet.petNum != petNum)
-
-            $('#modal').modal('hide')
-            listPets()
-        })
-        
-       $('#joinBtn').click(() => {
-           
-            	let user = {
-          			userId: "${user.userId}",
-              		userName: "${user.userName}",
-              		profileImageFilename : "${user.profileImageFilename}",
-              		phone :"${user.phone}",
-              		email :"${user.email}",
-              		address : "${user.address}",
-              		detailedAddress : "${user.detailedAddress}",
-              		birthdate : "${user.birthdate}",
-              		pw : "${user.pw}",
-              		nickname : "${user.nickname}",
-            	}	
-	            $.ajax({
-	            	url: '../add',
-	            	method: 'post',
-	            	data: user,
-	            	success: petJoin
-           		})
-            
-        })
-    }
-    
     function setThumbnail(event) {
         var reader = new FileReader();
 
@@ -168,7 +138,7 @@ $(init)
                       </div>
                   </div>
               <input type='file' id='uploadProfile' name='PetProfile' hidden>
-              </div>
+              </div>${user.detailedAddress}
           </div>
         <div class='row'>
             <div class='col'>

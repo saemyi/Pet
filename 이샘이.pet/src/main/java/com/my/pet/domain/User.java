@@ -15,7 +15,7 @@ public class User {
 	private String userId;
 	private String pw;
 	private String userName; 
-    private String intro; 
+    private String userIntro; 
     private String profileImageFilename;
     private String phone;
     private String email;
