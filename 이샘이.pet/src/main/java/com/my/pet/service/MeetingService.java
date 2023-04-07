@@ -8,10 +8,9 @@ import com.my.pet.domain.Participant;
 
 public interface MeetingService {
 	int getLastMeetingId();
-	List<Meeting> getAllMeetings();
-	List<Meeting> getMeetingsByAddress(String sidoId, String sigunguId, String dongId);
+	List<Meeting> getMeetings(String sidoId, String sigunguId, String dongId, String userId);
+	Meeting getMeetingByIdAndParticipant(int meetingId, String userId);
 	List<Meeting> getMeetingsByParticipant(String userId);
-	List<Meeting> getMeetingsByCreator(String userId);
 	Meeting getMeeting(int meetingId);
 	void addMeeting(String meetingTitle, String meetingContent, 
 			LocalDateTime meetingTime, int recruitmentNumber, int applicantNumber, 

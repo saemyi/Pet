@@ -8,10 +8,9 @@ import com.my.pet.domain.Participant;
 
 public interface MeetingDao {
 	int selectLastMeetingId();
-	List<Meeting> selectAllMeetings();
-	List<Meeting> selectMeetingsByAddress(String sidoId, String sigunguId, String dongId);
+	List<Meeting> selectMeetings(String sidoId, String sigunguId, String dongId, String userId);
+	Meeting selectMeetingByIdAndParticipant(int meetingId, String userId);
 	List<Meeting> selectMeetingsByParticipant(String userId);
-	List<Meeting> selectMeetingsByCreator(String userId);
 	Meeting selectMeeting(int meetingId);
 	void insertMeeting(String meetingTitle, String meetingContent, 
 			LocalDateTime meetingTime, int recruitmentNumber, int applicantNumber, 

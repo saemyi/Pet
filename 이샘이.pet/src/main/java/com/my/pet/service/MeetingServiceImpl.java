@@ -20,23 +20,18 @@ public class MeetingServiceImpl implements MeetingService {
 	}
 	
 	@Override
-	public List<Meeting> getAllMeetings() {
-		return meetingDao.selectAllMeetings();
+	public List<Meeting> getMeetings(String sidoId, String sigunguId, String dongId, String userId) {
+		return meetingDao.selectMeetings(sidoId, sigunguId, dongId, userId);
 	}
 	
 	@Override
-	public List<Meeting> getMeetingsByAddress(String sidoId, String sigunguId, String dongId) {
-		return meetingDao.selectMeetingsByAddress(sidoId, sigunguId, dongId);
+	public Meeting getMeetingByIdAndParticipant(int meetingId, String userId) {
+		return meetingDao.selectMeetingByIdAndParticipant(meetingId, userId);
 	}
 	
 	@Override
 	public List<Meeting> getMeetingsByParticipant(String userId) {
 		return meetingDao.selectMeetingsByParticipant(userId);
-	}
-	
-	@Override
-	public List<Meeting> getMeetingsByCreator(String userId) {
-		return meetingDao.selectMeetingsByCreator(userId);
 	}
 	
 	@Override
