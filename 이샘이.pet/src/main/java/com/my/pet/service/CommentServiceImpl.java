@@ -24,8 +24,8 @@ public class CommentServiceImpl implements CommentService{
 	}  
 	
 	@Override
-	public void fixComment(String commentContent, LocalDateTime commentTime) {
-		commentDao.updateComment(commentContent, commentTime);
+	public void fixComment(Comment comment) {
+		commentDao.updateComment(comment);
 	}
 	
 	@Override

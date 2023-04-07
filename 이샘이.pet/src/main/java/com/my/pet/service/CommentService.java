@@ -8,7 +8,7 @@ import com.my.pet.domain.Comment;
 public interface CommentService {
 	List<Comment> getComments();
 	void addComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId);
-	void fixComment(String commentContent, LocalDateTime commentTime);
+	void fixComment(Comment comment);
 	void delComment(int commentId);
 }
   

@@ -8,7 +8,7 @@ import com.my.pet.domain.Comment;
 public interface CommentDao {
 	List<Comment> selectComments();
 	void insertComment(String commentContent, LocalDateTime	commentTime, String userId, int meetingId);
-	void updateComment(String commentContent, LocalDateTime	commentTime);
+	void updateComment(Comment comment);
 	void deleteComment(int commentId);
 }
  

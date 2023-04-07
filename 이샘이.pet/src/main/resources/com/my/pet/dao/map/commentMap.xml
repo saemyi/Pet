@@ -17,7 +17,7 @@
 	
 	<update id='updateComment'>
 		update comments
-		set comment_content = #{commentContent}, comment_time = #{commentTime}
+		set comment_content = #{commentContent}, comment_time = sysdate
 		where comment_id = #{commentId}
 	</update> 
 	

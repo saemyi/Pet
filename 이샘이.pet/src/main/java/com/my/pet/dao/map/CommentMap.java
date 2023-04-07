@@ -11,7 +11,7 @@ public interface CommentMap {
 	List<Comment> selectComments();
 	int insertComment(@Param("commentContent") String commentContent, @Param("commentTime") LocalDateTime commentTime,
 			@Param("userId") String userId, @Param("meetingId") int meetingId);
-	int updateComment(@Param("commentContent") String commentContent, @Param("commentTime") LocalDateTime commentTime);
+	int updateComment(Comment comment);
 	int deleteComment(int commentId);
 }
  
