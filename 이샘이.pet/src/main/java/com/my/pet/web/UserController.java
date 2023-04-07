@@ -65,7 +65,7 @@ public class UserController {
 					cookie.setMaxAge(10);
 					response.addCookie(cookie);
 				}
-				//이용정지 당한 유저
+				//이용정지 당한 유저 report
 				if(userData.getIsSuspended() == 1) {
 					Report report = reportService.getSuspended(user.getUserId());
 					mv.addObject("report", report);
