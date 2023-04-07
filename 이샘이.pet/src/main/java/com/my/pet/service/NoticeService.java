@@ -6,6 +6,7 @@ import com.my.pet.domain.Notice;
 
 public interface NoticeService {
 	List<Notice> getNotices();
+	List<Notice> searchNotices(String noticeTitle);
 	Notice getNotice(int noticeId);
 	void addNotice(String noticeTitle, String noticeContent);
 	void fixNotice(Notice notice);

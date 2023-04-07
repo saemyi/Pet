@@ -27,7 +27,21 @@ $(() => {
 	        $(this).focus();
 	        return false;
 	    }else {
-	        $(".nickNameCheck").text('');
+	    	$.ajax({
+	    		url:'./nicknameCheck',
+	    		type:'post',
+	    		data:{nickname:nickName},
+	    		success: function(cnt) {
+	    			if(isVal($('#nickName'))) {
+		    			if(cnt == 0) {
+		    				 $(".nickNameCheck").html('<small>입력하신 닉네임 사용자가 없습니다.</small>').css('color', 'red'); 				
+		    			}else{
+		    				$(".nickNameCheck").text('');
+		    			}
+	    			} 
+	    		}
+	    	})
+	    	$(".nickNameCheck").text('');
 	    }	    
 	});
 	
@@ -58,7 +72,6 @@ function moveMain(){
 	location.href='/';
 }
 
-
 function init() {
 	$("#addReportBtn").click(() => {
 		if( $('#nickName').val() && $('#reason option:selected').val() && $('#reportContent').val() ){
@@ -70,9 +83,10 @@ function init() {
     
     $("#okBtn").click(() => {
    		let report = {
-   			targetId: $('#nickName').val(),
    			reason: $('#reason option:selected').val(),
-   			reportContent: $('#reportContent').val()
+   			reportContent: $('#reportContent').val(),
+   			userId: "user",//"${userId}",  정상흐름연결후 바꿔 
+   			nickName: $('#nickName').val()
    		}
    		$.ajax({
            	url: 'report/add',

@@ -6,6 +6,7 @@ import com.my.pet.domain.Report;
 
 public interface ReportService {
 	List<Report> getReports();
-	void addReport(String targetId, String reason, String reportContent);
+	void addReport(String nickName, String reason, String reportContent);
 	Report getDetailReport(int reportId);
+	Report getSuspended(String loginId);
 }

@@ -147,6 +147,17 @@ function getMeetingData() {
 				$('#participateBtn').show()
 			}
 			
+			if(isParticipationCancel) {
+				$('#participateBtn').text('참여취소')
+				$('#participateBtn').removeClass('btn-orange')
+				$('#participateBtn').addClass('btn-secondary')
+			}
+			else {
+				$('#participateBtn').text('참여신청')
+				$('#participateBtn').addClass('btn-orange')
+				$('#participateBtn').removeClass('btn-secondary')
+			}
+			
 			$('#userId').css("display", "none")
 		    $('#sido').css("display", "none")
 		    $('#sigugun').css("display", "none")
@@ -251,7 +262,7 @@ $(init)
             </div>
             <div class='col-3'>
                 <div class='mb-3 align-baseline d-flex justify-content-start' id='participantStatus'>
-                	<a href="participantView" style="text-decoration: none; color: black;"><b class="text-primary">
+                	<a href="/meeting/participantView" style="text-decoration: none; color: black;"><b class="text-primary">
                 		<span id='applicantNumber'></span>/<span id='recruitmentNumber'></span>
 					</b><small>참여중</small></a>
                 </div>
@@ -287,7 +298,7 @@ $(init)
         <div class='row'>
             <div class='col'>
                 <div class='d-grid gap-2 mb-3'>
-                    <button type='button' class='btn btn-orange' id='participateBtn'>
+                    <button type='button' class='btn' id='participateBtn'>
                         참여신청
                     </button>
                 </div>

@@ -163,7 +163,7 @@ $(() => {
         </div>
         <div class='row'>
             <div class='col card-start'>
-                <p class='text-center text-secondary mt-5'>내가 만든 모임이 없습니다.</p>
+                <p class='text-center text-secondary mt-3'>내가 만든 모임이 없습니다.</p>
             </div>
         </div>
     </div>

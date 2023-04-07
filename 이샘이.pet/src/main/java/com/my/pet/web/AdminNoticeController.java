@@ -32,6 +32,12 @@ public class AdminNoticeController {
 		return noticeService.getNotices();
 	}
 	
+	@GetMapping("search")
+	public List<Notice> searchNotices(String noticeTitle) {
+		System.out.println(noticeTitle);
+		return noticeService.searchNotices(noticeTitle);
+	}
+	
 	@GetMapping("adminNoticeAdd")
 	public ModelAndView noticeAdd(ModelAndView mv) {
 		mv.setViewName("admin/notice/adminNoticeAdd");

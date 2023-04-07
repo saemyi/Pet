@@ -3,7 +3,7 @@
 	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 	<mapper namespace='com.my.pet.dao.map.NoticeMap'>
 		<select id='selectNotices' resultType='notice'>
-			select notice_id, notice_title, notice_time, notice_content, user_id 
+			select notice_id, notice_title, notice_time, user_id  
 			from notices
 			order by notice_id 
 		</select>
@@ -14,9 +14,16 @@
 			where notice_id = #{noticeId}
 		</select>
 		
+		<select id='searchNotices' resultType='notice'>
+			select notice_id, notice_title, notice_time, user_id
+			from notices
+			where notice_title like '%' || #{noticeTitle} || '%'
+			order by notice_id
+		</select>
+		
 		<insert id='insertNotice'>
 			insert into notices
-			values(notice_id_seq.nextval, sysdate, #{noticeTitle}, #{noticeContent}, 'user')
+			values(notice_id_seq.nextval, sysdate, #{noticeTitle}, #{noticeContent}, 'admin')
 		</insert>
 		
 		<update id='updateNotice'>

@@ -11,14 +11,14 @@
 	<select id='selectAllMeetings' resultType='meeting'>
 		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
 		from meetings
-		order by meeting_id
+		order by meeting_time desc
 	</select>
 	
 	<select id='selectMeetingsByAddress' resultType='meeting'>
 		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
 		from meetings
 		where sido_id = #{sidoId} and sigungu_id = #{sigunguId} and dong_id = #{dongId}
-		order by meeting_id
+		order by meeting_time desc
 	</select>
 	
 	<select id='selectMeetingsByParticipant' resultType='meeting'>
@@ -26,14 +26,14 @@
 		from meetings m join participants p
 		using (meeting_id)
 		where p.user_id = #{userId}
-		order by meeting_id
+		order by meeting_time desc
 	</select>
 	
 	<select id='selectMeetingsByCreator' resultType='meeting'>
 		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
 		from meetings
 		where user_id = #{userId}
-		order by meeting_id
+		order by meeting_time desc
 	</select>
 	
 	<select id='selectMeeting' resultType='meeting'>

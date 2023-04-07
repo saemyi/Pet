@@ -85,18 +85,17 @@ public class UserController {
 	//회원가입화면
 	@GetMapping("join")
 	public ModelAndView joinIn(ModelAndView mv) {
-		mv.setViewName("user/join");
+		mv.setViewName("user/userJoin");
 		return mv;
 	}
 	
 	@PostMapping("join")
 	public ModelAndView joinUser(ModelAndView mv, UserDto userDto, User user) {
 		String filename = userDto.getUserProfile().getOriginalFilename();
-		System.out.println(userDto);
-		System.out.println(userDto.getUserProfile());
 		saveFile(attachPath + "/" + filename, userDto.getUserProfile());
 		user.setProfileImageFilename(filename);
-		mv.setViewName("pet/join");
+		mv.addObject("user", user);
+		mv.setViewName("pet/petJoin");
 		return mv;
 	}
 	
@@ -127,7 +126,7 @@ public class UserController {
 	public void addUser(String userId, String userName, String profileImageFilename,
 			 String phone, String email, String address, String detailedAddress,
 			 @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate birthdate, String pw, String nickname) {
-		System.out.println(profileImageFilename);
+		System.out.println(userId + userName + profileImageFilename + phone + email + address + detailedAddress + birthdate + pw + nickname);
 		userService.joinUser(userId, userName, profileImageFilename, phone, email, address, detailedAddress, birthdate, pw, nickname);
 	}
 }

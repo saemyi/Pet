@@ -38,6 +38,12 @@ public class MeetingController {
 		return mv;
 	}
 	
+	@GetMapping("myMeetings")
+	public ModelAndView getMyMeetings(ModelAndView mv) {
+		mv.setViewName("meeting/meetingList");
+		return mv;
+	}
+	
 	@GetMapping("participantView")
 	public ModelAndView getParticipants(ModelAndView mv) {
 		mv.setViewName("meeting/participantView");
@@ -52,17 +58,26 @@ public class MeetingController {
 	
 	@GetMapping("getMeetingCreator")
 	public Participant getMeetingCreator(HttpSession session) {
-		//int meetingId = (int)session.getAttribute("lastMeetingId");
-		int meetingId = 2;
+		int meetingId = (int)session.getAttribute("lastMeetingId");
 		return meetingService.getMeetingCreator(meetingId);
 	}
 	
 	@GetMapping("getParticipants")
 	public List<Participant> getParticipants(HttpSession session) {
-		//int meetingId = (int)session.getAttribute("lastMeetingId");
-		int meetingId = 2;
+		int meetingId = (int)session.getAttribute("lastMeetingId");
 		return meetingService.getParticipants(meetingId);
 	}
+	
+	@GetMapping("getAllMeetings")
+	public List<Meeting> getAllMeetings() {
+		return meetingService.getAllMeetings();
+	}
+	
+	@PostMapping("getMeetingsByAddress")
+	public List<Meeting> getMeetingsByAddress(String sidoId, String sigunguId, String dongId) {
+		return meetingService.getMeetingsByAddress(sidoId, sigunguId, dongId);
+	}
+
 	
 	@GetMapping("fix")
 	public ModelAndView fixMeeting(ModelAndView mv) {
