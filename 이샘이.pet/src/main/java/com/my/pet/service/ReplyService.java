@@ -8,6 +8,6 @@ import com.my.pet.domain.Reply;
 public interface ReplyService {
 	List<Reply> getReplies();
 	void addReply(String replyContent, LocalDateTime replyTime, String userId, int commentId);
-	void fixReply(String replyContent, LocalDateTime replyTime);
+	void fixReply(Reply reply);
 	void delReply(int replyId);
 }

@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.my.pet.domain.Comment;
 import com.my.pet.service.CommentService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("comment")
 public class CommentController {
@@ -27,6 +29,7 @@ public class CommentController {
 		mv.setViewName("comment/commentList");
 		return mv;
 	}
+	
 	 
 	@GetMapping("get")
 	public List<Comment> getComments(){

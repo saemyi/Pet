@@ -8,6 +8,6 @@ import com.my.pet.domain.Reply;
 public interface ReplyDao {
 	List<Reply> selectReplies();
 	void insertReply(String replyContent, LocalDateTime	replyTime, String userId, int commentId);
-	void updateReply(String replyContent, LocalDateTime	replyTime);
+	void updateReply(Reply reply);
 	void deleteReply(int replyId);
 }

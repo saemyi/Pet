@@ -60,11 +60,73 @@ function listReplies() {
 							 `)
 				        	
 				 })
-				 $('#replies').append(commentArr.join(''))
+				 $('#replies').append(replyArr.join(''))
 			 } else $('#replies').append(
 	            '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')
 		 }
 	 })
+}
+listReplies()   
+function ReplySend(){ 
+        let reply = {
+                replyContent: $('.reply').val(),
+                replyTime: $('#commentTime').val(),
+                userId: 'user',
+                commentId: '1',
+                nickname: 'user123'
+        }
+        
+        $.ajax({
+            url: 'comment/add',
+            method: 'post',
+            data: comment,
+            success: listComments
+        })
+}
+
+function CommentFix(){
+	$('#commentContent').removeAttr('readonly')
+	$('#fix').removeAttr('style')
+	console.log($('[name="comment"]').attr('id'))
+	
+}
+
+function FixFinish(){
+	let comment = {
+		commentId: $('[name="comment"]').attr('id'),
+		commentContent: $('#commentContent').val(),
+		commentTime: $('#commentTime').val(),
+		userId: 'user',
+        meetingId: '1',
+        nickname: 'user123',
+        replycnt: '3'
+	}
+	console.log(comment)
+	$.ajax({
+        url: 'comment/fix',
+        method: 'put',
+        contentType: 'application/json',
+    	data: JSON.stringify(comment),
+        success: listComments
+    })   
+    $('#commentContent').attr('readonly', true)
+	$('#fix').attr('style', 'display: none;')
+}
+
+let comId = 0; 
+function CommentDel(comId){   
+    yesNoModal('댓글을 삭제하시겠습니까?')
+    $('#okBtn').click(() => { 
+    	console.log(comId)
+        $.ajax({
+            url: 'comment/del/' + comId,
+            method: 'delete',
+            success: function(){
+            	window.location.href = '/comment'
+            }
+        })
+
+    })  
 }
 </script>
 <body>

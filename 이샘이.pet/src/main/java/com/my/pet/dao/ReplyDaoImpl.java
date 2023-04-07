@@ -24,8 +24,8 @@ public class ReplyDaoImpl implements ReplyDao{
 	}
 	
 	@Override
-	public void updateReply(String replyContent, LocalDateTime replyTime) {
-		replyMap.updateReply(replyContent, replyTime);
+	public void updateReply(Reply reply) {
+		replyMap.updateReply(reply);
 	}
 	
 	@Override

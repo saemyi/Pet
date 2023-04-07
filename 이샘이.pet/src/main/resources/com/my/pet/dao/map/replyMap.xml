@@ -10,9 +10,9 @@
 	</select>
 	
 	<insert id='insertReply'>
-		insert into replies(reply_id, reply_content, reply_time, user_id, meeting_id)
+		insert into replies(reply_id, reply_content, reply_time, user_id, reply_id)
 		values(pet.reply_id_seq.nextVal, #{replyContent},
-		sysdate , #{userId}, #{meetingId}) 
+		sysdate , #{userId}, #{replyId}) 
 	</insert> 
 	
 	<update id='updateReply'>

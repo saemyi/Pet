@@ -12,7 +12,7 @@ import com.my.pet.domain.Comment;
 @Repository
 public class CommentDaoImpl implements CommentDao{
 @Autowired private CommentMap commentMap;
-	
+
 	@Override
 	public List<Comment> selectComments(){
 		return commentMap.selectComments();

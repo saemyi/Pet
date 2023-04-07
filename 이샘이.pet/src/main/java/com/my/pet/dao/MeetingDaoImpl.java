@@ -20,23 +20,18 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 	
 	@Override
-	public List<Meeting> selectAllMeetings() {
-		return meetingMap.selectAllMeetings();
+	public List<Meeting> selectMeetings(String sidoId, String sigunguId, String dongId, String userId) {
+		return meetingMap.selectMeetings(sidoId, sigunguId, dongId, userId);
 	}
 	
 	@Override
-	public List<Meeting> selectMeetingsByAddress(String sidoId, String sigunguId, String dongId) {
-		return meetingMap.selectMeetingsByAddress(sidoId, sigunguId, dongId);
+	public Meeting selectMeetingByIdAndParticipant(int meetingId, String userId) {
+		return meetingMap.selectMeetingByIdAndParticipant(meetingId, userId);
 	}
-	
+
 	@Override
 	public List<Meeting> selectMeetingsByParticipant(String userId) {
 		return meetingMap.selectMeetingsByParticipant(userId);
-	}
-	
-	@Override
-	public List<Meeting> selectMeetingsByCreator(String userId) {
-		return meetingMap.selectMeetingsByCreator(userId);
 	}
 	
 	@Override

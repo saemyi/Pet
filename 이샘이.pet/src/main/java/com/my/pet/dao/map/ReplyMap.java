@@ -11,6 +11,6 @@ public interface ReplyMap {
 	List<Reply> selectReplies();
 	int insertReply(@Param("replyContent") String replyContent, @Param("replyTime") LocalDateTime replyTime,
 			@Param("userId") String userId, @Param("commentId") int commentId);
-	int updateReply(@Param("replyContent") String replyContent, @Param("replyTime") LocalDateTime replyTime);
+	int updateReply(Reply reply);
 	int deleteReply(int replyId);
 }

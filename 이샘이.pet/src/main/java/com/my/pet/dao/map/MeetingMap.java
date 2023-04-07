@@ -10,13 +10,15 @@ import com.my.pet.domain.Participant;
 
 public interface MeetingMap {
 	int selectLastMeetingId();
-	List<Meeting> selectAllMeetings();
-	List<Meeting> selectMeetingsByAddress(@Param("sidoId") String sidoId,
+	List<Meeting> selectMeetings(@Param("sidoId") String sidoId,
 								@Param("sigunguId") String sigunguId,
-								@Param("dongId") String dongId
+								@Param("dongId") String dongId,
+								@Param("userId") String userId
 								);
+	Meeting selectMeetingByIdAndParticipant(@Param("meetingId") int meetingId,
+											@Param("userId") String userId
+											);
 	List<Meeting> selectMeetingsByParticipant(String userId);
-	List<Meeting> selectMeetingsByCreator(String userId);
 	Meeting selectMeeting(int meetingId);
 	int insertMeeting(@Param("meetingTitle") String meetingTitle, 
 					@Param("meetingContent") String meetingContent,
@@ -33,11 +35,11 @@ public interface MeetingMap {
 	Participant selectMeetingCreator(int meetingId);
 	List<Participant> selectParticipants(int meetingId);
 	int insertParticipant(@Param("meetingId") int meetingId,
-					@Param("userId") String userId
-					);
+						@Param("userId") String userId
+						);
 	int updateApplicantNumber(@Param("meetingId") int meetingId,
-					@Param("applicantNumber") int applicantNumber
-					);
+							@Param("applicantNumber") int applicantNumber
+							);
 	int deleteParticipant(@Param("meetingId") int meetingId,
 							@Param("userId") String userId
 							);
