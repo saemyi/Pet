@@ -123,6 +123,21 @@ public class UserController {
 		} catch(IOException e) {}
 	}
 	
+	//마이페이지
+		@GetMapping("user/mypage")
+		public ModelAndView mypage(ModelAndView mv) {
+			mv.setViewName("user/mypage");
+			return mv;
+		}
+		
+	//설정창
+		@GetMapping("user/setting")
+		public ModelAndView setting(ModelAndView mv) {
+			mv.setViewName("user/setting");
+			return mv;
+		}
+	
+
 	//아이디 중복체크
 	@PostMapping("idCheck")
 	@ResponseBody

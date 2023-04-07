@@ -274,7 +274,7 @@ $(init)
                     </div>
                 </div>
             </div>
-            <div class='row mt-5 mb-1'>
+            <div class='row mt-5 mb-1'> 
                 <div class='col'>
                     <h5><b>모임</b></h5>
                 </div>

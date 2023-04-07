@@ -72,7 +72,7 @@ $(userList)
                         <li class="nav-item">
                         <a class="nav-link" href="./admin/notice">공지</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item"> 
                         <a class="nav-link" href="./report">신고</a>
                         </li>
                         <li class="nav-item">
