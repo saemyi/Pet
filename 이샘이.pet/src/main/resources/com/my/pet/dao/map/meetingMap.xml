@@ -8,38 +8,60 @@
 		where meeting_id=(select max(meeting_id) from meetings)
 	</select>
 	
-	<select id='selectAllMeetings' resultType='meeting'>
-		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+	<select id='selectMeetings' resultType='meeting'>
+		select *
 		from meetings
+		<where>
+			<if test='sidoId != null'>
+				sido_id = #{sidoId}
+			</if>
+			<if test='sigunguId != null'>
+				and sigungu_id = #{sigunguId}
+			</if>
+			<if test='dongId != null'>
+				and dong_id = #{dongId}
+			</if>
+			<if test='userId != null'>
+				and user_id = #{userId}
+			</if>
+		</where>
 		order by meeting_time desc
 	</select>
-	
+	<!--
 	<select id='selectMeetingsByAddress' resultType='meeting'>
-		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+		select *
 		from meetings
 		where sido_id = #{sidoId} and sigungu_id = #{sigunguId} and dong_id = #{dongId}
 		order by meeting_time desc
 	</select>
 	
-	<select id='selectMeetingsByParticipant' resultType='meeting'>
-		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, m.user_id, sido_id, sigungu_id, dong_id
-		from meetings m join participants p
-		using (meeting_id)
-		where p.user_id = #{userId}
-		order by meeting_time desc
-	</select>
-	
 	<select id='selectMeetingsByCreator' resultType='meeting'>
-		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+		select *
 		from meetings
 		where user_id = #{userId}
 		order by meeting_time desc
 	</select>
-	
+	-->
 	<select id='selectMeeting' resultType='meeting'>
-		select meeting_id, meeting_title, meeting_content, meeting_time, recruitment_number, applicant_number, user_id, sido_id, sigungu_id, dong_id
+		select *
 		from meetings
 		where meeting_id = #{meetingId}
+	</select>
+	
+	<select id='selectMeetingByIdAndParticipant' resultType='meeting'>
+		select *
+		from meetings m join participants p
+		using (meeting_id)
+		where p.user_id = #{userId} and meeting_id = #{meetingId}
+		order by meeting_time desc
+	</select>
+	
+	<select id='selectMeetingsByParticipant' resultType='meeting'>
+		select *
+		from meetings m join participants p
+		using (meeting_id)
+		where p.user_id = #{userId}
+		order by meeting_time desc
 	</select>
 	
 	<insert id='insertMeeting'>

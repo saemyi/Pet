@@ -31,7 +31,7 @@ public class MeetingController {
 		return mv;
 	}
 	
-	@GetMapping("viewById/{meetingId}")
+	@GetMapping("{meetingId}")
 	public ModelAndView getMeetingById(@PathVariable int meetingId, ModelAndView mv, HttpSession session) {
 		session.setAttribute("lastMeetingId", meetingId);
 		mv.setViewName("meeting/meetingView");
@@ -68,16 +68,18 @@ public class MeetingController {
 		return meetingService.getParticipants(meetingId);
 	}
 	
-	@GetMapping("getAllMeetings")
-	public List<Meeting> getAllMeetings() {
-		return meetingService.getAllMeetings();
+	@PostMapping("getMeetings")
+	public List<Meeting> getMeetings(String sidoId, String sigunguId, String dongId, String userId) {
+		if(sidoId.equals("")) sidoId = null;
+		if(sigunguId.equals("")) sigunguId = null;
+		if(dongId.equals("")) dongId = null;
+		return meetingService.getMeetings(sidoId, sigunguId, dongId, userId);
 	}
 	
-	@PostMapping("getMeetingsByAddress")
-	public List<Meeting> getMeetingsByAddress(String sidoId, String sigunguId, String dongId) {
-		return meetingService.getMeetingsByAddress(sidoId, sigunguId, dongId);
+	@PostMapping("getMeetingByIdAndParticipant")
+	public Meeting getMeetingByIdAndParticipant(int meetingId, String userId) {
+		return meetingService.getMeetingByIdAndParticipant(meetingId, userId);
 	}
-
 	
 	@GetMapping("fix")
 	public ModelAndView fixMeeting(ModelAndView mv) {

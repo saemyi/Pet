@@ -7,6 +7,4 @@
 			 from alarms
 			 order by alarm_id
 		</select>
-		
-	
 	</mapper>

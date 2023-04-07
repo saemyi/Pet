@@ -111,7 +111,6 @@ function petJoin() {
       }
 
 $(upLoadImg)
-$(init)
 
 </script>
 </head>

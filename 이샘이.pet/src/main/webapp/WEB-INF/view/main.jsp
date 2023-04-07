@@ -96,7 +96,7 @@ function getMeetingsByAddress(sido, sigugun, dong) {
 	}
 	
 	$.ajax({
-		url: 'meeting/getMeetingsByAddress',
+		url: 'meeting/getMeetings',
 		method: 'post',
 		data: address,
 		dataType: 'json',
@@ -156,68 +156,8 @@ function getMeetingsByAddress(sido, sigugun, dong) {
 	})
 }
 
-function getAllMeetingsData() {
-	$.ajax({
-		url: 'meeting/getAllMeetings',
-		dataType: 'json',
-		success: meetings => {
-			if(meetings.length) {
-				const meetingArr = []
-				
-				$.each(meetings, (i, meeting) => {
-					meetingArr.push(
-						`<div class='mb-2'>
-							<div class="card" type="button" onclick="location.href='meeting/` + meeting.meetingId + `'">
-								<div class="card-body">
-									<div class='row'>
-										<div class='col'>
-											<div class='row'>
-												<div class='col-3'>
-													<b><mark class='bg-orange'><span class='completionStatus'>` + 
-													(new Date() > new Date(meeting.meetingTime) ? "완료" : meeting.applicantNumber == meeting.recruitmentNumber ? "마감" : "모집중") +
-													`</span></mark></b>
-												</div>
-												<div class='col'>
-													<h6 class="card-title"><b><span class='meetingTitle'>` + meeting.meetingTitle + `</span></b></h6>
-												</div>
-											</div>
-											<div class="row">
-												<div class='col-3'></div>
-												<div class='col'>
-													<input type='datetime-local' class='form-control' name='meetingDateTime' id='meetingDateTime' style='border:none; background: none;' value='` + meeting.meetingTime + `' disabled/>
-												</div>
-											</div>
-											<div class='row'>
-												<div class="col-8 pt-1">
-													<div class='progress'>
-														<div class='progress-bar progress-bar-striped progress-bar-animated bg-primary' role='progressbar' ` + 
-														"style='width:" + 100 * meeting.applicantNumber / meeting.recruitmentNumber + '%' + ";'>" +
-														Math.floor(100 * meeting.applicantNumber / meeting.recruitmentNumber) + '%' + `</div>
-													</div>
-												</div>
-												<div class="col-4 d-flex justify-content-center">
-													<div class='mt-1 align-baseline d-flex justify-content-start participantStatus'>` +
-													'인원 ' + meeting.applicantNumber + '/' + meeting.recruitmentNumber + `</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>`
-					)
-				})
-				
-				$('#meetings').append(meetingArr.join(''))
-			} else {
-				$('#meetings').append(`<p class='text-center text-secondary mt-3'>모임이 없습니다.</p>`)
-			}
-		}
-	})
-}
-
 function init() {
-	getAllMeetingsData()
+	getMeetingsByAddress(null, null, null)
 }
 
 $(init)
@@ -226,7 +166,7 @@ $(init)
 <body>
 <div class='row d-flex justify-content-end'>
     <nav class="navbar fixed-top bg-orange p-2">
-<%
+    <%
 if(userId == null) {
 %>
 	 <form action='login'>
@@ -239,10 +179,10 @@ if(userId == null) {
             <b>산책하개</b>
         </div>
         <div class='mt-2 mb-1'>
-            <span type='button' class="material-symbols-outlined" onclick='location.href="./notice/01.html"'>
+            <span type='button' class="material-symbols-outlined" onclick='location.href="./notice"'>
                 campaign
             </span>
-            <span type='button' class="material-symbols-outlined" onclick="location.href='./alarm/01.html'">
+            <span type='button' class="material-symbols-outlined" onclick="location.href='./alarm'">
                 notifications
             </span>
         </div>
@@ -314,7 +254,7 @@ if(userId == null) {
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='./user/mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='./user/mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>

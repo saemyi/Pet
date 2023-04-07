@@ -18,6 +18,7 @@ body {
 
 .link-black {
    color: #000;
+   text-decoration: none;
 }
 
 .loginBtn {
@@ -40,6 +41,11 @@ body {
 .link-orange:hover, .link-orange:focus {
    color: #ffc23e;
 }
+
+.link-black:hover, .link-black:focus {
+   color: black;
+}
+
 
 .bg-orange {
    background-color: #ffc23e !important;

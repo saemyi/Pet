@@ -29,7 +29,7 @@ public class PetController {
 	}
 	
 	@PostMapping("petJoin")
-	public ModelAndView joinPet(ModelAndView mv,  PetDto petDto, Pet pet) {
+	public ModelAndView joinPet(ModelAndView mv, Pet pet, PetDto petDto) {
 		String filename = petDto.getPetProfile().getOriginalFilename();
 		saveFile(attachPath + "/" + filename,  petDto.getPetProfile());
 		pet.setPetProfileImageFilename(filename);

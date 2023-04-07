@@ -3,10 +3,13 @@ package com.my.pet.web;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +32,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/")
@@ -108,12 +112,23 @@ public class UserController {
 	
 	//회원정보 pet으로 넘기기
 	@PostMapping("userJoin")
-	public ModelAndView joinUser(ModelAndView mv, UserDto userDto, User user, RedirectAttributes redirect) {
-		String filename = userDto.getUserProfile().getOriginalFilename();
-		saveFile(attachPath + "/" + filename, userDto.getUserProfile());
-		user.setProfileImageFilename(filename);
-		redirect.addFlashAttribute("user", user);
-		mv.setViewName("redirect:pet/petJoin");
+	public ModelAndView joinUser(ModelAndView mv, @Valid UserDto userDto,@Valid User user, 
+			BindingResult bindingResult ,RedirectAttributes redirect) {
+		/* if(bindingResult.hasErrors()) { */
+			 List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			 System.out.println(fieldErrors);
+			 for(FieldError error : fieldErrors) {
+	            mv.addObject(error.getField() + "Error", error.getDefaultMessage());
+	        }
+			/*
+			 * mv.setViewName("user/userJoin"); } else {
+			 */
+			String filename = userDto.getUserProfile().getOriginalFilename();
+			saveFile(attachPath + "/" + filename, userDto.getUserProfile());
+			user.setProfileImageFilename(filename);
+			redirect.addFlashAttribute("user", user);
+			mv.setViewName("redirect:pet/petJoin");
+			/* } */
 		return mv;
 	}
 	
@@ -123,6 +138,21 @@ public class UserController {
 		} catch(IOException e) {}
 	}
 	
+	//마이페이지
+		@GetMapping("user/mypage")
+		public ModelAndView mypage(ModelAndView mv) {
+			mv.setViewName("user/mypage");
+			return mv;
+		}
+		
+	//설정창
+		@GetMapping("user/setting")
+		public ModelAndView setting(ModelAndView mv) {
+			mv.setViewName("user/setting");
+			return mv;
+		}
+	
+
 	//아이디 중복체크
 	@PostMapping("idCheck")
 	@ResponseBody

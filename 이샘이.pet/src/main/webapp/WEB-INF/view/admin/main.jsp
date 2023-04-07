@@ -67,13 +67,13 @@ $(userList)
                         <a class="nav-link" href="./main">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="./meeting/01.html">모임</a>
+                        <a class="nav-link" href="./meeting">모임</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="./admin/notice">공지</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="./report/01.html">신고</a>
+                        <li class="nav-item"> 
+                        <a class="nav-link" href="./report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>
@@ -81,7 +81,7 @@ $(userList)
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" href="./user/01.html"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" href="logout"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>
