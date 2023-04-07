@@ -14,41 +14,13 @@
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <!-- https://zelkun.tistory.com/entry/004-jQuery-%EC%8B%9C%EB%8F%84%EC%8B%9C%EA%B5%B0%EA%B5%AC%EC%9D%8D%EB%A9%B4%EB%8F%99%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-selectbox-%EC%A0%9C%EC%96%B4-with-%EA%B8%B0%EC%83%81%EC%B2%AD-%EB%8F%99%EB%84%A4%EC%98%88%EB%B3%B4 -->
-<script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
+<script type="application/javascript" src="res/hangjungdong.js"></script>
 <title>main</title>
 <style>
 
 </style>
 <script>
 $(() => {
-	let completionStatusMsg = '마감'
-	$('.completionStatus').eq(0).text(completionStatusMsg)
-	completionStatusMsg = '모집중'
-	$('.completionStatus').eq(1).text(completionStatusMsg)
-	
-	let title = '4시에 신원시장 앞 산책해요!'
-	$('.meetingTitle').eq(0).text(title)
-	title = '퍼피퍼니 애견카페 2시 모임!'
-	$('.meetingTitle').eq(1).text(title)
-	
-	let meetingDateTime = '2025-03-15 오후 4:00'
-	$('.meetingDateTime').eq(0).text(meetingDateTime)
-	meetingDateTime = '2025-03-16 오후 2:00'
-	$('.meetingDateTime').eq(1).text(meetingDateTime)
-	
-	let recruited = 5
-	let totalRecruitment = 5
-	let percentage = 100 * recruited / totalRecruitment
-	$('.progress-bar').eq(0).text(Math.floor(percentage) + '%')
-	$('.progress-bar').eq(0).css('width', percentage + '%')
-	$('.participantStatus').eq(0).text('인원 ' + recruited + '/' + totalRecruitment)
-	recruited = 2
-	totalRecruitment = 4
-	percentage = 100 * recruited / totalRecruitment
-	$('.progress-bar').eq(1).text(Math.floor(percentage) + '%')
-	$('.progress-bar').eq(1).css('width', percentage + '%')
-	$('.participantStatus').eq(1).text('인원 ' + recruited + '/' + totalRecruitment)
-	
 	//sido option 추가
 	jQuery.each(hangjungdong.sido, function (idx, code) {
 		//append를 이용하여 option 하위에 붙여넣음
@@ -59,8 +31,6 @@ $(() => {
 	jQuery('#sido').change(function () {
 		jQuery('#sigugun').show();
 		jQuery('#sigugun').empty();
-		jQuery('#dong').empty();
-		jQuery('#dong').prepend(fn_option('', '읍/면/동'));
 		jQuery('#sigugun').append(fn_option('', '시/군/구')); //
 		jQuery.each(hangjungdong.sigugun, function (idx, code) {
 			if (jQuery('#sido > option:selected').val() == code.sido)
@@ -77,6 +47,10 @@ $(() => {
 			//trigger를 이용해 change 실행
 			jQuery('#sigugun').trigger('change');
 		}
+		
+		jQuery('#dong').empty();
+		jQuery('#dong').prepend(fn_option('', '읍/면/동'));
+		jQuery('#dong option').eq(0).attr('selected', 'selected');
 	});
 	
 	//시군구 변경시 행정동 옵션추가
@@ -133,7 +107,7 @@ function getMeetingsByAddress(sido, sigugun, dong) {
 				$.each(meetings, (i, meeting) => {
 					meetingArr.push(
 						`<div class='mb-2'>
-							<div class="card" type="button" onclick="location.href='meeting/viewById/` + meeting.meetingId + `'">
+							<div class="card" type="button" onclick="location.href='meeting/` + meeting.meetingId + `'">
 								<div class="card-body">
 									<div class='row'>
 										<div class='col'>
@@ -193,7 +167,7 @@ function getAllMeetingsData() {
 				$.each(meetings, (i, meeting) => {
 					meetingArr.push(
 						`<div class='mb-2'>
-							<div class="card" type="button" onclick="location.href='meeting/viewById/` + meeting.meetingId + `'">
+							<div class="card" type="button" onclick="location.href='meeting/` + meeting.meetingId + `'">
 								<div class="card-body">
 									<div class='row'>
 										<div class='col'>

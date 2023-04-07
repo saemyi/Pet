@@ -19,13 +19,28 @@
    
 </style>
 <script>
-$(() => { 
-	 $("#nickName").blur(function(){
-	    var nickName = $(this).val();
-	    if( nickName == '' || nickName == 'undefined') {
-	        $(".nickNameCheck").html('<small>닉네임을 입력하세요.</small>').css('color', 'red');
-	        $(this).focus();
-	        return false;
+function moveMain(){
+	location.href='/';
+}
+
+function init() {
+	$("#addReportBtn").click(() => {
+		var nickName = $('#nickName').val();
+		var reason = $('#reason option:selected').val();
+		var constent = $('#reportContent').val();
+		
+		if( nickName == '' || reason == '' ||  constent == '0' ){
+			confirmModal('<small>모든 내용을 입력하세요.</small>')
+		}
+		else if(reason == '0'){
+			confirmModal('<small>신고사유를 선택하세요.</small>')
+		}
+		else if(constent == ''){
+			confirmModal('<small>신고내용을 입력하세요.</small>')
+		}	
+		else if( nickName == '' || nickName == 'undefined') {
+	         confirmModal('<small>닉네임을 입력하세요.</small>')
+	   
 	    }else {
 	    	$.ajax({
 	    		url:'./nicknameCheck',
@@ -34,53 +49,17 @@ $(() => {
 	    		success: function(cnt) {
 	    			if(isVal($('#nickName'))) {
 		    			if(cnt == 0) {
-		    				 $(".nickNameCheck").html('<small>입력하신 닉네임 사용자가 없습니다.</small>').css('color', 'red'); 				
+		    				 confirmModal('<small>입력하신 닉네임 사용자가 없습니다.</small>')			
 		    			}else{
-		    				$(".nickNameCheck").text('');
+		    				yesNoModal('<p>신고내용은 삭제 혹은 취소가 불가합니다.<br> 해당 유저를 신고 하시겠습니까?</p>')
 		    			}
 	    			} 
 	    		}
 	    	})
-	    	$(".nickNameCheck").text('');
-	    }	    
-	});
-	
-	$("#reason").blur(function(){
-		var reason = $("#reason option:selected").val();
-		if( reason == '0'){
-			$(".reasonCheck").html('<small>사유를 선택하세요.</small>').css('color', 'red');
-			$(this).focus();
-	        return false;
-		}if(reason >= '1'){
-	        $(".reasonCheck").text('');
 	    }
-	});
+		
+	})
 	
-	$("#reportContent").blur(function(){
-		var reportContent = $(this).val();
-		if( reportContent == '' || reportContent == 'undefined'){
-			$(".reportContentCheck").html('<small>상세내용을 입력하세요.</small>').css('color', 'red');
-			$(this).focus();
-		    return false;
-		}else {
-	        $(".reportContentCheck").text('');
-	    }
-	});
-})
-
-function moveMain(){
-	location.href='/';
-}
-
-function init() {
-	$("#addReportBtn").click(() => {
-		if( $('#nickName').val() && $('#reason option:selected').val() && $('#reportContent').val() ){
-    		yesNoModal('<p>신고내용은 삭제 혹은 취소가 불가합니다.<br> 해당 유저를 신고 하시겠습니까?</p>')
-		}else {
-        	confirmModal("모든 정보를 입력해 주세요.")
-        }
-    })
-    
     $("#okBtn").click(() => {
    		let report = {
    			reason: $('#reason option:selected').val(),

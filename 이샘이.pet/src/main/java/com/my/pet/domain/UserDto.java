@@ -17,7 +17,7 @@ public class UserDto {
 	private String userId;
 	private String pw;
 	private String userName;
-    private String intro;
+    private String userIntro;
     private MultipartFile userProfile;
     private String phone; 
     private String email;

@@ -77,7 +77,7 @@ $(() => {
                 <div class='gap-2 d-flex justify-content-center d-md-none'>
                     <button type='button' class='form-control' onclick="location.href='03.html'">ID 찾기</button>
                     <button type='button' class='form-control' onclick="location.href='04.html'">PW 찾기</button>
-                    <button type='button' class='form-control'><a href='join' style='text-decoration: none; color: black;'>회원가입</a></button>
+                    <button type='button' class='form-control'><a href='userJoin' style='text-decoration: none; color: black;'>회원가입</a></button>
                 </div>
             </div>
         </div>

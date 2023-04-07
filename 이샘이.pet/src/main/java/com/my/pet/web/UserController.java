@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.my.pet.domain.Report;
 import com.my.pet.domain.User;
@@ -40,7 +41,7 @@ public class UserController {
 	@GetMapping
 	public ModelAndView main(ModelAndView mv, HttpSession session) {
 		if(session.getAttribute("userId") == null) {
-			mv.setViewName("redirect:/login?");
+			mv.setViewName("redirect:login");
 			return mv;
 		}
 		mv.setViewName("main");
@@ -80,7 +81,7 @@ public class UserController {
 					mv.setViewName("admin/main");
 					return mv;
 				}
-				mv.setViewName("main");
+				mv.setViewName("redirect:/");
 				return mv;
 			} else {
 			request.setAttribute("errMsg", "아이디 또는 비밀번호를 확인해주세요.");
@@ -94,24 +95,25 @@ public class UserController {
 	public ModelAndView logout(ModelAndView mv, HttpSession session) {
 		session.invalidate();
 		
-		mv.setViewName("redirect:/login?");
+		mv.setViewName("redirect:login");
 		return mv;
 	}
 	
 	//회원가입화면
-	@GetMapping("join")
+	@GetMapping("userJoin")
 	public ModelAndView joinIn(ModelAndView mv) {
 		mv.setViewName("user/userJoin");
 		return mv;
 	}
 	
-	@PostMapping("join")
-	public ModelAndView joinUser(ModelAndView mv, UserDto userDto, User user) {
+	//회원정보 pet으로 넘기기
+	@PostMapping("userJoin")
+	public ModelAndView joinUser(ModelAndView mv, UserDto userDto, User user, RedirectAttributes redirect) {
 		String filename = userDto.getUserProfile().getOriginalFilename();
 		saveFile(attachPath + "/" + filename, userDto.getUserProfile());
 		user.setProfileImageFilename(filename);
-		mv.addObject("user", user);
-		mv.setViewName("pet/petJoin");
+		redirect.addFlashAttribute("user", user);
+		mv.setViewName("redirect:pet/petJoin");
 		return mv;
 	}
 	
@@ -142,7 +144,7 @@ public class UserController {
 	public void addUser(String userId, String userName, String profileImageFilename,
 			 String phone, String email, String address, String detailedAddress,
 			 @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate birthdate, String pw, String nickname) {
-		System.out.println(userId + userName + profileImageFilename + phone + email + address + detailedAddress + birthdate + pw + nickname);
+		System.out.println("안녕 : " + userId + userName + profileImageFilename + phone + email + address + detailedAddress + birthdate + pw + nickname);
 		userService.joinUser(userId, userName, profileImageFilename, phone, email, address, detailedAddress, birthdate, pw, nickname);
 	}
 }
