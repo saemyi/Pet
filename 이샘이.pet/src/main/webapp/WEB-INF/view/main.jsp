@@ -226,23 +226,14 @@ $(init)
 <body>
 <div class='row d-flex justify-content-end'>
     <nav class="navbar fixed-top bg-orange p-2">
-<%
-if(userId == null) {
-%>
-	 <form action='login'>
-	       <button type='submit' class="loginBtn navbar-brand link-black">로그인</button>   
-	 </form>
-<%} else {%>
- 	<a href='logout' class='logoutBtn'>로그아웃</a>
-<%} %>
         <div class='col text-center me-4'>
             <b>산책하개</b>
         </div>
         <div class='mt-2 mb-1'>
-            <span type='button' class="material-symbols-outlined" onclick='location.href="./notice/01.html"'>
+            <span type='button' class="material-symbols-outlined" onclick='location.href="./notice"'>
                 campaign
             </span>
-            <span type='button' class="material-symbols-outlined" onclick="location.href='./alarm/01.html'">
+            <span type='button' class="material-symbols-outlined" onclick="location.href='./alarm'">
                 notifications
             </span>
         </div>
@@ -314,7 +305,7 @@ if(userId == null) {
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='./user/mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='./user/mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>
