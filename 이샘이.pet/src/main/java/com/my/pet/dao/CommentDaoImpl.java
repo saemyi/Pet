@@ -24,8 +24,8 @@ public class CommentDaoImpl implements CommentDao{
 	}
 	
 	@Override
-	public void updateComment(String commentContent, LocalDateTime commentTime) {
-		commentMap.updateComment(commentContent, commentTime);
+	public void updateComment(Comment comment) {
+		commentMap.updateComment(comment);
 	}
 	
 	@Override
