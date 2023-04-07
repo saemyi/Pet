@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.my.pet.dao.map.ReportMap'>
+	<select id='selectReport' resultType='report'>
+		select report_id, target_id, reason, user_id, is_processed
+		from reports
+		order by report_id
+	</select>
+	
+	<select id='selectDetailReport' resultType='report'>
+		select  target_id, user_id, reason, report_content, is_processed
+		from reports
+		where report_id = #{reportId}
+	</select>
+	
+	<select id='selectSuspended' resultType='report'>
+		select reason
+		from reports
+		where target_id = #{loginId}
+	</select>
+	
+	<insert id='insertReport'><!-- 정상흐름연결후 values의 user_id session으로 바꿔 -->
+		insert into reports (report_id,  reason, report_content, is_processed, user_id, target_id)
+		values (report_id_seq.nextval, #{reason}, #{reportContent}, 0, 'user', 
+				(select user_id from users where  nickName = #{nickName}))
+	</insert>
+</mapper>

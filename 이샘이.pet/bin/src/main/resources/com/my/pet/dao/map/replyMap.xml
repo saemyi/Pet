@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN' 
+'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.my.pet.dao.map.ReplyMap'>
+	<select resultMap='replyMap' id='selectReplies'>
+		select r.reply_id, r.reply_content, r.reply_time, r.user_id, r.comment_id, u.nickname 
+		from replies r join users u 
+		on r.user_id = u.user_id 
+		order by reply_id ASC 
+	</select>
+	
+	<insert id='insertReply'>
+		insert into replies(reply_id, reply_content, reply_time, user_id, meeting_id)
+		values(pet.reply_id_seq.nextVal, #{replyContent},
+		sysdate , #{userId}, #{meetingId}) 
+	</insert> 
+	
+	<update id='updateReply'>
+		update replies
+		set reply_content = #{replyContent}, reply_time = #{replyTime}
+		where reply_id = #{replyId}
+	</update> 
+	
+	<delete id='deleteReply'>
+		delete replies
+		where reply_id = #{replyId}
+	</delete>
+
+	<resultMap id='replyMap' type='reply'>
+		<id property='replyId' column='reply_id'/>
+		<result property='userId' column='user_id'/>
+		<result property='replyContent' column='reply_content'/>
+		<result property='replyTime' column='reply_time'/>
+		<result property='commentId' column='comment_id'/>
+	</resultMap>
+</mapper>

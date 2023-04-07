@@ -15,4 +15,6 @@ public interface UserDao {
 			 LocalDate birthdate, String pw, String nickname);
 	int updateUser(User user);
 	int deleteUser(String userId);
+	List<User> adminselectUsers();
+	   User adminSelectUser(String userId);
 } 

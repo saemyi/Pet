@@ -1,0 +1,128 @@
+@charset "utf-8";
+body {
+    padding-top : 80px;
+    height: 100%;
+    font-family: 'Noto Sans KR';
+    padding-bottom : 80px;
+}
+
+.btn-orange {
+   color: black !important;
+   background-color: #ffc23e !important;
+   border-color: #ffc23e !important;
+} 
+
+.link-orange {
+   color: #ffc23e;
+}
+
+.link-black {
+   color: #000;
+}
+
+.loginBtn {
+   border: 0;
+   background: none;
+}
+
+.DefaultProfile {
+	font-size: 22px;
+    line-height: 22px;
+    color:crimson;
+}
+
+.logoutBtn {
+   text-decoration: none;
+   color:#000;
+   font-size: 15pt;
+}
+
+.link-orange:hover, .link-orange:focus {
+   color: #ffc23e;
+}
+
+.bg-orange {
+   background-color: #ffc23e !important;
+}
+
+.table-orange {
+   --bs-table-bg: #ffc23e;
+   --bs-table-striped-bg: #ffc23e;
+   --bs-table-striped-color: #fff;
+   --bs-table-active-bg: #ffc23e;
+   --bs-table-active-color: #fff;
+   --bs-table-hover-bg: #ffc23e;
+   --bs-table-hover-color: #fff;
+   color: #fff;
+   border-color: #e6dbb9;
+ }
+
+ .box{
+   border: .1rem solid gray;
+   background-color: gainsboro;
+   width: 130px !important;
+   height: 130px !important;
+ }
+
+.petBox{
+   border: .1rem solid gray;
+   background-color: gainsboro;
+   width:100px!important;
+   height:100px !important;
+}
+
+.logoBox{
+   border: .1rem solid gray;
+   background-color: gainsboro;
+   width:300px!important;
+   height:300px !important;
+}
+
+.btn-skyblue {
+   color: black !important;
+   background-color: #d1edff !important;
+   border-color: #d1edff !important;
+} 
+
+.btn-lightgray {
+   color: black !important;
+   background-color: #cdcdcd !important;
+   border-color: #cdcdcd !important;
+} 
+
+.joinBox{
+   border: .1rem solid gray;
+   background-color: gainsboro;
+   width:100px!important;
+   height:100px !important;
+}
+
+.reply {
+   border: .1rem solid lightgray;
+   background-color: white;
+   margin-top: 1rem; 
+   padding-block: .2rem;
+   padding-inline: .7rem;
+}
+
+.reply-menu {
+   color: white; 
+   background: white; 
+   border: none;
+}
+
+.bi-three-dots {
+   color: gray;
+}
+
+.contentName {
+   background-color: rgb(240, 245, 255);
+}
+
+.circle{
+   border: .1rem solid gray;
+   background-color: gainsboro;
+   width:150px;
+   height:150px;
+   border-radius: 100px;
+ }

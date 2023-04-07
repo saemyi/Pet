@@ -33,7 +33,7 @@
         			} else {
         				confirmModal('이미 존재하는 아이디 입니다.')
         				$("input[name=checked_id]").val('');
-        				$('#userId').val('');
+        				$('#userId').val(''); 
         			}
     			} else confirmModal("아이디 입력하세요.")
     		},

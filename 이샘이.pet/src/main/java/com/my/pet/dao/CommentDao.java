@@ -11,4 +11,3 @@ public interface CommentDao {
 	void updateComment(Comment comment);
 	void deleteComment(int commentId);
 }
- 

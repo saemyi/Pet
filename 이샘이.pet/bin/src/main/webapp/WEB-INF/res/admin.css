@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+#u_skip {
+    position: relative;
+    z-index: 3000;
+}
+.a-gray{
+    color: gray;
+}
+
+.hellosoon {
+	color: red;
+}
+
+select {
+    border-radius: .5rem;
+    border: .1rem rgb(209, 209, 209) solid;
+}
+
+.wrap {
+    overflow: hidden;
+    min-width: 700px;
+}
+
+td {
+    font-size: small;
+}
+th {
+    font-size: small;
+}
+
+.a-gray:hover{
+    color:orange;
+}
+
+.a-black{
+    color: black; 
+    text-decoration: none;
+}
+
+.a-black:hover{
+    color: orange;
+}
+
+.nav-header{
+    background-color: #fff6e8;
+}
+
+.table{
+    border: .1rem solid;    
+}
+
+.table thead{
+    background-color: #ffc23e;
+}
+
+.table th{
+    background-color: #ffc23e;
+}
+
+td textarea{
+    resize: none;
+     border: none;
+}
+
+.botton-orange{
+    background-color: #ffc23e;
+}
+
+.pagination a{
+    color: black;
+}
+
+.pagination a:hover,
+.pagination a:checked,
+.pagination a:focus
+{
+    color: #ffc23e;
+    border-color: #ffc23e;
+    box-shadow: 0 1px 1px #ffc23e inset, 0 0 8px #ffc23e;
+     outline: 0 none;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="search"]:focus,
+.uneditable-input:focus {   
+  border-color: #ffc23e;
+  box-shadow: 0 1px 1px #ffc23e inset, 0 0 8px #ffc23e;
+  outline: 0 none;
+}
+
+.select-orange:focus{
+    border-color: #ffc23e;
+    box-shadow: 0 1px 1px #ffc23e inset, 0 0 8px #ffc23e;
+    outline: 0 none;
+}
+.hover-cursor{
+    cursor: pointer
+}
+
+.btn-orange {
+    color: black !important;
+    background-color: #ffc23e !important;
+    border-color: #ffc23e !important;
+ } 
+
+ .botton-orange:focus{
+    border-color: #ffc23e;
+    box-shadow: 0 1px 1px #ffc23e inset, 0 0 8px #ffc23e;
+    outline: 0 none;
+}
+ 
+ .link-orange {
+    color: #ffc23e;
+ }
+ 
+ .link-black {
+    color: #000;
+ 
+ }
+ 
+ .link-orange:hover, .link-orange:focus {
+    color: #ffc23e;
+ }
+ 
+.bg-orange {
+    background-color: #ffc23e !important;
+ }
+ 
+.btn-lightgray {
+    color: black !important;
+    background-color: #cdcdcd !important;
+    border-color: #cdcdcd !important;
+ } 
+
+ a {
+    text-decoration: none;
+    color: black;
+}

@@ -63,24 +63,11 @@ function listPets() {
     }
   
 function petJoin() {
-	//펫 DB에 추가
-	$.each(pets, (i, pet) => {
-		petArr = {
-			petName: pet.petName,
-			petProfile: pet.petProfile,
-			petIntro: pet.petIntro,
-			userId: pet.userId
-		}
-		$.ajax({
-			url: 'pet/add',
- 			method: 'post',
- 			data: petArr
-		})
-	})	
+	$('#petForm').submit()
 }
 
     function init() {
-        //반려견 테이블에 추가
+       /*  //반려견 테이블에 추가
         $('#addPetBtn').click(() => {
             if($('#petName').val()) {
                 let pet = {
@@ -106,7 +93,7 @@ function petJoin() {
                 confirmModal('반려견을 선택하세요.')
             }
         })
-
+ */
         //반려견 테이블에서 삭제
         $('#okBtn').click(() => {
             let petNum = $('#choice:checked').val()
@@ -116,10 +103,8 @@ function petJoin() {
             listPets()
         })
         
-       $('#hello').click(() => {
-            if(!pets.length) {
-                confirmModal('반려견을 등록해주세요.')
-            } else {
+       $('#joinBtn').click(() => {
+           
             	let user = {
           			userId: "${user.userId}",
               		userName: "${user.userName}",
@@ -135,26 +120,10 @@ function petJoin() {
 	            $.ajax({
 	            	url: '../add',
 	            	method: 'post',
-	            	data: user
+	            	data: user,
+	            	success: petJoin
            		})
-            }
-        })
-        
-        $('#joinBtn').click(() => {
-        	$.each(pets, (i, pet) => {
-        		petData = {
-        			petName: pet.petName,
-        			petProfile: pet.petProfile,
-        			petIntro: pet.petIntro,
-        			userId: "${user.userId}"
-        		}
-        		console.log(petData);
-        		$.ajax({
-	            	url: 'pet/add',
-	            	method: 'post',
-	            	data: petData
-           		})
-        	})
+            
         })
     }
     
@@ -190,7 +159,7 @@ $(init)
         </nav>
     </div>
 <div class='container text-center'>
-    <form id='petForm' method='post'>
+    <form id='petForm' encType='multipart/form-data' action='/pet/petJoin' method='post'>
         <div class='row'>
             <div class='col mb-3'>
                   <div class="wrapper d-flex justify-content-center">
@@ -198,39 +167,27 @@ $(init)
                           <div id="image_container"></div>
                       </div>
                   </div>
-              <input type='file' id='uploadProfile' hidden>
+              <input type='file' id='uploadProfile' name='PetProfile' hidden>
               </div>
           </div>
         <div class='row'>
             <div class='col'>
-                <input type='text' class='form-control mb-3' id='petName' placeholder='반려견 이름'>
+                <input type='text' class='form-control mb-3' id='petName' name='petName' placeholder='반려견 이름'>
                 <div id="error_id" class="result-petName result-check"></div>
             </div>
-            
         </div>
         <div class='row mb-1'>
             <div class='col'>
-                <textarea class='form-control' rows='5' id='petIntro' placeholder='반려견 소개' maxlength='200'></textarea>
+                <textarea class='form-control' rows='5' id='petIntro' name='petIntro' placeholder='반려견 소개' maxlength='200'></textarea>
+                <input type='text' class='form-control mb-3' id='userId' name='userId' value='${user.userId}' placeholder='주인이름' hidden>
             </div>
         </div>
-        <div class='col gap-2 d-flex justify-content-end'>
-            <button type='button' id='addPetBtn' class='btn btn-lightgray'>
-                <span>추가</span>
-            </button>
-            <button type='button' class='btn btn-lightgray' 
-            id='delBtn'>                
-                <span>삭제</span>
-            </button>
-        </div>
-    <div class='row mt-3'>
-        <div class='col'>
-            <table class='table'>
+            <table class='table'> 
                 <tbody class='text-muted' id='pets'>
-                    <tr><td colspan='2' class='text-center'>반려견을 등록해주세요.</td></tr>              
+                    <tr><td colspan='2' class='text-center'>대표 반려견을 등록해주세요.</td></tr>              
                 </tbody>
-            </table>
+            </table> 
         </div>
-    </div>
     <div class='row p-3'>
         <button type='button' id='joinBtn' class='btn btn-orange'>가입완료</button>
     </div>    

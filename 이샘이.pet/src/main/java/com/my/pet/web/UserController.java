@@ -38,7 +38,11 @@ public class UserController {
 	
 	//메인화면
 	@GetMapping
-	public ModelAndView main(ModelAndView mv) {
+	public ModelAndView main(ModelAndView mv, HttpSession session) {
+		if(session.getAttribute("userId") == null) {
+			mv.setViewName("redirect:/login?");
+			return mv;
+		}
 		mv.setViewName("main");
 		return mv;
 	}
@@ -70,9 +74,12 @@ public class UserController {
 					Report report = reportService.getSuspended(user.getUserId());
 					mv.addObject("report", report);
 					mv.setViewName("report/suspended");
-					return mv;					
+					return mv;				
+				//관리자로그인
+				} else if (userData.getHasAdminRights() == 1) {
+					mv.setViewName("admin/main");
+					return mv;
 				}
-				
 				mv.setViewName("main");
 				return mv;
 			} else {

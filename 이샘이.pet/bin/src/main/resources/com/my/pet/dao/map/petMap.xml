@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+	<mapper namespace='com.my.pet.dao.map.PetMap'>
+		<insert id='insertPet'>
+			insert into users (pet_id, pet_name, pet_intro, pet_profile_image_filename, user_id)
+			values (pet_id_seq.nextval, #{petName}, #{petIntro}, #{petProfileImageFilename}, #{userId})
+		</insert>
+	</mapper>
