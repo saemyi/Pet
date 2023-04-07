@@ -18,5 +18,5 @@ public class Comment {
 	private LocalDateTime commentTime;
 	private int meetingId;
 	private String nickname;
-	private int replycnt; 
+	private int replyCnt; 
 }
