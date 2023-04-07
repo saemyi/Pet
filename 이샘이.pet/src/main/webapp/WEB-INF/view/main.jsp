@@ -157,7 +157,7 @@ function getMeetingsByAddress(sido, sigugun, dong) {
 }
 
 function init() {
-	getMeetingsByAddress(null, null, null)
+	getMeetingsByAddress(undefined, undefined, undefined)
 }
 
 $(init)

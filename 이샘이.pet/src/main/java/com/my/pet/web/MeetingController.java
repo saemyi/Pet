@@ -70,9 +70,6 @@ public class MeetingController {
 	
 	@PostMapping("getMeetings")
 	public List<Meeting> getMeetings(String sidoId, String sigunguId, String dongId, String userId) {
-		if(sidoId.equals("")) sidoId = null;
-		if(sigunguId.equals("")) sigunguId = null;
-		if(dongId.equals("")) dongId = null;
 		return meetingService.getMeetings(sidoId, sigunguId, dongId, userId);
 	}
 	
