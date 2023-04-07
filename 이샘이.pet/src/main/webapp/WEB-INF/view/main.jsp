@@ -59,6 +59,8 @@ $(() => {
 	jQuery('#sido').change(function () {
 		jQuery('#sigugun').show();
 		jQuery('#sigugun').empty();
+		jQuery('#dong').empty();
+		jQuery('#dong').prepend(fn_option('', '읍/면/동'));
 		jQuery('#sigugun').append(fn_option('', '시/군/구')); //
 		jQuery.each(hangjungdong.sigugun, function (idx, code) {
 			if (jQuery('#sido > option:selected').val() == code.sido)
