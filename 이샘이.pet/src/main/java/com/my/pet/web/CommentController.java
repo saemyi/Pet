@@ -37,8 +37,8 @@ public class CommentController {
 	}  
 	
 	@PostMapping("add")
-	public void addComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId) {
-		commentService.addComment(commentContent, commentTime, userId, meetingId);
+	public void addComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId,String nickname) {
+		commentService.addComment(commentContent, commentTime, userId, meetingId, nickname);
 	}
 	
 	@PutMapping("fix")

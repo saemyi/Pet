@@ -166,6 +166,15 @@ $(init)
 <body>
 <div class='row d-flex justify-content-end'>
     <nav class="navbar fixed-top bg-orange p-2">
+    <%
+if(userId == null) {
+%>
+	 <form action='login'>
+	       <button type='submit' class="loginBtn navbar-brand link-black">로그인</button>   
+	 </form>
+<%} else {%>
+ 	<a href='logout' class='logoutBtn'>로그아웃</a>
+<%} %>
         <div class='col text-center me-4'>
             <b>산책하개</b>
         </div>

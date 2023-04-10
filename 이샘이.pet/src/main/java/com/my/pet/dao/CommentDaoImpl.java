@@ -19,8 +19,8 @@ public class CommentDaoImpl implements CommentDao{
 	} 
 	
 	@Override
-	public void insertComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId) {
-		commentMap.insertComment(commentContent, commentTime, userId, meetingId);
+	public void insertComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId,String nickname) {
+		commentMap.insertComment(commentContent, commentTime, userId, meetingId, nickname);
 	}
 	
 	@Override

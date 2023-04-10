@@ -12,7 +12,7 @@
 		select  target_id, user_id, reason, report_content, is_processed
 		from reports
 		where report_id = #{reportId}
-	</select>
+	</select> 
 	
 	<select id='selectSuspended' resultType='report'>
 		select reason

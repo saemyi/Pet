@@ -42,7 +42,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
     <div class='container' id='comments'>
 		
     </div>
-    <nav class="navbar fixed-bottom bg-orange">
+    <nav class="navbar fixed-bottom bg-orange pt-0">
+    	<div id='commentErr' class='col text-center bg-white' style='color: red;'></div>
         <div class='input-group mt-2' style='padding-inline: .5rem;'>
             <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
             <button type='button' class='btn border-0 bg-white send'  onclick='CommentSend()'>
@@ -92,14 +93,14 @@ maximum-scale=1.0, minimum-scale=1.0'>
                 
                 $.each(comments, (i, comment) => {
                     commentArr.unshift(
-                        `<div class='row' name='comment' id='\${comment.commentId}'>
+                        `<div class='row' name='comment' id='\${comment.meetingId}'>
                             <div class='col'>
                                 <div class='row'>
                                     <div class='col-2'>
-                                        <button type='button' class='border-0'onclick="location.href='../login'"><b id='nickname'>\${comment.nickname}</b></button>
+                                        <button type='button' class='border-0'onclick="location.href='../login'"><b id='\${comment.userId}' name='nickname'>\${comment.nickname}</b></button>
                                     </div>
-                                    <div class='col'>
-                                        <small id='commentTime'>\${comment.commentTime}</small>
+                                    <div class='col' id='commentTime' value='\${comment.commentTime}'>
+                                        <small>\${comment.commentTime}</small>
                                     </div>
                                     <div class='col-2' id='dropmenu'>
                                         <div class='dropdown'>
@@ -108,7 +109,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                             </button>
                                             <div class='dropdown-menu'>
                                                 <nav>
-                                                    <button type='button' class='dropdown-item' onclick="CommentFix()">수정</button>
+                                                    <button type='button' class='dropdown-item' onclick="CommentFix()" id='commentFix' value='\${comment.commentId}'>수정</button>
                                                     <button type='button' class='dropdown-item' onclick="CommentDel('\${comment.commentId}')">삭제</button>
                                                 </nav>
                                             </div>
@@ -117,13 +118,13 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                 </div>
                                 <div class='row mt-2'>
                                     <div class='col m-2'>
-                                        <input type='text' class='border-0' id='commentContent' value='\${comment.commentContent}' readonly></input>
-                                        <button id='fix' style='display: none;' onclick='FixFinish()'>수정 완료</button>
+                                        <input type='text' maxlength='200'class='border-0' id='commentContent' value='\${comment.commentContent}' readonly></input>
+                                        <button id='fix' style='display: none;' class='border-0'onclick='FixFinish()'>수정 완료</button>
                                     </div>
                                 </div>
                                 <div class='row'>
                                     <div class='col'>
-                                        <input type='button' class='reply' onclick="location.href='reply'" value='답글\${comment.replycnt}'/>
+                                        <input type='button' class='reply' name='\${comment.replyCnt}' onclick="location.href='/reply'" value='답글\${comment.replyCnt}'/>
                                     </div>
                                 </div>
                             </div>
@@ -136,14 +137,15 @@ maximum-scale=1.0, minimum-scale=1.0'>
         })
     }
     listComments()   
-    function CommentSend(){ 
+	function CommentSend(){
+    	$('#commentErr').empty()
+    	if($('.comment').val()){
             let comment = {
                     commentContent: $('.comment').val(),
                     commentTime: $('#commentTime').val(),
-                    userId: 'user',
-                    meetingId: '1',
-                    nickname: 'user123',
-                    replycnt: '3'
+                    userId: $('[name="nickname"]').attr('id'),
+                    meetingId: $('[name="comment"]').attr('id'),
+                    nickname: $('[name="nickname"]').text()
             }
             
             $.ajax({
@@ -152,7 +154,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
                 data: comment,
                 success: listComments
             })
-    }
+    }else $('#commentErr').append('댓글을 입력해주세요') 
+}
     
     function CommentFix(){
     	$('#commentContent').removeAttr('readonly')
@@ -163,13 +166,13 @@ maximum-scale=1.0, minimum-scale=1.0'>
     
     function FixFinish(){
     	let comment = {
-    		commentId: $('[name="comment"]').attr('id'),
+    		commentId: $('#commentFix').val(),
     		commentContent: $('#commentContent').val(),
     		commentTime: $('#commentTime').val(),
-    		userId: 'user',
-            meetingId: '1',
-            nickname: 'user123',
-            replycnt: '3'
+    		userId: $('[name="nickname"]').attr('id'),
+            meetingId: $('[name="comment"]').attr('id'),
+            nickname: $('[name="nickname"]').text(),
+            replyCnt: $('.reply').attr('name')
     	}
     	console.log(comment)
     	$.ajax({
