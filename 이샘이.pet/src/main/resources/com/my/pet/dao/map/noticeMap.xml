@@ -37,4 +37,3 @@
 			where notice_id = #{noticeId}
 		</delete>
 	</mapper>
-	

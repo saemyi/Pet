@@ -22,7 +22,6 @@ $(() => {
 function goPage() {
 	location.href="../notice"
 }
-
 function init() {
 	$('#noticeAdd').click(() => {
 		if(isVal($('#noticeTitle')) && isVal($('#noticeContent'))){

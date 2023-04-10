@@ -77,7 +77,6 @@
     	})
     }
     $(init)
-    
 </script>
 </head>
 <body>

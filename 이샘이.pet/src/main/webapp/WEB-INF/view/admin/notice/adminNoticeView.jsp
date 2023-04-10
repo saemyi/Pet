@@ -39,7 +39,6 @@ function init() {
 		$('#modal').modal('hide')
 	})
 }
-
 $(init)
 </script>
 <style>

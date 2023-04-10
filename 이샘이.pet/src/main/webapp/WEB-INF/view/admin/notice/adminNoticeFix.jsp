@@ -49,7 +49,6 @@ $(() => {
 function goPage() {
 	location.href="../../notice"
 }
-
 </script>
 </head>
 <body>
