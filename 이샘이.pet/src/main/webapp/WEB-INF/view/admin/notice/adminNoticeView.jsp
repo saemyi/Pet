@@ -39,11 +39,9 @@ function init() {
 		$('#modal').modal('hide')
 	})
 }
-
 $(init)
 </script>
 <style>
-
 </style>
 </head>
 <body>
@@ -115,7 +113,7 @@ $(init)
                 <tr>
                     <th>내용</th>
                     <td class='text-start' id='noticeContent'>
-						${notice.noticeContent }
+						<pre>${notice.noticeContent }</pre>
                     </td>
                 </tr>
             </tbody>

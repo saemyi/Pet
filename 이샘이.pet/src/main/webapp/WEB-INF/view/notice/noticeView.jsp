@@ -40,7 +40,7 @@
             <h6 id='title'>${notice.noticeTitle}</h6>
             <hr>
             <p id='noticeconnent'>
-                ${notice.noticeContent}
+	            <pre>${notice.noticeContent}</pre>
             </p>
         </div>
     </div>

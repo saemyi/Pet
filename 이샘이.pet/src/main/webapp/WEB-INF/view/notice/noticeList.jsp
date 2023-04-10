@@ -19,7 +19,7 @@
 					noticeList.forEach(notice => {
 						notices.unshift(
 							'<li class="list-group-item">' +  
-								'<a href="notice/noticeDetail/'+ notice.noticeId + '" class="link-black"">' + 
+								'<a href="notice/noticeView/'+ notice.noticeId + '" class="link-black"">' + 
 								'<div class="row pt-2">' +
 									'<div class="col-6 pt-1">' + 
 									'<p>' + notice.noticeTitle + '</p>' +
@@ -51,8 +51,6 @@
 				}
 		})
 	}
-	
-	
 $(NoticesList)
 </script>
 <title>공지사항</title>
@@ -60,6 +58,7 @@ $(NoticesList)
     p {
     font-size: 12px;
 }
+
 </style>
 </head>
 <body>

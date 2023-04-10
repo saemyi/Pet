@@ -29,8 +29,8 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 	
 	@Override
-	public int insertNotice(String noticeTitle, String noticeContent) {
-		return noticeMap.insertNotice(noticeTitle, noticeContent);
+	public int insertNotice(String noticeTitle, String noticeContent, String userId) {
+		return noticeMap.insertNotice(noticeTitle, noticeContent, userId);
 	}
 	
 	@Override
@@ -43,4 +43,3 @@ public class NoticeDaoImpl implements NoticeDao{
 		return noticeMap.deleteNotice(noticeId);
 	}
 }
-

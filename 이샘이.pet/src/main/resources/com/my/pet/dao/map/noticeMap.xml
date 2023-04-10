@@ -23,7 +23,7 @@
 		
 		<insert id='insertNotice'>
 			insert into notices
-			values(notice_id_seq.nextval, sysdate, #{noticeTitle}, #{noticeContent}, 'admin')
+			values(notice_id_seq.nextval, sysdate, #{noticeTitle}, #{noticeContent}, #{userId})
 		</insert>
 		
 		<update id='updateNotice'>

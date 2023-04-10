@@ -29,8 +29,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
-	public void addNotice(String noticeTitle, String noticeContent) {
-		noticeDao.insertNotice(noticeTitle, noticeContent);
+	public void addNotice(String noticeTitle, String noticeContent, String userId) {
+		noticeDao.insertNotice(noticeTitle, noticeContent, userId);
 	}
 	
 	@Override
@@ -43,4 +43,3 @@ public class NoticeServiceImpl implements NoticeService{
 		noticeDao.deleteNotice(noticeid);
 	}
 }
-
