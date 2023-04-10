@@ -214,25 +214,29 @@ function init() {
 	
 	$('#participateBtn').click(() => {
 		if (isParticipationCancel) {
-			let info = {
-					meetingId: ${lastMeetingId},
-					userId: "${userId}",
-					applicantNumber: parseInt($('#applicantNumber').text()) - 1 
+			if (new Date() > new Date($('#meetingDateTime').val())) {
+				confirmModal('모임이 완료되었습니다.')
+			} else {
+				let info = {
+						meetingId: ${lastMeetingId},
+						userId: "${userId}",
+						applicantNumber: parseInt($('#applicantNumber').text()) - 1 
+				}
+				
+				$.ajax({
+					url: '/meeting/delParticipant',
+					method: 'post',
+					data: info,
+					success: processMeetingData
+				})
+				
+				$.ajax({
+					url: '/meeting/fixApplicantNumber',
+					method: 'post',
+					data: info,
+					success: processMeetingData
+				})
 			}
-			
-			$.ajax({
-				url: '/meeting/delParticipant',
-				method: 'post',
-				data: info,
-				success: processMeetingData
-			})
-			
-			$.ajax({
-				url: '/meeting/fixApplicantNumber',
-				method: 'post',
-				data: info,
-				success: processMeetingData
-			})
 		} else {
 			if (new Date() > new Date($('#meetingDateTime').val())) {
 				confirmModal('모임이 완료되었습니다.')
