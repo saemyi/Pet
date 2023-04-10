@@ -26,19 +26,25 @@ public class CommentController {
 	
 	@GetMapping
 	public ModelAndView main(ModelAndView mv) {
-		mv.setViewName("comment/commentList");
+		mv.setViewName("comment/commentView");
 		return mv;
 	}
 	
-	 
-	@GetMapping("get")
-	public List<Comment> getComments(){
-		return commentService.getComments();
+	@GetMapping("{meetingId}")
+	public ModelAndView getCommentsById(@PathVariable int meetingId, ModelAndView mv, HttpSession session) {
+		session.setAttribute("CommentsById", meetingId);
+		mv.setViewName("comment/commentView");
+		return mv;
+	}
+	
+	@GetMapping("get/{meetingId}")
+	public List<Comment> getComments(@PathVariable int meetingId){
+		return commentService.getComments(meetingId);
 	}  
 	
 	@PostMapping("add")
-	public void addComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId,String nickname) {
-		commentService.addComment(commentContent, commentTime, userId, meetingId, nickname);
+	public void addComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId) {
+		commentService.addComment(commentContent, commentTime, userId, meetingId);
 	}
 	
 	@PutMapping("fix")

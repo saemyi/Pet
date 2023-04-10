@@ -24,7 +24,7 @@ public class ReplyController {
 	
 	@GetMapping
 	public ModelAndView main(ModelAndView mv) {
-		mv.setViewName("reply/replyList");
+		mv.setViewName("comment/replyView");
 		return mv;
 	}
 	 

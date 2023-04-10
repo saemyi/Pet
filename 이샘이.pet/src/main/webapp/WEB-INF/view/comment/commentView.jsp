@@ -27,7 +27,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
 </style>
 
 <body>
-    <div class='row d-flex justify-content-end'>
+    <div class='row d-flex justify-content-end' id="${meetingId}">
         <nav class="navbar fixed-top bg-orange p-3">
             <div class='row'>
                 <div class='col d-flex justify-content-start'>
@@ -76,21 +76,15 @@ maximum-scale=1.0, minimum-scale=1.0'>
 
 
 <script>
-
     function listComments() {   
         console.log("listComments 실행")
-        $('#comments').empty()
-        
+        $('#comments').empty()       
         $.ajax({
-        url:'comment/get', 
-        dataType: 'json',
-        success: comments => {
-        	
-        	console.log(comments)
-        	
+	        url:'get/' + ${meetingId}, 
+	        dataType: 'json',
+	        success: comments => {
             if(comments.length) {
-                const commentArr = []
-                
+                const commentArr = []               
                 $.each(comments, (i, comment) => {
                     commentArr.unshift(
                         `<div class='row' name='comment' id='\${comment.meetingId}'>
@@ -136,6 +130,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
         }
         })
     }
+console.log(comments)
     listComments()   
 	function CommentSend(){
     	$('#commentErr').empty()
@@ -143,13 +138,12 @@ maximum-scale=1.0, minimum-scale=1.0'>
             let comment = {
                     commentContent: $('.comment').val(),
                     commentTime: $('#commentTime').val(),
-                    userId: $('[name="nickname"]').attr('id'),
-                    meetingId: $('[name="comment"]').attr('id'),
-                    nickname: $('[name="nickname"]').text()
+                    userId: "${userId}",
+                    meetingId: ${meetingId}          
             }
             
             $.ajax({
-                url: 'comment/add',
+                url: 'add',
                 method: 'post',
                 data: comment,
                 success: listComments
@@ -176,7 +170,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
     	}
     	console.log(comment)
     	$.ajax({
-            url: 'comment/fix',
+            url: 'fix',
             method: 'put',
             contentType: 'application/json',
         	data: JSON.stringify(comment),
@@ -192,10 +186,10 @@ maximum-scale=1.0, minimum-scale=1.0'>
         $('#okBtn').click(() => { 
         	console.log(comId)
             $.ajax({
-                url: 'comment/del/' + comId,
+                url: 'del/' + comId,
                 method: 'delete',
                 success: function(){
-                	window.location.href = '/comment'
+                	window.location.href = '/comment/'+ ${meetingId} 
                 }
             })
 

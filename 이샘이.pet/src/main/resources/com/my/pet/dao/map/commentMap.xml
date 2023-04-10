@@ -8,6 +8,7 @@
 		on c.user_id = u.user_id
 		join replies r
 		on c.comment_id = r.comment_id
+		and c.meeting_id = #{meetingId}
 		group by c.comment_id, c.comment_content, c.comment_time, c.user_id, c.meeting_id, u.nickname
 		order by comment_id ASC 
 	</select>

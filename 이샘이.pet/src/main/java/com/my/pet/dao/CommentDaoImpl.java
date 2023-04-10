@@ -14,13 +14,13 @@ public class CommentDaoImpl implements CommentDao{
 @Autowired private CommentMap commentMap;
 
 	@Override
-	public List<Comment> selectComments(){
-		return commentMap.selectComments();
+	public List<Comment> selectComments(int meetingId){
+		return commentMap.selectComments(meetingId);
 	} 
 	
 	@Override
-	public void insertComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId,String nickname) {
-		commentMap.insertComment(commentContent, commentTime, userId, meetingId, nickname);
+	public void insertComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId) {
+		commentMap.insertComment(commentContent, commentTime, userId, meetingId);
 	}
 	
 	@Override

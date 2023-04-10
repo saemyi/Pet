@@ -14,13 +14,13 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired private CommentDao commentDao;
 	
 	@Override
-	public List<Comment> getComments(){
-		return commentDao.selectComments();
+	public List<Comment> getComments(int meetingId){
+		return commentDao.selectComments(meetingId);
 	}
 	
 	@Override
-	public void addComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId,String nickname) {
-		commentDao.insertComment(commentContent, commentTime, userId, meetingId, nickname);
+	public void addComment(String commentContent, LocalDateTime commentTime, String userId, int meetingId) {
+		commentDao.insertComment(commentContent, commentTime, userId, meetingId);
 	}  
 	
 	@Override
