@@ -51,8 +51,6 @@
 				}
 		})
 	}
-	
-	
 $(NoticesList)
 </script>
 <title>공지사항</title>

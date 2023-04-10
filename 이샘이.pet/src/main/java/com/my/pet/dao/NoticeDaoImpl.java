@@ -43,4 +43,3 @@ public class NoticeDaoImpl implements NoticeDao{
 		return noticeMap.deleteNotice(noticeId);
 	}
 }
-

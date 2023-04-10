@@ -12,4 +12,3 @@ public interface NoticeMap {
 	int updateNotice(Notice notice);
 	int deleteNotice(int noticeId);
 }
-

@@ -43,7 +43,6 @@ function init() {
 $(init)
 </script>
 <style>
-
 </style>
 </head>
 <body>

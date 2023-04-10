@@ -43,4 +43,3 @@ public class NoticeServiceImpl implements NoticeService{
 		noticeDao.deleteNotice(noticeid);
 	}
 }
-

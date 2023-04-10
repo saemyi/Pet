@@ -12,4 +12,3 @@ public interface NoticeService {
 	void fixNotice(Notice notice);
 	void delNotice(int noticeid);
 }
-
