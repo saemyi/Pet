@@ -41,19 +41,7 @@ $(() => {
 </head>
 <body>
 <header>    
-    <div class='row d-flex justify-content-end'>
-        <nav class="navbar fixed-top bg-orange">
-            <i class="bi bi-chevron-left"></i>
-            <div class='mt-2 mb-1'> 
-                <span type='button' class="material-symbols-outlined">
-                    campaign
-                </span>
-                <span type='button' class="material-symbols-outlined">
-                    notifications
-                </span>   
-            </div>
-        </nav>
-    </div>
+    
 </header>
 
 <div class='container'>
@@ -98,30 +86,6 @@ $(() => {
 </div>
 </body>
 <footer>
-    <nav class="navbar fixed-bottom bg-orange">
-        <div class="container-fluid pt-3">
-            <div>
-                <li class="nav-item" type="button">
-                    <span class="material-symbols-outlined">
-                        add
-                    </span>
-                </li>
-            </div>
-            <div>
-                <li class="nav-item" type="button" onclick="location.href='user04.html'">
-                    <span class="material-symbols-outlined">
-                        format_list_bulleted
-                    </span>
-                </li>
-            </div>
-            <div>
-                <li class="nav-item" type="button">
-                    <span class="material-symbols-outlined">
-                        person
-                    </span>
-                </li>    
-            </div>
-        </div>
-    </nav>
+   
 </footer>
 </html>
