@@ -83,7 +83,7 @@ function fn_option(code, name) {
     return '<option value="' + code + '">' + name + '</option>';
 }
 
-function getMeetingData() {
+function processMeetingData() {
 	$.ajax({
 		url: '/meeting/get',
 		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
@@ -150,6 +150,11 @@ function getMeetingData() {
 				$('#deleteBtn').hide()
 				$('#participateBtn').show()
 			}
+			
+			$('#userId').css("display", "none")
+			$('#sido').css("display", "none")
+			$('#sigugun').css("display", "none")
+			$('#dong').css("display", "none")
 		}
 	})
 	
@@ -185,12 +190,7 @@ function moveToMain() {
 }
 	
 function init() {
-	$('#userId').css("display", "none")
-	$('#sido').css("display", "none")
-	$('#sigugun').css("display", "none")
-	$('#dong').css("display", "none")
-	
-	getMeetingData()
+	processMeetingData()
 	
 	$('#editBtn').click(() => {
 		window.location.href = "/meeting/fix"
@@ -211,10 +211,27 @@ function init() {
 	})
 	
 	$('#participateBtn').click(() => {
-		if (new Date() > new Date($('#meetingDateTime').val())) {
-			confirmModal('모임이 완료되었습니다.')
-		} else if (isParticipationCancel == false && $('#recruitmentNumber').text() == $('#applicantNumber').text()) {
-			confirmModal('모임이 마감되었습니다.')
+		if (isParticipationCancel) {
+			let info = {
+					meetingId: ${lastMeetingId},
+					userId: "${userId}"
+			}
+			
+			$.ajax({
+				url: '',
+				method: 'post',
+				data: info,
+				dataType: 'json',
+				success: meeting => {
+					
+				}
+			})
+		} else {
+			if (new Date() > new Date($('#meetingDateTime').val())) {
+				confirmModal('모임이 완료되었습니다.')
+			} else if (isParticipationCancel == false && $('#recruitmentNumber').text() == $('#applicantNumber').text()) {
+				confirmModal('모임이 마감되었습니다.')
+			}
 		}
 	})
 }
