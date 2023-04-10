@@ -66,10 +66,14 @@ $(() => {
 	});
 	
 	jQuery('#dong').change(function () {
-		isAddressComplete = true
 		var sido = jQuery('#sido option:selected');
 		var sigugun = jQuery('#sigugun option:selected');
 		var dong = jQuery('#dong option:selected');
+		if(dong.val()) {
+			isAddressComplete = true
+		} else {
+			isAddressComplete = false
+		}
 		
 		var addressText = sido.text() + ' ' + sigugun.text() + ' ' + dong.text(); // 시도/시군구/읍면동 이름
 		jQuery('#addressText').text(addressText);
