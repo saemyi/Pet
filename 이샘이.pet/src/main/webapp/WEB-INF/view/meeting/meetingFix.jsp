@@ -276,6 +276,33 @@ $(init)
 </form>
 <span id='applicantNumber'></span>
 </div>
+<div class='modal fade' id='modal'>
+    <div class='modal-dialog modal-dialog-centered'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='btn-close' data-bs-dismiss="modal"></button>
+            </div>
+            <div class='modal-body'>
+                <p id='modalMsg'></p>
+            </div>
+            <div class='modal-footer' id='modalBtn'>
+                <button type='button' class='btn btn-orange' id='confirmBtn' data-bs-dismiss="modal">확인</button>
+            </div>
+            <div class='modal-footer' id='modalBtnDouble'>
+                <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
+                    아니오
+                </button>
+                <button type='button' class='btn btn-orange' id='okBtn' data-bs-dismiss="modal">네</button>
+            </div>
+            <div class='modal-footer' id='logoBtn'>
+                <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
+                    취소
+                </button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+            </div>
+        </div>
+    </div>
+</div>
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
