@@ -8,7 +8,7 @@ public interface NoticeService {
 	List<Notice> getNotices();
 	List<Notice> searchNotices(String noticeTitle);
 	Notice getNotice(int noticeId);
-	void addNotice(String noticeTitle, String noticeContent);
+	void addNotice(String noticeTitle, String noticeContent, String userId);
 	void fixNotice(Notice notice);
 	void delNotice(int noticeid);
 }

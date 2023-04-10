@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.my.pet.domain.Notice;
 import com.my.pet.service.NoticeService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("admin/notice")
 public class AdminNoticeController {
@@ -52,17 +54,17 @@ public class AdminNoticeController {
 		return mv;
 	}
 	
-	@GetMapping("adminNoticeDetail/{noticeId}")
+	@GetMapping("adminNoticeView/{noticeId}")
 	public ModelAndView getNotice(@PathVariable int noticeId, ModelAndView mv) {
 		Notice notice = noticeService.getNotice(noticeId);
 		mv.addObject(notice);
-		mv.setViewName("admin/notice/adminNoticeDetail");
+		mv.setViewName("admin/notice/adminNoticeView");
 		return mv;
 	}
 	
 	@PostMapping("add")
-	public void noticeAdd(String noticeTitle, String noticeContent) {
-		noticeService.addNotice(noticeTitle, noticeContent);
+	public void noticeAdd(String noticeTitle, String noticeContent, String userId) {
+		noticeService.addNotice(noticeTitle, noticeContent, userId);
 	}
 	
 	@PutMapping("fix")

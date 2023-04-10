@@ -28,11 +28,11 @@ public class NoticeController {
 		return noticeService.getNotices();
 	}
 	
-	@GetMapping("noticeDetail/{noticeId}")
+	@GetMapping("noticeView/{noticeId}")
 	public ModelAndView getNotice(@PathVariable int noticeId, ModelAndView mv) {
 		Notice notice = noticeService.getNotice(noticeId);
 		mv.addObject(notice);
-		mv.setViewName("notice/noticeDetail");
+		mv.setViewName("notice/noticeView");
 		return mv;
 	}
 }
