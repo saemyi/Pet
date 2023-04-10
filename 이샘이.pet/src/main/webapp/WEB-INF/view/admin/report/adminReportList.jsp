@@ -52,7 +52,7 @@ function ReportsList() {
 					'<tr>' +
 						'<td>' + report.reportId + '</td>' + 
 						'<td><a href=../user/userasd/ class = a-black>' + report.targetId + '</td>' + 
-						'<td><a href=../admin/report/adminReportDetail/'+ report.reportId +' class = a-black id= reason>' + reason + '</a></td>' + 
+						'<td><a href=../admin/report/adminReportView/'+ report.reportId +' class = a-black id= reason>' + reason + '</a></td>' + 
 						'<td>' + report.userId + '</td>' +
 						'<td>' + processed + '</td>' + 
 					'</tr>'

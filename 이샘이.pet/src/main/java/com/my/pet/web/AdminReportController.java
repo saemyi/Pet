@@ -32,11 +32,11 @@ public class AdminReportController {
 	}
 	
 	
-	@GetMapping("adminReportDetail/{reportId}")
+	@GetMapping("adminReportView/{reportId}")
 	public ModelAndView getReport(@PathVariable int reportId, ModelAndView mv) {
 		Report report = reportService.getDetailReport(reportId);
 		mv.addObject("report", report);
-		mv.setViewName("admin/report/adminReportDetail");
+		mv.setViewName("admin/report/adminReportView");
 		return mv;
 	}
 }
