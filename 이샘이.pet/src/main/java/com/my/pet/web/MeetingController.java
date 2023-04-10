@@ -111,4 +111,19 @@ public class MeetingController {
 	public void delMeeting(@PathVariable int meetingId) {
 		meetingService.delMeeting(meetingId);
 	}
+	
+	@PostMapping("addParticipant")
+	public void addParticipant(int meetingId, String userId) {
+		meetingService.addParticipant(meetingId, userId);
+	}
+	
+	@PostMapping("fixApplicantNumber")
+	public void fixApplicantNumber(int meetingId, int applicantNumber) {
+		meetingService.fixApplicantNumber(meetingId, applicantNumber);
+	}
+	
+	@PostMapping("delParticipant")
+	public void delParticipant(int meetingId, String userId) {
+		meetingService.delParticipant(meetingId, userId);
+	}
 }
