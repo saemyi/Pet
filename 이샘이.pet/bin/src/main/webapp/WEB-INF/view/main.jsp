@@ -180,9 +180,9 @@ function getMeetingsByAddress(sido, sigugun, dong) {
 	})
 }
 
-function getAllMeetingsData() {
+function getMeetingsData() {
 	$.ajax({
-		url: 'meeting/getAllMeetings',
+		url: 'meeting/getMeetings',
 		dataType: 'json',
 		success: meetings => {
 			if(meetings.length) {
@@ -241,7 +241,7 @@ function getAllMeetingsData() {
 }
 
 function init() {
-	getAllMeetingsData()
+	getMeetingsData()
 }
 
 $(init)
