@@ -27,21 +27,7 @@
 		</where>
 		order by meeting_time desc
 	</select>
-	<!--
-	<select id='selectMeetingsByAddress' resultType='meeting'>
-		select *
-		from meetings
-		where sido_id = #{sidoId} and sigungu_id = #{sigunguId} and dong_id = #{dongId}
-		order by meeting_time desc
-	</select>
 	
-	<select id='selectMeetingsByCreator' resultType='meeting'>
-		select *
-		from meetings
-		where user_id = #{userId}
-		order by meeting_time desc
-	</select>
-	-->
 	<select id='selectMeeting' resultType='meeting'>
 		select *
 		from meetings
@@ -94,7 +80,7 @@
 		where meeting_id = #{meetingId}
 	</select>
 	
-	<update id='insertParticipants'>
+	<update id='insertParticipant'>
 		insert into participants (participant_id, meeting_id, user_id)
 		values (participant_id_seq.nextval, #{meetingId}, #{userId})
 	</update>
@@ -105,7 +91,7 @@
 		where meeting_id = #{meetingId}
 	</update>
 	
-	<delete id='deleteParticipants'>
+	<delete id='deleteParticipant'>
 		delete participants
 		where meeting_id = #{meetingId} and user_id = #{userId}
 	</delete>

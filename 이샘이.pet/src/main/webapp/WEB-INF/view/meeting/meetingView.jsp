@@ -162,6 +162,8 @@ function processMeetingData() {
 		meetingId: ${lastMeetingId},
 		userId: "${userId}"
 	}
+	console.log(${lastMeetingId})
+	console.log("${userId}")
 	
 	$.ajax({
 		url: '/meeting/getMeetingByIdAndParticipant',
@@ -214,23 +216,48 @@ function init() {
 		if (isParticipationCancel) {
 			let info = {
 					meetingId: ${lastMeetingId},
-					userId: "${userId}"
+					userId: "${userId}",
+					applicantNumber: parseInt($('#applicantNumber').text()) - 1 
 			}
 			
 			$.ajax({
-				url: '',
+				url: '/meeting/delParticipant',
 				method: 'post',
 				data: info,
-				dataType: 'json',
-				success: meeting => {
-					
-				}
+				success: processMeetingData
+			})
+			
+			$.ajax({
+				url: '/meeting/fixApplicantNumber',
+				method: 'post',
+				data: info,
+				success: processMeetingData
 			})
 		} else {
 			if (new Date() > new Date($('#meetingDateTime').val())) {
 				confirmModal('모임이 완료되었습니다.')
 			} else if (isParticipationCancel == false && $('#recruitmentNumber').text() == $('#applicantNumber').text()) {
 				confirmModal('모임이 마감되었습니다.')
+			} else {
+				let info = {
+						meetingId: ${lastMeetingId},
+						userId: "${userId}",
+						applicantNumber: parseInt($('#applicantNumber').text()) + 1 
+				}
+				
+				$.ajax({
+					url: '/meeting/addParticipant',
+					method: 'post',
+					data: info,
+					success: processMeetingData
+				})
+				
+				$.ajax({
+					url: '/meeting/fixApplicantNumber',
+					method: 'post',
+					data: info,
+					success: processMeetingData
+				})
 			}
 		}
 	})
