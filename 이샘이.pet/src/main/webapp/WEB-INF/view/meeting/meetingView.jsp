@@ -166,7 +166,7 @@ function processMeetingData() {
 	console.log("${userId}")
 	
 	$.ajax({
-		url: '/meeting/getMeetingByIdAndParticipant',
+		url: 'getMeetingByIdAndParticipant',
 		method: 'post',
 		data: info,
 		dataType: 'json',
@@ -186,16 +186,16 @@ function processMeetingData() {
 		}
 	})
 }
-	
+
 function moveToMain() {
 	window.location.href = "/"
 }
-	
+
 function init() {
 	processMeetingData()
 	
 	$('#editBtn').click(() => {
-		window.location.href = "/meeting/fix"
+		window.location.href = "fix"
 	})
 	
 	$('#deleteBtn').click(() => {
@@ -204,7 +204,7 @@ function init() {
 	
 	$('#okBtn').click(() => {
 		$.ajax({
-			url: '/meeting/del/' + "${lastMeetingId}",
+			url: 'del/' + "${lastMeetingId}",
 			method: 'delete',
 			success: moveToMain
 		})
@@ -224,14 +224,14 @@ function init() {
 				}
 				
 				$.ajax({
-					url: '/meeting/delParticipant',
+					url: '../participant/delParticipant',
 					method: 'post',
 					data: info,
 					success: processMeetingData
 				})
 				
 				$.ajax({
-					url: '/meeting/fixApplicantNumber',
+					url: '../participant/fixApplicantNumber',
 					method: 'post',
 					data: info,
 					success: processMeetingData
@@ -250,14 +250,14 @@ function init() {
 				}
 				
 				$.ajax({
-					url: '/meeting/addParticipant',
+					url: '../participant/addParticipant',
 					method: 'post',
 					data: info,
 					success: processMeetingData
 				})
 				
 				$.ajax({
-					url: '/meeting/fixApplicantNumber',
+					url: '../participant/fixApplicantNumber',
 					method: 'post',
 					data: info,
 					success: processMeetingData
@@ -337,7 +337,7 @@ $(init)
 			</div>
 			<div class='col-3'>
 				<div class='mb-3 align-baseline d-flex justify-content-start' id='participantStatus'>
-					<a href="/meeting/participantView" style="text-decoration: none; color: black;"><b class="text-primary">
+					<a href="/participant/participantView" style="text-decoration: none; color: black;"><b class="text-primary">
 						<span id='applicantNumber'></span>/<span id='recruitmentNumber'></span>
 					</b><small>참여중</small></a>
 				</div>
@@ -363,7 +363,7 @@ $(init)
 							</button>
 						</div>
 					</div>
-					<div class='col p-1' onclick="location.href='/comment'">
+					<div class='col p-1' onclick="location.href='../comment/${lastMeetingId}'">
 						<small>댓글</small>
 						<i class="bi bi-chat-square-text"></i>
 					</div>

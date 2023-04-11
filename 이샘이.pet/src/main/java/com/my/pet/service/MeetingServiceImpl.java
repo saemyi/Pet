@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.my.pet.dao.MeetingDao;
 import com.my.pet.domain.Meeting;
-import com.my.pet.domain.Participant;
 
 @Service
 public class MeetingServiceImpl implements MeetingService {
@@ -55,30 +54,5 @@ public class MeetingServiceImpl implements MeetingService {
 	@Override
 	public void delMeeting(int meetingId) {
 		meetingDao.deleteMeeting(meetingId);
-	}
-	
-	@Override
-	public Participant getMeetingCreator(int meetingId) {
-		return meetingDao.selectMeetingCreator(meetingId);
-	}
-	
-	@Override
-	public List<Participant> getParticipants(int meetingId) {
-		return meetingDao.selectParticipants(meetingId);
-	}
-	
-	@Override
-	public void addParticipant(int meetingId, String userId) {
-		meetingDao.insertParticipant(meetingId, userId);
-	}
-	
-	@Override
-	public void fixApplicantNumber(int meetingId, int applicantNumber) {
-		meetingDao.updateApplicantNumber(meetingId, applicantNumber);
-	}
-	
-	@Override
-	public void delParticipant(int meetingId, String userId) {
-		meetingDao.deleteParticipant(meetingId, userId);
 	}
 }

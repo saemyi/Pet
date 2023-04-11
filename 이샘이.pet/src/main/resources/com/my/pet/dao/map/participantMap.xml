@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN' 
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.my.pet.dao.map.ParticipantMap'>
+	<select id='selectMeetingCreator' resultType='participant'>
+		select user_id, user_intro, user_profile_image_filename
+		from meetings m join users u
+		using (user_id)
+		where meeting_id = #{meetingId}
+	</select>
+	
+	<select id='selectParticipants' resultType='participant'>
+		select user_id, user_intro, user_profile_image_filename
+		from participants p join users u
+		using (user_id)
+		where meeting_id = #{meetingId}
+	</select>
+	
+	<update id='insertParticipant'>
+		insert into participants (participant_id, meeting_id, user_id)
+		values (participant_id_seq.nextval, #{meetingId}, #{userId})
+	</update>
+	
+	<update id='updateApplicantNumber'>
+		update meetings
+		set applicant_number = #{applicantNumber}
+		where meeting_id = #{meetingId}
+	</update>
+	
+	<delete id='deleteParticipant'>
+		delete participants
+		where meeting_id = #{meetingId} and user_id = #{userId}
+	</delete>
+</mapper>

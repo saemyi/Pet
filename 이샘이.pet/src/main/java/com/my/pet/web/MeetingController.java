@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.domain.Meeting;
-import com.my.pet.domain.Participant;
 import com.my.pet.service.MeetingService;
 
 import jakarta.servlet.http.HttpSession;
@@ -54,18 +53,6 @@ public class MeetingController {
 	public Meeting getMeeting(HttpSession session) {
 		int meetingId = (int)session.getAttribute("lastMeetingId");
 		return meetingService.getMeeting(meetingId);
-	}
-	
-	@GetMapping("getMeetingCreator")
-	public Participant getMeetingCreator(HttpSession session) {
-		int meetingId = (int)session.getAttribute("lastMeetingId");
-		return meetingService.getMeetingCreator(meetingId);
-	}
-	
-	@GetMapping("getParticipants")
-	public List<Participant> getParticipants(HttpSession session) {
-		int meetingId = (int)session.getAttribute("lastMeetingId");
-		return meetingService.getParticipants(meetingId);
 	}
 	
 	@PostMapping("getMeetings")
@@ -110,20 +97,5 @@ public class MeetingController {
 	@DeleteMapping("del/{meetingId}")
 	public void delMeeting(@PathVariable int meetingId) {
 		meetingService.delMeeting(meetingId);
-	}
-	
-	@PostMapping("addParticipant")
-	public void addParticipant(int meetingId, String userId) {
-		meetingService.addParticipant(meetingId, userId);
-	}
-	
-	@PostMapping("fixApplicantNumber")
-	public void fixApplicantNumber(int meetingId, int applicantNumber) {
-		meetingService.fixApplicantNumber(meetingId, applicantNumber);
-	}
-	
-	@PostMapping("delParticipant")
-	public void delParticipant(int meetingId, String userId) {
-		meetingService.delParticipant(meetingId, userId);
 	}
 }
