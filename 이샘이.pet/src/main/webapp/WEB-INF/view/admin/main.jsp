@@ -125,15 +125,15 @@ $(init)
                     <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="./main">회원</a>
+                        <a class="nav-link" href="../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="./meeting">모임</a>
+                        <a class="nav-link" href="./meeting/01.html">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="./admin/notice">공지</a>
+                        <a class="nav-link" href="./notice">공지</a>
                         </li>
-                        <li class="nav-item"> 
+                        <li class="nav-item">
                         <a class="nav-link" href="./report">신고</a>
                         </li>
                         <li class="nav-item">
@@ -142,7 +142,7 @@ $(init)
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" href="logout"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" href="./user/01.html"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>
@@ -153,9 +153,9 @@ $(init)
     <div class='col'>
         <div class="input-group mt-2 gap-2 wrap d-flex justify-content-center">
             <mx-auto>
-                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
+                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search" id="searchValue">
             </mx-auto>
-            <button class="btn botton-orange" type="submit" id="button-addon2">검색</button>
+            <button class="btn botton-orange" type="submit" id="search">검색</button>
         </div>
     </div>
 </div>
@@ -164,7 +164,7 @@ $(init)
         <table class='table text-center'>
             <div class='gap-2 d-flex justify-content-end'>
                 <span class='label a-gray'>총 회원수 : </span>
-                <span class='label a-gray'>1953</span>
+                <span class='label a-gray' id='userCount'></span>
             </div> 
             <thead class='table'>
                 <tr><th>아이디</th><th>닉네임</th><th>이름</th><th>전화번호</th><th>이메일</th><th>이용정지</th></tr>
@@ -186,11 +186,6 @@ $(init)
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">4</a></li>
                     <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                    <li class="page-item"><a class="page-link" href="#">10</a></li>
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
