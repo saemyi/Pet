@@ -77,7 +77,7 @@ $(() => {
             <p><b>참여 모임</b></p>
         </div>
         <div class='row' >
-            <div class='col card-start' hidden>
+            <div class='col participating-meeting-start'>
                 <div class='row mt-auto'>
                     <div class='col'>
                         <div class='mb-2'>
@@ -115,10 +115,6 @@ $(() => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class='row'>
-            <div class='col card-start'>
                 <div class='row mt-auto'>
                     <div class='col'>
                         <div class='mb-2'>
@@ -162,7 +158,7 @@ $(() => {
             <p><b>내가 만든 모임</b></p>
         </div>
         <div class='row'>
-            <div class='col card-start'>
+            <div class='col my-creation-start'>
                 <p class='text-center text-secondary mt-3'>내가 만든 모임이 없습니다.</p>
             </div>
         </div>

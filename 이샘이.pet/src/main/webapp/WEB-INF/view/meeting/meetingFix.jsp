@@ -93,7 +93,7 @@ function moveToMeetingView() {
 
 function getMeetingData() {
 	$.ajax({
-		url: '/meeting/get',
+		url: 'get',
 		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
 		// method 생략: get
 		success: meeting => {
@@ -167,7 +167,7 @@ function init() {
 			}
 
             $.ajax({
-            	url: '/meeting/fix',
+            	url: 'fix',
             	method: 'put',
             	contentType: 'application/json',
             	data: JSON.stringify(meeting),

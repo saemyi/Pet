@@ -117,7 +117,7 @@ function init() {
 			}
 			
 			$.ajax({
-				url: '/meeting/add',
+				url: 'add',
 				method: 'post',
 				data: meeting,
 				success: moveToMeetingView
