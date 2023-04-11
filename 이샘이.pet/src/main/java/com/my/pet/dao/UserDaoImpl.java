@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.my.pet.dao.map.UserMap;
 import com.my.pet.domain.User;
-import com.my.pet.domain.UserDto;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -24,7 +23,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Override
-	public UserDto selectUser(String userId, String pw) {
+	public User selectUser(String userId, String pw) {
 		return userMap.selectUser(userId, pw);
 	} 
 	

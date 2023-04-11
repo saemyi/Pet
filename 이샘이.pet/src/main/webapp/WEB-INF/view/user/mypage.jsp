@@ -27,6 +27,8 @@ $(() => {
 			url: '/getUser',
 			dataType: 'json',
 			success: user => {
+				console.log()
+				$('#userProfile').attr('value', '/attach/'(user.userProfileImageName)'')
 				$('#userNickname').text(user.nickname)
 				$('#userIntro').text(user.userIntro)
 			}
@@ -58,6 +60,7 @@ $(mypage)
 <body>
 <div class='container mb-5'>
     <div class='row p-3 d-flex justify-content-center'>
+    	<img src='<c:url value=""/>'/><br>
         <div class='box text-center p-2'>
             <p class='mt-5'>프로필이미지</p>
         </div>

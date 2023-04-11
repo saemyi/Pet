@@ -65,7 +65,9 @@ public class UserController {
 	@PostMapping("login")
 	public ModelAndView login(ModelAndView mv, @ModelAttribute("user") UserDto user, String rememberMe,
 			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-			UserDto userData = userService.loginUser(user.getUserId(), user.getPw());
+			User userData = userService.loginUser(user.getUserId(), user.getPw());
+			System.out.println(user.getUserId() + user.getPw());
+			System.out.println(userData);
 
 			if(userData != null) {
 				session.setAttribute("userId", user.getUserId());
@@ -83,7 +85,7 @@ public class UserController {
 					return mv;				
 				//관리자로그인
 				} else if (userData.getHasAdminRights() == 1) {
-					mv.setViewName("redirect:/");
+					mv.setViewName("redirect:/admin");
 					return mv;
 				}
 				mv.setViewName("redirect:/");
@@ -113,7 +115,7 @@ public class UserController {
 	
 	//회원정보 pet으로 넘기기
 	@PostMapping("userJoin")
-	public ModelAndView joinUser(ModelAndView mv, @Valid UserDto userDto,User user, 
+	public ModelAndView joinUser(ModelAndView mv, @Valid UserDto userDto, User user, 
 			BindingResult bindingResult ,RedirectAttributes redirect) {
 		/* if(bindingResult.hasErrors()) { */
 			System.out.println(userDto);
@@ -148,7 +150,7 @@ public class UserController {
 		}
 		
 		@GetMapping("getUser")
-		public UserDto getUser(HttpSession session) {
+		public User getUser(HttpSession session) {
 			String userId = (String)session.getAttribute("userId");
 			System.out.println(userId);
 			return userService.getMypage(userId);
