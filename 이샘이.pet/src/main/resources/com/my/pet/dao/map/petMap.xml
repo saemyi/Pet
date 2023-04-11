@@ -6,4 +6,10 @@
 			insert into pets (pet_id, pet_name, pet_intro, pet_profile_image_filename, user_id)
 			values (pet_id_seq.nextval, #{petName}, #{petIntro}, #{petProfileImageFilename}, #{userId})
 		</insert>
+		
+		<select id='selectPets' resultType='pet'>
+			select *
+			from pets
+			where user_id = #{userId} 
+		</select>
 	</mapper> 
