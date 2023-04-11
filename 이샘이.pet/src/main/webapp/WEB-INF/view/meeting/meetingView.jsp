@@ -151,10 +151,10 @@ function processMeetingData() {
 				$('#participateBtn').show()
 			}
 			
-			$('#userId').css("display", "none")
-			$('#sido').css("display", "none")
+//			$('#userId').css("display", "none")
+//			$('#sido').css("display", "none")
 			$('#sigugun').css("display", "none")
-			$('#dong').css("display", "none")
+//			$('#dong').css("display", "none")
 		}
 	})
 	
@@ -380,20 +380,20 @@ $(init)
 		</div>
 		<div class='row'>
 			<div class='col'>
-				<span id='userId'></span>
+				<span id='userId' style='display:none;'></span>
 				<div class='row'>
 					<div class='col'>
-						<select class='form-select' name='sido' id='sido'>
+						<select class='form-select' name='sido' id='sido' style='display:none;'>
 							<option value=''>시/도</option>
 						</select>
 					</div>
 					<div class='col'>
-						<select class='form-select' name='sigugun' id='sigugun'>
+						<select class='form-select' name='sigugun' id='sigugun' style='display:none;'>
 							<option value=''>시/군/구</option>
 						</select>
 					</div>
 					<div class='col'>
-						<select class='form-select' name='dong' id='dong'>
+						<select class='form-select' name='dong' id='dong' style='display:none;'>
 							<option value=''>읍/면/동</option>
 						</select>
 					</div>
