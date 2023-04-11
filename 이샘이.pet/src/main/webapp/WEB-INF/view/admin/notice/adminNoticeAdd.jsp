@@ -20,7 +20,7 @@ $(() => {
 })
 
 function goPage() {
-	location.href="../notice"
+	location.replace("../notice")
 }
 function init() {
 	$('#noticeAdd').click(() => {

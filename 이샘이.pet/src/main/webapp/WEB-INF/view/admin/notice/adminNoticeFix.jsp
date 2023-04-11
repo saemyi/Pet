@@ -39,7 +39,7 @@ $(() => {
       })
     
 function goPage() {
-   location.href="../adminNoticeView/" + ${notice.noticeId}
+   location.replace("../adminNoticeView/" + ${notice.noticeId})
 }
 </script>
 </head>
