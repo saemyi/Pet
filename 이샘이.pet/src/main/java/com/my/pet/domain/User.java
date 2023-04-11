@@ -16,7 +16,7 @@ public class User {
 	private String pw;
 	private String userName; 
     private String userIntro; 
-    private String profileImageFilename;
+    private String userProfileImageFilename;
     private String phone;
     private String email;
     private String address;
@@ -33,4 +33,4 @@ public class User {
     private int isNotifyReply;
     private int isNotifyMeetingDeletion;
     private int isNotifyMeetingReOpening;
-}   
+}

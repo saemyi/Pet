@@ -2,6 +2,7 @@ package com.my.pet.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.pet.domain.Meeting;
 import com.my.pet.domain.Pet;
 import com.my.pet.domain.PetDto;
 import com.my.pet.service.PetService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("pet")
@@ -42,5 +46,11 @@ public class PetController {
 		try {
 			file.transferTo(new File(filename));
 		} catch(IOException e) {}
+	}
+	
+	@GetMapping("get")
+	public List<Pet> getPets(HttpSession session) {
+		String userId = (String)session.getAttribute("userId");
+		return petService.getPets(userId);
 	}
 }

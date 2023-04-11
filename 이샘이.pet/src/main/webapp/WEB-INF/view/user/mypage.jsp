@@ -1,4 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,21 +23,55 @@ $(() => {
 	
 })
 
-	function mypage() {
+	function mypage() { 
 		$.ajax({
 			url: '/getUser',
 			dataType: 'json',
 			success: user => {
-				console.log()
-				$('#userProfile').attr('value', '/attach/'(user.userProfileImageName)'')
+				if(user.userProfileImageFilename != null) {
+				$('#userMypage').html(`<div class='box text-center p-2 image-box' id='userProfileImage'></div>
+				        <div class='col-7 mb-3'>
+			            <h5><b id='userNickname'></b></h5><hr>
+			            <p id='userIntro'></p>
+			        	</div>`)
+				$('#userProfileImage').html("<img id='userImage' class='image-thumbnail'/>")
+				$('#userImage').attr('src', '<c:url value="/attach/'+ user.userProfileImageFilename + '"/>')
+				} else {
+					$('#userMypage').html(`<div class='box text-center p-2 image-box' id='userProfileImage'></div>
+					        <div class='col-7 mb-3'>
+				            <h5><b id='userNickname'></b></h5><hr>
+				            <p id='userIntro'></p>
+				        	</div>`)
+					$('#userProfileImage').html("<p class='mt-5'>프로필이미지</p>")
+				}
 				$('#userNickname').text(user.nickname)
 				$('#userIntro').text(user.userIntro)
 			}
 		})
 	}
 	
+	function getPets() {
+		$('#pets').empty()
+		
+		$.ajax({
+			url: '/pet/get',
+			success: petsList => {
+				console.log(petsList)
+				if(petsList.length) {
+					pets = []
+					petsList.forEach(pet => {
+						console.log(pet)
+						pets.unshift(
+								pet.petName
+						)
+					})
+				}
+			}
+		})
+	}
+	
 $(mypage)
-
+$(getPets)
 </script>
 <header>
     <div class='row d-flex justify-content-end'>
@@ -52,23 +87,13 @@ $(mypage)
             <div class='mt-2 mb-1'>
                 <i class="bi bi-gear-fill" type='button' onclick="location.href='./setting'"></i>
             </div>
-            <img src='<c:url value="/attach/"/>'/><br>
         </nav>
     </div>
 </header>
 <body>
 <body>
 <div class='container mb-5'>
-    <div class='row p-3 d-flex justify-content-center'>
-    	<img src='<c:url value=""/>'/><br>
-        <div class='box text-center p-2'>
-            <p class='mt-5'>프로필이미지</p>
-        </div>
-        <div class='col-7 mb-3'>
-            <h5><b id='userNickname'></b></h5><hr>
-            <p id='userIntro'>
-            </p>
-        </div>
+    <div class='row p-3 d-flex justify-content-center' id='userMypage'>
     </div>
     <div class='row p-3'>
             <button type='button' class='btn btn-orange mb-3' onclick="location.href='../meeting/04.html'">내모임 보기</button>
@@ -80,21 +105,22 @@ $(mypage)
             </div>
         </div>
     </div>
-    <div class="card shadow mb-3">
-        <div class="card-body">
-            <div class="row">
-                <div class='petBox text-center p-3'>
-                    <p class='mt-4'>펫이미지</p>
-                </div>
-                <div class="col-8">
-                    <h6><b>뽀실이</b></h6>
-                    <hr>
-                    <p>말티즈 10살 남자아이에요! 개껌 먹는걸 제일 좋아한답니다!
-                    </p>
-                </div>
+<div id='pets'>
+<div class="card shadow mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class='petBox text-center p-3'>
+                <p class='mt-4'>펫이미지</p>
+            </div>
+            <div class="col-8">
+                <h6><b>뽀실이</b></h6>
+                <hr>
+                <p>말티즈 10살 남자아이에요! 개껌 먹는걸 제일 좋아한답니다!
+                </p>
             </div>
         </div>
     </div>
+</div>
 <div class="card shadow mb-3">
     <div class="card-body">
         <div class="row">
@@ -110,6 +136,7 @@ $(mypage)
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 </body>

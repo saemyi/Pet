@@ -137,7 +137,7 @@ $(upLoadImg)
                       </div>
                   </div>
               <input type='file' id='uploadProfile' name='PetProfile' hidden>
-              </div>${user.detailedAddress}
+              </div>
           </div>
         <div class='row'>
             <div class='col'>

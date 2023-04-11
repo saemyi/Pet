@@ -129,7 +129,7 @@ public class UserController {
 			 */
 			String filename = userDto.getUserProfile().getOriginalFilename();
 			saveFile(attachPath + "/" + filename, userDto.getUserProfile());
-			user.setProfileImageFilename(filename);
+			user.setUserProfileImageFilename(filename);
 			redirect.addFlashAttribute("user", user);
 			mv.setViewName("redirect:pet/petJoin");
 			/* } */
@@ -152,7 +152,6 @@ public class UserController {
 		@GetMapping("getUser")
 		public User getUser(HttpSession session) {
 			String userId = (String)session.getAttribute("userId");
-			System.out.println(userId);
 			return userService.getMypage(userId);
 		}
 		
