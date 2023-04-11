@@ -5,7 +5,8 @@
 	<select resultMap='replyMap' id='selectReplies'>
 		select r.reply_id, r.reply_content, r.reply_time, r.user_id, r.comment_id, u.nickname 
 		from replies r join users u 
-		on r.user_id = u.user_id 
+		on r.user_id = u.user_id
+		where r.comment_id = #{commentId} 
 		order by reply_id ASC 
 	</select>
 	

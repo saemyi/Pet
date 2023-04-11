@@ -14,8 +14,8 @@ public class ReplyDaoImpl implements ReplyDao{
 @Autowired private ReplyMap replyMap;
 	
 	@Override
-	public List<Reply> selectReplies(){
-		return replyMap.selectReplies();
+	public List<Reply> selectReplies(int commentId){
+		return replyMap.selectReplies(commentId);
 	} 
 	
 	@Override

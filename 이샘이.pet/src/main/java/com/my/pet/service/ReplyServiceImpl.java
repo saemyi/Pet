@@ -14,8 +14,8 @@ public class ReplyServiceImpl implements ReplyService{
 	@Autowired private ReplyDao replyDao;
 	
 	@Override
-	public List<Reply> getReplies(){
-		return replyDao.selectReplies();
+	public List<Reply> getReplies(int commentId){
+		return replyDao.selectReplies(commentId);
 	}
 	
 	@Override

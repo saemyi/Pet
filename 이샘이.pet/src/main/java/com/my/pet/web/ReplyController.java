@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.my.pet.domain.Reply;
 import com.my.pet.service.ReplyService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("reply")
 public class ReplyController {
@@ -27,10 +29,17 @@ public class ReplyController {
 		mv.setViewName("comment/replyView");
 		return mv;
 	}
-	 
-	@GetMapping("get")
-	public List<Reply> getReplies(){
-		return replyService.getReplies();
+	
+	@GetMapping("{commentId}")
+	public ModelAndView getRepliesById(@PathVariable int commentId, ModelAndView mv, HttpSession session) {
+		session.setAttribute("RepliesById", commentId);
+		mv.setViewName("reply/replyView");
+		return mv;
+	}
+	
+	@GetMapping("get/{commentId}")
+	public List<Reply> getReplies(@PathVariable int commentId){
+		return replyService.getReplies(commentId);
 	}  
 	
 	@PostMapping("add")

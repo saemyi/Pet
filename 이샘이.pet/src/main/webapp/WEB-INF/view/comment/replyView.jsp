@@ -25,16 +25,16 @@ maximum-scale=1.0, minimum-scale=1.0'>
 }
 </style>
 <script>
-function listReplies() {  	 
+function listReplies() { 
+	console.log("listReplies 실행")
 	 $('#replies').empty()
 	 
 	 $.ajax({
-		 url:'reply/get', 
+		 url:'get/' + ${replyId}}, 
 		 dataType: 'json',
 		 success: replies => {
 			 if(replies.length) {
-				 const replyArr = []
-				 
+				 const replyArr = []				 
 				 $.each(replies, (i, reply) => {
 					 replyArr.unshift(
 							 `<div class='row'>
@@ -44,21 +44,33 @@ function listReplies() {
 							        <div class='col'>
 							            <div class='row'>
 							                <div class='col-2'>
-							                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b>\${reply.nickname}</b></button>
+							                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b id='\${comment.userId}' name='nickname'>\${reply.nickname}</b></button>
 							                </div>
 							                <div class='col'>
-							                    <small>2023.03.16 11:48:14</small>
+							                    <small id='replyTime' value='\${reply.replyTime}'>\${reply.replyTime}</small>
+							                </div>
+							                <div class='col-2'>
+							                    <div class='dropdown'>
+							                        <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
+							                            <i class='bi bi-three-dots fa-2x'></i>
+							                        </button>
+							                        <div class='dropdown-menu'>
+							                            <nav>
+							                                <button class='dropdown-item' onclick="ReplyFix(\${reply.replyId})" id='replyFix' value='\${reply.replyId}'>수정</button>
+							                                <button type='button'class='dropdown-item' onclick="ReplyDel(\${reply.replyId})">삭제</button>
+							                            </nav>
+							                        </div>
+							                    </div>
 							                </div>
 							            </div>
 							            <div class='row mt-2'>
-							                <div class='col m-2'>
-							                    <p>반가워요! 강아지들 소개 보고 왔는데 두마리 다 참 귀엽네요 ㅎㅎ 저희 강아지는 치와와에요</p>
+							                <div class='col m-2 mb-0'>
+							                	<p><textarea cols='40' rows='3'id='replyContent\${reply.replyId}' class='border-0' style='resize: none;'readonly>\${reply.replyContent}</textarea></p>
+	                                        	<button id='fix\${reply.reply}' style='display: none;' class='border-0'onclick='FixFinish(\${reply.replyId})'>수정 완료</button>
 							                </div>
 							            </div>
 							        </div>
-							 </div><hr>
-							 `)
-				        	
+							  </div><hr>`)
 				 })
 				 $('#replies').append(replyArr.join(''))
 			 } else $('#replies').append(
@@ -71,15 +83,14 @@ function ReplySend(){
         let reply = {
                 replyContent: $('.reply').val(),
                 replyTime: $('#commentTime').val(),
-                userId: 'user',
+                userId: '${userId}',
                 commentId: '1',
-                nickname: 'user123'
         }
         
         $.ajax({
-            url: 'comment/add',
+            url: 'add',
             method: 'post',
-            data: comment,
+            data: reply,
             success: listComments
         })
 }

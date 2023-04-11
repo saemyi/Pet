@@ -93,8 +93,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                     <div class='col-2'>
                                         <button type='button' class='border-0'onclick="location.href='../login'"><b id='\${comment.userId}' name='nickname'>\${comment.nickname}</b></button>
                                     </div>
-                                    <div class='col' id='commentTime' value='\${comment.commentTime}'>
-                                        <small>\${comment.commentTime}</small>
+                                    <div class='col'>
+                                        <small id='commentTime' value='\${comment.commentTime}'>\${comment.commentTime}</small>
                                     </div>
                                     <div class='col-2' id='dropmenu'>
                                         <div class='dropdown'>
@@ -103,22 +103,22 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                             </button>
                                             <div class='dropdown-menu'>
                                                 <nav>
-                                                    <button type='button' class='dropdown-item' onclick="CommentFix()" id='commentFix' value='\${comment.commentId}'>수정</button>
-                                                    <button type='button' class='dropdown-item' onclick="CommentDel('\${comment.commentId}')">삭제</button>
+                                                    <button type='button' class='dropdown-item' onclick="CommentFix(\${comment.commentId})" id='commentFix' value='\${comment.commentId}'>수정</button>
+                                                    <button type='button' class='dropdown-item' onclick="CommentDel(\${comment.commentId})">삭제</button>
                                                 </nav>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class='row mt-2'>
-                                    <div class='col m-2'>
-                                        <input type='text' maxlength='200'class='border-0' id='commentContent' value='\${comment.commentContent}' readonly></input>
-                                        <button id='fix' style='display: none;' class='border-0'onclick='FixFinish()'>수정 완료</button>
+                                    <div class='col m-2 mb-0'>
+                                    	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0' style='resize: none;'readonly>\${comment.commentContent}</textarea></p>
+                                        <button id='fix\${comment.commentId}' style='display: none;' class='border-0'onclick='FixFinish(\${comment.commentId})'>수정 완료</button>
                                     </div>
                                 </div>
                                 <div class='row'>
                                     <div class='col'>
-                                        <input type='button' class='reply' name='\${comment.replyCnt}' onclick="location.href='/reply'" value='답글\${comment.replyCnt}'/>
+                                        <input type='button' class='reply' name='\${comment.replyCnt}' onclick="location.href='/reply/\${comment.commentId}'" value='답글\${comment.replyCnt}'/>
                                     </div>
                                 </div>
                             </div>
@@ -141,32 +141,31 @@ console.log(comments)
                     userId: "${userId}",
                     meetingId: ${meetingId}          
             }
+           	if(comment.userId == ""){
+           		window.location.href = '/login'
+           	} else {
+           		$.ajax({
+                    url: 'add',
+                    method: 'post',
+                    data: comment,
+                    success: listComments
+                })
+           	}
             
-            $.ajax({
-                url: 'add',
-                method: 'post',
-                data: comment,
-                success: listComments
-            })
+            $('.comment').val('') 
     }else $('#commentErr').append('댓글을 입력해주세요') 
 }
-    
-    function CommentFix(){
-    	$('#commentContent').removeAttr('readonly')
-    	$('#fix').removeAttr('style')
-    	console.log($('[name="comment"]').attr('id'))
-    	
+let comId = 0;   
+    function CommentFix(comId){
+    	$('#commentContent' + comId).attr('readonly', false)
+    	$('#fix' + comId).removeAttr('style')
     }
     
-    function FixFinish(){
+    function FixFinish(comId){
     	let comment = {
-    		commentId: $('#commentFix').val(),
-    		commentContent: $('#commentContent').val(),
-    		commentTime: $('#commentTime').val(),
-    		userId: $('[name="nickname"]').attr('id'),
-            meetingId: $('[name="comment"]').attr('id'),
-            nickname: $('[name="nickname"]').text(),
-            replyCnt: $('.reply').attr('name')
+    		commentId: comId,
+    		commentContent: $('#commentContent'+ comId).val(),
+    		commentTime: $('#commentTime').text()	
     	}
     	console.log(comment)
     	$.ajax({
@@ -176,11 +175,11 @@ console.log(comments)
         	data: JSON.stringify(comment),
             success: listComments
         })   
-        $('#commentContent').attr('readonly', true)
-    	$('#fix').attr('style', 'display: none;')
+        $('#commentContent' + comId).attr('readonly', true)
+    	$('#fix'+ comId).attr('style', 'display: none;')
     }
     
-    let comId = 0; 
+     
     function CommentDel(comId){   
         yesNoModal('댓글을 삭제하시겠습니까?')
         $('#okBtn').click(() => { 
