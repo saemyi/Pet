@@ -16,5 +16,10 @@ public interface UserDao {
 	int updateUser(User user);
 	int deleteUser(String userId);
 	List<User> adminselectUsers();
-	   User adminSelectUser(String userId);
+	User adminSelectUser(String userId);
+	int userCount();
+	List<User> search(User user);
+	void changeAdmin(User user);
+	void benUser(User user);
+	void updateUserName(User user);
 } 

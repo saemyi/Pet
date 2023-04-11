@@ -14,5 +14,10 @@ public interface UserService {
 			 String phone, String email, String address, String detailedAddress,
 			 LocalDate birthdate, String pw, String nickname);
 	List<User> admingetUsers();
-	   User adminGetUser(String userId);
+	User adminGetUser(String userId);
+	int userCount();
+	List<User> search(User user);
+	void changeAdmin(User user);
+	void benUser(User user);
+	void fixUserName(User user);
 } 

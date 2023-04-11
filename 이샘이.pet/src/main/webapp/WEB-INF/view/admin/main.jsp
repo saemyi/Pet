@@ -16,38 +16,99 @@ $(() => {
     $('#fixLogo').click(() => {
         logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
 })
-
-   function userList() {
-   $.ajax({
-      url: 'admin/user/get',
-      success: userList => {
-         if(userList.length){
-            users = []
-            userList.forEach(user => {
-               let isSuspended = user.isSuspended
-               let Sus = null
-               if(isSuspended == 0) {
-                  Sus = '0'
-               }else Sus = 'x'
-               users.unshift(
-                  '<tr class="hover-cursor">' + 
-                          '<td><a href="admin/adminUserDetail/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
-                          '<td>' + user.nickname +'</td>' + 
-                          '<td>' + user.userName +'</td>' +
-                          '<td>'+ user.phone + '</td>' +
-                          '<td>' + user.email + '</td>' +
-                          '<td>' + Sus + '</td>' +
-                      '</tr>'      
-               )
-            })
-            $('#users').append(users.join(''))
-         }else $('#users').append(
-               `<tr><td colspan='6' class='text-center'>회원이 없습니다.</td></tr>`         
-         )
-      }
-   })
+	function userCount() {
+	$.ajax({
+		url: 'admin/user/count',
+		success: userCount => {
+			if(userCount) {
+				$('#userCount').text(userCount)
+			}else $('#userCount').append(
+				`<p>회원이 없습니다.</p>`		
+			)
+		}
+	})
 }
-$(userList)
+
+	function userList() {
+	$.ajax({
+		url: 'admin/user/get',
+		success: userList => {
+			if(userList.length){
+				users = []
+				userList.forEach(user => {
+					let isSuspended = user.isSuspended
+					let str = user.phone
+					let phone = str.substring(0,3) + '-' + str.substring(3,7) + '-' + str.substring(7,11)
+					console.log(phone)
+					let Sus = null
+					if(isSuspended == 0) {
+						Sus = 'x'
+					}else Sus = '○'
+					users.unshift(
+						'<tr class="hover-cursor">' + 
+		                    '<td><a href="admin/adminUserView/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
+		                    '<td>' + user.nickname +'</td>' + 
+		                    '<td>' + user.userName +'</td>' +
+		                    '<td>'+ phone + '</td>' +
+		                    '<td>' + user.email + '</td>' +
+		                    '<td>' + Sus + '</td>' +
+		                '</tr>'		
+					)
+				})
+				$('#users').append(users.join(''))
+			}else $('#users').append(
+					`<tr><td colspan='6' class='text-center'>회원이 없습니다.</td></tr>`			
+			)
+		}
+	})
+}
+
+	function init() {
+		$(userList)
+		$(userCount)
+		
+		$('#search').click(() => {
+			$('#users').empty()
+			let user = {
+				userId : $('#searchValue').val()
+			}
+			$.ajax({
+				url: 'admin/user/search',
+				data: user,
+				success: userList => {
+					if(userList.length){
+						users = []
+						userList.forEach(user => {
+							let isSuspended = user.isSuspended
+							let str = user.phone
+							let phone = str.substring(0,3) + '-' + str.substring(3,7) + '-' + str.substring(7,11)
+							console.log(phone)
+							let Sus = null
+							if(isSuspended == 0) {
+								Sus = 'x'
+							}else Sus = '○'
+							users.unshift(
+								'<tr class="hover-cursor">' + 
+				                    '<td><a href="admin/adminUserView/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
+				                    '<td>' + user.nickname +'</td>' + 
+				                    '<td>' + user.userName +'</td>' +
+				                    '<td>'+ phone + '</td>' +
+				                    '<td>' + user.email + '</td>' +
+				                    '<td>' + Sus + '</td>' +
+				                '</tr>'		
+							)
+						})
+						$('#users').append(users.join(''))
+					}else $('#users').append(
+							`<tr><td colspan='6' class='text-center'>회원이 없습니다.</td></tr>`			
+					)
+				}
+			})
+			
+		})
+	}
+	
+$(init)
 </script>
 </head>
 <body>
