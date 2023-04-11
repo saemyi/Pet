@@ -228,7 +228,7 @@ $(init)
 				</tr>
 				<tr>
 					<th>모임시각</th>
-					<td><input type='datetime-local' class='form-control' id='meetingDateTime' style='border:none; background: none; font-size: 12px; padding: 1px;' disabled/></td>
+					<td><input type='datetime-local' class='form-control text-center' id='meetingDateTime' style='border:none; background: none; font-size: 12px; padding: 1px;' disabled/></td>
 					<td></td>
 					<td></td>
 				</tr>

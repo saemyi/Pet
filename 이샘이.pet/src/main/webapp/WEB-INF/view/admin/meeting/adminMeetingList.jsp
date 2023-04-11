@@ -105,7 +105,7 @@ function meetingList() {
 							<td></td>
 							<td><a href='/admin/meeting/` + meeting.meetingId + `' class='a-black'>` + meeting.meetingTitle + `</a></td> 
 							<td>` + $('#sido option:selected').text() + ' ' + $('#sigugun option:selected').text() + ' ' + $('#dong option:selected').text() + `</td>
-							<td><input type='datetime-local' class='form-control' style='border:none; background: none; font-size: 12px; padding: 1px;' value='` + meeting.meetingTime + `' disabled/></td>
+							<td><input type='datetime-local' class='form-control text-center' style='border:none; background: none; font-size: 12px; padding: 1px;' value='` + meeting.meetingTime + `' disabled/></td>
 							<td>` + meeting.userId + `</td>
 							<td>` + (meeting.applicantNumber == meeting.recruitmentNumber ? "o" : "x") + `</td>
 							<td>` + (new Date() > new Date(meeting.meetingTime) ? "o" : "x") + `</td>
