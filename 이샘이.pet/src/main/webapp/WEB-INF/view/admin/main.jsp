@@ -128,7 +128,7 @@ $(init)
                         <a class="nav-link" href="../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="./admin/meeting">모임</a>
+                        <a class="nav-link" href="./admin/meeting/list">모임</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="./notice">공지</a>
