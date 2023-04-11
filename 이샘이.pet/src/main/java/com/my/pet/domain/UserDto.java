@@ -7,13 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-@Valid
 public class UserDto {
 	@NotNull(message="아이디를 입력하세요")
 	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z]).{4,16}", message = "4~16자 영문 소문자, 숫자 조합으로 입력하세요.")
@@ -34,8 +32,9 @@ public class UserDto {
     @NotNull(message="주소를 입력하세요")
     private String address;
     private String detailedAddress;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+   	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate birthdate;
     @NotNull(message="닉네임을 입력하세요")
 	@Pattern(regexp = "(?=.*[0-9])(?=.*[가-힣])(?=.*[a-zA-Z]).{2,10}", message = "2~10자 영어 대 소문자, 한글, 숫자만 입력 가능합니다.")

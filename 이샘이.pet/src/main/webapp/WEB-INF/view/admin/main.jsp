@@ -64,16 +64,16 @@ $(userList)
                     <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="./main">회원</a>
+                        <a class="nav-link" href="main">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="./meeting">모임</a>
+                        <a class="nav-link" href="./admin/meeting">모임</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="./admin/notice">공지</a>
                         </li>
                         <li class="nav-item"> 
-                        <a class="nav-link" href="./report">신고</a>
+                        <a class="nav-link" href="./admin/report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>

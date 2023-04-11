@@ -5,31 +5,40 @@
 		<select id='selectUser' resultType='userdto'>
 			select *
 			from users
-			where user_id = #{userId} and pw = #{pw}
+			where user_id = #{userId} 
+			<if test = "pw != null">
+			and pw = #{pw}
+			</if>
 		</select>
+		
 		<select id='selectUsers' resultType='userdto'>
 			select *
 			from users
 		</select>
+		
 		<select id='selectUserId' resultType='int'>
 			select count(user_id)
 			from users
 			where user_id = #{userId}
 		</select>
+		
 		<select id='selectNickname' resultType='int'>
 			select count(nickname)
 			from users
 			where nickname = #{nickname}
 		</select>
+		
 		<insert id='insertUser'>
 			insert into users (user_id, user_name, user_intro, user_profile_image_filename, phone, email, address, detailed_address, birthdate, pw, nickname)
 			values (#{userId}, #{userName}, null, #{profileImageFilename}, #{phone}, #{email}, #{address}, #{detailedAddress}, #{birthdate}, #{pw}, #{nickname})
 		</insert>
+		
 		<select id='adminselectUsers' resultType='user'>
          select user_id, nickname, user_name, phone, email, is_suspended
          from users
          order by user_id
-      </select>
+       </select>
+      
       <select id='adminSelectUser' resultType='user'>
          select *
          from pet.users u, pet.pets p, pet.meetings m

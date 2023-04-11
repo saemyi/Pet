@@ -4,11 +4,13 @@ function confirmModal(con, url=null) {
         $('#confirmBtn').attr('onclick','location="' +  url +'"')
     }
     $('#modalBtnDouble').hide()
+    $('#modalBtn').show()
     $('#logoBtn').hide()
     $('#modal').modal('show')
 }
 
 function yesNoModal(con, url=null) {
+	$('#modalBtnDouble').show()
     $('#modalMsg').html(con)
     $('#modalBtn').hide()
     $('#logoBtn').hide()

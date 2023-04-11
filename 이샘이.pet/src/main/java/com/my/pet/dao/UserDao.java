@@ -17,4 +17,4 @@ public interface UserDao {
 	int deleteUser(String userId);
 	List<User> adminselectUsers();
 	   User adminSelectUser(String userId);
-} 
+}

@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
+	public UserDto getMypage(String userId) {
+		return userDao.selectUser(userId, null);
+	}
+	
+	@Override
 	public int duplicateCheckNickname(String nickname) {
 		int cnt = userDao.selectNickname(nickname);
 		System.out.println("nickname cnt: " + cnt);

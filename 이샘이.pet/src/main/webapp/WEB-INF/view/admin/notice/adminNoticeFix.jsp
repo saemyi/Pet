@@ -14,40 +14,32 @@
 </style>
 <script>
 $(() => {
-	let noticeTitle = '${notice.noticeTitle}'
-	let noticeContent = `${notice.noticeContent}`
+   let noticeTitle = '${notice.noticeTitle}'
+   let noticeContent = `${notice.noticeContent}`
     $('.noticeTitle').val(noticeTitle)
     $('.noticeContent').val(noticeContent)
 
     $('#noticeFix').click(() => {
-    	if(isVal($('#noticeTitle')) && isVal($('#noticeContent'))) {
-    		
-    	$('#modalMsg').text('공지를 수정하시겠습니까?')
-    	$('#modalBtn').hide()
-    	$('#modalBtnDouble').show()
-    	$('#modal').modal('show')
-    	}	
-    })
-    
-    $('#okBtn').click(() => {
-    	let notice = {
-    			noticeId: ${notice.noticeId},
-    			noticeTitle: $('#noticeTitle').val(),
-    			noticeContent: $('#noticeContent').val()
-	    	}
-    	
-    	$.ajax({
-    		url: '../fix',
-    		method: 'put',
-    		contentType: 'application/json',
-    		data: JSON.stringify(notice),
-    		success: goPage
-    		})
-    	})
-    })
+       if(isVal($('#noticeTitle')) && isVal($('#noticeContent'))) {
+          let notice = {
+                 noticeId: ${notice.noticeId},
+                 noticeTitle: $('#noticeTitle').val(),
+                 noticeContent: $('#noticeContent').val()
+              }
+           
+           $.ajax({
+              url: '../fix',
+              method: 'put',
+              contentType: 'application/json',
+              data: JSON.stringify(notice),
+              success: goPage
+              })
+            }
+          })   
+      })
     
 function goPage() {
-	location.href="../../notice"
+   location.href="../adminNoticeView/" + ${notice.noticeId}
 }
 </script>
 </head>
@@ -58,23 +50,23 @@ function goPage() {
         <div class='row'>
             <nav class="navbar navbar-expand navbar-light nav-header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
+                    <a class="navbar-brand" href="../../../admin"><b>산책하개</b></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="../main.html">회원</a>
+                        <a class="nav-link" href="../../../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../meeting/01.html">모임</a>
+                        <a class="nav-link" href="">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../../notice">공지</a>
+                        <a class="nav-link" href="../../../admin/notice">공지</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="../report/01.html">신고</a>
+                        <li class="nav-item"> 
+                        <a class="nav-link" href="../../../admin/report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>
@@ -82,7 +74,7 @@ function goPage() {
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" href="../user/01.html"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" href="../../../logout"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>

@@ -10,12 +10,32 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>마이페이지</title>
 <style>
     p {
     font-size: 12px;
 }
 </style>
+<script>
+$(() => {
+	
+})
+
+	function mypage() {
+		$.ajax({
+			url: '/getUser',
+			dataType: 'json',
+			success: user => {
+				$('#userNickname').text(user.nickname)
+				$('#userIntro').text(user.userIntro)
+			}
+		})
+	}
+	
+$(mypage)
+
+</script>
 <header>
     <div class='row d-flex justify-content-end'>
         <nav class="navbar fixed-top bg-orange">
@@ -30,6 +50,7 @@
             <div class='mt-2 mb-1'>
                 <i class="bi bi-gear-fill" type='button' onclick="location.href='./setting'"></i>
             </div>
+            <img src='<c:url value="/attach/"/>'/><br>
         </nav>
     </div>
 </header>
@@ -41,9 +62,8 @@
             <p class='mt-5'>프로필이미지</p>
         </div>
         <div class='col-7 mb-3'>
-            <h5><b>User1</b></h5><hr>
-            <p>안녕하세요!<br>
-            뽀실이 빵실이 엄마에요<br>
+            <h5><b id='userNickname'></b></h5><hr>
+            <p id='userIntro'>
             </p>
         </div>
     </div>

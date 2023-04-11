@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,7 +34,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/")
@@ -60,7 +61,7 @@ public class UserController {
 		return mv;
 	} 
 	
-	//로그인 시도
+	//로그인
 	@PostMapping("login")
 	public ModelAndView login(ModelAndView mv, @ModelAttribute("user") UserDto user, String rememberMe,
 			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
@@ -82,7 +83,7 @@ public class UserController {
 					return mv;				
 				//관리자로그인
 				} else if (userData.getHasAdminRights() == 1) {
-					mv.setViewName("admin/main");
+					mv.setViewName("redirect:/");
 					return mv;
 				}
 				mv.setViewName("redirect:/");
@@ -112,9 +113,10 @@ public class UserController {
 	
 	//회원정보 pet으로 넘기기
 	@PostMapping("userJoin")
-	public ModelAndView joinUser(ModelAndView mv, @Valid UserDto userDto,@Valid User user, 
+	public ModelAndView joinUser(ModelAndView mv, @Valid UserDto userDto,User user, 
 			BindingResult bindingResult ,RedirectAttributes redirect) {
 		/* if(bindingResult.hasErrors()) { */
+			System.out.println(userDto);
 			 List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 			 System.out.println(fieldErrors);
 			 for(FieldError error : fieldErrors) {
@@ -143,6 +145,13 @@ public class UserController {
 		public ModelAndView mypage(ModelAndView mv) {
 			mv.setViewName("user/mypage");
 			return mv;
+		}
+		
+		@GetMapping("getUser")
+		public UserDto getUser(HttpSession session) {
+			String userId = (String)session.getAttribute("userId");
+			System.out.println(userId);
+			return userService.getMypage(userId);
 		}
 		
 	//설정창
