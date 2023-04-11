@@ -81,6 +81,13 @@ td textarea{
      outline: 0 none;
 }
 
+.currentPage{
+	color: #ffc23e;
+    border-color: #ffc23e;
+    box-shadow: 0 1px 1px 1px #ffc23e inset, 0 0 8px #ffc23e;
+    outline: 0 none;
+}
+
 textarea:focus,
 input[type="text"]:focus,
 input[type="search"]:focus,
