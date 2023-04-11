@@ -43,12 +43,6 @@ public class MeetingController {
 		return mv;
 	}
 	
-	@GetMapping("participantView")
-	public ModelAndView getParticipants(ModelAndView mv) {
-		mv.setViewName("meeting/participantView");
-		return mv;
-	}
-	
 	@GetMapping("get")
 	public Meeting getMeeting(HttpSession session) {
 		int meetingId = (int)session.getAttribute("lastMeetingId");
