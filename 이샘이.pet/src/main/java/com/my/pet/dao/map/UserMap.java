@@ -16,5 +16,10 @@ public interface UserMap {
 	int updateUser(User user);
 	int deleteUser(String userId);
 	List<User> adminselectUsers();
-	   User adminSelectUser(String userId);
+	User adminSelectUser(String userId);
+	int userCount();
+	List<User> search(User user);
+	int changeAdmin(User user);
+	int benUser(User user);
+	int updateUserName(User user);
 }

@@ -38,12 +38,40 @@
          from users
          order by user_id
        </select>
-      
+       
       <select id='adminSelectUser' resultType='user'>
          select *
-         from pet.users u, pet.pets p, pet.meetings m
-         where u.user_id = p.user_id and
-         u.user_id = m.user_id and
-         u.user_id = #{userId}
+         from users
+         where user_id = #{userId}
       </select>
+      
+      <select id='userCount' resultType='int'>
+      	select count(user_id)
+      	from users
+      	where has_admin_rights = 0
+      </select>
+      
+      <select id='search' resultType='user'>
+      	select user_id, nickname, user_name, phone, email, is_suspended
+      	from users
+      	where user_id like '%' || #{userId} || '%'
+      </select>
+      
+      <update id='changeAdmin'>
+      	update users
+      	set has_admin_rights = #{hasAdminRights}
+      	where user_id = #{userId}
+      </update>
+      
+      <update id='benUser'>
+      	update users
+      	set is_suspended = #{isSuspended}
+      	where user_id = #{userId}
+      </update>
+      
+      <update id='updateUserName'>
+      update users
+      set user_name = #{userName}
+      where user_id = #{userId}
+      </update>
 	</mapper>

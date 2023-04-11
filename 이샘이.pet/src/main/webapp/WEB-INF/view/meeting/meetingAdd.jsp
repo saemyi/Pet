@@ -102,7 +102,9 @@ function init() {
 		console.log($('#sigugun').val())
 		console.log($('#dong').val())
 		console.log(isAddressComplete)
-		if($('#meetingTitle').val() && $('#meetingContent').val()
+		if (new Date() > new Date($('#meetingDateTime').val())) {
+			confirmModal("모임일시를 과거로 지정할 수 없습니다.")
+		} else if($('#meetingTitle').val() && $('#meetingContent').val()
 				&& $('#meetingDateTime').val() && isAddressComplete) {
 			let meeting = {
 				meetingTitle: $('#meetingTitle').val(),
@@ -272,7 +274,7 @@ $(init)
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../user/mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='../user/mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>

@@ -55,4 +55,29 @@ public class UserDaoImpl implements UserDao{
    public User adminSelectUser(String userId) {
       return userMap.adminSelectUser(userId);
    }
+   
+   @Override
+   public int userCount() {
+	   return userMap.userCount();
+   }
+   
+   @Override
+   public List<User> search(User user) {
+	   return userMap.search(user);
+   }
+   
+   @Override
+   public void changeAdmin(User user) {
+	   userMap.changeAdmin(user);
+   }
+   
+   @Override
+   public void benUser(User user) {
+	   userMap.benUser(user);
+   }
+   
+   @Override
+   public void updateUserName(User user) {
+	   userMap.updateUserName(user);
+   }
 }

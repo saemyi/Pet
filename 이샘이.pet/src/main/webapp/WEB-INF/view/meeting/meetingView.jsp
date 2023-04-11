@@ -85,7 +85,7 @@ function fn_option(code, name) {
 
 function processMeetingData() {
 	$.ajax({
-		url: '/meeting/get',
+		url: 'get',
 		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
 		// method 생략: get
 		success: meeting => {
@@ -425,29 +425,29 @@ $(init)
 	</div>
 </div>
 <nav class="navbar fixed-bottom bg-orange">
-	<div class="container-fluid pt-3">
-		<div>
-			<li class="nav-item" type="button" onclick="location.href='/meeting/add'">
-				<span class="material-symbols-outlined">
-					add
-				</span>
-			</li>
-		</div>
-		<div>
-			<li class="nav-item" type="button" onclick="location.href='/'">
-				<span class="material-symbols-outlined">
-					format_list_bulleted
-				</span>
-			</li>
-		</div>
-		<div>
-			<li class="nav-item" type="button" onclick="location.href='../user/mypage.html'">
-				<span class="material-symbols-outlined">
-					person
-				</span>
-			</li>
-		</div>
-	</div>
+    <div class="container-fluid pt-3">
+        <div>
+            <li class="nav-item" type="button" onclick="location.href='/meeting/add'">
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+            </li>
+        </div>
+        <div>
+            <li class="nav-item" type="button" onclick="location.href='/'">
+                <span class="material-symbols-outlined">
+                    format_list_bulleted
+                </span>
+            </li>
+        </div>
+        <div>
+            <li class="nav-item" type="button" onclick="location.href='../user/mypage'">
+                <span class="material-symbols-outlined">
+                    person
+                </span>
+            </li>    
+        </div>
+    </div>
 </nav>
 </body>
 </html>

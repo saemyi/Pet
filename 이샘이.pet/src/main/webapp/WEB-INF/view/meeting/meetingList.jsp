@@ -158,7 +158,7 @@ $(() => {
             <p><b>내가 만든 모임</b></p>
         </div>
         <div class='row'>
-            <div class='col my-creation-start'>
+            <div class='col created-meeting-start'>
                 <p class='text-center text-secondary mt-3'>내가 만든 모임이 없습니다.</p>
             </div>
         </div>
@@ -182,7 +182,7 @@ $(() => {
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../user/mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='../user/mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>

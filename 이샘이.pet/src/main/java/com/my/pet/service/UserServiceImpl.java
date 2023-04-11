@@ -55,4 +55,29 @@ public class UserServiceImpl implements UserService{
    public User adminGetUser(String userId) {
       return userDao.adminSelectUser(userId);
    }
+   
+   @Override
+   public int userCount() {
+	   return userDao.userCount();
+   }
+   
+   @Override
+   public List<User> search(User user) {
+	   return userDao.search(user);
+   }
+   
+   @Override
+   public void changeAdmin(User user) {
+	   userDao.changeAdmin(user);
+   }
+   
+   @Override
+   public void benUser(User user) {
+	   userDao.benUser(user);
+   }
+   
+   @Override
+   public void fixUserName(User user) {
+	   userDao.updateUserName(user);
+   }
 } 

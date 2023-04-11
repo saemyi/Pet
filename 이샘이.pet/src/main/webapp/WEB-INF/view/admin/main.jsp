@@ -16,38 +16,99 @@ $(() => {
     $('#fixLogo').click(() => {
         logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
 })
-
-   function userList() {
-   $.ajax({
-      url: 'admin/user/get',
-      success: userList => {
-         if(userList.length){
-            users = []
-            userList.forEach(user => {
-               let isSuspended = user.isSuspended
-               let Sus = null
-               if(isSuspended == 0) {
-                  Sus = '0'
-               }else Sus = 'x'
-               users.unshift(
-                  '<tr class="hover-cursor">' + 
-                          '<td><a href="admin/adminUserDetail/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
-                          '<td>' + user.nickname +'</td>' + 
-                          '<td>' + user.userName +'</td>' +
-                          '<td>'+ user.phone + '</td>' +
-                          '<td>' + user.email + '</td>' +
-                          '<td>' + Sus + '</td>' +
-                      '</tr>'      
-               )
-            })
-            $('#users').append(users.join(''))
-         }else $('#users').append(
-               `<tr><td colspan='6' class='text-center'>회원이 없습니다.</td></tr>`         
-         )
-      }
-   })
+	function userCount() {
+	$.ajax({
+		url: 'admin/user/count',
+		success: userCount => {
+			if(userCount) {
+				$('#userCount').text(userCount)
+			}else $('#userCount').append(
+				`<p>회원이 없습니다.</p>`		
+			)
+		}
+	})
 }
-$(userList)
+
+	function userList() {
+	$.ajax({
+		url: 'admin/user/get',
+		success: userList => {
+			if(userList.length){
+				users = []
+				userList.forEach(user => {
+					let isSuspended = user.isSuspended
+					let str = user.phone
+					let phone = str.substring(0,3) + '-' + str.substring(3,7) + '-' + str.substring(7,11)
+					console.log(phone)
+					let Sus = null
+					if(isSuspended == 0) {
+						Sus = 'x'
+					}else Sus = '○'
+					users.unshift(
+						'<tr class="hover-cursor">' + 
+		                    '<td><a href="admin/adminUserView/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
+		                    '<td>' + user.nickname +'</td>' + 
+		                    '<td>' + user.userName +'</td>' +
+		                    '<td>'+ phone + '</td>' +
+		                    '<td>' + user.email + '</td>' +
+		                    '<td>' + Sus + '</td>' +
+		                '</tr>'		
+					)
+				})
+				$('#users').append(users.join(''))
+			}else $('#users').append(
+					`<tr><td colspan='6' class='text-center'>회원이 없습니다.</td></tr>`			
+			)
+		}
+	})
+}
+
+	function init() {
+		$(userList)
+		$(userCount)
+		
+		$('#search').click(() => {
+			$('#users').empty()
+			let user = {
+				userId : $('#searchValue').val()
+			}
+			$.ajax({
+				url: 'admin/user/search',
+				data: user,
+				success: userList => {
+					if(userList.length){
+						users = []
+						userList.forEach(user => {
+							let isSuspended = user.isSuspended
+							let str = user.phone
+							let phone = str.substring(0,3) + '-' + str.substring(3,7) + '-' + str.substring(7,11)
+							console.log(phone)
+							let Sus = null
+							if(isSuspended == 0) {
+								Sus = 'x'
+							}else Sus = '○'
+							users.unshift(
+								'<tr class="hover-cursor">' + 
+				                    '<td><a href="admin/adminUserView/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
+				                    '<td>' + user.nickname +'</td>' + 
+				                    '<td>' + user.userName +'</td>' +
+				                    '<td>'+ phone + '</td>' +
+				                    '<td>' + user.email + '</td>' +
+				                    '<td>' + Sus + '</td>' +
+				                '</tr>'		
+							)
+						})
+						$('#users').append(users.join(''))
+					}else $('#users').append(
+							`<tr><td colspan='6' class='text-center'>회원이 없습니다.</td></tr>`			
+					)
+				}
+			})
+			
+		})
+	}
+	
+$(init)
 </script>
 </head>
 <body>
@@ -64,16 +125,16 @@ $(userList)
                     <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="main">회원</a>
+                        <a class="nav-link" href="../admin">회원</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="./admin/meeting">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="./admin/notice">공지</a>
+                        <a class="nav-link" href="./notice">공지</a>
                         </li>
-                        <li class="nav-item"> 
-                        <a class="nav-link" href="./admin/report">신고</a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="./report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>
@@ -81,7 +142,7 @@ $(userList)
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" href="logout"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" href="./user/01.html"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>
@@ -92,9 +153,9 @@ $(userList)
     <div class='col'>
         <div class="input-group mt-2 gap-2 wrap d-flex justify-content-center">
             <mx-auto>
-                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
+                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search" id="searchValue">
             </mx-auto>
-            <button class="btn botton-orange" type="submit" id="button-addon2">검색</button>
+            <button class="btn botton-orange" type="submit" id="search">검색</button>
         </div>
     </div>
 </div>
@@ -103,7 +164,7 @@ $(userList)
         <table class='table text-center'>
             <div class='gap-2 d-flex justify-content-end'>
                 <span class='label a-gray'>총 회원수 : </span>
-                <span class='label a-gray'>1953</span>
+                <span class='label a-gray' id='userCount'></span>
             </div> 
             <thead class='table'>
                 <tr><th>아이디</th><th>닉네임</th><th>이름</th><th>전화번호</th><th>이메일</th><th>이용정지</th></tr>
@@ -125,11 +186,6 @@ $(userList)
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">4</a></li>
                     <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                    <li class="page-item"><a class="page-link" href="#">10</a></li>
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
