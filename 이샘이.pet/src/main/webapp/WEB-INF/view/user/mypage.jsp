@@ -123,7 +123,7 @@ $(getPets)
     <div class='row p-3 d-flex justify-content-center' id='userMypage'>
     </div>
     <div class='row p-3'>
-            <button type='button' class='btn btn-orange mb-3' onclick="location.href='../meeting/04.html'">내모임 보기</button>
+            <button type='button' class='btn btn-orange mb-3' onclick="location.href='../meeting/myMeetings'">내모임 보기</button>
     </div>
     <div class='row'>
         <div class='col'>
