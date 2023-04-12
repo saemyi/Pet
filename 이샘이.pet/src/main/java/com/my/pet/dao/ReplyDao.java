@@ -11,5 +11,7 @@ public interface ReplyDao {
 	List<Reply> selectReplies(int commentId);
 	void insertReply(String replyContent, LocalDateTime	replyTime, String userId, int commentId);
 	void updateReply(Reply reply);
+	void updateComment(Comment comment);
 	void deleteReply(int replyId);
+	void deleteComment(int commentId);
 }

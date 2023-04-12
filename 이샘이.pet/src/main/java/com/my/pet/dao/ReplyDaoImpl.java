@@ -35,7 +35,17 @@ public class ReplyDaoImpl implements ReplyDao{
 	}
 	
 	@Override
+	public void updateComment(Comment comment) {
+		replyMap.updateComment(comment);
+	}
+	
+	@Override
 	public void deleteReply(int replyId) {
 		replyMap.deleteReply(replyId);
+	}
+	
+	@Override
+	public void deleteComment(int commentId) {
+		replyMap.deleteComment(commentId);
 	}
 }
