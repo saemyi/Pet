@@ -9,4 +9,5 @@ public interface ReportDao {
 	void insertReport(String nickName, String reason, String reportContent);
 	Report selectDetailReport(int reportId);
 	Report selectSuspended(String loginId);
+	List<Report> search(Report report);
 }

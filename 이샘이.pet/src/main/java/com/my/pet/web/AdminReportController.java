@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.my.pet.domain.Meeting;
 import com.my.pet.domain.Report;
-import com.my.pet.service.ReportService;
 
-import jakarta.servlet.http.HttpSession;
+import com.my.pet.service.ReportService;
 
 @RestController
 @RequestMapping("admin/report")
@@ -31,12 +29,16 @@ public class AdminReportController {
 		return reportService.getReports();
 	}
 	
-	
 	@GetMapping("adminReportView/{reportId}")
 	public ModelAndView getReport(@PathVariable int reportId, ModelAndView mv) {
 		Report report = reportService.getDetailReport(reportId);
 		mv.addObject("report", report);
 		mv.setViewName("admin/report/adminReportView");
 		return mv;
+	}
+	
+	@GetMapping("search")
+	public List<Report> search( Report report) {
+		return reportService.search(report);
 	}
 }

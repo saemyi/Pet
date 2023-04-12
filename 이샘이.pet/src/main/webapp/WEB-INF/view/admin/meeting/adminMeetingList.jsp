@@ -135,12 +135,12 @@ $(init)
 </script>
 </head>
 <body>
-<div class='container'>
+<div class='container wrap'>
 <div class='row mb-4'>
-    <div class='col'>
-        <div class='row'>
-            <nav class="navbar navbar-expand navbar-light nav-header">
-                <div class="container-fluid">
+	<div class='col'>
+		<div class='row'>
+			<nav class="navbar navbar-expand navbar-light nav-header">
+				<div class="container-fluid">
 					<a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -167,28 +167,26 @@ $(init)
 					<div>
 						<a class="nav-link a-gray" href="../../logout"><small>로그아웃</small></a>
 					</div>
-                </div>
-            </nav>
-        </div>
-    </div>
+				</div>
+			</nav>
+		</div>
+	</div>
 </div>
 <div class='row mt-3'>
-    <div class='col-4'></div>
-    <div class='col'>
-        <div class="input-group mt-2 gap-2 ">
-            <select class="form-select select-orange" aria-label="Default select example">
-                <option value='title'>제목</option>
-                <option value='place'>장소</option>
-                <option value='time'>시간</option>
-                <option value='author'>작성자</option>
-            </select>
-            <mx-auto>
-                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
-            </mx-auto>
-            <button class="btn botton-orange" type="submit" id="searchBtn">검색</button>
-        </div>
-    </div>
-    <div class='col-4'></div>
+	<div class='col'>
+		<div class="input-group mt-2 gap-2 wrap d-flex justify-content-center">
+			<select class="select-orange" aria-label="Default select example">
+				<option>제목</option>
+				<option>장소</option>
+				<option>시간</option>
+				<option>작성자</option>
+			</select>
+			<mx-auto>
+				<input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
+			</mx-auto>
+			<button class="btn botton-orange" type="submit" id="searchBtn">검색</button>
+		</div>
+	</div>
 </div>
 <div class='row mt-4 sm'>
     <div class='col'>
