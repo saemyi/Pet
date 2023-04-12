@@ -39,7 +39,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
             </div>
         </nav>
     </div>
-    <div class='container' id='comments'>
+    <div class='container pb-5' id='comments'>
 		
     </div>
     <nav class="navbar fixed-bottom bg-orange pt-0">
