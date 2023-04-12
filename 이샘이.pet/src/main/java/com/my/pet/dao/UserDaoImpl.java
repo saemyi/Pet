@@ -41,13 +41,13 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Override
-	public int updateUser(User user) {
-		return userMap.updateUser(user);
+	public void updateUser(User user) {
+		userMap.updateUser(user);
 	}
 	
 	@Override
-	public int deleteUser(String userId) {
-		return userMap.deleteUser(userId);
+	public void deleteUser(String userId) {
+		userMap.deleteUser(userId);
 	}
 	
 	@Override

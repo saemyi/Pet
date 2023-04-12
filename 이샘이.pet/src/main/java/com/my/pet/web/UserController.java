@@ -3,19 +3,16 @@ package com.my.pet.web;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -166,7 +163,23 @@ public class UserController {
 			mv.setViewName("user/setting");
 			return mv;
 		}
-	
+	//회원정보수정창
+		@GetMapping("user/userFix")
+		public ModelAndView fixUser(ModelAndView mv, HttpSession session) {
+			String userId = (String)session.getAttribute("userId");
+			User user = userService.getMypage(userId);
+			System.out.println(user);
+			mv.setViewName("user/userFix");
+			return mv;
+		}
+		
+		@PutMapping("fix")
+		public void fixUser(UserDto userDto, User user) {
+			String filename = userDto.getUserProfile().getOriginalFilename();
+			saveFile(attachPath + "/" + filename, userDto.getUserProfile());
+			user.setUserProfileImageFilename(filename);
+			userService.fixUser(user);
+		}
 
 	//아이디 중복체크
 	@PostMapping("idCheck")

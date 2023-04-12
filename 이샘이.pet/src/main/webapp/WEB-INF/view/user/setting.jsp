@@ -41,7 +41,7 @@
     <div class='row m-1'>
         <div class='col'>
             <div class='row mb-2'>
-                <button type='button' class='btn btn-lightgray' onclick="location.href='06.html'">회원정보수정</button>
+                <button type='button' class='btn btn-lightgray' onclick="location.href='../user/userFix'">회원정보수정</button>
             </div>
             <div class='row mb-2'>
                 <button type='button' class='btn btn-lightgray'onclick="location.href='../pet/02.html'">반려견 관리</button>

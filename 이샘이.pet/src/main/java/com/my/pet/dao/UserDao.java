@@ -13,8 +13,8 @@ public interface UserDao {
 	int insertUser(String userId, String userName, String profileImageFilename,
 			 String phone, String email, String address, String detailedAddress,
 			 LocalDate birthdate, String pw, String nickname);
-	int updateUser(User user);
-	int deleteUser(String userId);
+	void updateUser(User user);
+	void deleteUser(String userId);
 	List<User> adminselectUsers();
 	User adminSelectUser(String userId);
 	int userCount();

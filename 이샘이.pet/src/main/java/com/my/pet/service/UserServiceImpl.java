@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.pet.dao.UserDao;
+import com.my.pet.domain.MailDto;
 import com.my.pet.domain.User;
 
 @Service
@@ -81,5 +82,10 @@ public class UserServiceImpl implements UserService{
    @Override
    public void fixUserName(User user) {
       userDao.updateUserName(user);
+   }
+   
+   @Override
+   public void fixUser(User user) {
+	   userDao.updateUser(user);
    }
 } 

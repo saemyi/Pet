@@ -81,4 +81,11 @@
       set user_name = #{userName}
       where user_id = #{userId}
       </update>
+      
+      <update id='updateUser'>
+	      update users
+	      set nickname = #{nickname}, phone = #{phone}, email = #{email}, address = #{address}, datailed_address = #{detailedAddress},
+	      birthdate = #{birthdate}, user_intro = #{userIntro}, user_profile_image_filename = #{userProfileImageFilename}
+	      where user_id = #{userId}
+      </update>
 	</mapper>
