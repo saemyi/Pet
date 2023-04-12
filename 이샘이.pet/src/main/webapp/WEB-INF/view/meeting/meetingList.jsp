@@ -15,6 +15,60 @@
 $(() => {
 })
 
+function fillMeetingsArray(meetings) {
+	const meetingArr = []
+	
+	$.each(meetings, (i, meeting) => {
+		meetingArr.push(
+			`<div class='row mt-auto'>
+				<div class='col'>
+					<div class='mb-2'>
+						<div class="card" type="button" onclick="location.href='../meeting/` + meeting.meetingId + `'">
+							<div class="card-body">
+								<div class='row'>
+									<div class='col'>
+										<div class='row'>
+											<div class='col-3'>
+												<b><mark class='bg-orange'><span class='completionStatus'>` +
+												(new Date() > new Date(meeting.meetingTime) ? "완료" : meeting.applicantNumber == meeting.recruitmentNumber ? "마감" : "모집중") +
+												`</span></mark></b>
+											</div>
+											<div class='col'>
+												<h6 class="card-title"><b><span class='meetingTitle'>` + meeting.meetingTitle + `</span></b></h6>
+											</div>
+										</div>
+										<div class="row">
+											<div class='col-3'></div>
+											<div class='col'>
+												<input type='datetime-local' class='form-control' name='meetingDateTime' id='meetingDateTime' style='border:none; background: none;' value='` + meeting.meetingTime + `' disabled/>
+											</div>
+										</div>
+										<div class='row'>
+											<div class="col-8 pt-1">
+												<div class='progress'>
+													<div class='progress-bar progress-bar-striped progress-bar-animated bg-primary' role='progressbar' ` + 
+													"style='width:" + 100 * meeting.applicantNumber / meeting.recruitmentNumber + '%' + ";'>" +
+													Math.floor(100 * meeting.applicantNumber / meeting.recruitmentNumber) + '%' + `</div>
+												</div>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-center">
+												<div class='mt-1 align-baseline d-flex justify-content-start participantStatus'>` +
+												'인원 ' + meeting.applicantNumber + '/' + meeting.recruitmentNumber + `</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>`
+		)
+	})
+	
+	return meetingArr
+}
+
 function getMeetingsByParticipant() {
 	$('#participating-meeting').empty()
 	
@@ -29,58 +83,7 @@ function getMeetingsByParticipant() {
 		dataType: 'json',
 		success: meetings => {
 			if(meetings.length) {
-				const meetingArr = []
-				
-				$.each(meetings, (i, meeting) => {
-					console.log(meeting)
-					
-					meetingArr.push(
-						`<div class='row mt-auto'>
-							<div class='col'>
-								<div class='mb-2'>
-									<div class="card" type="button" onclick="location.href='../meeting/` + meeting.meetingId + `'">
-										<div class="card-body">
-											<div class='row'>
-												<div class='col'>
-													<div class='row'>
-														<div class='col-3'>
-															<b><mark class='bg-orange'><span class='completionStatus'>` +
-															(new Date() > new Date(meeting.meetingTime) ? "완료" : meeting.applicantNumber == meeting.recruitmentNumber ? "마감" : "모집중") +
-															`</span></mark></b>
-														</div>
-														<div class='col'>
-															<h6 class="card-title"><b><span class='meetingTitle'>` + meeting.meetingTitle + `</span></b></h6>
-														</div>
-													</div>
-													<div class="row">
-														<div class='col-3'></div>
-														<div class='col'>
-															<input type='datetime-local' class='form-control' name='meetingDateTime' id='meetingDateTime' style='border:none; background: none;' value='` + meeting.meetingTime + `' disabled/>
-														</div>
-													</div>
-													<div class='row'>
-														<div class="col-8 pt-1">
-															<div class='progress'>
-																<div class='progress-bar progress-bar-striped progress-bar-animated bg-primary' role='progressbar' ` + 
-																"style='width:" + 100 * meeting.applicantNumber / meeting.recruitmentNumber + '%' + ";'>" +
-																Math.floor(100 * meeting.applicantNumber / meeting.recruitmentNumber) + '%' + `</div>
-															</div>
-		                                                </div>
-		                                                <div class="col-4 d-flex justify-content-center">
-															<div class='mt-1 align-baseline d-flex justify-content-start participantStatus'>` +
-															'인원 ' + meeting.applicantNumber + '/' + meeting.recruitmentNumber + `</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>`
-					)
-				})
-				
+				let meetingArr = fillMeetingsArray(meetings)
 				$('#participating-meeting').append(meetingArr.join(''))
 			} else {
 				$('#participating-meeting').append(`<p class='text-center text-secondary mt-3'>참여 모임이 없습니다.</p>`)
@@ -103,58 +106,7 @@ function getMeetingsByOwner() {
 		dataType: 'json',
 		success: meetings => {
 			if(meetings.length) {
-				const meetingArr = []
-				
-				$.each(meetings, (i, meeting) => {
-					console.log(meeting)
-					
-					meetingArr.push(
-						`<div class='row mt-auto'>
-							<div class='col'>
-								<div class='mb-2'>
-									<div class="card" type="button" onclick="location.href='../meeting/` + meeting.meetingId + `'">
-										<div class="card-body">
-											<div class='row'>
-												<div class='col'>
-													<div class='row'>
-														<div class='col-3'>
-															<b><mark class='bg-orange'><span class='completionStatus'>` +
-															(new Date() > new Date(meeting.meetingTime) ? "완료" : meeting.applicantNumber == meeting.recruitmentNumber ? "마감" : "모집중") +
-															`</span></mark></b>
-														</div>
-														<div class='col'>
-															<h6 class="card-title"><b><span class='meetingTitle'>` + meeting.meetingTitle + `</span></b></h6>
-														</div>
-													</div>
-													<div class="row">
-														<div class='col-3'></div>
-														<div class='col'>
-															<input type='datetime-local' class='form-control' name='meetingDateTime' id='meetingDateTime' style='border:none; background: none;' value='` + meeting.meetingTime + `' disabled/>
-														</div>
-													</div>
-													<div class='row'>
-														<div class="col-8 pt-1">
-															<div class='progress'>
-																<div class='progress-bar progress-bar-striped progress-bar-animated bg-primary' role='progressbar' ` + 
-																"style='width:" + 100 * meeting.applicantNumber / meeting.recruitmentNumber + '%' + ";'>" +
-																Math.floor(100 * meeting.applicantNumber / meeting.recruitmentNumber) + '%' + `</div>
-															</div>
-		                                                </div>
-		                                                <div class="col-4 d-flex justify-content-center">
-															<div class='mt-1 align-baseline d-flex justify-content-start participantStatus'>` +
-															'인원 ' + meeting.applicantNumber + '/' + meeting.recruitmentNumber + `</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>`
-					)
-				})
-				
+				let meetingArr = fillMeetingsArray(meetings)
 				$('#created-meeting').append(meetingArr.join(''))
 			} else {
 				$('#created-meeting').append(`<p class='text-center text-secondary mt-3'>내가 만든 모임이 없습니다.</p>`)

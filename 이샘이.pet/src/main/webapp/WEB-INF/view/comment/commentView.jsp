@@ -24,6 +24,12 @@ maximum-scale=1.0, minimum-scale=1.0'>
    border-radius: 2rem;
 }
 
+textarea {
+	resize: none; 
+	background-color: #fff;
+
+}
+
 </style>
 
 <body>
@@ -58,8 +64,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                     <button type='button' class='btn-close' data-bs-dismiss="modal"></button>
                 </div>
                 <div class='modal-body'>
-                    <p id='modalMsg'></p>
-                    
+                    <p id='modalMsg'></p>     
                 </div>
                 <div class='modal-footer' id='modalBtn'>
                 	<p id='modalErrMsg' class='text-danger'></p>
@@ -115,7 +120,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                 </div>
                                 <div class='row mt-2'>
                                     <div class='col m-2 mb-0'>
-                                    	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0' style='resize: none;'readonly disabled>\${comment.commentContent}</textarea></p>              
+                                    	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0'readonly disabled>\${comment.commentContent}</textarea></p>              
                                     </div>
                                 </div>
                                 <div class='row'>
