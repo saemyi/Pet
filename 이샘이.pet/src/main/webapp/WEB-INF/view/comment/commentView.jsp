@@ -126,7 +126,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                             </div>
                         </div><hr>`    
                     )
-                }) 
+                })  
                 $('#comments').append(commentArr.join(''))  
                 $('.dropmenu${userId}').removeAttr("style")               
             } else $('#comments').append(
