@@ -16,4 +16,5 @@ public interface MeetingService {
 			String userId, String sidoId, String sigunguId, String dongId);
 	void fixMeeting(Meeting meeting);
 	void delMeeting(int meetingId);
+	List<Meeting> findMeetings(String meetingTitle, LocalDateTime meetingTime, String userId);
 }

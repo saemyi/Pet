@@ -65,4 +65,21 @@
 		delete meetings
 		where meeting_id = #{meetingId}
 	</delete>
+	
+	<select id='searchMeetings' resultType='meeting'>
+		select *
+		from meetings
+		<where>
+			<if test='meetingTitle != null'>
+				meeting_title like '%' || #{meetingTitle} || '%'
+			</if>
+			<if test='meetingTime != null'>
+				and meeting_time like '%' || #{meetingTime} || '%'
+			</if>
+			<if test='userId != null'>
+				and user_id like '%' || #{userId} || '%'
+			</if>
+		</where>
+		order by meeting_time desc
+	</select>
 </mapper>

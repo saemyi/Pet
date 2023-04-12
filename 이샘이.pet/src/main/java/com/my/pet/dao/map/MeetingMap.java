@@ -31,4 +31,8 @@ public interface MeetingMap {
 					);
 	int updateMeeting(Meeting meeting);
 	int deleteMeeting(int meetingId);
+	List<Meeting> searchMeetings(@Param("meetingTitle") String meetingTitle,
+								@Param("meetingTime") LocalDateTime meetingTime,
+								@Param("userId") String userId
+								);
 }
