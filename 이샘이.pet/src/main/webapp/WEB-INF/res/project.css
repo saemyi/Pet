@@ -63,17 +63,17 @@ body {
    border-color: #e6dbb9;
  }
 
- .box{
-   border: .1rem solid gray;
+.box{
+   border: .1rem solid white;
    background-color: gainsboro;
    width: 130px !important;
    height: 130px !important;
  }
 
 .petBox{
-   border: .1rem solid gray;
+   border: .1rem solid white;
    background-color: gainsboro;
-   width:100px!important;
+   width:100px !important;
    height:100px !important;
 }
 
@@ -141,7 +141,7 @@ body {
 }
 
 .image-thumbnail {
-    width:100%;
-    height:100%;
+    width:130px;
+    height:130px;
     object-fit:cover;
 }
