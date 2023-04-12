@@ -3,6 +3,7 @@ package com.my.pet.web;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +58,11 @@ public class MeetingController {
 	@PostMapping("getMeetingByIdAndParticipant")
 	public Meeting getMeetingByIdAndParticipant(int meetingId, String userId) {
 		return meetingService.getMeetingByIdAndParticipant(meetingId, userId);
+	}
+	
+	@PostMapping("getMeetingsByParticipant")
+	public List<Meeting> getMeetingsByParticipant(String userId) {
+		return meetingService.getMeetingsByParticipant(userId);
 	}
 	
 	@GetMapping("fix")
