@@ -32,6 +32,43 @@ function listReplies() {
 		 url:'getComment/' +${commentId},
 		 dataType: 'json',
 		 success: comment => {
+			 $('#comment').append(
+					 `<div class='row'>
+                     <div class='col'>
+                         <div class='row'>
+                             <div class='col pe-0'>
+                                 <button type='button' class='border-0'onclick="location.href='../login'"><b>\${comment.nickname}</b></button>
+                             </div>
+                             <div class='col-6'>
+                                 <small id='commentTime' value='\${comment.commentTime}'>\${comment.commentTime}</small>
+                             </div>
+                             <div class='col-2'>
+                                 <div class='dropdown dropmenu\${comment.userId}'  style='display: none;'>
+                                     <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
+                                         <i class='bi bi-three-dots fa-2x'></i>
+                                     </button>
+                                     <div class='dropdown-menu'>
+                                         <nav>
+                                             <button type='button' class='dropdown-item' onclick="CommentFix(\${comment.commentId})" id='commentFix' value='\${comment.commentId}'>수정</button>
+                                             <button type='button' class='dropdown-item' onclick="CommentDel(\${comment.commentId})">삭제</button>
+                                         </nav>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class='row mt-2'>
+                             <div class='col m-2 mb-0'>
+                             	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0' style='resize: none;'readonly>\${comment.commentContent}</textarea></p>              
+                             </div>
+                         </div>
+                         <div class='row'>
+                             <div class='col'>
+                                 <input type='button' class='reply' name='\${comment.replyCnt}' onclick="location.href='/reply/\${comment.commentId}'" value='답글\${comment.replyCnt}'/>
+                             </div>
+                         </div>
+                     </div>
+                 </div><hr>`    
+             ))
 			 
 		 }		 
 	 })
@@ -141,7 +178,7 @@ function CommentDel(comId){
             url: 'comment/del/' + comId,
             method: 'delete',
             success: function(){
-            	window.location.href = '/comment'
+            	window.location.href = '/reply'
             }
         })
 
@@ -162,97 +199,11 @@ function CommentDel(comId){
     </nav>
 </div>
 <div class='container' id='comment'>
-    <div class='row'>
-        <div class='col'>
-            <div class='row'>
-                <div class='col-2'>
-                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b>User1</b></button>
-                </div>
-                <div class='col'>
-                    <small>2023.03.16 10:53:35</small>
-                </div>
-                <div class='col-2'>
-                    <div class='dropdown'>
-                        <button type='button' class='reply-menu dropdown-toggle'style='border:none;' data-bs-toggle='dropdown'>
-                            <i class='bi bi-three-dots fa-2x'></i>
-                        </button>
-                        <div class='dropdown-menu'>
-                            <nav>
-                                <button class='dropdown-item'>수정</button>
-                                <button type='button' class='dropdown-item' id='delComment'>삭제</button>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='row mt-2'>
-                <div class='col m-2'>
-                    <p>안녕하세요! 참가 신청했습니다!</p>
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col'>
-                    <input type='button' class='reply' onclick="location.href='02.html'" value='답글3'/>
-                </div>
-            </div>
-        </div>
-    </div><hr>
+    
 </div>
 <div class='container' id='replies'>
     <!--답글-->
-    <div class='row'>
-        <div class='col-2 d-flex justify-content-end'>
-            <i class="bi bi-arrow-return-right"></i>
-        </div>
-        <div class='col'>
-            <div class='row'>
-                <div class='col-2'>
-                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b>User3</b></button>
-                </div>
-                <div class='col'>
-                    <small>2023.03.16 11:48:14</small>
-                </div>
-            </div>
-            <div class='row mt-2'>
-                <div class='col m-2'>
-                    <p>반가워요! 강아지들 소개 보고 왔는데 두마리 다 참 귀엽네요 ㅎㅎ 저희 강아지는 치와와에요</p>
-                </div>
-            </div>
-        </div>
-    </div><hr>
-    <div class='row'>
-        <div class='col-2 d-flex justify-content-end'>
-            <i class="bi bi-arrow-return-right"></i>
-        </div>
-        <div class='col'>
-            <div class='row'>
-                <div class='col-2'>
-                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b>User1</b></button>
-                </div>
-                <div class='col'>
-                    <small>2023.03.16 11:50:14</small>
-                </div>
-                <div class='col-2'>
-                    <div class='dropdown'>
-                        <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
-                            <i class='bi bi-three-dots fa-2x'></i>
-                        </button>
-                        <div class='dropdown-menu'>
-                            <nav>
-                                <button class='dropdown-item'>수정</button>
-                                <button type='button'class='dropdown-item' id='delReply'>삭제</button>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='row mt-2'>
-                <div class='col m-2'>
-                    <p>치와와도 참 매력적인것 같아요!</p>
-                </div>
-            </div>
-        </div>
-    </div><hr>
+    
 </div>
 <nav class="navbar fixed-bottom bg-orange">
     <div class='input-group mt-2' style='padding-inline: .5rem;'>

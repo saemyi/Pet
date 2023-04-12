@@ -42,9 +42,9 @@ maximum-scale=1.0, minimum-scale=1.0'>
     <div class='container pb-5' id='comments'>
 		
     </div>
-    <nav class="navbar fixed-bottom bg-orange pt-0">
+    <nav class="navbar fixed-bottom p-0">
     	<div id='commentErr' class='col text-center bg-white' style='color: red;'></div>
-        <div class='input-group mt-2' style='padding-inline: .5rem;'>
+        <div class='input-group mt-2 bg-orange p-2' style='padding-inline: .5rem;'>
             <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
             <button type='button' class='btn border-0 bg-white send'  onclick='CommentSend()'>
                 <i class='bi bi-arrow-up-circle fa-2x'></i>
@@ -59,9 +59,11 @@ maximum-scale=1.0, minimum-scale=1.0'>
                 </div>
                 <div class='modal-body'>
                     <p id='modalMsg'></p>
+                    
                 </div>
                 <div class='modal-footer' id='modalBtn'>
-                    <button type='button' class='btn btn-orange' id='confirmBtn'  data-bs-dismiss="modal">수정</button>
+                	<p id='modalErrMsg' class='text-danger'></p>
+                    <button type='button' class='btn btn-orange' id='confirmBtn'>수정</button>
                 </div>
                 <div class='modal-footer' id='modalBtnDouble'>
                     <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
@@ -155,29 +157,34 @@ console.log(comments)
            	}
             
             $('.comment').val('') 
-    }else $('#commentErr').append('댓글을 입력해주세요') 
+    }else $('#commentErr').text('댓글을 입력해주세요').show().fadeOut(3000)
 }
 let comId = 0;   
     function CommentFix(comId){
-    	commentId = comId
-    	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ commentId +"'"+ "class='border-0' style='resize: none;'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
+    	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ comId +"'"+ "class='border-0' style='resize: none;' placeholder='댓글을 입력해주세요'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
     	$('#confirmBtn').click(() => {
-    		let comment = {
-    	    		commentId: comId,
-    	    		commentContent: $('#commentContentFix'+ comId).val(),
-    	    		commentTime: $('#commentTime').text()	
-    	    	}
-    	    	
-    	    	console.log(comment)
-    	    	$.ajax({
-    	            url: 'fix',
-    	            method: 'put',
-    	            contentType: 'application/json',
-    	        	data: JSON.stringify(comment),
-    	            success: function(){
-                    	window.location.href = '/comment/'+ ${meetingId} 
-                    }
-    	        })
+    		if($('#commentContentFix'+ comId).val()){
+    			let comment = {
+        	    		commentId: comId,
+        	    		commentContent: $('#commentContentFix'+ comId).val(),
+        	    		commentTime: $('#commentTime').text()	
+        	    	}
+        	    	
+        	    	console.log(comment)
+        	    	$.ajax({
+        	            url: 'fix',
+        	            method: 'put',
+        	            contentType: 'application/json',
+        	        	data: JSON.stringify(comment),
+        	            success: function(){
+                        	window.location.href = '/comment/'+ ${meetingId} 
+                        }
+        	        })
+    		} else {
+    				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)
+    				$('#confirmModal').removeAttr('data-bs-dismiss')	
+    		}
+    		
     	})
     }
     
