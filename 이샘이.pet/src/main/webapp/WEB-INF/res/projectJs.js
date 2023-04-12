@@ -7,7 +7,7 @@ function confirmModal(con, url=null) {
     $('#modalBtn').show()
     $('#logoBtn').hide()
     $('#modal').modal('show')
-}
+} 
 
 function yesNoModal(con, url=null) {
 	$('#modalBtnDouble').show()

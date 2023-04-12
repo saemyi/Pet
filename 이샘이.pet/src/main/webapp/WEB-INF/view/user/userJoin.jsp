@@ -75,7 +75,7 @@
 		    			}
 	    			} else confirmModal("닉네임 입력하세요.")
 	    		},
-	    		error:function() {
+	    		error:function() { 
 	    			confirmModal('다시 시도해주세요.');
 	    		}
 	    	})

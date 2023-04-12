@@ -24,7 +24,7 @@ function petName(input) {
     var regex=/^[a-zA-Z가-힣]{1,10}$/;
     return (input != '' && input != 'undefined' && regex.test(input)); 
 }
-
+ 
   $(() => {
 	  
 	    $("#petName").blur(function(){

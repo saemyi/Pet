@@ -40,7 +40,7 @@ $(() => {
                 <div class='col d-flex justify-content-center'>
                     <div class='logoBox p-5'>
                         <p class='d-flex text-center ms-3 mt-5 p-5'>로고이미지</p>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div class='row mt-5 mb-2'>
