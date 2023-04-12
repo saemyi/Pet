@@ -52,7 +52,7 @@ function petName(input) {
 	        	let user = {
 	      			userId: "${user.userId}",
 	          		userName: "${user.userName}",
-	          		profileImageFilename : "${user.profileImageFilename}",
+	          		profileImageFilename : "${user.userProfileImageFilename}",
 	          		phone :"${user.phone}",
 	          		email :"${user.email}",
 	          		address : "${user.address}",
