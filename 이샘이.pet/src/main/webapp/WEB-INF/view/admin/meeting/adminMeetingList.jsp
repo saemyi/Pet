@@ -175,11 +175,11 @@ $(init)
 <div class='row mt-3'>
 	<div class='col'>
 		<div class="input-group mt-2 gap-2 wrap d-flex justify-content-center">
-			<select class="select-orange" aria-label="Default select example">
-				<option>제목</option>
-				<option>장소</option>
-				<option>시간</option>
-				<option>작성자</option>
+			<select class="select-orange" name='searchCategory' aria-label="Default select example">
+				<option value='title'>제목</option>
+				<option value='place'>장소</option>
+				<option value='datetime'>시간</option>
+				<option value='author'>작성자</option>
 			</select>
 			<mx-auto>
 				<input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
