@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.domain.Report;
-
+import com.my.pet.domain.User;
 import com.my.pet.service.ReportService;
 
 @RestController
@@ -38,7 +40,12 @@ public class AdminReportController {
 	}
 	
 	@GetMapping("search")
-	public List<Report> search( Report report) {
+	public List<Report> search(Report report) {
 		return reportService.search(report);
+	}
+	
+	@PutMapping("changeProcessed")
+	public void chachangeProcessed(@RequestBody Report report) {
+		reportService.changeProcessed(report);
 	}
 }

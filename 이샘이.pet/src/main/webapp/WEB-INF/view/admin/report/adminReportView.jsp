@@ -16,9 +16,37 @@
 </style>
 <script>
 $(() => {
+	if(${report.isProcessed} == 0){
+		$('#changedProcessed').hide()	
+	}else{
+		$('#changeProcessed').hide()
+	}
+	
     $('#fixLogo').click(() => {
         logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
-        
+    
+    $('#changeProcessed').click(() => {
+	   	let isProcessed = ''
+	  
+	   	if( ${report.isProcessed} == 0 ){
+	   		isProcessed = 1
+	   		report = {
+	   			  
+  				reportId : ${reportId},
+  				isProcessed : isProcessed 
+	   		}
+	   		$.ajax({
+				url: '../changeProcessed',
+				method: 'put',
+				contentType:'application/json',
+				data: JSON.stringify(report),
+				success: './'
+			})
+			$('#changedProcessed').show()
+			$('#changeProcessed').hide()	
+	   	}
+    })
+    
     var reason 
     
    	if(${report.reason} == 1){
@@ -48,23 +76,23 @@ $(() => {
         <div class='row'>
             <nav class="navbar navbar-expand navbar-light nav-header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
+                    <a class="navbar-brand" href="../../../admin"><b>산책하개</b></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="../main.html">회원</a>
+                        <a class="nav-link" href="../../../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../meeting/01.html">모임</a>
+                        <a class="nav-link" href="../../../admin/meeting/list">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../notice/01.html">공지</a>
+                        <a class="nav-link" href="../../../admin/notice">공지</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../report/01.html">신고</a>
+                        <a class="nav-link" href="../../../admin/report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>
@@ -72,7 +100,7 @@ $(() => {
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" href="../user/01.html"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" id='isProcessed' href="../logout"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>
@@ -83,12 +111,13 @@ $(() => {
     <div class='col'>
         <form>
             <div class='row mb-3'>
-                <div class='col-10'>
+                <div class='col-9'>
                     <span class='label'><b>신고</b></span>
                 </div>
-                <div class='col-2 d-flex justify-content-end'>
-                    <button type='button' class='btn botton-orange'>신고확인</button>
-                </div>
+                <div class='col-3 d-flex justify-content-end'>
+                    <button type='button' id='changeProcessed' class='btn botton-orange'>신고확인</button>
+                    <button type='button' id='changedProcessed' class='btn btn-secondary' disabled = false;><small>신고확인완료</small></button>
+                </div> 
             </div>
         </form>
         <hr>
@@ -99,8 +128,8 @@ $(() => {
         <table class='table text-center'>
             <tbody id='reports'> 
                 <tr>
-                    <th style='width: 10rem;'>신고대상</th><td class='text-start' style='width: 35rem;'><a href='../user/02.html' class='a-black'></a>${report.userId}</td>
-                    <th style='width: 15rem;'>신고인</th><td>${report.targetId}</td>
+                    <th style='width: 10rem;'>신고대상</th><td class='text-start' style='width: 35rem;'><a href='../../../admin/adminUserView/${report.targetId}' class='a-black'>${report.targetId}</a></td>
+                    <th style='width: 15rem;'>신고인</th><td>${report.userId}</td>
                 </tr>
                 <tr>
                     <th>신고사유</th><td class='text-start' id='reason'></td><td></td><td></td>

@@ -36,4 +36,9 @@ public class ReportServiceImpl implements ReportService{
 	public List<Report> search(Report report){
 		return reportDao.search(report);
 	}
+	
+	@Override
+	public void changeProcessed(Report report) {
+		reportDao.changeProcessed(report);
+	}
 }
