@@ -29,7 +29,7 @@ $(() => {
 			dataType: 'json',
 			success: user => {
 				if(user.userProfileImageFilename != null) {
-				$('#userMypage').html(`<div class='box text-center p-2 image-box' id='userProfileImage'></div>
+				$('#userMypage').html(`<div class='box d-flex justify-content-center' id='userProfileImage'></div>
 				        <div class='col-7 mb-3'>
 			            <h5><b id='userNickname'></b></h5><hr>
 			            <p id='userIntro'></p>
@@ -60,11 +60,38 @@ $(() => {
 				if(petsList.length) {
 					pets = []
 					petsList.forEach(pet => {
-						console.log(pet)
-						pets.unshift(
-								pet.petName
-						)
+						if(pet.petProfileImageFilename != null) {
+							pets.unshift(
+								"<div class='card shadow mb-3'>" +
+							    "<div class='card-body'>" +
+						        "<div class='row'>" +
+					            "<div class='petBox image-box d-flex justify-content-center' id='petProfileImage'>" +
+					            '<img class="image-thumbnail" src="/attach/'+ pet.petProfileImageFilename + '"/>' +
+					            "</div>" +
+					            "<div class='col-8'>" +
+					                "<h6><b>" + pet.petName + "</b></h6>" +
+					                "<hr>" +
+					                "<p>" + pet.petIntro + 
+					                "</p>" +
+					            "</div></div></div></div>")  
+						} else {
+							pets.unshift(
+								"<div class='card shadow mb-3'>" +
+							    "<div class='card-body'>" +
+						        "<div class='row'>" +
+					            "<div class='petBox text-center p-3'>" +
+					               "<p class='mt-4'>반려견</p>" +
+					            "</div>" +
+					            "<div class='col-8'>" +
+					                "<h6><b>" + pet.petName + "</b></h6>" +
+					                "<hr>" +
+					                "<p>" + pet.petIntro + 
+					                "</p>" +
+					            "</div></div></div></div>"
+							)
+						}
 					})
+				 $('#pets').append(pets.join(''))
 				}
 			}
 		})

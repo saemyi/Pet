@@ -11,7 +11,7 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지수정</title>
 <style>
-</style>
+</style> 
 <script>
 $(() => {
    let noticeTitle = '${notice.noticeTitle}'
@@ -60,13 +60,13 @@ function goPage() {
                         <a class="nav-link" href="../../../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="">모임</a>
+                        <a class="nav-link" href="../../meeting/list">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../../../admin/notice">공지</a>
+                        <a class="nav-link" href="../../notice">공지</a>
                         </li>
                         <li class="nav-item"> 
-                        <a class="nav-link" href="../../../admin/report">신고</a>
+                        <a class="nav-link" href="../../report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>

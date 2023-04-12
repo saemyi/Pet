@@ -38,7 +38,7 @@ function init() {
 			success: goPage
 		})
 		}
-	})
+	}) 
 }
 $(init)
 </script>
@@ -53,23 +53,23 @@ $(init)
         <div class='row'>
             <nav class="navbar navbar-expand navbar-light nav-header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
+                    <a class="navbar-brand" href="../../admin"><b>산책하개</b></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="../main.html">회원</a>
+                        <a class="nav-link" href="../../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../meeting/01.html">모임</a>
+                        <a class="nav-link" href="../meeting/list">모임</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="../notice">공지</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../report/01.html">신고</a>
+                        <a class="nav-link" href="../report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>
