@@ -36,5 +36,10 @@ public class ReportDaoImpl implements ReportDao{
 	public List<Report> search(Report report){
 		return reportMap.search(report);
 	}
+	
+	@Override
+	public void changeProcessed(Report report) {
+		reportMap.changeProcessed(report);
+	}
 
 }

@@ -10,4 +10,5 @@ public interface ReportService {
 	Report getDetailReport(int reportId);
 	Report getSuspended(String loginId);
 	List<Report> search(Report report);
+	void changeProcessed(Report report);
 }

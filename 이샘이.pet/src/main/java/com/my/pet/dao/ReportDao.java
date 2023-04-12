@@ -10,4 +10,5 @@ public interface ReportDao {
 	Report selectDetailReport(int reportId);
 	Report selectSuspended(String loginId);
 	List<Report> search(Report report);
+	void changeProcessed(Report report);
 }

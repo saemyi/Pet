@@ -79,11 +79,11 @@ function displayData(currentPage, dataPerPage) {
    				}else if(report.reason == '7'){
    					reason = '기타'
    				}else reason = '사유 없음'
-   				
+   
    				reports.unshift(
 					'<tr>' +
 						'<td>' + report.reportId + '</td>' + 
-						'<td><a href=../user/userasd/ class = a-black>' + report.targetId + '</td>' + 
+						'<td><a href=../admin/adminUserView/'+ report.targetId +' class = a-black>' + report.targetId + '</td>' + 
 						'<td><a href=../admin/report/adminReportView/'+ report.reportId +' class = a-black id= reason>' + reason + '</a></td>' + 
 						'<td>' + report.userId + '</td>' +
 						'<td>' + processed + '</td>' + 
@@ -261,7 +261,7 @@ function searchData(currentPage, dataPerPage){
    				reports.unshift(
 					'<tr>' +
 						'<td>' + report.reportId + '</td>' + 
-						'<td><a href=../user/userasd/ class = a-black>' + report.targetId + '</td>' + 
+						'<td><a href=../admin/adminUserView/'+ report.targetId +' class = a-black>' + report.targetId + '</td>' + 
 						'<td><a href=../admin/report/adminReportView/'+ report.reportId +' class = a-black id= reason>' + reason + '</a></td>' + 
 						'<td>' + report.userId + '</td>' +
 						'<td>' + processed + '</td>' + 
@@ -439,7 +439,7 @@ $(init)
                         <a class="nav-link" href="../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../admin/metting">모임</a>
+                        <a class="nav-link" href="../admin/meeting/list">모임</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="../admin/notice">공지</a>

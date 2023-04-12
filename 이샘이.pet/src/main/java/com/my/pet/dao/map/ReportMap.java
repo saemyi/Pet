@@ -12,4 +12,5 @@ public interface ReportMap {
 	Report selectDetailReport(int reportId);
 	Report selectSuspended(String loginId);
 	List<Report> search(Report report);
+	int changeProcessed(Report report);
 }
