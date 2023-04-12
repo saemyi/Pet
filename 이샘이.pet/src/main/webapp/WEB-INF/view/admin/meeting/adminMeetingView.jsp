@@ -115,14 +115,13 @@ function processMeetingData() {
 			$('#dongNm').text($('#dong option:selected').text())
 			
 			console.log($('#meetingTitle').text())
-			console.log($('#meetingContent').val())
+			console.log($('#meetingContent').text())
 			console.log($('#meetingDateTime').val())
 			console.log($('#recruitmentNumber').text())
 			console.log($('#applicantNumber').text())
-			console.log($('#userId').text())
-			console.log($('#sidoNm').val())
-			console.log($('#sigugunNm').val())
-			console.log($('#dongNm').val())
+			console.log($('#sidoNm').text())
+			console.log($('#sigugunNm').text())
+			console.log($('#dongNm').text())
 			
 			$('#sigugun').css("display", "none")
 		}
@@ -158,11 +157,11 @@ $(init)
 </style>
 </head>
 <body>
-<div class='container'>
+<div class='container wrap'>
 <div class='row mb-4'>
     <div class='col'>
         <div class='row'>
-            <nav class="navbar navbar-expand-lg navbar-light nav-header">
+            <nav class="navbar navbar-expand navbar-light nav-header">
                 <div class="container-fluid">
 					<a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -212,29 +211,25 @@ $(init)
         <hr>
     </div>
 </div>
-<div class='row'>
+<div class='row sm'>
 	<div class='col'>
-		<table class='table text-center sm'>
+		<table class='table text-center'>
 			<tbody id='meeting'>
 				<tr>
 					<th>제목</th>
-					<td id='meetingTitle'></td>
+					<td class='text-start' id='meetingTitle'></td>
+					<th>모임시각</th>
+					<td class='text-start'><input type='datetime-local' class='form-control' id='meetingDateTime' style='border:none; background: none; font-size: 12px; padding: 1px;' disabled/></td>
 				</tr>
 				<tr>
 					<th>장소</th>
-					<td style='width: 30rem;'><span id='sidoNm'></span> <span id='sigugunNm'></span> <span id='dongNm'></span></td>
+					<td class='text-start' style='width: 30rem;'><span id='sidoNm'></span> <span id='sigugunNm'></span> <span id='dongNm'></span></td>
 					<th style='border-top: .1rem solid;'>참석인원/모집인원</th>
-					<td style='border-top: .1rem solid;'><span id='applicantNumber'></span>/<span id='recruitmentNumber'></span></td>
-				</tr>
-				<tr>
-					<th>모임시각</th>
-					<td><input type='datetime-local' class='form-control text-center' id='meetingDateTime' style='border:none; background: none; font-size: 12px; padding: 1px;' disabled/></td>
-					<td></td>
-					<td></td>
+					<td class='text-start' style='border-top: .1rem solid;'><span id='applicantNumber'></span>/<span id='recruitmentNumber'></span></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td colspan=2 id='meetingContent'>
+					<td class='text-start' colspan=3 id='meetingContent'>
 					</td>
 				</tr>
 			</tbody>
