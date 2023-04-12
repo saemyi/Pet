@@ -30,10 +30,10 @@
         		data : user,
         		dataType : 'text',
         		success: function(text) {
-        			if(text != null) {
-        				confirmModal('회원님의 아이디는 ' + text + ' 입니다.', 'login')
-        			} else {
+        			if(text == '') {
         				confirmModal('존재하는 회원이 없습니다.')
+        			} else {
+        				confirmModal('회원님의 아이디는 ' + text + ' 입니다.', 'login')
         			}
         		},
         		error: confirmModal('존재하는 회원이 없습니다.')
