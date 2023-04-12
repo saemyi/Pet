@@ -91,10 +91,10 @@ maximum-scale=1.0, minimum-scale=1.0'>
                         `<div class='row'>
                             <div class='col'>
                                 <div class='row'>
-                                    <div class='col-2'>
+                                    <div class='col pe-0'>
                                         <button type='button' class='border-0'onclick="location.href='../login'"><b>\${comment.nickname}</b></button>
                                     </div>
-                                    <div class='col'>
+                                    <div class='col-6'>
                                         <small id='commentTime' value='\${comment.commentTime}'>\${comment.commentTime}</small>
                                     </div>
                                     <div class='col-2'>
