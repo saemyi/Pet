@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.my.pet.domain.Meeting;
 import com.my.pet.domain.Pet;
 import com.my.pet.domain.PetDto;
 import com.my.pet.service.PetService;

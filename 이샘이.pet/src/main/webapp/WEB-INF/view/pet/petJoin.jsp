@@ -48,7 +48,7 @@ function petName(input) {
 	    })
 	    
 	   $('#joinBtn').click(() => {
-	       
+	        
 	        	let user = {
 	      			userId: "${user.userId}",
 	          		userName: "${user.userName}",

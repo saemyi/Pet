@@ -18,7 +18,7 @@ public class User {
     private String userIntro; 
     private String userProfileImageFilename;
     private String phone;
-    private String email;
+    private String email; 
     private String address;
     private String detailedAddress;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-@Data
+@Data 
 public class UserDto {
 	@NotNull(message="아이디를 입력하세요")
 	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z]).{4,16}", message = "4~16자 영문 소문자, 숫자 조합으로 입력하세요.")

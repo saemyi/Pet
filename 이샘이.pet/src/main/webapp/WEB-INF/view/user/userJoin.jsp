@@ -15,7 +15,7 @@
 <title>회원가입</title>
 <style>
     
-</style>
+</style> 
 <script>
  $(() => {
     $('#confirmPw').after('')
