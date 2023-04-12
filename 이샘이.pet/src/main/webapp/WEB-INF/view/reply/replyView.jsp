@@ -68,7 +68,7 @@ function listReplies() {
                          </div>
                      </div>
                  </div><hr>`    
-             ))
+             )
 			 
 		 }		 
 	 })
@@ -119,7 +119,7 @@ function listReplies() {
 				 })
 				 $('#replies').append(replyArr.join(''))
 			 } else $('#replies').append(
-	            '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')
+	            '<tr><td colspan=4 class=text-center> 답글이 없습니다.</td></tr>')
 		 }
 	 })
 }
