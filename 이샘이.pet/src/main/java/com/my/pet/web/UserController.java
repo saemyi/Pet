@@ -114,7 +114,12 @@ public class UserController {
 	
 	@PostMapping("findId")
 	public String findId(@RequestParam("userName") String userName, @RequestParam("phone") String phone) {
-		return userService.searchUserId(userName, phone).getUserId();
+		User user = userService.searchUserId(userName, phone);
+		String userId = null;
+		if(user != null) {
+			userId = user.getUserId();
+		}
+		return userId;
 	}
 	
 	//회원가입화면
@@ -126,24 +131,14 @@ public class UserController {
 	
 	//회원정보 pet으로 넘기기
 	@PostMapping("userJoin")
-	public ModelAndView joinUser(ModelAndView mv,  @Valid UserDto userDto, User user, 
-			BindingResult bindingResult ,RedirectAttributes redirect) {
-		if(bindingResult.hasErrors()) {
-			System.out.println(userDto);
-			 List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-			 System.out.println(fieldErrors);
-			 for(FieldError error : fieldErrors) {
-	            mv.addObject(error.getField() + "Error", error.getDefaultMessage());
-			 	} 
-			 	mv.setViewName("user/userJoin"); 
-	        } else {
+	public ModelAndView joinUser(ModelAndView mv, UserDto userDto, User user, 
+			RedirectAttributes redirect) {
 			String filename = userDto.getUserProfile().getOriginalFilename();
 			saveFile(attachPath + "/" + filename, userDto.getUserProfile());
 			user.setUserProfileImageFilename(filename);
 			redirect.addFlashAttribute("user", user);
 			mv.setViewName("redirect:pet/petJoin");
-			}
-		return mv;
+			return mv;
 	}
 	
 	private void saveFile(String filename, MultipartFile file) {
