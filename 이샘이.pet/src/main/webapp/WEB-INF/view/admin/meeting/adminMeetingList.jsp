@@ -135,7 +135,7 @@ $(init)
 </script>
 </head>
 <body>
-<div class='container wrap'>
+<div class='container'>
 <div class='row mb-4'>
     <div class='col'>
         <div class='row'>
@@ -190,10 +190,10 @@ $(init)
     </div>
     <div class='col-4'></div>
 </div>
-<div class='row mt-4'>
+<div class='row mt-4 sm'>
     <div class='col'>
         <table class='table text-center'>
-            <thead class='table'>
+            <thead class='table sm'>
                 <tr><th></th><th style='width: 15rem;'>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
             </thead>
             <tbody id='meetings'>

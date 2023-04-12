@@ -214,7 +214,7 @@ $(init)
 </div>
 <div class='row'>
 	<div class='col'>
-		<table class='table text-center'>
+		<table class='table text-center sm'>
 			<tbody id='meeting'>
 				<tr>
 					<th>제목</th>
