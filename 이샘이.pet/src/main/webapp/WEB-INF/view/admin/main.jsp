@@ -139,7 +139,7 @@ $(init)
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>
                         </li>
-                    </ul>
+                    </ul> 
                     </div>
                     <div>
                         <a class="nav-link a-gray" href="../logout"><small>로그아웃</small></a>

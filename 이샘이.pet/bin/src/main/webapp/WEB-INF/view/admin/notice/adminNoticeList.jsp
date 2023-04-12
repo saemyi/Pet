@@ -28,7 +28,7 @@
     				notices.unshift(
 						'<tr>' +
 							'<td>' + notice.noticeId + '</td>' + 
-							'<td><a href="notice/adminNoticeDetail/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
+							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
 							'<td>' + notice.noticeTime + '</td>' +
 							'<td>' + notice.userId + '</td>' +
 						'</tr>'
@@ -61,7 +61,7 @@
         				notices.unshift(
     						'<tr>' +
     							'<td>' + notice.noticeId + '</td>' + 
-    							'<td><a href="notice/adminNoticeDetail/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
+    							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
     							'<td>' + notice.noticeTime + '</td>' +
     							'<td>' + notice.userId + '</td>' +
     						'</tr>'

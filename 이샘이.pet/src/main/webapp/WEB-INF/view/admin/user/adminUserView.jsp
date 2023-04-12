@@ -43,7 +43,7 @@ $(() => {
     jQuery.each(hangjungdong.sido, function (idx, code) {
 		//append를 이용하여 option 하위에 붙여넣음
 		jQuery('#sido').append(fn_option(code.sido, code.codeNm));
-	});
+	}); 
 	
 	//sido 변경시 시군구 option 추가
 	jQuery('#sido').change(function () {
