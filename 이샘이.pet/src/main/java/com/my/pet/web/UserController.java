@@ -105,6 +105,18 @@ public class UserController {
 		return mv;
 	}
 	
+	//아이디찾기
+	@GetMapping("findId")
+	public ModelAndView findId(ModelAndView mv) {
+		mv.setViewName("user/findUserId");
+		return mv;
+	}
+	
+	@PostMapping("findId")
+	public String findId(@RequestParam("userName") String userName, @RequestParam("phone") String phone) {
+		return userService.searchUserId(userName, phone).getUserId();
+	}
+	
 	//회원가입화면
 	@GetMapping("userJoin")
 	public ModelAndView joinIn(ModelAndView mv) {

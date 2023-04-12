@@ -10,6 +10,7 @@ public interface UserService {
 	int duplicateCheckNickname(String nickname);
 	User loginUser(String userId, String pw); 
 	User getMypage(String userId);
+	User searchUserId(String phone, String userName);
 	int joinUser(String userId, String userName, String profileImageFileName,
 			 String phone, String email, String address, String detailedAddress,
 			 LocalDate birthdate, String pw, String nickname);

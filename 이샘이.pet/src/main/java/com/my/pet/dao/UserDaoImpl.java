@@ -18,6 +18,11 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Override
+	public User findUserId(String userName, String phone) {
+		return userMap.findUserId(userName, phone);
+	}
+	
+	@Override
 	public int selectNickname(String nickname) {
 		return userMap.selectNickname(nickname);
 	}

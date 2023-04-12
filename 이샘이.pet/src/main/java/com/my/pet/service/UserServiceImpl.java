@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.my.pet.dao.UserDao;
 import com.my.pet.domain.User;
-import com.my.pet.domain.UserDto;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -17,14 +16,12 @@ public class UserServiceImpl implements UserService{
    @Override
    public int duplicateCheckUserId(String userId) {
       int cnt =  userDao.selectUserId(userId);
-      System.out.println("userId cnt: " + cnt);
       return cnt;
    }
    
    @Override
    public int duplicateCheckNickname(String nickname) {
       int cnt = userDao.selectNickname(nickname);
-      System.out.println("nickname cnt: " + cnt);
       return cnt;
    }
    
@@ -36,6 +33,11 @@ public class UserServiceImpl implements UserService{
    @Override
    public User loginUser(String userId, String pw) {
       return userDao.selectUser(userId, pw); 
+   }
+   
+   @Override
+   public User searchUserId(String phone, String userName) {
+      return userDao.findUserId(phone, userName); 
    }
 
    @Override

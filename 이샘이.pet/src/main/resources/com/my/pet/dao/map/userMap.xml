@@ -10,6 +10,7 @@
 			and pw = #{pw}
 			</if>
 		</select>
+		
 		<select id='selectUsers' resultType='user'>
 			select *
 			from users
@@ -19,6 +20,12 @@
 			select count(user_id)
 			from users
 			where user_id = #{userId}
+		</select>
+		
+		<select id='findUserId' resultType='User'>
+			select user_id
+			from users
+			where phone = #{phone} and user_name = #{userName}
 		</select>
 		
 		<select id='selectNickname' resultType='int'>

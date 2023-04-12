@@ -9,6 +9,7 @@ public interface UserMap {
 	int selectUserId(String userId);
 	int selectNickname(String nickname);
 	User selectUser(String userId, String pw);
+	User findUserId(String userName, String phone);
 	int insertUser(String userId, String userName, String profileImageFilename,
 			 String phone, String email, String address, String detailedAddress,
 			 LocalDate birthdate, String pw, String nickname);
@@ -21,4 +22,4 @@ public interface UserMap {
 	int changeAdmin(User user);
 	int benUser(User user);
 	int updateUserName(User user);
-} 
+}
