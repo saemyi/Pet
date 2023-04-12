@@ -18,58 +18,83 @@
 </style> 
 <script>
  $(() => {
+	 err("#userId", userId_pw_check, ".result-userId", '<small class="errMsg" id="userIdError">4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
+	 err("#nickname", nickname_check, ".result-nickname", '<small class="errMsg" id="nicknameError">2자이상 10자이하 영어, 한글, 숫자 입력가능합니다.</small>')
+	 err("#password", userId_pw_check, ".result-password", '<small class="errMsg">4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
+	 err("#userName", userName_check, ".result-userName", '<small class="errMsg">2자이상 10자이하 한글로 입력하세요.</small>')
+	 err("#email", email_check, ".result-email", '<small class="errMsg">이메일 형식이 올바르지 않습니다.</small>')
+	 err("#phone", phone_check, ".result-phone", '<small class="errMsg">' + "'-'" + '을 제외한 전화번호를 입력하세요.</small>')
+	 
     $('#confirmPw').after('')
     $('#idCheck').click(() => {
-    	var userId = $('#userId').val();
-    	$.ajax({
-    		url:'./idCheck',
-    		type:'post',
-    		data:{userId:userId},
-    		success: function(cnt) {
-    			if(isVal($('#userId'))) {
-    				if(cnt == 0) {
-        				confirmModal('사용가능한 아이디 입니다.')
-        				$("input[name=checked_id]").val('y');
-        			} else {
-        				confirmModal('이미 존재하는 아이디 입니다.')
-        				$("input[name=checked_id]").val('');
-        				$('#userId').val(''); 
-        			}
-    			} else confirmModal("아이디 입력하세요.")
-    		},
-    		error:function() {
-    			confirmModal('다시 시도해주세요.');
-    		}
-    	})
+    	if($('#userIdError').length != 0) {
+    		
+    	} else {
+		   	var userId = $('#userId').val();
+		   	$.ajax({
+		   		url:'./idCheck',
+		   		type:'post',
+		   		data:{userId:userId},
+		   		success: function(cnt) {
+		   			if(isVal($('#userId'))) {
+		   				if(cnt == 0) {
+		       				confirmModal('사용가능한 아이디 입니다.')
+		       				$("input[name=checked_id]").val('y');
+		       			} else {
+		       				confirmModal('이미 존재하는 아이디 입니다.')
+		       				$("input[name=checked_id]").val('');
+		       				$('#userId').val(''); 
+		       			}
+		   			} else confirmModal("아이디 입력하세요.")
+		   		},
+		   		error:function() {
+		   			confirmModal('다시 시도해주세요.');
+		   		}
+		   	})
+    	}
     })
 
     $('#nicknameCheck').click(() => {
-    	var nickname = $('#nickname').val();
-    	$.ajax({
-    		url:'./nicknameCheck',
-    		type:'post',
-    		data:{nickname:nickname},
-    		success: function(cnt) {
-    			if(isVal($('#nickname'))) {
-	    			if(cnt == 0) {
-	    				confirmModal('사용가능한 닉네임 입니다.')
-	    				$("input[name=checked_nickname]").val('y');    				
-	    			} else {
-	    				confirmModal('이미 존재하는 닉네임 입니다.')
-	    				$('#nickname').val('');
-	    				$("input[name=checked_nickname]").val('');
-	    			}
-    			} else confirmModal("닉네임 입력하세요.")
-    		},
-    		error:function() {
-    			confirmModal('다시 시도해주세요.');
-    		}
-    	})
+    	if($('#nicknameError').length != 0) {
+    	
+    	} else {
+	    	var nickname = $('#nickname').val();
+	    	$.ajax({
+	    		url:'./nicknameCheck',
+	    		type:'post',
+	    		data:{nickname:nickname},
+	    		success: function(cnt) {
+	    			if(isVal($('#nickname'))) {
+		    			if(cnt == 0) {
+		    				confirmModal('사용가능한 닉네임 입니다.')
+		    				$("input[name=checked_nickname]").val('y');    				
+		    			} else {
+		    				confirmModal('이미 존재하는 닉네임 입니다.')
+		    				$('#nickname').val('');
+		    				$("input[name=checked_nickname]").val('');
+		    			}
+	    			} else confirmModal("닉네임 입력하세요.")
+	    		},
+	    		error:function() {
+	    			confirmModal('다시 시도해주세요.');
+	    		}
+	    	})
+    	}
 	})
 	
 
 	$('#nextBtn').click(() => {
-    		$('#userJoinForm').submit();
+		if(isVal($('#userId')) && isVal($('#nickname')) && isVal($('#userName')) && isVal($('#password')) 
+				&& isVal($('#pwCheck')) && isVal($('#birthdate')) && isVal($('#phone')) && isVal($('#sample6_address')) 
+				&& isVal($('#email')) && $('.errMsg').length == 0) {
+			if($("input[name=checked_id]").val() != 'y') {
+				confirmModal('아이디 중복확인 하세요.')
+			} else if ($("input[name=checked_nickname]").val() != 'y') {
+				confirmModal('닉네임 중복확인 하세요.')
+			} else {
+				$('#userJoinForm').submit();
+			}
+		} 
 	})
 	
  })
@@ -86,10 +111,9 @@
 
         reader.readAsDataURL(event.target.files[0]);
       }
-
  
- $(upLoadImg)
- $(pwCheck)
+$(upLoadImg)
+$(pwCheck)
 
 </script>
 </head>
@@ -121,6 +145,7 @@
         <div class='row'>
             <div class='col'>
                 <input type='text' class='form-control mb-3' id='userName' name='userName' placeholder='이름'>
+                <div id="errorMsg" class="result-userName result-check"></div>
             </div>
         </div>
         <div class='row'>
@@ -132,6 +157,7 @@
                 <input type="hidden" name="checked_id" value="">
             </div>
         </div>
+        <div id="errorMsg" class="result-userId result-check"></div>
         <div class='row'>
             <div class='col-8'>
                 <input type='text' class='form-control mb-3' id='nickname' name='nickname' placeholder='닉네임'>
@@ -141,9 +167,11 @@
                 <input type="hidden" name="checked_nickname" value="">
             </div>
         </div>
+        <div id="errorMsg" class="result-nickname result-check"></div>
         <div class='row'>
             <div class='col'>
-                <input type='password' class='form-control mb-3 pw' id='pw' name='pw' placeholder='비밀번호' autocomplete="off">
+                <input type='password' class='form-control mb-3 pw' id='password' name='pw' placeholder='비밀번호' autocomplete="off">
+                <div id="errorMsg" class="result-password result-check"></div>
             </div>
         </div>
         <div class='row' id='confirmPw'>
@@ -154,11 +182,13 @@
         <div class='row'>
             <div class='col'>
                 <input type='text' class='form-control mb-3' id='phone' name='phone' placeholder='전화번호'>
+                <div id="errorMsg" class="result-phone result-check"></div>
             </div>
         </div>
         <div class='row'>
             <div class='col'>
                 <input type='email' class='form-control mb-3' id='email' name='email' placeholder='이메일'>
+                <div id="errorMsg" class="result-email result-check"></div>
             </div>
         </div>
         <div class='row'>

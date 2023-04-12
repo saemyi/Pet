@@ -33,12 +33,12 @@ function upLoadImg() {
 
 function pwCheck() {
     $('.pw').focusout(function(){
-        let pw1 = $('#pw').val();
+        let pw1 = $('#password').val();
         let pw2 = $('#pwCheck').val();
     
         $('#checkMsg').empty()
     
-        if($('#pw').val() != '' && $('#pwCheck').val() != '') {
+        if($('#password').val() != '' && $('#pwCheck').val() != '') {
             if(pw1 == pw2) {
                 $('#pwCheck').after('<div id="checkMsg" style="color:green"><p>비밀번호가 일치합니다.</p></div>')
             } else {
@@ -82,8 +82,29 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
+//아이디 비밀번호 유효성검사
 function userId_pw_check(input) {    
     var regex=/^[0-9a-z]{4,20}$/;
+    return (input != '' && input != 'undefined' && regex.test(input)); 
+}
+//유저이름 유효성검사
+function userName_check(input) {    
+    var regex=/^[가-힣]{2,10}$/;
+    return (input != '' && input != 'undefined' && regex.test(input)); 
+}
+//닉네임 유효성검사
+function nickname_check(input) {    
+    var regex=/^[가-힣A-Za-z0-9]{2,10}$/;
+    return (input != '' && input != 'undefined' && regex.test(input)); 
+}
+//전화번호 유효성검사
+function phone_check(input) {    
+    var regex=/^(01[016789]{1})[0-9]{3,4}[0-9]{4}$/; 
+    return (input != '' && input != 'undefined' && regex.test(input)); 
+}
+//이메일 유효성검사
+function email_check(input) {    
+    var regex=/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
     return (input != '' && input != 'undefined' && regex.test(input)); 
 }
 

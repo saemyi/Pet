@@ -19,13 +19,13 @@
 </style>
 <script>
 $(() => {        
-	err("#userId", userId_pw_check, ".result-userId", '<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
-  	err("#password", userId_pw_check, ".result-password", '<small>4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
+	err("#userId", userId_pw_check, ".result-userId", '<small class="errMsg">4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
+  	err("#password", userId_pw_check, ".result-password", '<small class="errMsg">4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
   	
   	$("#loginBtn").click(() => {
-  		if(isVal($('#userId')) && isVal($('#password'))) {
+  		if(isVal($('#userId')) && isVal($('#password')) && $('.errMsg').length == 0) {
   			$('#loginForm').submit();
-  		} else $("#errMsg").hide()
+  		}
   	})  
 })
 

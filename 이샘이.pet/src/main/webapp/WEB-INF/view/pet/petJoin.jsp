@@ -31,7 +31,7 @@ function petName(input) {
 	    var input = $(this).val();
 	    if( input == '' || input == 'undefined') return;
 	    if(!petName(input) ) {
-	        $(".result-petName").html('<small>1자이상 10자이하 영어소문자와 한글만 입력가능합니다.</small>').css('color', 'red');
+	        $(".result-petName").html('<small class="errMsg">1자이상 10자이하 영어소문자와 한글만 입력가능합니다.</small>').css('color', 'red');
 	        $(this).focus();
 	        return false;
 	    }else {
@@ -48,28 +48,28 @@ function petName(input) {
 	    })
 	    
 	   $('#joinBtn').click(() => {
-	        
-	        	let user = {
-	      			userId: "${user.userId}",
-	          		userName: "${user.userName}",
-	          		profileImageFilename : "${user.userProfileImageFilename}",
-	          		phone :"${user.phone}",
-	          		email :"${user.email}",
-	          		address : "${user.address}",
-	          		detailedAddress : "${user.detailedAddress}",
-	          		birthdate : "${user.birthdate}",
-	          		pw : "${user.pw}",
-	          		nickname : "${user.nickname}",
-	        	}	
-	            $.ajax({
-	            	url: '../add',
-	            	method: 'post',
-	            	data: user,
-	            	success: petJoin
-	       		})
-	        
+		   if(isVal($("#petName")) && $(".errMsg").length == 0) {
+			   let user = {
+		      			userId: "${user.userId}",
+		          		userName: "${user.userName}",
+		          		profileImageFilename : "${user.userProfileImageFilename}",
+		          		phone :"${user.phone}",
+		          		email :"${user.email}",
+		          		address : "${user.address}",
+		          		detailedAddress : "${user.detailedAddress}",
+		          		birthdate : "${user.birthdate}",
+		          		pw : "${user.pw}",
+		          		nickname : "${user.nickname}",
+		        	}	
+		            $.ajax({
+		            	url: '../add',
+		            	method: 'post',
+		            	data: user,
+		            	success: petJoin
+		       })
+		   	}
 	    })
-})
+	})
 
 
 function listPets() {

@@ -68,7 +68,6 @@ public class UserController {
 			User userData = userService.loginUser(user.getUserId(), user.getPw());
 			System.out.println(user.getUserId() + user.getPw());
 			System.out.println(userData);
-
 			if(userData != null) {
 				session.setAttribute("userId", user.getUserId());
 
@@ -115,24 +114,23 @@ public class UserController {
 	
 	//회원정보 pet으로 넘기기
 	@PostMapping("userJoin")
-	public ModelAndView joinUser(ModelAndView mv, @Valid UserDto userDto, User user, 
+	public ModelAndView joinUser(ModelAndView mv,  @Valid UserDto userDto, User user, 
 			BindingResult bindingResult ,RedirectAttributes redirect) {
-		/* if(bindingResult.hasErrors()) { */
+		if(bindingResult.hasErrors()) {
 			System.out.println(userDto);
 			 List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 			 System.out.println(fieldErrors);
 			 for(FieldError error : fieldErrors) {
 	            mv.addObject(error.getField() + "Error", error.getDefaultMessage());
-	        }
-			/*
-			 * mv.setViewName("user/userJoin"); } else {
-			 */
+			 	} 
+			 	mv.setViewName("user/userJoin"); 
+	        } else {
 			String filename = userDto.getUserProfile().getOriginalFilename();
 			saveFile(attachPath + "/" + filename, userDto.getUserProfile());
 			user.setUserProfileImageFilename(filename);
 			redirect.addFlashAttribute("user", user);
 			mv.setViewName("redirect:pet/petJoin");
-			/* } */
+			}
 		return mv;
 	}
 	
