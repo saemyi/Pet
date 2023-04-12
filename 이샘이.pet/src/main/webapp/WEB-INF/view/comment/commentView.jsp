@@ -174,7 +174,9 @@ let comId = 0;
     	            method: 'put',
     	            contentType: 'application/json',
     	        	data: JSON.stringify(comment),
-    	            success: listComments
+    	            success: function(){
+                    	window.location.href = '/comment/'+ ${meetingId} 
+                    }
     	        })
     	})
     }

@@ -7,11 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.my.pet.dao.map.ReplyMap;
+import com.my.pet.domain.Comment;
 import com.my.pet.domain.Reply;
 
 @Repository
 public class ReplyDaoImpl implements ReplyDao{
 @Autowired private ReplyMap replyMap;
+	
+	@Override
+	public Comment selectComment(int commentId) {
+		return replyMap.selectComment(commentId);
+	}
 	
 	@Override
 	public List<Reply> selectReplies(int commentId){

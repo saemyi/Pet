@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.pet.domain.Comment;
 import com.my.pet.domain.Reply;
 import com.my.pet.service.ReplyService;
 
@@ -36,7 +37,10 @@ public class ReplyController {
 		mv.setViewName("reply/replyView");
 		return mv;
 	}
-	
+	@GetMapping("getComment/{commentId}")
+	public Comment getComment(@PathVariable int commentId) {
+		return replyService.getComment(commentId);
+	}
 	@GetMapping("get/{commentId}")
 	public List<Reply> getReplies(@PathVariable int commentId){
 		return replyService.getReplies(commentId);

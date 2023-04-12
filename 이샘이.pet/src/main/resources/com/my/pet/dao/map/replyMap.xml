@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN' 
 'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 <mapper namespace='com.my.pet.dao.map.ReplyMap'>
+	<select resultMap='commentMap' id='selectComment'>
+		select c.comment_id, c.comment_content,c.comment_time, c.user_id,u.nickname ,count(r.reply_id) replyCnt
+		from comments c join users u 
+		on c.user_id = u.user_id
+		left outer join replies r
+		on c.comment_id = r.comment_id
+		where c.comment_id = #{commentId}
+		group by c.comment_id, c.comment_content, c.comment_time, c.user_id, u.nickname 
+	</select>
+	
 	<select resultMap='replyMap' id='selectReplies'>
 		select r.reply_id, r.reply_content, r.reply_time, r.user_id, r.comment_id, u.nickname 
 		from replies r join users u 
@@ -33,5 +43,12 @@
 		<result property='replyContent' column='reply_content'/>
 		<result property='replyTime' column='reply_time'/>
 		<result property='commentId' column='comment_id'/>
+	</resultMap>
+	
+	<resultMap id='commentMap' type='comment'>
+		<id property='commentId' column='comment_id'/>
+		<result property='userId' column='user_id'/>
+		<result property='commentContent' column='comment_content'/>
+		<result property='commentTime' column='comment_time'/>
 	</resultMap>
 </mapper>

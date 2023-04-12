@@ -7,11 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.pet.dao.ReplyDao;
+import com.my.pet.domain.Comment;
 import com.my.pet.domain.Reply;
 
 @Service
 public class ReplyServiceImpl implements ReplyService{
 	@Autowired private ReplyDao replyDao;
+	
+	@Override
+	public Comment getComment(int commentId) {
+		return replyDao.selectComment(commentId);
+	}
 	
 	@Override
 	public List<Reply> getReplies(int commentId){

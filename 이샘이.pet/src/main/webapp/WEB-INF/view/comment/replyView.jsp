@@ -28,9 +28,17 @@ maximum-scale=1.0, minimum-scale=1.0'>
 function listReplies() { 
 	console.log("listReplies 실행")
 	 $('#replies').empty()
+	 $.ajax({
+		 url:'getComment/' +${commentId},
+		 dataType: 'json',
+		 success: comment => {
+			 
+		 }		 
+	 })
+	 
 	 
 	 $.ajax({
-		 url:'get/' + ${replyId}, 
+		 url:'get/' + ${commentId}, 
 		 dataType: 'json',
 		 success: replies => {
 			 if(replies.length) {
@@ -44,7 +52,7 @@ function listReplies() {
 							        <div class='col'>
 							            <div class='row'>
 							                <div class='col-2'>
-							                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b id='\${comment.userId}' name='nickname'>\${reply.nickname}</b></button>
+							                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b>\${reply.nickname}</b></button>
 							                </div>
 							                <div class='col'>
 							                    <small id='replyTime' value='\${reply.replyTime}'>\${reply.replyTime}</small>
@@ -153,7 +161,7 @@ function CommentDel(comId){
         </div>
     </nav>
 </div>
-<div class='container'>
+<div class='container' id='comment'>
     <div class='row'>
         <div class='col'>
             <div class='row'>
