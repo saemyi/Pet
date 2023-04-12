@@ -54,6 +54,7 @@
       	select user_id, nickname, user_name, phone, email, is_suspended
       	from users
       	where user_id like '%' || #{userId} || '%'
+      	order by user_id
       </select>
       
       <update id='changeAdmin'>

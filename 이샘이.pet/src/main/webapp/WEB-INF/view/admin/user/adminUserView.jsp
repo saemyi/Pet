@@ -172,7 +172,7 @@ function adminMeetingList() {
 }
 
 function goPage() {
-	location.replace("./user")
+	location.replace("./user") 
 }
 
 function init() {
@@ -319,7 +319,7 @@ function init() {
                         <a class="nav-link" href="../../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../meeting/01.html">모임</a>
+                        <a class="nav-link" href="../meeting/list">모임</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="../notice">공지</a>
@@ -333,7 +333,7 @@ function init() {
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" href="../user"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" href="../../logout"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>
