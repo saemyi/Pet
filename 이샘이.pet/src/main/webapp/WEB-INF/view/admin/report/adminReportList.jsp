@@ -22,18 +22,32 @@ let globalCurrentPage = 1;
 //console.log("totalData start :"+totalData)
 //console.log("dataList1 start :"+dataList)
 
-$(document).ready(function () {
+/* $(document).ready(function () {
  //글 목록 표시 호출 (테이블 생성)
 	displayData(1, dataPerPage);
 	
-});
+}); */
 
 $(() => {
 	$('#fixLogo').click(() => {
-        logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
-        
+        logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})  
 })
+
+function init() {
+	//글 목록 표시 호출 (테이블 생성)
+	//console.log("displayData start")
+	displayData(1, dataPerPage);
+	
+	// 검색test
+	$('#search').click(() => {
+		//console.log("searchData start")
+		searchData(1, dataPerPage);
+
+	})
+}
+
 function displayData(currentPage, dataPerPage) {
+	$('#reports').empty()
 	$.ajax({
    		url: 'report/get',
    		success: reportList => {
@@ -79,7 +93,6 @@ function displayData(currentPage, dataPerPage) {
    			})
    				currentPage = Number(currentPage);
 	 			dataPerPage = 10;
-	 			$('#reports').empty()
 	 			 for (
 	 				    var i = (currentPage - 1) * dataPerPage;
 	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
@@ -100,27 +113,27 @@ function displayData(currentPage, dataPerPage) {
 }
 
 function paging(totalData, dataPerPage, pageCount, currentPage) {
-	 // console.log("totalData " + totalData)
-	 // console.log("pageCount " + pageCount)
-	 // console.log("dataPerPage " + dataPerPage)
+	  //console.log("totalData " + totalData)
+	  //console.log("pageCount " + pageCount)
+	  //console.log("dataPerPage " + dataPerPage)
 	
 	  //console.log("currentPage " + currentPage)
 	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
-	 // console.log("paging totalPage : " + totalPage);
+	  //console.log("paging totalPage : " + totalPage);
 	  if(totalPage < pageCount){
 	    pageCount = totalPage;
 	  }
 	  
 	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-	//  console.log("pageGroup "+pageGroup)
+	 // console.log("pageGroup "+pageGroup)
 	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-	 // console.log("last "+last)
+	  //console.log("last "+last)
 	  if (last > totalPage) {
 	    last = totalPage;
 	  }
 
 	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
-	  //console.log("first "+first)
+	 // console.log("first "+first)
 	  let next = last + 1;
 	  let prev = first - 1;
 	  
@@ -173,7 +186,185 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	  //console.log("totalData end :"+totalData)
 }
 
+function searchData(currentPage, dataPerPage){
+	$('#reports').empty()
+	
+	let report = '';
+	
+	if( $('#select option:selected').val() == 1){
+		report = {
+			targetId: $('#searchValue').val(),
+			userId: '',
+			isProcessed: undefined 
+		}
+	}
+	
+	if( $('#select option:selected').val() == 2){
+		report = {
+			targetId: '',
+			userId: $('#searchValue').val(),
+			isProcessed: undefined 
+		}
+	}
+	
+	if( $('#select option:selected').val() == 3){
+		if($('#searchValue').val() == 'o'){
+			report = {
+				targetId: '',
+				userId: '',
+				isProcessed: 1
+			}
+		}
+		
+		if($('#searchValue').val() == 'x'){
+			report = {
+				targetId: '',
+				userId: '',
+				isProcessed: 0
+			}
+		}
+	}
+	
+	$.ajax({
+   		url: 'report/search',
+   		data: report,
+   		success: reportList => {
+   			//console.log(reportList)
+   			if(reportList.length){
+   			reports = []
+   			
+   			//console.log(reports)
+   			
+   			reportList.forEach(report => {
+   				var processed
+   				if(report.isProcessed == 0){
+   					processed = 'x'
+   				}else processed = 'o'
+   				
+   				var reason
+   				if(report.reason == '1'){
+   					reason = '광고/음란성 댓글'
+   				}else if(report.reason == '2'){
+   					reason = '욕설/반말/부적절한 언어'
+   				}else if(report.reason == '3'){
+   					reason = '회원 분란유도'
+   				}else if(report.reason == '4'){
+   					reason = '회원 비방'
+   				}else if(report.reason == '5'){
+   					reason = '지나친 정치/종교 논쟁'
+   				}else if(report.reason == '6'){
+   					reason = '도배성 댓글'
+   				}else if(report.reason == '7'){
+   					reason = '기타'
+   				}else reason = '사유 없음'
+   				
+   				reports.unshift(
+					'<tr>' +
+						'<td>' + report.reportId + '</td>' + 
+						'<td><a href=../user/userasd/ class = a-black>' + report.targetId + '</td>' + 
+						'<td><a href=../admin/report/adminReportView/'+ report.reportId +' class = a-black id= reason>' + reason + '</a></td>' + 
+						'<td>' + report.userId + '</td>' +
+						'<td>' + processed + '</td>' + 
+					'</tr>'
+   				)
+   				
+   			})
+   				currentPage = Number(currentPage);
+	 			dataPerPage = 10;
+	 			 
+	 			for (
+	 				    var i = (currentPage - 1) * dataPerPage;
+	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
+	 				    i++
+	 				) {
+	 					$('#reports').append(reports[i])
+	 				 }
+	 			
+	 			totalData = reportList.length;
+	 	        dataList = reports;
+	 	
+	 	        //페이징 표시 호출
+	 			searchPaging(totalData, dataPerPage, pageCount, currentPage);
+   			}else $('#reports').append(
+   				`<tr><td colspan='5' class='text-center'>신고글이 없습니다.</td></tr>`		
+   			)
+   		}
+   	})
+}
 
+function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
+	  //console.log("totalData " + totalData)
+	  //console.log("pageCount " + pageCount)
+	 // console.log("dataPerPage " + dataPerPage)
+	
+	  //console.log("currentPage " + currentPage)
+	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+	 // console.log("paging totalPage : " + totalPage);
+	  if(totalPage < pageCount){
+	    pageCount = totalPage;
+	  }
+	  
+	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+	  //console.log("pageGroup "+pageGroup)
+	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+	  //console.log("last "+last)
+	  if (last > totalPage) {
+	    last = totalPage;
+	  }
+
+	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
+	  //console.log("first "+first)
+	  let next = last + 1;
+	  let prev = first - 1;
+	  
+	  $("#pages").empty();
+	  let pageHtml = "";
+	//페이징 이전 화살표
+	  if(currentPage != 1){
+		  pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Previous' id='prev'> <span aria-hidden='true'>&laquo;</span></a></li>"
+	  }
+	
+	 //페이징 번호 표시 
+	  for (var i = first; i <= last; i++) {
+	    if (currentPage == i) {
+	      pageHtml +=
+	        "<li class='page-item'><a href ='#' class = 'page-link currentPage' id='" + i + "'>" + i + "</a></li>";
+	    } else {
+	      pageHtml += "<li class='page-item'><a href ='#' class = 'page-link' id='" + i + "'>" + i + "</a></li>";
+	    } 
+	  }
+	//페이징 다음 화살표
+	  if (currentPage != totalPage) {
+	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
+	  }
+
+	  //console.log("pageHtml:" + pageHtml)
+	  $("#pages").html(pageHtml);
+	  
+	  //상단 페이지 데이터 확인용
+	  /* let displayCount = "";
+	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
+	  $("#displayCount").text(displayCount); */
+
+
+	  //페이징 번호 클릭 이벤트 
+	  $("#pages li a").click(function () {
+	    let $id = $(this).attr("id");
+	    selectedPage = $(this).text();
+
+	    if ($id == "next") selectedPage = currentPage + 1;//selectedPage = next;
+	    if ($id == "prev") selectedPage = currentPage - 1;//selectedPage = prev;
+	    
+	    //전역변수에 선택한 페이지 번호를 담는다...
+	    globalCurrentPage = selectedPage;
+	    //페이징 표시 재호출
+	    searchPaging(totalData, dataPerPage, pageCount, selectedPage);
+	    //글 목록 표시 재호출
+	    searchData(selectedPage, dataPerPage);
+	  });
+	  
+	  //console.log("totalData end :"+totalData)
+}
 /* function ReportsList() {
    	$.ajax({
    		url: 'report/get',
@@ -227,6 +418,8 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 } */
 
 //$(ReportsList)
+
+$(init)
 </script>
 </head>
 <body>
@@ -236,23 +429,23 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
         <div class='row'>
             <nav class="navbar navbar-expand navbar-light nav-header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
+                    <a class="navbar-brand" href="../admin"><b>산책하개</b></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" href="../main.html">회원</a>
+                        <a class="nav-link" href="../admin">회원</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../meeting/01.html">모임</a>
+                        <a class="nav-link" href="../admin/metting">모임</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../notice/01.html">공지</a>
+                        <a class="nav-link" href="../admin/notice">공지</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="../report/01.html">신고</a>
+                        <a class="nav-link" href="../admin/report">신고</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" type='button' id='fixLogo'>로고변경</a>
@@ -260,7 +453,7 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" href="../user/01.html"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" href="../logout"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>
@@ -270,15 +463,15 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 <div class='row mt-3'>
     <div class='col'>
         <div class="input-group mt-2 gap-2 wrap d-flex justify-content-center">
-            <select class="select-orange" aria-label="Default select example">
-                <option>신고대상</option>
-                <option>신고인</option>
-                <option>처리여부</option>
+            <select class="select-orange" id='select' aria-label="Default select example">
+                <option value='1'>신고대상</option>
+                <option value='2'>신고인</option>
+                <option value='3'>처리여부</option>
               </select>
             <mx-auto>
-                <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
+                <input type="search" class="form-control" id='searchValue' placeholder="검색어 입력" aria-label="search" aria-describedby="search">
             </mx-auto>
-            <button class="btn botton-orange" type="submit" id="button-addon2">검색</button>
+            <button class="btn botton-orange" type="submit" id="search">검색</button>
         </div>
     </div>
 </div>

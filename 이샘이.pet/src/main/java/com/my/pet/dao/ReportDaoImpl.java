@@ -31,5 +31,10 @@ public class ReportDaoImpl implements ReportDao{
 	public Report selectSuspended(String loginId) {
 		return reportMap.selectSuspended(loginId);
 	}
+	
+	@Override
+	public List<Report> search(Report report){
+		return reportMap.search(report);
+	}
 
 }

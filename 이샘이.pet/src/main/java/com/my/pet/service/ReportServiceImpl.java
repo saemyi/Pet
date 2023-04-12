@@ -31,4 +31,9 @@ public class ReportServiceImpl implements ReportService{
 	public Report getSuspended(String loginId) {
 		return reportDao.selectSuspended(loginId);
 	}
+	
+	@Override
+	public List<Report> search(Report report){
+		return reportDao.search(report);
+	}
 }
