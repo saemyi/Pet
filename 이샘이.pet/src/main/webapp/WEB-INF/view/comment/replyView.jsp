@@ -30,7 +30,7 @@ function listReplies() {
 	 $('#replies').empty()
 	 
 	 $.ajax({
-		 url:'get/' + ${replyId}}, 
+		 url:'get/' + ${replyId}, 
 		 dataType: 'json',
 		 success: replies => {
 			 if(replies.length) {

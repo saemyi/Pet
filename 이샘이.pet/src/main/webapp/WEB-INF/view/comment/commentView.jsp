@@ -61,7 +61,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                     <p id='modalMsg'></p>
                 </div>
                 <div class='modal-footer' id='modalBtn'>
-                    <button type='button' class='btn btn-orange' id='confirmBtn' data-bs-dismiss="modal">확인</button>
+                    <button type='button' class='btn btn-orange' id='confirmBtn'  data-bs-dismiss="modal">수정</button>
                 </div>
                 <div class='modal-footer' id='modalBtnDouble'>
                     <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
@@ -76,9 +76,10 @@ maximum-scale=1.0, minimum-scale=1.0'>
 
 
 <script>
+	
     function listComments() {   
         console.log("listComments 실행")
-        $('#comments').empty()       
+        $('#comments').empty()
         $.ajax({
 	        url:'get/' + ${meetingId}, 
 	        dataType: 'json',
@@ -87,17 +88,17 @@ maximum-scale=1.0, minimum-scale=1.0'>
                 const commentArr = []               
                 $.each(comments, (i, comment) => {
                     commentArr.unshift(
-                        `<div class='row' name='comment' id='\${comment.meetingId}'>
+                        `<div class='row'>
                             <div class='col'>
                                 <div class='row'>
                                     <div class='col-2'>
-                                        <button type='button' class='border-0'onclick="location.href='../login'"><b id='\${comment.userId}' name='nickname'>\${comment.nickname}</b></button>
+                                        <button type='button' class='border-0'onclick="location.href='../login'"><b>\${comment.nickname}</b></button>
                                     </div>
                                     <div class='col'>
                                         <small id='commentTime' value='\${comment.commentTime}'>\${comment.commentTime}</small>
                                     </div>
-                                    <div class='col-2' id='dropmenu'>
-                                        <div class='dropdown'>
+                                    <div class='col-2'>
+                                        <div class='dropdown dropmenu\${comment.userId}'  style='display: none;'>
                                             <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
                                                 <i class='bi bi-three-dots fa-2x'></i>
                                             </button>
@@ -112,8 +113,7 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                 </div>
                                 <div class='row mt-2'>
                                     <div class='col m-2 mb-0'>
-                                    	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0' style='resize: none;'readonly>\${comment.commentContent}</textarea></p>
-                                        <button id='fix\${comment.commentId}' style='display: none;' class='border-0'onclick='FixFinish(\${comment.commentId})'>수정 완료</button>
+                                    	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0' style='resize: none;'readonly>\${comment.commentContent}</textarea></p>              
                                     </div>
                                 </div>
                                 <div class='row'>
@@ -122,16 +122,18 @@ maximum-scale=1.0, minimum-scale=1.0'>
                                     </div>
                                 </div>
                             </div>
-                        </div><hr>`)
-                })
-                $('#comments').append(commentArr.join(''))
+                        </div><hr>`    
+                    )
+                }) 
+                $('#comments').append(commentArr.join(''))  
+                $('.dropmenu${userId}').removeAttr("style")               
             } else $('#comments').append(
-                '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')
+                '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')            
         }
         })
     }
 console.log(comments)
-    listComments()   
+    listComments()
 	function CommentSend(){
     	$('#commentErr').empty()
     	if($('.comment').val()){
@@ -157,29 +159,26 @@ console.log(comments)
 }
 let comId = 0;   
     function CommentFix(comId){
-    	$('#commentContent' + comId).attr('readonly', false)
-    	$('#fix' + comId).removeAttr('style')
+    	commentId = comId
+    	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ commentId +"'"+ "class='border-0' style='resize: none;'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
+    	$('#confirmBtn').click(() => {
+    		let comment = {
+    	    		commentId: comId,
+    	    		commentContent: $('#commentContentFix'+ comId).val(),
+    	    		commentTime: $('#commentTime').text()	
+    	    	}
+    	    	
+    	    	console.log(comment)
+    	    	$.ajax({
+    	            url: 'fix',
+    	            method: 'put',
+    	            contentType: 'application/json',
+    	        	data: JSON.stringify(comment),
+    	            success: listComments
+    	        })
+    	})
     }
     
-    function FixFinish(comId){
-    	let comment = {
-    		commentId: comId,
-    		commentContent: $('#commentContent'+ comId).val(),
-    		commentTime: $('#commentTime').text()	
-    	}
-    	console.log(comment)
-    	$.ajax({
-            url: 'fix',
-            method: 'put',
-            contentType: 'application/json',
-        	data: JSON.stringify(comment),
-            success: listComments
-        })   
-        $('#commentContent' + comId).attr('readonly', true)
-    	$('#fix'+ comId).attr('style', 'display: none;')
-    }
-    
-     
     function CommentDel(comId){   
         yesNoModal('댓글을 삭제하시겠습니까?')
         $('#okBtn').click(() => { 
