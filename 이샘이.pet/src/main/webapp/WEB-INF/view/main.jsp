@@ -163,7 +163,7 @@ function init() {
 $(init)
 </script>
 </head>
-<body>
+<body onunload="">
 <div class='row d-flex justify-content-end'>
     <nav class="navbar fixed-top bg-orange p-2">
     <%
