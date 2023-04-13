@@ -204,11 +204,12 @@ textarea {
        	            method: 'put',
        	            contentType: 'application/json',
        	        	data: JSON.stringify(comment),
-       	            success: listReplies
+       	            success: function(){
+                    	window.location.href = '/reply/'+ ${commentId} 
+                    }
        	       })
     		} else {
-    				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)
-    				$('#confirmModal').removeAttr('data-bs-dismiss')	
+    				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)	
     		}   		
     	})
     }
