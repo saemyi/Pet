@@ -41,6 +41,13 @@ $(() => {
     } 
     $('#benUser').hide()
     
+	//sido option 추가
+	jQuery.each(hangjungdong.sido, function (idx, code) {
+		//append를 이용하여 option 하위에 붙여넣음
+		jQuery('#sido').append(fn_option(code.sido, code.codeNm));
+	});
+	
+	//sido 변경시 시군구 option 추가
     jQuery('#sido').change(function () {
 		jQuery('#sigugun').show();
 		jQuery('#sigugun').empty();
@@ -170,6 +177,8 @@ function adminMeetingList() {
 			}else $('#meetings').append(
 					`<p class="text-center">만든 모임이 없습니다.</p>`
 			)
+			
+			$('#sigugun').css("display", "none")
 		}
 	})
 }
@@ -412,17 +421,17 @@ function init() {
 </div>
 <div class='row'>
 	<div class='col'>
-		<select class='form-select' name='sido' id='sido' >
+		<select class='form-select' name='sido' id='sido' style='display:none;'>
 			<option value=''>시/도</option>
 		</select>
 	</div>
 	<div class='col'>
-		<select class='form-select' name='sigugun' id='sigugun' >
+		<select class='form-select' name='sigugun' id='sigugun' style='display:none;'>
 			<option value=''>시/군/구</option>
 		</select>
 	</div>
 	<div class='col'>
-		<select class='form-select' name='dong' id='dong'>
+		<select class='form-select' name='dong' id='dong' style='display:none;'>
 			<option value=''>읍/면/동</option>
 		</select>
 	</div>

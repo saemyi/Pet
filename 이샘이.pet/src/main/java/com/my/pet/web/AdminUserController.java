@@ -51,7 +51,7 @@ public class AdminUserController {
    
    @GetMapping("meeting/get/{userId}")
    public List<Meeting> getMeetings(@PathVariable("userId") String userId) {
-	   return meetingService.getMeetingsByParticipant(userId);
+	   return meetingService.getMeetings(null, null, null, userId);
    }
    
    @GetMapping("user/count")
