@@ -38,7 +38,7 @@ textarea {
 			 url:'getComment/' +${commentId},
 			 dataType: 'json',
 			 success: comment => {
-				if(comment){
+				if(comment.commentId > 0){
 					 $('#comment').append(
 							 `<div class='row'>
 		                     	<div class='col'>
@@ -77,7 +77,7 @@ textarea {
 		                 </div><hr>`    
 		             )
 		             $('.dropmenu${userId}').removeAttr("style")   
-				} else if(comment.length = 0)history.back();
+				} else getMeetingId()
 			}		 
 		 })	 
 		 
@@ -85,7 +85,6 @@ textarea {
 			 url:'get/' + ${commentId}, 
 			 dataType: 'json',
 			 success: replies => {
-				 console.log("${userId}")
 				 if(replies.length) {
 					 const replyArr = []				 
 					 $.each(replies, (i, reply) => {
@@ -97,7 +96,7 @@ textarea {
 									            	<i class="bi bi-arrow-return-right"></i>
 									        	</div>
 								                <div class='col-auto'>
-								                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b style='font-size: 0.6rem;'>\${reply.nickname}</b></button>
+								                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b style='font-size: 0.7rem;'>\${reply.nickname}</b></button>
 								                </div>
 								                <div class='col'>
 								                    <p style='font-size: 0.3rem;'>\${reply.replyTime}</p>
@@ -123,8 +122,7 @@ textarea {
 								            </div>
 								        </div>
 								  </div><hr>`)
-					 })
-					 
+					 })					 
 					 $('#replies').append(replyArr.join(''))
 					 $('.dropmenu${userId}').removeAttr("style")
 				 } else $('#replies').append(
@@ -248,7 +246,7 @@ listReplies()
     <nav class="navbar fixed-top bg-orange p-3">
         <div class='row'>
             <div class='col d-flex justify-content-start'>
-                <i class='bi bi-chevron-left' onclick="history.back();"></i>
+                <i class='bi bi-chevron-left' onclick="location.href = document.referrer;"></i>
             </div>
         </div>
         <div class='col text-center me-4'>

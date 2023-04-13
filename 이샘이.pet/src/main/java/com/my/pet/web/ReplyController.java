@@ -37,10 +37,12 @@ public class ReplyController {
 		mv.setViewName("reply/replyView");
 		return mv;
 	}
+	
 	@GetMapping("getComment/{commentId}")
 	public Comment getComment(@PathVariable int commentId) {
 		return replyService.getComment(commentId);
 	}
+	
 	@GetMapping("get/{commentId}")
 	public List<Reply> getReplies(@PathVariable int commentId){
 		return replyService.getReplies(commentId);
