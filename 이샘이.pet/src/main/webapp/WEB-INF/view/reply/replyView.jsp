@@ -163,7 +163,8 @@ textarea {
 				let reply = {
 	    	    		replyId: repId,
 	    	    		replyContent: $('#replyContentFix'+ repId).val()
-	    	    	}	    	    	
+	    	    	}
+				
 	    	    	$.ajax({
 	    	            url: 'fix',
 	    	            method: 'put',
@@ -174,11 +175,11 @@ textarea {
 	                    }
 	    	        })
 			} else {
-					$('#modalErrMsg').text('답글을 입력해주세요').show().fadeOut(3000)
-					$('#confirmModal').removeAttr('data-bs-dismiss')	
+					$('#modalErrMsg').text('답글을 입력해주세요').show().fadeOut(3000)	
 			}		
 		})	
 	}
+	
 	function ReplyDel(repId){   
 	    yesNoModal('댓글을 삭제하시겠습니까?')
 	    $('#okBtn').click(() => {    	
@@ -189,6 +190,7 @@ textarea {
 	        })
 	    })
 	}
+	
     let comId = 0;   
     function CommentFix(comId){
     	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ comId +"'"+ "class='border-0' style='resize: none;' placeholder='댓글을 입력해주세요'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
