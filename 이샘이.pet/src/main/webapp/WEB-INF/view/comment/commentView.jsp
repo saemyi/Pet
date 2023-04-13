@@ -27,56 +27,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
 textarea {
 	resize: none; 
 	background-color: #fff;
-
 }
 </style>
-<body>
-    <div class='row d-flex justify-content-end'>
-        <nav class="navbar fixed-top bg-orange p-3">
-            <div class='row'>
-                <div class='col d-flex justify-content-start'>
-                    <i class='bi bi-chevron-left' onclick="history.back();"></i>
-                </div>
-            </div>
-            <div class='col text-center me-4'>
-                <b>댓글</b>
-            </div>
-        </nav>
-    </div>
-    <div class='container pb-5' id='comments'>		
-    </div>
-    <nav class="navbar fixed-bottom p-0">
-    	<div id='commentErr' class='col text-center bg-white' style='color: red;'></div>
-        <div class='input-group mt-2 bg-orange p-2' style='padding-inline: .5rem;'>
-            <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
-            <button type='button' class='btn border-0 bg-white send'  onclick='CommentSend()'>
-                <i class='bi bi-arrow-up-circle fa-2x'></i>
-            </button>
-        </div>
-    </nav>
-    <div class='modal fade' id='modal'>
-        <div class='modal-dialog modal-dialog-centered'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <button type='button' class='btn-close' data-bs-dismiss="modal"></button>
-                </div>
-                <div class='modal-body'>
-                    <p id='modalMsg'></p>     
-                </div>
-                <div class='modal-footer' id='modalBtn'>
-                	<p id='modalErrMsg' class='text-danger'></p>
-                    <button type='button' class='btn btn-orange' id='confirmBtn'>수정</button>
-                </div>
-                <div class='modal-footer' id='modalBtnDouble'>
-                    <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
-                        아니오
-                    </button>
-                    <button type='button' class='btn bg-orange' id='okBtn' data-bs-dismiss="modal">네</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
 <script>	
     function listComments() {   
         console.log("listComments 실행")
@@ -197,8 +149,54 @@ textarea {
                 }
             })
         })  
-    }
-    
+    }   
 listComments()
 </script>
 </html>
+<body>
+    <div class='row d-flex justify-content-end'>
+        <nav class="navbar fixed-top bg-orange p-3">
+            <div class='row'>
+                <div class='col d-flex justify-content-start'>
+                    <i class='bi bi-chevron-left' onclick="history.back();"></i>
+                </div>
+            </div>
+            <div class='col text-center me-4'>
+                <b>댓글</b>
+            </div>
+        </nav>
+    </div>
+    <div class='container pb-5' id='comments'>		
+    </div>
+    <nav class="navbar fixed-bottom p-0">
+    	<div id='commentErr' class='col text-center bg-white' style='color: red;'></div>
+        <div class='input-group mt-2 bg-orange p-2' style='padding-inline: .5rem;'>
+            <input type='text' class='form-control border-0 comment fa-2x' placeholder='댓글을 입력하세요.'/>
+            <button type='button' class='btn border-0 bg-white send'  onclick='CommentSend()'>
+                <i class='bi bi-arrow-up-circle fa-2x'></i>
+            </button>
+        </div>
+    </nav>
+    <div class='modal fade' id='modal'>
+        <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <button type='button' class='btn-close' data-bs-dismiss="modal"></button>
+                </div>
+                <div class='modal-body'>
+                    <p id='modalMsg'></p>     
+                </div>
+                <div class='modal-footer' id='modalBtn'>
+                	<p id='modalErrMsg' class='text-danger'></p>
+                    <button type='button' class='btn btn-orange' id='confirmBtn'>수정</button>
+                </div>
+                <div class='modal-footer' id='modalBtnDouble'>
+                    <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
+                        아니오
+                    </button>
+                    <button type='button' class='btn bg-orange' id='okBtn' data-bs-dismiss="modal">네</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

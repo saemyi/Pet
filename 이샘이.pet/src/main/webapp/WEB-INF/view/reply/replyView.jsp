@@ -27,8 +27,8 @@ maximum-scale=1.0, minimum-scale=1.0'>
 textarea {
 	resize: none; 
 	background-color: #fff;
-
 }
+
 </style>
 <script>
 	function listReplies() { 
@@ -77,7 +77,7 @@ textarea {
 		                 </div><hr>`    
 		             )
 		             $('.dropmenu${userId}').removeAttr("style")   
-				} else history.back();
+				} else if(comment.length = 0)history.back();
 			}		 
 		 })	 
 		 
@@ -256,12 +256,9 @@ listReplies()
         </div>
     </nav>
 </div>
-<div class='container' id='comment'>
-    
+<div class='container' id='comment'>   
 </div>
-<div class='container' id='replies'>
-    <!--답글-->
-    
+<div class='container' id='replies'> 
 </div>
 <nav class="navbar fixed-bottom p-0">
 	<div id='replyErr' class='col text-center bg-white' style='color: red;'></div>
