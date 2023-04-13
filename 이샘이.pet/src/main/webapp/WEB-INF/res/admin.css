@@ -144,3 +144,16 @@ input[type="search"]:focus,
     text-decoration: none;
     color: black;
 }
+
+.image-box {
+    width:130px;
+    height:130px;
+    overflow:hidden;
+    margin:0 auto;
+}
+
+.image-thumbnail {
+    width:130px;
+    height:130px;
+    object-fit:cover;
+}
