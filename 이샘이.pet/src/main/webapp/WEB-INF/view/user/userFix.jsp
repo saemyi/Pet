@@ -56,20 +56,13 @@ $(() => {
     	}
 	})
 	
-	
-	$('#confirmBtn').click(() => {
-		if($('#modalMsg').text() == '회원정보가 수정되었습니다. MYPAGE로 이동합니다.') {
-			$('#userForm').submit()
-		}
-	})
-	
     $('#changeUser').click(() => {
     	if(isVal($('#nickname')) && isVal($('#birthdate')) && isVal($('#phone')) && isVal($('#sample6_address')) 
 				&& isVal($('#email')) && $('.errMsg').length == 0) {
     		if($("input[name=checked_nickname]").val() != 'y') {
     			confirmModal('닉네임 중복확인하세요.')
     		} else {
-    			confirmModal('회원정보가 수정되었습니다. MYPAGE로 이동합니다.')
+    			$('#userForm').submit()
     		}
     	}
     })
@@ -89,6 +82,7 @@ function getUser() {
 				$('#userInfo').html('<div type="button" id="UploadProfileBtn" class="box text-align-center userProfileImage"></div>')
 				$('.userProfileImage').html("<img class='image-thumbnail userImage'/>")
 				$('.userImage').attr('src', '<c:url value="/attach/'+ user.userProfileImageFilename + '"/>')
+				$('#userProfileImageFilename').val(user.userProfileImageFilename)
 				$('#nickname').val(user.nickname)
 				$('#phone').val(user.phone)
 				$('#email').val(user.email)
@@ -98,6 +92,13 @@ function getUser() {
 				$('#userIntro').val(user.userIntro)
 			} else {
 				$('#userInfo').html('<div id="UploadProfileBtn" type="button" class="box text-align-center userProfileImage"><p class="mt-5">프로필이미지</p></div>')
+				$('#nickname').val(user.nickname)
+				$('#phone').val(user.phone)
+				$('#email').val(user.email)
+				$('#sample6_address').val(user.address)
+				$('#sample6_detailAddress').val(user.detailedAddress)
+				$('#birthdate').val(user.birthdate)
+				$('#userIntro').val(user.userIntro)
 			}
 		}
 	})
@@ -150,6 +151,7 @@ $(getUser)
             </div>
             <div id="image_container"></div>
         <input type="file" id="uploadProfile" class='image' name='userProfile' accept="image/*" onchange="setThumbnail(event);" hidden/>
+    	<input type='text' name='userProfileImageFilename' id='userProfileImageFilename' hidden/>
     </div>
     </div>
         <div class='row'>
@@ -158,7 +160,7 @@ $(getUser)
             </div>
             <div class='col-4'>
                 <button type='button' class='btn btn-lightgray form-control' id='nicknameCheck'>중복확인</button>
-                <input type="hidden" name="checked_nickname" value="">
+                <input type="hidden" name="checked_nickname" value="y">
             </div>
             <div id="errorMsg" class="result-nickname result-check"></div>
         </div>
@@ -170,13 +172,13 @@ $(getUser)
         </div>
         <div class='row'>
             <div class='col'>
-                <input type='email' class='form-control mb-5' id='email' name='email' value='dog1232@naver.com' placeholder='이메일'>
+                <input type='email' class='form-control mb-5' id='email' name='email' placeholder='이메일'>
             	<div id="errorMsg" class="result-email result-check"></div>
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <input type='text' id='sample6_address' class='form-control mb-3' name='address' value='서울 관악구 신림동' placeholder='주소' readonly>
+                <input type='text' id='sample6_address' class='form-control mb-3' name='address' placeholder='주소' readonly>
             </div>
         </div>
         <div class='row'>
@@ -221,7 +223,7 @@ $(getUser)
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='./mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>

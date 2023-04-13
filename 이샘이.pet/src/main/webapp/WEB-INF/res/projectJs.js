@@ -94,7 +94,7 @@ function userName_check(input) {
 }
 //닉네임 유효성검사
 function nickname_check(input) {    
-    var regex=/^[가-힣A-Za-z0-9]{2,10}$/;
+    var regex=/^[가-힣A-Za-z0-9]{2,8}$/;
     return (input != '' && input != 'undefined' && regex.test(input)); 
 }
 //전화번호 유효성검사

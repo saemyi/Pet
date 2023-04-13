@@ -29,7 +29,7 @@ $(() => {
 			dataType: 'json',
 			success: user => {
 				if(user.userProfileImageFilename != null) {
-				$('#userMypage').html(`<div class='box d-flex justify-content-center' id='userProfileImage'></div>
+				$('#userMypage').html(`<div class='box image-box d-flex justify-content-center' id='userProfileImage'></div>
 				        <div class='col-7 mb-3'>
 			            <h5><b id='userNickname'></b></h5><hr>
 			            <p id='userIntro'></p>
@@ -178,7 +178,7 @@ $(getPets)
                 </li>
             </div>
             <div>
-                <li class="nav-item" type="button" onclick="location.href='../main.html'">
+                <li class="nav-item" type="button" onclick="location.href='/'">
                     <span class="material-symbols-outlined">
                         format_list_bulleted
                     </span>

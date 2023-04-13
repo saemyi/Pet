@@ -174,13 +174,13 @@ public class UserController {
 		
 	@PostMapping("fix")
 	public ModelAndView fixUser(ModelAndView mv, UserDto userDto, User user, HttpSession session) {
-		System.out.println(userDto);
 		String filename = userDto.getUserProfile().getOriginalFilename();
-		saveFile(attachPath + "/" + filename, userDto.getUserProfile());
-		user.setUserProfileImageFilename(filename);
+		if(filename != "") {
+			saveFile(attachPath + "/" + filename, userDto.getUserProfile());
+			user.setUserProfileImageFilename(filename);
+		} 
 		String userId = (String)session.getAttribute("userId");
 		user.setUserId(userId);
-		System.out.println(user);
 		userService.fixUser(user);
 		mv.setViewName("redirect:user/mypage");
 		return mv;
