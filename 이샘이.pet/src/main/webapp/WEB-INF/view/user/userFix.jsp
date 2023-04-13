@@ -1,4 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +19,114 @@
 </style>
 <script>
 $(() => {
-    $('#nickNameCheck').click(() => {
-    confirmModal('사용가능한 닉네임 입니다.')})
-
+	
+	 err("#nickname", nickname_check, ".result-nickname", '<small class="errMsg" id="nicknameError">2자이상 10자이하 영어, 한글, 숫자 입력가능합니다.</small>')
+	 err("#email", email_check, ".result-email", '<small class="errMsg">이메일 형식이 올바르지 않습니다.</small>')
+	 err("#phone", phone_check, ".result-phone", '<small class="errMsg">' + "'-'" + '을 제외한 전화번호를 입력하세요.</small>')
+	 
+	 $('#nickname').change(function() {
+		 $("input[name=checked_nickname]").val('');
+	 })
+	 
+	$('#nicknameCheck').click(() => {
+    	if($('#nicknameError').length != 0) {
+    	
+    	} else {
+	    	var nickname = $('#nickname').val();
+	    	$.ajax({
+	    		url:'/nicknameCheck',
+	    		type:'post',
+	    		data:{nickname:nickname},
+	    		success: function(cnt) {
+	    			if(isVal($('#nickname'))) {
+		    			if(cnt == 0) {
+		    				confirmModal('사용가능한 닉네임 입니다.')
+		    				$("input[name=checked_nickname]").val('y');    				
+		    			} else {
+		    				confirmModal('이미 존재하는 닉네임 입니다.')
+		    				$('#nickname').val('');
+		    				$("input[name=checked_nickname]").val('');
+		    			}
+	    			} else confirmModal("닉네임 입력하세요.")
+	    		},
+	    		error:function() { 
+	    			confirmModal('다시 시도해주세요.');
+	    		}
+	    	})
+    	}
+	})
+	
+	
+	$('#confirmBtn').click(() => {
+		if($('#modalMsg').text() == '회원정보가 수정되었습니다. MYPAGE로 이동합니다.') {
+			$('#userForm').submit()
+		}
+	})
+	
     $('#changeUser').click(() => {
-    confirmModal('회원정보가 수정되었습니다.<br> MYPAGE로 이동합니다.', 'mypage.html')})
+    	if(isVal($('#nickname')) && isVal($('#birthdate')) && isVal($('#phone')) && isVal($('#sample6_address')) 
+				&& isVal($('#email')) && $('.errMsg').length == 0) {
+    		if($("input[name=checked_nickname]").val() != 'y') {
+    			confirmModal('닉네임 중복확인하세요.')
+    		} else {
+    			confirmModal('회원정보가 수정되었습니다. MYPAGE로 이동합니다.')
+    		}
+    	}
+    })
+    
+    $(document).on('click', '#UploadProfileBtn', function() {
+    	$('#uploadProfile').click()
+    });
 })
+
+function getUser() {
+	$.ajax({
+		url: '/getUser',
+		dataType: 'json',
+		success: user => {
+			console.log(user)
+			if(user.userProfileImageFilename != null) {
+				$('#userInfo').html('<div type="button" id="UploadProfileBtn" class="box text-align-center userProfileImage"></div>')
+				$('.userProfileImage').html("<img class='image-thumbnail userImage'/>")
+				$('.userImage').attr('src', '<c:url value="/attach/'+ user.userProfileImageFilename + '"/>')
+				$('#nickname').val(user.nickname)
+				$('#phone').val(user.phone)
+				$('#email').val(user.email)
+				$('#sample6_address').val(user.address)
+				$('#sample6_detailAddress').val(user.detailedAddress)
+				$('#birthdate').val(user.birthdate)
+				$('#userIntro').val(user.userIntro)
+			} else {
+				$('#userInfo').html('<div id="UploadProfileBtn" type="button" class="box text-align-center userProfileImage"><p class="mt-5">프로필이미지</p></div>')
+			}
+		}
+	})
+}
+
+
+
+
+function setThumbnail(event) {
+	$('#image_container').empty();
+	$('.userProfileImage').hide();
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+    	var div = document.createElement("div");
+    	div.setAttribute("class", "userProfileImage");
+      	var img = document.createElement("img");
+        img.setAttribute("src", event.target.result);
+        img.setAttribute("id", 'UploadProfileBtn');
+        img.setAttribute("class", 'img-fluid image-thumbnail');
+        img.setAttribute("style", 'width:130px; height:130px;');
+        document.querySelector("div#image_container").appendChild(div).appendChild(img);
+    };
+    
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+$(getUser)
+
 </script>
 </head>
 <body>
@@ -43,43 +146,45 @@ $(() => {
     </nav>
 </div>
 <div class='container text-center'>
+<form id='userForm' encType='multipart/form-data' action='/fix' method='post'>
     <div class='row'>
       <div class='col mb-3'>
-            <div class="wrapper d-flex justify-content-center">
-                <div id="UploadProfileBtn" type='button' class='box text-align-center'>
-                    <p class='mt-5'>프로필이미지</p>
-                </div>
+            <div class="wrapper d-flex justify-content-center" id='userInfo'>
             </div>
-        <input type='file' id='UploadProfile' hidden>
+            <div id="image_container"></div>
+        <input type="file" id="uploadProfile" class='image' name='userProfile' accept="image/*" onchange="setThumbnail(event);" hidden/>
     </div>
     </div>
-    <form id='userForm'>
         <div class='row'>
             <div class='col-8'>
-                <input type='text' class='form-control mb-3' id='nickName' placeholder='닉네임' value='user1' maxlength='20'>
+                <input type='text' class='form-control mb-3' id='nickname' name='nickname' placeholder='닉네임' maxlength='20'>
             </div>
             <div class='col-4'>
-                <button type='button' class='btn btn-lightgray form-control' id='nickNameCheck'>중복확인</button>
+                <button type='button' class='btn btn-lightgray form-control' id='nicknameCheck'>중복확인</button>
+                <input type="hidden" name="checked_nickname" value="">
+            </div>
+            <div id="errorMsg" class="result-nickname result-check"></div>
+        </div>
+        <div class='row'>
+            <div class='col'>
+                <input type='text' class='form-control mb-3' id='phone' name='phone' placeholder="전화번호('-'제외)">
+                <div id="errorMsg" class="result-phone result-check"></div>
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <input type='text' class='form-control mb-3' id='phoneNum' value='01012341234' placeholder="전화번호('-'제외)">
+                <input type='email' class='form-control mb-5' id='email' name='email' value='dog1232@naver.com' placeholder='이메일'>
+            	<div id="errorMsg" class="result-email result-check"></div>
             </div>
         </div>
         <div class='row'>
             <div class='col'>
-                <input type='email' class='form-control mb-5' id='email' value='dog1232@naver.com' placeholder='이메일'>
-            </div>
-        </div>
-        <div class='row'>
-            <div class='col'>
-                <input type='text' id='sample6_address' class='form-control mb-3' value='서울 관악구 신림동' placeholder='주소'>
+                <input type='text' id='sample6_address' class='form-control mb-3' name='address' value='서울 관악구 신림동' placeholder='주소' readonly>
             </div>
         </div>
         <div class='row'>
             <div class='col-8 mb-3'>
-                <input type='text' id='sample6_detailAddress' class='form-control' value='202호' placeholder='상세주소'>
+                <input type='text' id='sample6_detailAddress' class='form-control' name='detailedAddress' placeholder='상세주소'>
                 <input type='text' id='sample6_postcode' placeholder='우편번호' hidden>
                 <input type='text' id='sample6_extraAddress' placeholder='참고항목' hidden>
             </div>
@@ -92,12 +197,12 @@ $(() => {
                 <label for='birtday'>생년월일</label>
             </div>
             <div class='col-9'>
-                <input type='date' class='form-control' id='birthday' placeholder='생년월일'/>
+                <input type='date' class='form-control' name='birthdate' id='birthdate' placeholder='생년월일'/>
             </div>
         </div>
         <div class='row mb-3'>
             <div class='col'>
-                <textarea class='form-control' placeholder='자기소개' maxlength='200'></textarea>
+                <textarea class='form-control' id='userIntro' name='userIntro' placeholder='자기소개' maxlength='200'></textarea>
             </div>
         </div>
     </form>

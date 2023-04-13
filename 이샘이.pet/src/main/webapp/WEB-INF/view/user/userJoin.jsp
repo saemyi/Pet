@@ -26,6 +26,15 @@
 	 err("#phone", phone_check, ".result-phone", '<small class="errMsg">' + "'-'" + '을 제외한 전화번호를 입력하세요.</small>')
 	 
     $('#confirmPw').after('')
+    
+    $('#userId').change(function() {
+		 $("input[name=checked_id]").val('');
+	 })
+    
+     $('#nickname').change(function() {
+		 $("input[name=checked_nickname]").val('');
+	 })
+    
     $('#idCheck').click(() => {
     	if($('#userIdError').length != 0) {
     		

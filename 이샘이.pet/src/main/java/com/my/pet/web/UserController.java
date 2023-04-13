@@ -154,7 +154,8 @@ public class UserController {
 		@GetMapping("getUser")
 		public User getUser(HttpSession session) {
 			String userId = (String)session.getAttribute("userId");
-			return userService.getMypage(userId);
+			User user = userService.getMypage(userId);
+			return user;
 		}
 		
 	//설정창
@@ -163,23 +164,28 @@ public class UserController {
 			mv.setViewName("user/setting");
 			return mv;
 		}
+		
 	//회원정보수정창
 		@GetMapping("user/userFix")
-		public ModelAndView fixUser(ModelAndView mv, HttpSession session) {
-			String userId = (String)session.getAttribute("userId");
-			User user = userService.getMypage(userId);
-			System.out.println(user);
+		public ModelAndView fixUserView(ModelAndView mv) {
 			mv.setViewName("user/userFix");
 			return mv;
 		}
 		
-		@PutMapping("fix")
-		public void fixUser(UserDto userDto, User user) {
-			String filename = userDto.getUserProfile().getOriginalFilename();
-			saveFile(attachPath + "/" + filename, userDto.getUserProfile());
-			user.setUserProfileImageFilename(filename);
-			userService.fixUser(user);
-		}
+	@PostMapping("fix")
+	public ModelAndView fixUser(ModelAndView mv, UserDto userDto, User user, HttpSession session) {
+		System.out.println(userDto);
+		String filename = userDto.getUserProfile().getOriginalFilename();
+		saveFile(attachPath + "/" + filename, userDto.getUserProfile());
+		user.setUserProfileImageFilename(filename);
+		String userId = (String)session.getAttribute("userId");
+		user.setUserId(userId);
+		System.out.println(user);
+		userService.fixUser(user);
+		mv.setViewName("redirect:user/mypage");
+		return mv;
+	}
+
 
 	//아이디 중복체크
 	@PostMapping("idCheck")
