@@ -112,10 +112,15 @@
         var reader = new FileReader();
 
         reader.onload = function(event) {
-          var img = document.createElement("img");
-          img.setAttribute("src", event.target.result);
-          img.setAttribute("class", 'img-fluid circle');
-          document.querySelector("div#image_container").appendChild(img);
+        	$('#imageTxt').hide();
+        	var div = document.createElement("div");
+        	div.setAttribute("class", "userProfileImage");
+          	var img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            img.setAttribute("id", 'UploadProfileBtn');
+            img.setAttribute("class", 'img-fluid image-thumbnail');
+            img.setAttribute("style", 'width:130px; height:130px;');
+            document.querySelector("div#image_container").appendChild(div).appendChild(img);
         };
 
         reader.readAsDataURL(event.target.files[0]);
@@ -144,7 +149,8 @@ $(pwCheck)
     <div class='row'>
       <div class='col mb-3'>
             <div class="wrapper d-flex justify-content-center">
-                <div id="uploadProfileBtn" type='button' class='circle'>
+                <div id="uploadProfileBtn" type='button' class='box text-center'>
+                	<p id='imageTxt' class='mt-5'>프로필 사진</p>
                 	<div id="image_container"></div>
                 </div>
             </div>

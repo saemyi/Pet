@@ -103,9 +103,6 @@ function getUser() {
 	})
 }
 
-
-
-
 function setThumbnail(event) {
 	$('#image_container').empty();
 	$('.userProfileImage').hide();
