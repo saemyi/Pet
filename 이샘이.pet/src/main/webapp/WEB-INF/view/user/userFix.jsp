@@ -31,7 +31,7 @@ $(() => {
 	$('#nicknameCheck').click(() => {
     	if($('#nicknameError').length != 0) {
     	
-    	} else {
+    	} else { 
 	    	var nickname = $('#nickname').val();
 	    	$.ajax({
 	    		url:'/nicknameCheck',

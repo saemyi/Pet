@@ -61,8 +61,7 @@
 		   		}
 		   	})
     	}
-    })
-
+    }) 
     $('#nicknameCheck').click(() => {
     	if($('#nicknameError').length != 0) {
     	
