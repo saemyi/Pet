@@ -27,7 +27,6 @@ maximum-scale=1.0, minimum-scale=1.0'>
 textarea {
 	resize: none; 
 	background-color: #fff;
-
 }
 </style>
 <body>
@@ -197,8 +196,7 @@ textarea {
                 }
             })
         })  
-    }
-    
+    }   
 listComments()
 </script>
 </html>
