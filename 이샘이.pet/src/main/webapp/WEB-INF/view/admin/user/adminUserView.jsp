@@ -9,13 +9,14 @@
 <script src='../../res/projectJs.js'></script>
 <link rel='stylesheet' href='../../res/admin.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script type="application/javascript" src="../../res/hangjungdong.js"></script>
 <title>유저상세</title>
 <style>
  td {
  	text-align: left;
  }
 </style>
-<script>
+<script> 
 $(() => {
     $('#fixLogo').click(() => {
         logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
@@ -40,13 +41,7 @@ $(() => {
     } 
     $('#benUser').hide()
     
-    jQuery.each(hangjungdong.sido, function (idx, code) {
-		//append를 이용하여 option 하위에 붙여넣음
-		jQuery('#sido').append(fn_option(code.sido, code.codeNm));
-	}); 
-	
-	//sido 변경시 시군구 option 추가
-	jQuery('#sido').change(function () {
+    jQuery('#sido').change(function () {
 		jQuery('#sigugun').show();
 		jQuery('#sigugun').empty();
 		jQuery('#sigugun').append(fn_option('', '시/군/구')); //
@@ -139,31 +134,39 @@ function adminPetList() {
 function adminMeetingList() {
 	$.ajax({
 		url: '../meeting/get/${user.userId}',
-		success: meetingList => {
-			if(meetingList.length){
-				meetings = []
-				meetingList.forEach(meeting => {
-					meetings.unshift(
-				'<table class="table text-center mb-4">' +
-					'<tbody>' +
-						'<tr>' +
-		                    '<th>제목</th><td class="text-start">' + meeting.meetingTitle + '</td>' + '<th>모임시간</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="' + meeting.meetingTime + '"disabled/> </td>' +
-		                '</tr>' +
-		                '<tr>' +
-		                    '<th>장소</th><td class="text-start"><p id="addressText"></p></td><th>참석인원/모집인원</th><td class="text-start">' + meeting.applicantNumber  + '/' + meeting.recruitmentNumber + '</td>' +
-		                '</tr>' +
-		                '<tr>' +
-		                    '<th>내용</th>' +
-		                    '<td class="text-start" colspan="3">' + 
+		success: meetings => {
+			if(meetings.length){
+				const meetingArr = []
+				
+				$.each(meetings, (i, meeting) => {
+					$('#sido').val(meeting.sidoId).trigger('change')
+					$('#sigugun').val(meeting.sigunguId).trigger('change')
+					$('#dong').val(meeting.dongId).trigger('change')
+					console.log(meeting.sidoId)
+					console.log($('#sido option:selected').text())
+					meetingArr.push(
+				`<table class="table text-center mb-4">
+					<tbody>
+						<tr>
+		                    <th>제목</th><td class="text-start">` + meeting.meetingTitle + `</td> 
+		                    <th>모임시간</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="` + meeting.meetingTime + `"disabled/></td>
+		                </tr>
+		                <tr>
+		                    <th>장소</th><td class="text-start">` + $("#sido option:selected").text() + " " + $("#sigugun option:selected").text() + " " + $("#dong option:selected").text() + 
+		                    `</td><th>참석인원/모집인원</th><td class="text-start">` + meeting.applicantNumber + `/` + meeting.recruitmentNumber + `</td>
+		                </tr>
+		                <tr>
+		                    <th>내용</th>
+		                    <td class="text-start" colspan="3">` + 
 		                        meeting.meetingContent +
-		                    '</td>' +
-		                '</tr>' +
-		             '</tbody>' +
-	             '</table>'
+		                    `</td>
+		                </tr>
+		             </tbody>
+	             </table>`
 					)
 				})
 				
-				$('#meetings').append(meetings.join(''))
+				$('#meetings').append(meetingArr.join(''))
 			}else $('#meetings').append(
 					`<p class="text-center">만든 모임이 없습니다.</p>`
 			)
@@ -406,6 +409,23 @@ function init() {
     <div class='col' id='meetings'>
             
     </div>
+</div>
+<div class='row'>
+	<div class='col'>
+		<select class='form-select' name='sido' id='sido' >
+			<option value=''>시/도</option>
+		</select>
+	</div>
+	<div class='col'>
+		<select class='form-select' name='sigugun' id='sigugun' >
+			<option value=''>시/군/구</option>
+		</select>
+	</div>
+	<div class='col'>
+		<select class='form-select' name='dong' id='dong'>
+			<option value=''>읍/면/동</option>
+		</select>
+	</div>
 </div>
 <div class='modal fade' id='modal'>
     <div class='modal-dialog modal-dialog-centered'>
