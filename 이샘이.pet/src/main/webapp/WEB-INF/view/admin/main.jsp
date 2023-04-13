@@ -50,7 +50,7 @@ function displayData(currentPage, dataPerPage){
 						Sus = 'x'
 					}else Sus = '○'
 					users.unshift(
-						'<tr class="hover-cursor">' + 
+						'<tr>' + 
 		                    '<td><a href="admin/adminUserView/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
 		                    '<td>' + user.nickname +'</td>' + 
 		                    '<td>' + user.userName +'</td>' +
@@ -212,7 +212,7 @@ function searchData(currentPage, dataPerPage){
 						Sus = 'x'
 					}else Sus = '○'
 					users.unshift(
-						'<tr class="hover-cursor">' + 
+						'<tr>' + 
 		                    '<td><a href="admin/adminUserView/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
 		                    '<td>' + user.nickname +'</td>' + 
 		                    '<td>' + user.userName +'</td>' +
