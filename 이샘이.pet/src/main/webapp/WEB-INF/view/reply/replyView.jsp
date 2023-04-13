@@ -44,13 +44,13 @@ function listReplies() {
 						 `<div class='row' id='meetingId' value='\${comment.meetingId}'>
 	                     	<div class='col'>
 	                         <div class='row'>
-	                             <div class='col pe-0'>
-	                                 <button type='button' class='border-0'onclick="location.href='../login'"><b>\${comment.nickname}</b></button>
+	                             <div class='col-auto pe-0'>
+	                                 <button type='button' class='border-0'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
 	                             </div>
-	                             <div class='col-6'>
-	                                 <small id='commentTime' value='\${comment.commentTime}'>\${comment.commentTime}</small>
+	                             <div class='col'>
+	                                 <p id='commentTime' value='\${comment.commentTime}' style='font-size: 0.5rem;'>\${comment.commentTime}</p>
 	                             </div>
-	                             <div class='col-2'>
+	                             <div class='col-2' style='margin-top: -.5rem;'>
 	                                 <div class='dropdown dropmenu\${comment.userId}'  style='display: none;'>
 	                                     <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
 	                                         <i class='bi bi-three-dots fa-2x'></i>
@@ -96,15 +96,15 @@ function listReplies() {
 								            <div class='col-2 d-flex justify-content-end'>
 								            	<i class="bi bi-arrow-return-right"></i>
 								        	</div>
+							                <div class='col-auto'>
+							                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b style='font-size: 0.6rem;'>\${reply.nickname}</b></button>
+							                </div>
 							                <div class='col'>
-							                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b>\${reply.nickname}</b></button>
+							                    <p id='replyTime' value='\${reply.replyTime}' style='font-size: 0.3rem;'>\${reply.replyTime}</p>
 							                </div>
-							                <div class='col-4'>
-							                    <small id='replyTime' value='\${reply.replyTime}'>\${reply.replyTime}</small>
-							                </div>
-							                <div class='col-2'>
-							                    <div class='dropdown dropmenu\${reply.userId}'>
-							                        <button type='button' class='reply-menu dropdown-toggle' style='display:none;' data-bs-toggle='dropdown'>
+							                <div class='col-2' style='margin-top: -.5rem;'>
+							                    <div class='dropdown dropmenu\${reply.userId}' style='display:none;'>
+							                        <button type='button' class='reply-menu dropdown-toggle' data-bs-toggle='dropdown'>
 							                            <i class='bi bi-three-dots fa-2x'></i>
 							                        </button>
 							                        <div class='dropdown-menu'>

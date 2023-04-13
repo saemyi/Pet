@@ -98,13 +98,13 @@ textarea {
                         `<div class='row'>
                             <div class='col'>
                                 <div class='row'>
-                                    <div class='col pe-0'>
-                                        <button type='button' class='border-0'onclick="location.href='../login'"><b>\${comment.nickname}</b></button>
+                                    <div class='col-auto pe-0'>
+                                        <button type='button' class='border-0'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
                                     </div>
-                                    <div class='col-6'>
-                                        <small id='commentTime' value='\${comment.commentTime}'>\${comment.commentTime}</small>
+                                    <div class='col'>
+                                        <p id='commentTime' value='\${comment.commentTime}' style='font-size: 0.5rem;'>\${comment.commentTime}</p>
                                     </div>
-                                    <div class='col-2'>
+                                    <div class='col-2' style='margin-top: -.5rem;'>
                                         <div class='dropdown dropmenu\${comment.userId}'  style='display: none;'>
                                             <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
                                                 <i class='bi bi-three-dots fa-2x'></i>
