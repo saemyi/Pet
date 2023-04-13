@@ -118,10 +118,12 @@ function adminPetList() {
 					'<table class="table text-center mb-4">' +
 						'<tbody>' +
 							'<tr style="height: 1rem;">' + 
-		                    	'<td rowspan="2" style="height: 8rem; border: .1rem solid;  padding-top: 3rem; background-color: white;">' +
-			                       	pet.petProfileImageFilename +
-		                    	'</td>' +
-		                    '<th>이름</th><td class="text-start">' + pet.petName + '</td>' +
+		                    	'<td class="petBox image-box " rowspan="2" style="height: 7rem; width: 7rem; border: .1rem solid;">' +
+		                    		'<div class=image-box>' +
+										'<img class="image-thumbnail" src="/attach/' + pet.petProfileImageFilename + '"/>' +
+		                    		'</div>' +
+								'</td>' +
+		                    '<th style ="width: 10rem;">이름</th><td class="text-start">' + pet.petName + '</td>' +
 			                '</tr>' +
 			                '<tr>' +
 		                    	'<th>소개</th><td class="text-start">' + pet.petIntro + '</td>' +
@@ -155,12 +157,12 @@ function adminMeetingList() {
 				`<table class="table text-center mb-4">
 					<tbody>
 						<tr>
-		                    <th>제목</th><td class="text-start">` + meeting.meetingTitle + `</td> 
+		                    <th style="width: 8rem;">제목</th><td class="text-start" style="width: 30rem;">` + meeting.meetingTitle + `</td> 
 		                    <th>모임시간</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="` + meeting.meetingTime + `"disabled/></td>
 		                </tr>
 		                <tr>
 		                    <th>장소</th><td class="text-start">` + $("#sido option:selected").text() + " " + $("#sigugun option:selected").text() + " " + $("#dong option:selected").text() + 
-		                    `</td><th>참석인원/모집인원</th><td class="text-start">` + meeting.applicantNumber + `/` + meeting.recruitmentNumber + `</td>
+		                    `</td><th style="width: 8rem;">참석인원/모집인원</th><td class="text-start">` + meeting.applicantNumber + `/` + meeting.recruitmentNumber + `</td>
 		                </tr>
 		                <tr>
 		                    <th>내용</th>
@@ -184,7 +186,7 @@ function adminMeetingList() {
 }
 
 function goPage() {
-	location.replace("./user") 
+	location.replace("./${user.userId}") 
 }
 
 function init() {
@@ -370,16 +372,18 @@ function init() {
         </form>
         <hr>
     </div>
-</div>
+</div> 
 <div class='row md'>
     <div class='col'>
         <table class='table text-center'>
             <tbody>
                 <tr>
-                    <td rowspan='5' style=' border-right: .1rem solid; padding-top: 6rem; background-color: white;'>
-                       회원이미지
+                    <td class='pt-4' rowspan='5' style='border-right: .1rem solid; width: 9rem;'>
+                    <div class="image-box d-flex justify-content-center">
+                       <img class="image-thumbnail pt-1" src ="/attach/${user.userProfileImageFilename}"/> 
+                    </div>
                     </td> 
-                    <th>이름</th><td><input type='text' style='border: none;' id='userName' placeholder='이름' value='${user.userName}'></td><th>생년월일</th><td>${user.birthdate}</td>
+                    <th style="width: 10rem;">이름</th><td><input type='text' style='border: none;' id='userName' placeholder='이름' value='${user.userName}'></td><th style='width: 15rem;'>생년월일</th><td>${user.birthdate}</td>
                 </tr>
                 <tr>
                     <th>닉네임</th><td>${user.nickname}</td><th>이메일</th><td>${user.email}</td>
