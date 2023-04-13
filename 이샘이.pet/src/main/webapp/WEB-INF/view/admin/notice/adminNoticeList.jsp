@@ -17,10 +17,143 @@
     $('#fixLogo').click(() => {
     logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
 })
+var totalData;
+var dataList; 
+let dataPerPage = 10;
+let pageCount = 10;
+let globalCurrentPage = 1;
+//console.log("totalData start :"+totalData)
+//console.log("dataList1 start :"+dataList)
+/*
+$(document).ready(function () {
+ //글 목록 표시 호출 (테이블 생성)
+	displayData(1, dataPerPage);
+	
+});
+*/
+function init() {
+	displayData(1, dataPerPage);
+	
+	$('#search').click(() => {
+		searchData(1, dataPerPage);
+	})
+}
+function paging(totalData, dataPerPage, pageCount, currentPage) {
+	 // console.log("totalData " + totalData)
+	 // console.log("pageCount " + pageCount)
+	 // console.log("dataPerPage " + dataPerPage)
+	
+	  //console.log("currentPage " + currentPage)
+	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+	 // console.log("paging totalPage : " + totalPage);
+	  if(totalPage < pageCount){
+	    pageCount = totalPage;
+	  }
+	  
+	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+	//  console.log("pageGroup "+pageGroup)
+	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+	 // console.log("last "+last)
+	  if (last > totalPage) {
+	    last = totalPage;
+	  }
 
+	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
+	  //console.log("first "+first)
+	  let next = last + 1;
+	  let prev = first - 1;
+	  
+	  $("#pages").empty();
+	  let pageHtml = "";
+	//페이징 이전 화살표
+	  if(currentPage != 1){
+		  pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Previous' id='prev'> <span aria-hidden='true'>&laquo;</span></a></li>"
+	  }
+	
+	 //페이징 번호 표시 
+	  for (var i = first; i <= last; i++) {
+	    if (currentPage == i) {
+	      pageHtml +=
+	        "<li class='page-item'><a href ='#' class = 'page-link currentPage' id='" + i + "'>" + i + "</a></li>";
+	    } else {
+	      pageHtml += "<li class='page-item'><a href ='#' class = 'page-link' id='" + i + "'>" + i + "</a></li>";
+	    } 
+	  }
+	//페이징 다음 화살표
+	  if (currentPage != totalPage) {
+	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
+	  }
+
+	  //console.log("pageHtml:" + pageHtml)
+	  $("#pages").html(pageHtml);
+	  
+	  //상단 페이지 데이터 확인용
+	  /* let displayCount = "";
+	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
+	  $("#displayCount").text(displayCount); */
+
+
+	  //페이징 번호 클릭 이벤트 
+	  $("#pages li a").click(function () {
+	    let $id = $(this).attr("id");
+	    selectedPage = $(this).text();
+
+	    if ($id == "next") selectedPage = currentPage + 1;//selectedPage = next;
+	    if ($id == "prev") selectedPage = currentPage - 1;//selectedPage = prev;
+	    
+	    //전역변수에 선택한 페이지 번호를 담는다...
+	    globalCurrentPage = selectedPage;
+	    //페이징 표시 재호출
+	    paging(totalData, dataPerPage, pageCount, selectedPage);
+	    //글 목록 표시 재호출
+	    displayData(selectedPage, dataPerPage);
+	  });
+	  
+	  //console.log("totalData end :"+totalData)
+}
+
+function displayData(currentpage, dataPerPage) {
+	$.ajax({
+		url: 'notice/get', 
+		success: noticeList => {
+			if(noticeList.length){
+			notices = []
+			noticeList.forEach(notice => {
+				notices.unshift(
+					'<tr>' +
+						'<td>' + notice.noticeId + '</td>' + 
+						'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
+						'<td>' + notice.noticeTime + '</td>' +
+						'<td>' + notice.userId + '</td>' +
+					'</tr>'
+				)
+			})
+			currentPage = Number(currentpage);
+ 			dataPerPage = 10;
+ 			$('#notices').empty()
+ 			 for (
+ 				    var i = (currentPage - 1) * dataPerPage;
+ 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
+ 				    i++
+ 				) {
+ 					$('#notices').append(notices[i])
+ 				 }
+ 			
+ 			totalData = noticeList.length;
+ 	        dataList = notices;
+ 	        //페이징 표시 호출
+ 			paging(totalData, dataPerPage, pageCount, currentPage);
+				
+			}else $('#notices').append(
+				`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
+			)
+		}
+	})
+}
+/*
 	function NoticesList() {
     	$.ajax({
-    		url: 'notice/get',
+    		url: 'notice/get', 
     		success: noticeList => {
     			if(noticeList.length){
     			notices = []
@@ -42,40 +175,96 @@
     		}
     	})
     }
-    
-    function init() {
-    	$(NoticesList)
-	    
-    	$('#search').click(() => {
+*/  
+	function searchData(currentPage, dataPerPage){
     		$('#notices').empty()
-    		let notice ={
-		    	noticeTitle : $('#searchValue').val()
-    		} 
+    		let select = $('#select option:selected').val()
+    		let notice = '';
+    		if(select == 1){
+    			notice ={
+    			    	noticeTitle : $('#searchValue').val()
+    	    		} 
+    			$.ajax({
+        			url: 'notice/search/title',
+        			data: notice,
+        			success: noticeList => {
+        				if(noticeList.length){
+        				notices = []
+        				noticeList.forEach(notice => {
+        					notices.unshift(
+        						'<tr>' +
+        							'<td>' + notice.noticeId + '</td>' + 
+        							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
+        							'<td>' + notice.noticeTime + '</td>' +
+        							'<td>' + notice.userId + '</td>' +
+        						'</tr>'
+        					)
+        				})
+        				currentPage = Number(currentPage);
+        	 			dataPerPage = 10;
+        	 			$('#notices').empty()
+        	 			 for (
+        	 				    var i = (currentPage - 1) * dataPerPage;
+        	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
+        	 				    i++
+        	 				) {
+        	 					$('#notices').append(notices[i])
+        	 				 }
+        	 			
+        	 			totalData = noticeList.length;
+        	 	        dataList = notices;
+        	 	        //페이징 표시 호출
+        	 			paging(totalData, dataPerPage, pageCount, currentPage);
+        					
+        				}else $('#notices').append(
+        					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
+        				)
+        			}
+        		})		
+    		} else {
+    			notice = {
+    					userId : $('#searchValue').val()
+    			}
+    		}
+    		console.log(notice)
     		$.ajax({
-    			url: 'notice/search',
+    			url: 'notice/search/userId',
     			data: notice,
     			success: noticeList => {
-        			if(noticeList.length){
-        			notices = []
-        			noticeList.forEach(notice => {
-        				notices.unshift(
+    				if(noticeList.length){
+    				notices = []
+    				noticeList.forEach(notice => {
+    					notices.unshift(
     						'<tr>' +
     							'<td>' + notice.noticeId + '</td>' + 
     							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
     							'<td>' + notice.noticeTime + '</td>' +
     							'<td>' + notice.userId + '</td>' +
     						'</tr>'
-        				)
-        			})
-        			
-        				$('#notices').append(notices.join(''))
-        			}else $('#notices').append(
-        				`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
-        			)
-        		}		
+    					)
+    				})
+    				currentPage = Number(currentPage);
+    	 			dataPerPage = 10;
+    	 			$('#notices').empty()
+    	 			 for (
+    	 				    var i = (currentPage - 1) * dataPerPage;
+    	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
+    	 				    i++
+    	 				) {
+    	 					$('#notices').append(notices[i])
+    	 				 }
+    	 			
+    	 			totalData = noticeList.length;
+    	 	        dataList = notices;
+    	 	        //페이징 표시 호출
+    	 			paging(totalData, dataPerPage, pageCount, currentPage);
+    					
+    				}else $('#notices').append(
+    					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
+    				)
+    			}
     		})
-    	})
-    }
+    	}
     $(init)
 </script>
 </head>
@@ -120,9 +309,9 @@
 <div class='row mt-3'>
     <div class='col'>
         <div class="input-group mt-2 gap-2 wrap d-flex justify-content-center">
-            <select class="select-orange" aria-label="Default select example">
-                <option>공지제목</option>
-                <option>작성자</option>
+            <select class="select-orange" aria-label="Default select example" id='select'>
+                <option value='1' selected>공지제목</option>
+                <option value='2'>작성자</option>
               </select>
             <mx-auto>
                 <input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search" id="searchValue">
@@ -142,12 +331,13 @@
             </tbody>
         </table>
         <div class='row'>
-            <div class='col-4'>
+            <div class='col-5'>
                 <button type='button' class='btn botton-orange' id='noticeAdd' onclick='location.href="./notice/adminNoticeAdd"'>추가</button>
             </div>
             <div class='col gap-2 d-flex justify-content-start'>
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination" >
+                    <ul class="pagination"  id='pages'>
+                        <!-- 
                         <li class="page-item">
                             <a class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
@@ -163,6 +353,7 @@
                             <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
+                         -->
                     </ul>
                 </nav>
             </div>

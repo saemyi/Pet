@@ -55,4 +55,9 @@ public class MeetingServiceImpl implements MeetingService {
 	public void delMeeting(int meetingId) {
 		meetingDao.deleteMeeting(meetingId);
 	}
+	
+	@Override
+	public List<Meeting> findMeetings(String meetingTitle, LocalDateTime meetingTime, String userId) {
+		return meetingDao.searchMeetings(meetingTitle, meetingTime, userId);
+	}
 }

@@ -16,4 +16,5 @@ public interface MeetingDao {
 			String userId, String sidoId, String sigunguId, String dongId);
 	void updateMeeting(Meeting meeting);
 	void deleteMeeting(int meetingId);
+	List<Meeting> searchMeetings(String meetingTitle, LocalDateTime meetingTime, String userId);
 }

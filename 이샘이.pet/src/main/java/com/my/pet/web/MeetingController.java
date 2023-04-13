@@ -98,4 +98,9 @@ public class MeetingController {
 	public void delMeeting(@PathVariable int meetingId) {
 		meetingService.delMeeting(meetingId);
 	}
+	
+	@PostMapping("searchMeetings")
+	public List<Meeting> findMeetings(String meetingTitle, LocalDateTime meetingTime, String userId) {
+		return meetingService.findMeetings(meetingTitle, meetingTime, userId);
+	}
 }

@@ -55,4 +55,9 @@ public class MeetingDaoImpl implements MeetingDao {
 	public void deleteMeeting(int meetingId) {
 		meetingMap.deleteMeeting(meetingId);
 	}
+	
+	@Override
+	public List<Meeting> searchMeetings(String meetingTitle, LocalDateTime meetingTime, String userId) {
+		return meetingMap.searchMeetings(meetingTitle, meetingTime, userId);
+	}
 }

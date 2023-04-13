@@ -126,6 +126,14 @@ function meetingList() {
 function init() {
 	meetingList()
 	
+	$('#search').click(() => {
+		$('#meetings').empty()
+//		switch()
+		let info = {
+			meetingTitle : $('#searchValue').val()
+		}
+	}
+	
 	$('#fixLogo').click(() => {
 		logoModal('<input type="file"/><br>로고 파일을 등록하세요.')
 	})
@@ -182,7 +190,7 @@ $(init)
 				<option value='author'>작성자</option>
 			</select>
 			<mx-auto>
-				<input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search">
+				<input type="search" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="search" id='searchValue'>
 			</mx-auto>
 			<button class="btn botton-orange" type="submit" id="searchBtn">검색</button>
 		</div>
