@@ -34,7 +34,7 @@
 	
 	<update id='updateReply'>
 		update replies
-		set reply_content = #{replyContent}, reply_time = #{replyTime}
+		set reply_content = #{replyContent}, reply_time = sysdate
 		where reply_id = #{replyId}
 	</update>
 	

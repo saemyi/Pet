@@ -119,7 +119,6 @@ textarea {
 								            <div class='row mt-2'>
 								                <div class='col m-2 mb-0'>
 								                	<p><textarea cols='40' rows='3'id='replyContent\${reply.replyId}' class='border-0' readonly disabled>\${reply.replyContent}</textarea></p>
-		                                        	<button id='fix\${reply.reply}' style='display: none;' class='border-0'onclick='FixFinish(\${reply.replyId})'>수정 완료</button>
 								                </div>
 								            </div>
 								        </div>
@@ -165,7 +164,7 @@ textarea {
 			if($('#replyContentFix'+ repId).val()){
 				let reply = {
 	    	    		replyId: repId,
-	    	    		replyContent: $('#replyContentFix'+ repId).val()	
+	    	    		replyContent: $('#replyContentFix'+ repId).val()
 	    	    	}	    	    	
 	    	    	$.ajax({
 	    	            url: 'fix',
