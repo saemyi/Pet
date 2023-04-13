@@ -171,7 +171,9 @@ textarea {
 	    	            contentType: 'application/json',
 	    	        	data: JSON.stringify(reply),
 	    	            success: function(){
-	                    	window.location.href = '/reply/'+ ${commentId} 
+	       	            	listReplies()
+	       	            	$('#modal').modal('hide'); 
+	       	             	$('#modal').hide(); 
 	                    }
 	    	        })
 			} else {
@@ -190,7 +192,7 @@ textarea {
 	        })
 	    })
 	}
-	
+
     let comId = 0;   
     function CommentFix(comId){
     	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ comId +"'"+ "class='border-0' style='resize: none;' placeholder='댓글을 입력해주세요'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
@@ -207,7 +209,9 @@ textarea {
        	            contentType: 'application/json',
        	        	data: JSON.stringify(comment),
        	            success: function(){
-                    	window.location.href = '/reply/'+ ${commentId} 
+       	            	listReplies()
+       	            	$('#modal').modal('hide'); 
+       	             	$('#modal').hide(); 
                     }
        	       })
     		} else {
@@ -277,9 +281,9 @@ listReplies()
                 <p id='modalMsg'></p>
             </div>
             <div class='modal-footer' id='modalBtn'>
-                	<p id='modalErrMsg' class='text-danger'></p>
-                    <button type='button' class='btn btn-orange' id='confirmBtn'>수정</button>
-                </div>
+               	<p id='modalErrMsg' class='text-danger'></p>
+                <button type='button' class='btn btn-orange' id='confirmBtn'>수정</button>
+            </div>
             <div class='modal-footer' id='modalBtnDouble'>
                 <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
                     아니오
