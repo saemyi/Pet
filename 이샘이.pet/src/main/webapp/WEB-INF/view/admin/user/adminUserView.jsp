@@ -372,7 +372,7 @@ function init() {
         </form>
         <hr>
     </div>
-</div>
+</div> 
 <div class='row md'>
     <div class='col'>
         <table class='table text-center'>
