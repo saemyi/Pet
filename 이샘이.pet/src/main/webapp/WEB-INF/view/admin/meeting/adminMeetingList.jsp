@@ -17,6 +17,9 @@
 
 </style>
 <script>
+let dataPerPage = 10;
+let pageCount = 10;
+
 $(() => {
 	//sido option 추가
 	jQuery.each(hangjungdong.sido, function (idx, code) {
@@ -84,7 +87,7 @@ function fn_option(code, name) {
     return '<option value="' + code + '">' + name + '</option>';
 }
 
-function meetingList() {
+function meetingList(currentPage, dataPerPage) {
 	$('#meetings').empty()
 	
 	$.ajax({
@@ -94,7 +97,15 @@ function meetingList() {
 		success: meetings => {
 			if(meetings.length) {
 				let meetingArr = fillMeetingsArray(meetings)
-				$('#meetings').append(meetingArr.join(''))
+				currentPage = Number(currentPage)
+				for(let i = (currentPage - 1) * dataPerPage;
+					i < (currentPage - 1) * dataPerPage + dataPerPage;
+					i++
+					) {
+					$('#meetings').append(meetingArr[i])
+				}
+				totalData = meetingArr.length
+				pagination(totalData, dataPerPage, pageCount, currentPage)
 			} else {
 				$('#meetings').append('<tr><td colspan=7 class=text-center>모임이 없습니다.</td></tr>')
 			}
@@ -128,7 +139,7 @@ function fillMeetingsArray(meetings) {
 	return meetingArr
 }
 
-function search() {
+function search(currentPage, dataPerPage) {
 	$('#meetings').empty()
 	
 	let category = $('#searchCategory option:selected').val()
@@ -155,19 +166,137 @@ function search() {
 		success: meetings => {
 			if(meetings.length) {
 				let meetingArr = fillMeetingsArray(meetings)
-				$('#meetings').append(meetingArr.join(''))
+				currentPage = Number(currentPage)
+				for(let i = (currentPage - 1) * dataPerPage;
+					i < (currentPage - 1) * dataPerPage + dataPerPage;
+					i++
+					) {
+					$('#meetings').append(meetingArr[i])
+				}
+				totalData = meetingArr.length
+				searchPagination(totalData, dataPerPage, pageCount, currentPage)
 			} else {
 				$('#meetings').append('<tr><td colspan=7 class=text-center>모임이 없습니다.</td></tr>')
 			}
+			
+			$('#sigugun').css("display", "none")
 		}
 	})
 }
 
+function pagination(totalData, dataPerPage, pageCount, currentPage) {
+	totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+	if(totalPage < pageCount){
+		pageCount = totalPage;
+	}
+	
+	let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+	let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+	if (last > totalPage) {
+		last = totalPage;
+	}
+	
+	let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
+	let next = last + 1;
+	let prev = first - 1;
+	
+	$("#pages").empty();
+	let pageHtml = "";
+	// 이전 화살표
+	if(currentPage != 1){
+		pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Previous' id='prev'> <span aria-hidden='true'>&laquo;</span></a></li>"
+	}
+	
+	//페이지 번호 표시 
+	for (var i = first; i <= last; i++) {
+		if (currentPage == i) {
+			pageHtml +=
+			"<li class='page-item'><a href ='#' class = 'page-link currentPage' id='" + i + "'>" + i + "</a></li>";
+		} else {
+			pageHtml += "<li class='page-item'><a href ='#' class = 'page-link' id='" + i + "'>" + i + "</a></li>";
+		}
+	}
+	//다음 화살표
+	if (currentPage != totalPage) {
+		pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
+	}
+	
+	$("#pages").html(pageHtml);
+	
+	//페이지 번호 클릭 이벤트 
+	$("#pages li a").click(function () {
+		let $id = $(this).attr("id");
+		selectedPage = $(this).text();
+		
+		if ($id == "next") selectedPage = currentPage + 1;
+		if ($id == "prev") selectedPage = currentPage - 1;
+		
+		//페이지 표시 재호출
+		pagination(totalData, dataPerPage, pageCount, selectedPage);
+		//글 목록 표시 재호출
+		meetingList(selectedPage, dataPerPage);
+	});
+}
+
+function searchPagination(totalData, dataPerPage, pageCount, currentPage) {
+	totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+	if(totalPage < pageCount){
+		pageCount = totalPage;
+	}
+	
+	let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+	let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+	if (last > totalPage) {
+		last = totalPage;
+	}
+	
+	let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
+	let next = last + 1;
+	let prev = first - 1;
+	
+	$("#pages").empty();
+	let pageHtml = "";
+	// 이전 화살표
+	if(currentPage != 1){
+		pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Previous' id='prev'> <span aria-hidden='true'>&laquo;</span></a></li>"
+	}
+	
+	//페이지 번호 표시 
+	for (var i = first; i <= last; i++) {
+		if (currentPage == i) {
+			pageHtml +=
+			"<li class='page-item'><a href ='#' class = 'page-link currentPage' id='" + i + "'>" + i + "</a></li>";
+		} else {
+			pageHtml += "<li class='page-item'><a href ='#' class = 'page-link' id='" + i + "'>" + i + "</a></li>";
+		}
+	}
+	//다음 화살표
+	if (currentPage != totalPage) {
+		pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
+	}
+	
+	$("#pages").html(pageHtml);
+	
+	//페이지 번호 클릭 이벤트 
+	$("#pages li a").click(function () {
+		let $id = $(this).attr("id");
+		selectedPage = $(this).text();
+		
+		if ($id == "next") selectedPage = currentPage + 1;
+		if ($id == "prev") selectedPage = currentPage - 1;
+		
+		//페이지 표시 재호출
+		searchPagination(totalData, dataPerPage, pageCount, selectedPage);
+		//글 목록 표시 재호출
+		search(selectedPage, dataPerPage);
+	});
+}
+
 function init() {
-	meetingList()
+	meetingList(1, dataPerPage)
 	
 	$('#searchBtn').click(() => {
-		search()
+		search(1, dataPerPage)
 	})
 	
 	$('#fixLogo').click(() => {
@@ -241,7 +370,8 @@ $(init)
         </table>
         <div class='col gap-2 d-flex justify-content-center'>
             <nav aria-label="Page navigation example">
-                <ul class="pagination" >
+                <ul class="pagination" id='pages'>
+                	<!--
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
@@ -262,6 +392,7 @@ $(init)
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
+                    -->
                 </ul>
             </nav>
         </div>
