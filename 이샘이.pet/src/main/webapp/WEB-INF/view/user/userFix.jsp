@@ -83,15 +83,9 @@ function getUser() {
 				$('.userProfileImage').html("<img class='image-thumbnail userImage'/>")
 				$('.userImage').attr('src', '<c:url value="/attach/'+ user.userProfileImageFilename + '"/>')
 				$('#userProfileImageFilename').val(user.userProfileImageFilename)
-				$('#nickname').val(user.nickname)
-				$('#phone').val(user.phone)
-				$('#email').val(user.email)
-				$('#sample6_address').val(user.address)
-				$('#sample6_detailAddress').val(user.detailedAddress)
-				$('#birthdate').val(user.birthdate)
-				$('#userIntro').val(user.userIntro)
 			} else {
 				$('#userInfo').html('<div id="UploadProfileBtn" type="button" class="box text-align-center userProfileImage"><p class="mt-5">프로필이미지</p></div>')
+			}
 				$('#nickname').val(user.nickname)
 				$('#phone').val(user.phone)
 				$('#email').val(user.email)
@@ -99,7 +93,6 @@ function getUser() {
 				$('#sample6_detailAddress').val(user.detailedAddress)
 				$('#birthdate').val(user.birthdate)
 				$('#userIntro').val(user.userIntro)
-			}
 		}
 	})
 }
