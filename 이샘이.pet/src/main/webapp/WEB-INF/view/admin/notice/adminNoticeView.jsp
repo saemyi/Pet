@@ -19,7 +19,10 @@ $(() => {
 })
 
 function goPage() {
-	location.replace("../../notice")
+	//location.replace("../../notice")
+	history.pushState(null, null, location.href="../../notice");
+	window.onpopstate = function(event) {
+	}
 }
 
 function init() {
