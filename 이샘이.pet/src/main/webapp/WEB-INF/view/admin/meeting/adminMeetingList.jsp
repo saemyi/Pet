@@ -93,26 +93,7 @@ function meetingList() {
 		method: 'post',
 		success: meetings => {
 			if(meetings.length) {
-				const meetingArr = []
-				
-				$.each(meetings, (i, meeting) => {
-					$('#sido').val(meeting.sidoId).trigger('change')
-					$('#sigugun').val(meeting.sigunguId).trigger('change')
-					$('#dong').val(meeting.dongId).trigger('change')
-					
-					meetingArr.push(
-						`<tr>
-							<td></td>
-							<td><a href='/admin/meeting/` + meeting.meetingId + `' class='a-black'>` + meeting.meetingTitle + `</a></td> 
-							<td>` + $('#sido option:selected').text() + ' ' + $('#sigugun option:selected').text() + ' ' + $('#dong option:selected').text() + `</td>
-							<td><input type='datetime-local' class='form-control text-center' style='border:none; background: none; font-size: 12px; padding: 1px;' value='` + meeting.meetingTime + `' disabled/></td>
-							<td>` + meeting.userId + `</td>
-							<td>` + (meeting.applicantNumber == meeting.recruitmentNumber ? "o" : "x") + `</td>
-							<td>` + (new Date() > new Date(meeting.meetingTime) ? "o" : "x") + `</td>
-						</tr>`
-					)
-				})
-				
+				let meetingArr = fillMeetingsArray(meetings)
 				$('#meetings').append(meetingArr.join(''))
 			} else {
 				$('#meetings').append('<tr><td colspan=7 class=text-center>모임이 없습니다.</td></tr>')
@@ -123,16 +104,71 @@ function meetingList() {
 	})
 }
 
+function fillMeetingsArray(meetings) {
+	const meetingArr = []
+	
+	$.each(meetings, (i, meeting) => {
+		$('#sido').val(meeting.sidoId).trigger('change')
+		$('#sigugun').val(meeting.sigunguId).trigger('change')
+		$('#dong').val(meeting.dongId).trigger('change')
+		
+		meetingArr.push(
+			`<tr>
+				<td></td>
+				<td><a href='/admin/meeting/` + meeting.meetingId + `' class='a-black'>` + meeting.meetingTitle + `</a></td> 
+				<td>` + $('#sido option:selected').text() + ' ' + $('#sigugun option:selected').text() + ' ' + $('#dong option:selected').text() + `</td>
+				<td><input type='datetime-local' class='form-control text-center' style='border:none; background: none; font-size: 12px; padding: 1px;' value='` + meeting.meetingTime + `' disabled/></td>
+				<td>` + meeting.userId + `</td>
+				<td>` + (meeting.applicantNumber == meeting.recruitmentNumber ? "o" : "x") + `</td>
+				<td>` + (new Date() > new Date(meeting.meetingTime) ? "o" : "x") + `</td>
+			</tr>`
+		)
+	})
+	
+	return meetingArr
+}
+
+function search() {
+	$('#meetings').empty()
+	
+	let category = $('#searchCategory option:selected').val()
+	let info = undefined
+	
+	switch(category) {
+	case 'title':
+		info = {
+			meetingTitle : $('#searchValue').val()
+		}
+		break;
+	case 'author':
+		info = {
+			userId: $('#searchValue').val()
+		}
+		break;
+	}
+	
+	$.ajax({
+		url: '/meeting/searchMeetings',
+		method: 'post',
+		data: info,
+		dataType: 'json',
+		success: meetings => {
+			if(meetings.length) {
+				let meetingArr = fillMeetingsArray(meetings)
+				$('#meetings').append(meetingArr.join(''))
+			} else {
+				$('#meetings').append('<tr><td colspan=7 class=text-center>모임이 없습니다.</td></tr>')
+			}
+		}
+	})
+}
+
 function init() {
 	meetingList()
 	
-	$('#search').click(() => {
-		$('#meetings').empty()
-//		switch()
-		let info = {
-			meetingTitle : $('#searchValue').val()
-		}
-	}
+	$('#searchBtn').click(() => {
+		search()
+	})
 	
 	$('#fixLogo').click(() => {
 		logoModal('<input type="file"/><br>로고 파일을 등록하세요.')
@@ -183,10 +219,8 @@ $(init)
 <div class='row mt-3'>
 	<div class='col'>
 		<div class="input-group mt-2 gap-2 wrap d-flex justify-content-center">
-			<select class="select-orange" name='searchCategory' aria-label="Default select example">
+			<select class="select-orange" id='searchCategory' aria-label="Default select example">
 				<option value='title'>제목</option>
-				<option value='place'>장소</option>
-				<option value='datetime'>시간</option>
 				<option value='author'>작성자</option>
 			</select>
 			<mx-auto>
