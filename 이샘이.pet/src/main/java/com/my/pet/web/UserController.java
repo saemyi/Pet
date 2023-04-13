@@ -66,7 +66,8 @@ public class UserController {
 			System.out.println(userData);
 			if(userData != null) {
 				session.setAttribute("userId", user.getUserId());
-
+				session.setAttribute("nickName", userData.getNickname());
+				
 				if(rememberMe != null && rememberMe.equals("on")) {
 					Cookie cookie = new Cookie("userId", user.getUserId());
 					cookie.setMaxAge(10);

@@ -66,7 +66,7 @@ $(() => {
                 <p>제한사유</p>
             </div> 
             <div class='col-6 text-center '>
-                <p id='reason'></p>
+            	<p id='reason' class='mt-1' style='font-size: 0.7rem;'></p>
             </div>
         </div>
         <div class='row pt-5 border'>

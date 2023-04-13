@@ -6,7 +6,7 @@ import com.my.pet.domain.Report;
 
 public interface ReportDao {
 	List<Report> selectReport();
-	void insertReport(String nickName, String reason, String reportContent);
+	void insertReport(String nickName, String reason, String reportContent, String userId);
 	Report selectDetailReport(int reportId);
 	Report selectSuspended(String loginId);
 	List<Report> search(Report report);
