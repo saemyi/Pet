@@ -20,7 +20,7 @@
 <script>
 $(() => {
 	
-	 err("#nickname", nickname_check, ".result-nickname", '<small class="errMsg" id="nicknameError">2자이상 10자이하 영어, 한글, 숫자 입력가능합니다.</small>')
+	 err("#nickname", nickname_check, ".result-nickname", '<small class="errMsg" id="nicknameError">2자이상 8자이하 영어, 한글, 숫자 입력가능합니다.</small>')
 	 err("#email", email_check, ".result-email", '<small class="errMsg">이메일 형식이 올바르지 않습니다.</small>')
 	 err("#phone", phone_check, ".result-phone", '<small class="errMsg">' + "'-'" + '을 제외한 전화번호를 입력하세요.</small>')
 	 
@@ -202,14 +202,14 @@ $(getUser)
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../meeting/02.html'">
+            <li class="nav-item" type="button" onclick="location.href='../../meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../main.html'">
+            <li class="nav-item" type="button" onclick="location.href='/'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>

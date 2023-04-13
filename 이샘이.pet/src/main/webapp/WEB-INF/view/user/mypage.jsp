@@ -29,7 +29,7 @@ $(() => {
 			dataType: 'json',
 			success: user => {
 				if(user.userProfileImageFilename != null) {
-				$('#userMypage').html(`<div class='box image-box d-flex justify-content-center' id='userProfileImage'></div>
+				$('#userMypage').html(`<div class='box image-box m-0 p-0 d-flex justify-content-center' id='userProfileImage'></div>
 				        <div class='col-7 mb-3'>
 			            <h5><b id='userNickname'></b></h5><hr>
 			            <p id='userIntro'></p>
@@ -37,7 +37,7 @@ $(() => {
 				$('#userProfileImage').html("<img id='userImage' class='image-thumbnail'/>")
 				$('#userImage').attr('src', '<c:url value="/attach/'+ user.userProfileImageFilename + '"/>')
 				} else {
-					$('#userMypage').html(`<div class='box text-center p-2 image-box' id='userProfileImage'></div>
+					$('#userMypage').html(`<div class='box text-center image-box' id='userProfileImage'></div>
 					        <div class='col-7 mb-3'>
 				            <h5><b id='userNickname'></b></h5><hr>
 				            <p id='userIntro'></p>
@@ -171,7 +171,7 @@ $(getPets)
     <nav class="navbar fixed-bottom bg-orange">
         <div class="container-fluid pt-3">
             <div>
-                <li class="nav-item" type="button" onclick="location.href='../meeting/02.html'">
+                <li class="nav-item" type="button" onclick="location.href='../meeting/add'">
                     <span class="material-symbols-outlined">
                         add
                     </span>
@@ -185,7 +185,7 @@ $(getPets)
                 </li>
             </div>
             <div>
-                <li class="nav-item" type="button" onclick="location.href='mypage.html'">
+                <li class="nav-item" type="button" onclick="location.href='./mypage'">
                     <span class="material-symbols-outlined">
                         person
                     </span>

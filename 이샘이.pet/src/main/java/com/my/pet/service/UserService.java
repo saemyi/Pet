@@ -21,6 +21,7 @@ public interface UserService {
 	List<User> search(User user);
 	void changeAdmin(User user);
 	void benUser(User user);
+	void delUser(String userId);
 	void fixUserName(User user);
 	void fixUser(User user);
 }

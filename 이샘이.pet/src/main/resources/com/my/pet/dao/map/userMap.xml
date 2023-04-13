@@ -88,4 +88,9 @@
 	      birthdate = #{birthdate}, user_intro = #{userIntro}, user_profile_image_filename = #{userProfileImageFilename}
 	      where user_id = #{userId}
       </update>
+      
+      <delete id ='deleteUser'>
+      	delete users
+      	where user_id = #{userId}
+      </delete>
 	</mapper>

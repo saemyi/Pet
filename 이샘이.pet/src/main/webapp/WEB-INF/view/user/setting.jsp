@@ -40,22 +40,22 @@
 <div class='container'>
     <div class='row m-1'>
         <div class='col'>
-            <div class='row mb-2'>
+            <div class='row mb-3'>
                 <button type='button' class='btn btn-lightgray' onclick="location.href='../user/userFix'">회원정보수정</button>
             </div>
-            <div class='row mb-2'>
+            <div class='row mb-3'>
                 <button type='button' class='btn btn-lightgray'onclick="location.href='../pet/02.html'">반려견 관리</button>
             </div>
-            <div class='row mb-2'>
+            <div class='row mb-3'>
                 <button type='button' class='btn btn-lightgray' onclick="location.href='07.html'">비밀번호 변경</button>
             </div>
-            <div class='row mb-2'>
+            <div class='row mb-3'>
                 <button type='button' class='btn btn-lightgray' onclick="location.href='../alarm/02.html'">알람설정</button>
             </div>
-            <div class='row mb-2'>
+            <div class='row mb-3'>
                 <button type='button' class='btn btn-lightgray' onclick="location.href='/report'">신고</button>
             </div>
-            <div class='row mb-2'>
+            <div class='row mb-3'>
                 <button type='button' class='btn btn-lightgray' id='logout'>로그아웃</button>
             </div>
             <div class='row'>
@@ -67,21 +67,21 @@
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../meeting/02.html'">
+            <li class="nav-item" type="button" onclick="location.href='../meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../main.html'">
+            <li class="nav-item" type="button" onclick="location.href='/'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='./mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>

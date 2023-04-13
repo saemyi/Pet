@@ -19,7 +19,7 @@
 <script>
  $(() => {
 	 err("#userId", userId_pw_check, ".result-userId", '<small class="errMsg" id="userIdError">4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
-	 err("#nickname", nickname_check, ".result-nickname", '<small class="errMsg" id="nicknameError">2자이상 10자이하 영어, 한글, 숫자 입력가능합니다.</small>')
+	 err("#nickname", nickname_check, ".result-nickname", '<small class="errMsg" id="nicknameError">2자이상 8자이하 영어, 한글, 숫자 입력가능합니다.</small>')
 	 err("#password", userId_pw_check, ".result-password", '<small class="errMsg">4자이상 20자이하 영어소문자, 숫자 조합으로 입력하세요.</small>')
 	 err("#userName", userName_check, ".result-userName", '<small class="errMsg">2자이상 10자이하 한글로 입력하세요.</small>')
 	 err("#email", email_check, ".result-email", '<small class="errMsg">이메일 형식이 올바르지 않습니다.</small>')
