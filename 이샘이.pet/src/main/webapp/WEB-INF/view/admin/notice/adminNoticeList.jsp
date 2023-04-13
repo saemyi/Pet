@@ -220,7 +220,7 @@ function displayData(currentpage, dataPerPage) {
         					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
         				)
         			}
-        		})		
+        		})
     		} else {
     			notice = {
     					userId : $('#searchValue').val()
