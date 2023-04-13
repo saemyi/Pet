@@ -221,7 +221,7 @@ function displayData(currentpage, dataPerPage) {
         				)
         			}
         		})
-    		} else {
+    		} else { 
     			notice = {
     					userId : $('#searchValue').val()
     			}
