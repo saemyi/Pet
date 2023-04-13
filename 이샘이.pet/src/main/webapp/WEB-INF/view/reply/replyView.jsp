@@ -31,176 +31,169 @@ textarea {
 }
 </style>
 <script>
-function listReplies() { 
-	console.log("listReplies 실행")
-	 $('#replies').empty()
-	 $('#comment').empty()
-	 $.ajax({
-		 url:'getComment/' +${commentId},
-		 dataType: 'json',
-		 success: comment => {
-			if(comment){
-				 $('#comment').append(
-						 `<div class='row' id='meetingId' value='\${comment.meetingId}'>
-	                     	<div class='col'>
-	                         <div class='row'>
-	                             <div class='col-auto pe-0'>
-	                                 <button type='button' class='border-0'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
-	                             </div>
-	                             <div class='col'>
-	                                 <p id='commentTime' value='\${comment.commentTime}' style='font-size: 0.5rem;'>\${comment.commentTime}</p>
-	                             </div>
-	                             <div class='col-2' style='margin-top: -.5rem;'>
-	                                 <div class='dropdown dropmenu\${comment.userId}'  style='display: none;'>
-	                                     <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
-	                                         <i class='bi bi-three-dots fa-2x'></i>
-	                                     </button>
-	                                     <div class='dropdown-menu'>
-	                                         <nav>
-	                                             <button type='button' class='dropdown-item' onclick="CommentFix(\${comment.commentId})" id='commentFix' value='\${comment.commentId}'>수정</button>
-	                                             <button type='button' class='dropdown-item' onclick="CommentDel(\${comment.commentId})">삭제</button>
-	                                         </nav>
-	                                     </div>
-	                                 </div>
-	                             </div>
-	                         </div>
-	                         <div class='row mt-2'>
-	                             <div class='col m-2 mb-0'>
-	                             	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0' style='resize: none;'readonly disabled>\${comment.commentContent}</textarea></p>              
-	                             </div>
-	                         </div>
-	                         <div class='row'>
-	                             <div class='col'>
-	                                 <input type='button' class='reply' name='\${comment.replyCnt}' onclick="location.href='/reply/\${comment.commentId}'" value='답글\${comment.replyCnt}'/>
-	                             </div>
-	                         </div>
-	                     </div>
-	                 </div><hr>`    
-	             )
-	             $('.dropmenu${userId}').removeAttr("style")   
-			} else history.back();
-		}		 
-	 })	 
-	 $.ajax({
-		 url:'get/' + ${commentId}, 
-		 dataType: 'json',
-		 success: replies => {
-			 console.log("${userId}")
-			 if(replies.length) {
-				 const replyArr = []				 
-				 $.each(replies, (i, reply) => {
-					 replyArr.unshift(
-							 `<div class='row'>					        
-							        <div class='col'>
-							            <div class='row'>
-								            <div class='col-2 d-flex justify-content-end'>
-								            	<i class="bi bi-arrow-return-right"></i>
-								        	</div>
-							                <div class='col-auto'>
-							                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b style='font-size: 0.6rem;'>\${reply.nickname}</b></button>
-							                </div>
-							                <div class='col'>
-							                    <p id='replyTime' value='\${reply.replyTime}' style='font-size: 0.3rem;'>\${reply.replyTime}</p>
-							                </div>
-							                <div class='col-2' style='margin-top: -.5rem;'>
-							                    <div class='dropdown dropmenu\${reply.userId}' style='display:none;'>
-							                        <button type='button' class='reply-menu dropdown-toggle' data-bs-toggle='dropdown'>
-							                            <i class='bi bi-three-dots fa-2x'></i>
-							                        </button>
-							                        <div class='dropdown-menu'>
-							                            <nav>
-							                                <button class='dropdown-item' onclick="ReplyFix(\${reply.replyId})" id='replyFix' value='\${reply.replyId}'>수정</button>
-							                                <button type='button'class='dropdown-item' onclick="ReplyDel(\${reply.replyId})">삭제</button>
-							                            </nav>
-							                        </div>
-							                    </div>
-							                </div>
-							            </div>
-							            <div class='row mt-2'>
-							                <div class='col m-2 mb-0'>
-							                	<p><textarea cols='40' rows='3'id='replyContent\${reply.replyId}' class='border-0' readonly disabled>\${reply.replyContent}</textarea></p>
-	                                        	<button id='fix\${reply.reply}' style='display: none;' class='border-0'onclick='FixFinish(\${reply.replyId})'>수정 완료</button>
-							                </div>
-							            </div>
-							        </div>
-							  </div><hr>`)
-				 })
-				 $('#replies').append(replyArr.join(''))
-				 $('.dropmenu${userId}').removeAttr("style")
-			 } else $('#replies').append(
-	            '<tr><td colspan=4 class=text-center> 답글이 없습니다.</td></tr>')
-		 }
-	 })
-}
-listReplies()   
-function ReplySend(){ 
-	$('#replyErr').empty()
-	if($('.replyMsg').val()){
-        let reply = {
-                replyContent: $('.replyMsg').val(),
-                replyTime: $('#replyTime').val(),
-                userId: "${userId}",
-                commentId: ${commentId}          
-        }
-       	if(reply.userId == ""){
-       		window.location.href = '/login'
-       	} else {
-       		$.ajax({
-                url: 'add',
-                method: 'post',
-                data: reply,
-                success: listReplies
-            })
-       	}
-        
-        $('.replyMsg').val('') 
-}else $('#replyErr').text('답글을 입력해주세요').show().fadeOut(3000)
-}
-let repId = 0;
-function ReplyFix(repId){
-	confirmModal("<p><textarea cols='40' rows='3'id='replyContentFix"+ repId +"'"+ "class='border-0' placeholder='답글을 입력해주세요'>"+ $('#replyContent'+ repId).val() + "</textarea></p>")
-	$('#confirmBtn').click(() => {
-		if($('#replyContentFix'+ repId).val()){
-			let reply = {
-    	    		replyId: repId,
-    	    		replyContent: $('#replyContentFix'+ repId).val(),
-    	    		replyTime: $('#replyTime').text()	
-    	    	}
-    	    	
-    	    	console.log(reply)
-    	    	$.ajax({
-    	            url: 'fix',
-    	            method: 'put',
-    	            contentType: 'application/json',
-    	        	data: JSON.stringify(reply),
-    	            success: function(){
-                    	window.location.href = '/reply/'+ ${commentId} 
-                    }
-    	        })
-		} else {
-				$('#modalErrMsg').text('답글을 입력해주세요').show().fadeOut(3000)
-				$('#confirmModal').removeAttr('data-bs-dismiss')	
-		}
-		
-	})
+	function listReplies() { 
+		 $('#replies').empty()
+		 $('#comment').empty()
+		 $.ajax({
+			 url:'getComment/' +${commentId},
+			 dataType: 'json',
+			 success: comment => {
+				if(comment){
+					 $('#comment').append(
+							 `<div class='row'>
+		                     	<div class='col'>
+		                         <div class='row'>
+		                             <div class='col-auto pe-0'>
+		                                 <button type='button' class='border-0'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
+		                             </div>
+		                             <div class='col'>
+		                                 <p style='font-size: 0.5rem;'>\${comment.commentTime}</p>
+		                             </div>
+		                             <div class='col-2' style='margin-top: -.5rem;'>
+		                                 <div class='dropdown dropmenu\${comment.userId}'  style='display: none;'>
+		                                     <button type='button' class='reply-menu dropdown-toggle' style='border:none;' data-bs-toggle='dropdown'>
+		                                         <i class='bi bi-three-dots fa-2x'></i>
+		                                     </button>
+		                                     <div class='dropdown-menu'>
+		                                         <nav>
+		                                             <button type='button' class='dropdown-item' onclick="CommentFix(\${comment.commentId})">수정</button>
+		                                             <button type='button' class='dropdown-item' onclick="CommentDel(\${comment.commentId})">삭제</button>
+		                                         </nav>
+		                                     </div>
+		                                 </div>
+		                             </div>
+		                         </div>
+		                         <div class='row mt-2'>
+		                             <div class='col m-2 mb-0'>
+		                             	<p><textarea cols='40' rows='3'id='commentContent\${comment.commentId}' class='border-0' readonly disabled>\${comment.commentContent}</textarea></p>              
+		                             </div>
+		                         </div>
+		                         <div class='row'>
+		                             <div class='col'>
+		                                 <input type='button' class='reply' onclick="location.href='/reply/\${comment.commentId}'" value='답글\${comment.replyCnt}'/>
+		                             </div>
+		                         </div>
+		                     </div>
+		                 </div><hr>`    
+		             )
+		             $('.dropmenu${userId}').removeAttr("style")   
+				} else history.back();
+			}		 
+		 })	 
+		 
+		 $.ajax({
+			 url:'get/' + ${commentId}, 
+			 dataType: 'json',
+			 success: replies => {
+				 console.log("${userId}")
+				 if(replies.length) {
+					 const replyArr = []				 
+					 $.each(replies, (i, reply) => {
+						 replyArr.unshift(
+								 `<div class='row'>					        
+								        <div class='col'>
+								            <div class='row'>
+									            <div class='col-2 d-flex justify-content-end'>
+									            	<i class="bi bi-arrow-return-right"></i>
+									        	</div>
+								                <div class='col-auto'>
+								                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b style='font-size: 0.6rem;'>\${reply.nickname}</b></button>
+								                </div>
+								                <div class='col'>
+								                    <p style='font-size: 0.3rem;'>\${reply.replyTime}</p>
+								                </div>
+								                <div class='col-2' style='margin-top: -.5rem;'>
+								                    <div class='dropdown dropmenu\${reply.userId}' style='display:none;'>
+								                        <button type='button' class='reply-menu dropdown-toggle' data-bs-toggle='dropdown'>
+								                            <i class='bi bi-three-dots fa-2x'></i>
+								                        </button>
+								                        <div class='dropdown-menu'>
+								                            <nav>
+								                                <button class='dropdown-item' onclick="ReplyFix(\${reply.replyId})">수정</button>
+								                                <button type='button'class='dropdown-item' onclick="ReplyDel(\${reply.replyId})">삭제</button>
+								                            </nav>
+								                        </div>
+								                    </div>
+								                </div>
+								            </div>
+								            <div class='row mt-2'>
+								                <div class='col m-2 mb-0'>
+								                	<p><textarea cols='40' rows='3'id='replyContent\${reply.replyId}' class='border-0' readonly disabled>\${reply.replyContent}</textarea></p>
+		                                        	<button id='fix\${reply.reply}' style='display: none;' class='border-0'onclick='FixFinish(\${reply.replyId})'>수정 완료</button>
+								                </div>
+								            </div>
+								        </div>
+								  </div><hr>`)
+					 })
+					 
+					 $('#replies').append(replyArr.join(''))
+					 $('.dropmenu${userId}').removeAttr("style")
+				 } else $('#replies').append(
+		            '<tr><td colspan=4 class=text-center> 답글이 없습니다.</td></tr>')
+			 }
+		 })
+	}   
 	
-}
-
-function ReplyDel(repId){   
-    yesNoModal('댓글을 삭제하시겠습니까?')
-    $('#okBtn').click(() => { 
-    	console.log(repId)
-    	
-        $.ajax({
-            url: 'del/' + repId,
-            method: 'delete',
-            success: function(){
-            	window.location.href = '/reply/' + ${commentId}
-            }
-        })
-
-    })
-}
+	function ReplySend(){ 
+		$('#replyErr').empty()
+		if($('.replyMsg').val()){
+	        let reply = {
+	                replyContent: $('.replyMsg').val(),
+	                userId: "${userId}",
+	                commentId: ${commentId}          
+	        }
+	        
+	       	if(reply.userId == ""){
+	       		window.location.href = '/login'
+	       	} else {
+	       		$.ajax({
+	                url: 'add',
+	                method: 'post',
+	                data: reply,
+	                success: listReplies
+	            })
+	       	}
+	        
+	        $('.replyMsg').val('') 
+		}else $('#replyErr').text('답글을 입력해주세요').show().fadeOut(3000)
+	}
+	
+	let repId = 0;
+	function ReplyFix(repId){
+		confirmModal("<p><textarea cols='40' rows='3'id='replyContentFix"+ repId +"'"+ "class='border-0' placeholder='답글을 입력해주세요'>"+ $('#replyContent'+ repId).val() + "</textarea></p>")
+		$('#confirmBtn').click(() => {
+			if($('#replyContentFix'+ repId).val()){
+				let reply = {
+	    	    		replyId: repId,
+	    	    		replyContent: $('#replyContentFix'+ repId).val()	
+	    	    	}	    	    	
+	    	    	$.ajax({
+	    	            url: 'fix',
+	    	            method: 'put',
+	    	            contentType: 'application/json',
+	    	        	data: JSON.stringify(reply),
+	    	            success: function(){
+	                    	window.location.href = '/reply/'+ ${commentId} 
+	                    }
+	    	        })
+			} else {
+					$('#modalErrMsg').text('답글을 입력해주세요').show().fadeOut(3000)
+					$('#confirmModal').removeAttr('data-bs-dismiss')	
+			}		
+		})	
+	}
+	function ReplyDel(repId){   
+	    yesNoModal('댓글을 삭제하시겠습니까?')
+	    $('#okBtn').click(() => {    	
+	        $.ajax({
+	            url: 'del/' + repId,
+	            method: 'delete',
+	            success: function(){
+	            	window.location.href = '/reply/' + ${commentId}
+	            }
+	        })
+	    })
+	}
     let comId = 0;   
     function CommentFix(comId){
     	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ comId +"'"+ "class='border-0' style='resize: none;' placeholder='댓글을 입력해주세요'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
@@ -208,27 +201,25 @@ function ReplyDel(repId){
     		if($('#commentContentFix'+ comId).val()){
     			let comment = {
         	    		commentId: comId,
-        	    		commentContent: $('#commentContentFix'+ comId).val(),
-        	    		commentTime: $('#commentTime').text()	
+        	    		commentContent: $('#commentContentFix'+ comId).val()       	    	
         	    	}
-        	    	
-        	    	console.log(comment)
-        	    	$.ajax({
-        	            url: 'fixComment',
-        	            method: 'put',
-        	            contentType: 'application/json',
-        	        	data: JSON.stringify(comment),
-        	            success: function(){
-                        	window.location.href = '/reply/'+ ${commentId} 
-                        }
-        	        })
+      
+       	    	$.ajax({
+       	            url: 'fixComment',
+       	            method: 'put',
+       	            contentType: 'application/json',
+       	        	data: JSON.stringify(comment),
+       	            success: function(){
+                       	window.location.href = '/reply/'+ ${commentId} 
+                    }
+       	       })
     		} else {
     				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)
     				$('#confirmModal').removeAttr('data-bs-dismiss')	
-    		}
-    		
+    		}   		
     	})
     }
+    
     function getMeetingId(){
     	$.ajax({
     		url:'getMeetingId/' + ${commentId},
@@ -249,8 +240,9 @@ function ReplyDel(repId){
                 success: getMeetingId()
             })
         })  
-}
+	}
     
+listReplies()    
 </script>
 <body>
 <div class='row d-flex justify-content-end'>
