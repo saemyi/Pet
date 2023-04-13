@@ -11,5 +11,7 @@ public interface ReplyService {
 	List<Reply> getReplies(int commentId);
 	void addReply(String replyContent, LocalDateTime replyTime, String userId, int commentId);
 	void fixReply(Reply reply);
+	void fixComment(Comment comment);
 	void delReply(int replyId);
+	void delComment(int commentId);
 }

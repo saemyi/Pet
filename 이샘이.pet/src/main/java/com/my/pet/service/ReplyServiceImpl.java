@@ -35,7 +35,17 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
+	public void fixComment(Comment comment) {
+		replyDao.updateComment(comment);
+	}
+	
+	@Override
 	public void delReply(int replyId) {
 		replyDao.deleteReply(replyId);
+	}
+	
+	@Override
+	public void delComment(int commentId) {
+		replyDao.deleteComment(commentId);
 	}
 }

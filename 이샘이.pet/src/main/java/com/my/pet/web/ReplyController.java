@@ -56,8 +56,18 @@ public class ReplyController {
 		replyService.fixReply(reply);
 	}
 	
+	@PutMapping("fixComment")
+	public void fixComment(@RequestBody Comment comment) {
+		replyService.fixComment(comment);
+	}
+	
 	@DeleteMapping("del/{replyId}")
 	public void delReply(@PathVariable int replyId) {
 		replyService.delReply(replyId);
+	}
+	
+	@DeleteMapping("delComment/{commentId}")
+	public void delComment(@PathVariable int commentId) {
+		replyService.delComment(commentId);
 	}
 }
