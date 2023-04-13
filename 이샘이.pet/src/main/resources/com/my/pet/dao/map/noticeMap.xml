@@ -14,10 +14,17 @@
 			where notice_id = #{noticeId}
 		</select>
 		
-		<select id='searchNotices' resultType='notice'>
+		<select id='searchNoticesTitle' resultType='notice'>
 			select notice_id, notice_title, notice_time, user_id
 			from notices
 			where notice_title like '%' || #{noticeTitle} || '%'
+			order by notice_id
+		</select>
+		
+		<select id='searchNoticesUserId' resultType='notice'>
+			select notice_id, notice_title, notice_time, user_id
+			from notices
+			where user_Id like '%' || #{userId} || '%'
 			order by notice_id
 		</select>
 		

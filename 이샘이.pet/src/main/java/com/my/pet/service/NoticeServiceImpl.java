@@ -18,9 +18,13 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
-	public List<Notice> searchNotices(String noticeTitle) {
-		System.out.println(noticeTitle);
-		return noticeDao.searchNotices(noticeTitle);
+	public List<Notice> searchNoticesTitle(String noticeTitle) {
+		return noticeDao.searchNoticesTitle(noticeTitle);
+	}
+	
+	@Override
+	public List<Notice> searchNoticesUserId(String userId){
+		return noticeDao.searchNoticesUserId(userId);
 	}
 	
 	@Override

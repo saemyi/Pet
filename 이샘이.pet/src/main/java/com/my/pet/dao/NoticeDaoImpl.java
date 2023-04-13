@@ -18,9 +18,13 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 	
 	@Override
-	public List<Notice> searchNotices(String noticeTitle) {
-		System.out.println(noticeTitle);
-		return noticeMap.searchNotices(noticeTitle);
+	public List<Notice> searchNoticesTitle(String noticeTitle) {
+		return noticeMap.searchNoticesTitle(noticeTitle);
+	}
+	
+	@Override
+	public List<Notice> searchNoticesUserId(String userId) {
+		return noticeMap.searchNoticesUserId(userId);
 	}
 	
 	@Override

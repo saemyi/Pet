@@ -16,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.my.pet.domain.Notice;
 import com.my.pet.service.NoticeService;
 
-import jakarta.servlet.http.HttpSession;
-
 @RestController
 @RequestMapping("admin/notice")
 public class AdminNoticeController {
@@ -34,10 +32,14 @@ public class AdminNoticeController {
 		return noticeService.getNotices();
 	}
 	
-	@GetMapping("search")
-	public List<Notice> searchNotices(String noticeTitle) {
-		System.out.println(noticeTitle);
-		return noticeService.searchNotices(noticeTitle);
+	@GetMapping("search/title")
+	public List<Notice> searchNoticesTitle(String noticeTitle) {
+		return noticeService.searchNoticesTitle(noticeTitle);
+	}
+	
+	@GetMapping("search/userId")
+	public List<Notice> searchNoticesUserId(String userId) {
+		return noticeService.searchNoticesUserId(userId);
 	}
 	
 	@GetMapping("adminNoticeAdd")
