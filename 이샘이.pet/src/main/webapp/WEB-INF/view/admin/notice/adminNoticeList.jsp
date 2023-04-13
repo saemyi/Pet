@@ -214,7 +214,7 @@ function displayData(currentpage, dataPerPage) {
         	 			totalData = noticeList.length;
         	 	        dataList = notices;
         	 	        //페이징 표시 호출
-        	 			paging(totalData, dataPerPage, pageCount, currentPage);
+        	 			searchPaging(totalData, dataPerPage, pageCount, currentPage);
         					
         				}else $('#notices').append(
         					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
@@ -225,8 +225,6 @@ function displayData(currentpage, dataPerPage) {
     			notice = {
     					userId : $('#searchValue').val()
     			}
-    		}
-    		console.log(notice)
     		$.ajax({
     			url: 'notice/search/userId',
     			data: notice,
@@ -257,14 +255,89 @@ function displayData(currentpage, dataPerPage) {
     	 			totalData = noticeList.length;
     	 	        dataList = notices;
     	 	        //페이징 표시 호출
-    	 			paging(totalData, dataPerPage, pageCount, currentPage);
+    	 			searchPaging(totalData, dataPerPage, pageCount, currentPage);
     					
     				}else $('#notices').append(
     					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
     				)
     			}
     		})
+    		}
     	}
+    
+function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
+	  //console.log("totalData " + totalData)
+	  //console.log("pageCount " + pageCount)
+	 // console.log("dataPerPage " + dataPerPage)
+	
+	  //console.log("currentPage " + currentPage)
+	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+	 // console.log("paging totalPage : " + totalPage);
+	  if(totalPage < pageCount){
+	    pageCount = totalPage;
+	  }
+	  
+	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+	  //console.log("pageGroup "+pageGroup)
+	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+	  //console.log("last "+last)
+	  if (last > totalPage) {
+	    last = totalPage;
+	  }
+
+	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
+	  //console.log("first "+first)
+	  let next = last + 1;
+	  let prev = first - 1;
+	  
+	  $("#pages").empty();
+	  let pageHtml = "";
+	//페이징 이전 화살표
+	  if(currentPage != 1){
+		  pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Previous' id='prev'> <span aria-hidden='true'>&laquo;</span></a></li>"
+	  }
+	
+	 //페이징 번호 표시 
+	  for (var i = first; i <= last; i++) {
+	    if (currentPage == i) {
+	      pageHtml +=
+	        "<li class='page-item'><a href ='#' class = 'page-link currentPage' id='" + i + "'>" + i + "</a></li>";
+	    } else {
+	      pageHtml += "<li class='page-item'><a href ='#' class = 'page-link' id='" + i + "'>" + i + "</a></li>";
+	    } 
+	  }
+	//페이징 다음 화살표
+	  if (currentPage != totalPage) {
+	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
+	  }
+
+	  //console.log("pageHtml:" + pageHtml)
+	  $("#pages").html(pageHtml);
+	  
+	  //상단 페이지 데이터 확인용
+	  /* let displayCount = "";
+	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
+	  $("#displayCount").text(displayCount); */
+
+
+	  //페이징 번호 클릭 이벤트 
+	  $("#pages li a").click(function () {
+	    let $id = $(this).attr("id");
+	    selectedPage = $(this).text();
+
+	    if ($id == "next") selectedPage = currentPage + 1;//selectedPage = next;
+	    if ($id == "prev") selectedPage = currentPage - 1;//selectedPage = prev;
+	    
+	    //전역변수에 선택한 페이지 번호를 담는다...
+	    globalCurrentPage = selectedPage;
+	    //페이징 표시 재호출
+	    searchPaging(totalData, dataPerPage, pageCount, selectedPage);
+	    //글 목록 표시 재호출
+	    searchData(selectedPage, dataPerPage);
+	  });
+	  
+	  //console.log("totalData end :"+totalData)
+}
     $(init)
 </script>
 </head>
