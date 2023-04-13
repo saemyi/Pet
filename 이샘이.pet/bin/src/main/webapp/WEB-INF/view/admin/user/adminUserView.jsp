@@ -16,6 +16,7 @@
  }
 </style>
 <script>
+
 $(() => {
     $('#fixLogo').click(() => {
         logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
