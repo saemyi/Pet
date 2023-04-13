@@ -208,6 +208,14 @@ function searchData(currentPage, dataPerPage){
 	}
 	
 	if( $('#select option:selected').val() == 3){
+		if($('#searchValue').val() == ''){
+			report = {
+					targetId: '',
+					userId: '',
+					isProcessed: undefined
+				}
+		}
+		
 		if($('#searchValue').val() == 'o'){
 			report = {
 				targetId: '',
