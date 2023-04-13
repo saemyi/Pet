@@ -35,7 +35,7 @@ function listReplies() {
 		 success: comment => {
 			if(comment){
 				 $('#comment').append(
-						 `<div class='row'>
+						 `<div class='row' id='meetingId' value='\${comment.meetingId}'>
 	                     	<div class='col'>
 	                         <div class='row'>
 	                             <div class='col pe-0'>
@@ -72,11 +72,9 @@ function listReplies() {
 	                 </div><hr>`    
 	             )
 	             $('.dropmenu${userId}').removeAttr("style")   
-			} else history.back()  
-		 }		 
-	 })
-	 
-	 
+			} else history.back();
+		}		 
+	 })	 
 	 $.ajax({
 		 url:'get/' + ${commentId}, 
 		 dataType: 'json',
@@ -184,6 +182,7 @@ function ReplyDel(repId){
     yesNoModal('댓글을 삭제하시겠습니까?')
     $('#okBtn').click(() => { 
     	console.log(repId)
+    	
         $.ajax({
             url: 'del/' + repId,
             method: 'delete',
@@ -222,25 +221,31 @@ function ReplyDel(repId){
     		
     	})
     }
-    let a = $('#meetingId').val();
-    console.log(a)
+    function getMeetingId(){
+    	$.ajax({
+    		url:'getMeetingId/' + ${commentId},
+    		type: 'get',
+    		dataType: 'json',
+    		success: comment => {
+    			window.location.href = '/comment/' + comment.meetingId
+    		}          
+    	})
+    }
+
     function CommentDel(comId){   
         yesNoModal('댓글을 삭제하시겠습니까?')
-        $('#okBtn').click(() => { 
-        	console.log(comId)
+        $('#okBtn').click(() => {       	
             $.ajax({
                 url: 'delComment/' + comId,
                 method: 'delete',
-                success: function(){
-                	window.location.href = '/reply/'+ ${commentId} 
-                }
+                success: getMeetingId()
             })
         })  
 }
     
 </script>
 <body>
-<div class='row d-flex justify-content-end' id='meetId'>
+<div class='row d-flex justify-content-end'>
     <nav class="navbar fixed-top bg-orange p-3">
         <div class='row'>
             <div class='col d-flex justify-content-start'>

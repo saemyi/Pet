@@ -33,7 +33,7 @@ public class ReplyController {
 	
 	@GetMapping("{commentId}")
 	public ModelAndView getRepliesById(@PathVariable int commentId, ModelAndView mv, HttpSession session) {
-		session.setAttribute("RepliesById", commentId);
+		session.setAttribute("RepliesByCommentId", commentId);		
 		mv.setViewName("reply/replyView");
 		return mv;
 	}
@@ -44,7 +44,12 @@ public class ReplyController {
 	@GetMapping("get/{commentId}")
 	public List<Reply> getReplies(@PathVariable int commentId){
 		return replyService.getReplies(commentId);
-	}  
+	}
+	
+	@GetMapping("getMeetingId/{commentId}")
+	public Comment getMeetingId(@PathVariable int commentId) {
+		return replyService.getMeetingId(commentId);
+	}
 	
 	@PostMapping("add")
 	public void addReply(String replyContent, LocalDateTime replyTime, String userId, int commentId) {

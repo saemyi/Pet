@@ -82,10 +82,10 @@ textarea {
 </body>
 
 
-<script>
-	
+<script>	
     function listComments() {   
         console.log("listComments 실행")
+        $('#comments').empty()
         $('#comments').empty()
         $.ajax({
 	        url:'get/' + ${meetingId}, 

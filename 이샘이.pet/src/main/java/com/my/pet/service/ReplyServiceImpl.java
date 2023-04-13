@@ -25,6 +25,10 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
+	public Comment getMeetingId(int commentId) {
+		return replyDao.selectMeetingId(commentId);
+	}
+	@Override
 	public void addReply(String replyContent, LocalDateTime replyTime, String userId, int commentId) {
 		replyDao.insertReply(replyContent, replyTime, userId, commentId);
 	}  
