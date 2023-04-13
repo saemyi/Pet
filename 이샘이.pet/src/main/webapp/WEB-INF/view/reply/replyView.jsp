@@ -70,7 +70,7 @@ textarea {
 		                         </div>
 		                         <div class='row'>
 		                             <div class='col'>
-		                                 <input type='button' class='reply' onclick="location.href='/reply/\${comment.commentId}'" value='답글\${comment.replyCnt}'/>
+		                                 <input type='button' class='reply' value='답글\${comment.replyCnt}'/>
 		                             </div>
 		                         </div>
 		                     </div>
@@ -185,9 +185,7 @@ textarea {
 	        $.ajax({
 	            url: 'del/' + repId,
 	            method: 'delete',
-	            success: function(){
-	            	window.location.href = '/reply/' + ${commentId}
-	            }
+	            success: listReplies
 	        })
 	    })
 	}
@@ -206,9 +204,7 @@ textarea {
        	            method: 'put',
        	            contentType: 'application/json',
        	        	data: JSON.stringify(comment),
-       	            success: function(){
-                       	window.location.href = '/reply/'+ ${commentId} 
-                    }
+       	            success: listReplies
        	       })
     		} else {
     				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)
@@ -246,7 +242,7 @@ listReplies()
     <nav class="navbar fixed-top bg-orange p-3">
         <div class='row'>
             <div class='col d-flex justify-content-start'>
-                <i class='bi bi-chevron-left' onclick="location.href = document.referrer;"></i>
+                <i class='bi bi-chevron-left' onclick="getMeetingId()"></i>
             </div>
         </div>
         <div class='col text-center me-4'>
