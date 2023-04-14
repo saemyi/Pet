@@ -230,7 +230,7 @@ $(init)
 				<tr>
 					<th>내용</th>
 					<td class='text-start' colspan=3>
-						<pre id='meetingContent' style='font-size: 12px;'></pre>
+						<pre id='meetingContent'></pre>
 					</td>
 				</tr>
 			</tbody>
