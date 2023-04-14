@@ -105,7 +105,7 @@ function meetingList(currentPage, dataPerPage) {
 					$('#meetings').append(meetingArr[i])
 				}
 				totalData = meetingArr.length
-				pagination(totalData, dataPerPage, pageCount, currentPage)
+				viewPagination(totalData, dataPerPage, pageCount, currentPage)
 			} else {
 				$('#meetings').append('<tr><td colspan=7 class=text-center>모임이 없습니다.</td></tr>')
 			}
@@ -184,7 +184,7 @@ function search(currentPage, dataPerPage) {
 	})
 }
 
-function pagination(totalData, dataPerPage, pageCount, currentPage) {
+function viewPagination(totalData, dataPerPage, pageCount, currentPage) {
 	totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
 	if(totalPage < pageCount){
 		pageCount = totalPage;
@@ -232,7 +232,7 @@ function pagination(totalData, dataPerPage, pageCount, currentPage) {
 		if ($id == "prev") selectedPage = currentPage - 1;
 		
 		//페이지 표시 재호출
-		pagination(totalData, dataPerPage, pageCount, selectedPage);
+		viewPagination(totalData, dataPerPage, pageCount, selectedPage);
 		//글 목록 표시 재호출
 		meetingList(selectedPage, dataPerPage);
 	});
@@ -314,7 +314,7 @@ $(init)
 		<div class='row'>
 			<nav class="navbar navbar-expand navbar-light nav-header">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
+					<a class="navbar-brand" href="../../admin"><b>산책하개</b></a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 					</button>
@@ -363,7 +363,7 @@ $(init)
     <div class='col'>
         <table class='table text-center'>
             <thead class='table sm'>
-                <tr><th></th><th style='width: 15rem;'>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
+                <tr><th></th><th style='width: 6rem;'>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
             </thead>
             <tbody id='meetings'>
             </tbody>

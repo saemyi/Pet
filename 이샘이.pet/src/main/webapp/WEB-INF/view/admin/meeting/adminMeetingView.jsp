@@ -163,7 +163,7 @@ $(init)
         <div class='row'>
             <nav class="navbar navbar-expand navbar-light nav-header">
                 <div class="container-fluid">
-					<a class="navbar-brand" href="../main.html"><b>산책하개</b></a>
+					<a class="navbar-brand" href="../../admin"><b>산책하개</b></a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 					</button>
@@ -216,9 +216,9 @@ $(init)
 		<table class='table text-center'>
 			<tbody id='meeting'>
 				<tr>
-					<th>제목</th>
+					<th style='width: 143px;'>제목</th>
 					<td class='text-start' id='meetingTitle'></td>
-					<th>모임시각</th>
+					<th style='width: 143px;'>모임시각</th>
 					<td class='text-start'><input type='datetime-local' class='form-control' id='meetingDateTime' style='border:none; background: none; font-size: 12px; padding: 1px;' disabled/></td>
 				</tr>
 				<tr>
