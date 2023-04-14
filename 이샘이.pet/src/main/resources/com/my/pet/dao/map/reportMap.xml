@@ -17,7 +17,9 @@
 	<select id='selectSuspended' resultType='report'>
 		select reason
 		from reports
-		where target_id = #{loginId}
+		where report_id = (select max(report_id)
+                    		from pet.reports
+                    		where target_id = #{loginId})
 	</select>
 	
 	<select id='search' resultType='report'>
