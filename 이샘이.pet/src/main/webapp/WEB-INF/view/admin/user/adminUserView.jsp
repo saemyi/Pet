@@ -14,7 +14,7 @@
 <style>
  td {
  	text-align: left;
- }
+ } 
 </style>
 <script> 
 $(() => {

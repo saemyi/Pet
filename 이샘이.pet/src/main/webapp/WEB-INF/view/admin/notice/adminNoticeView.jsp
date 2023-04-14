@@ -21,7 +21,7 @@ $(() => {
 
 function goPage() {
 	location.replace("../../notice")
-} 
+}  
 
 function init() {
 	$('#noticeDel').click(() => {
