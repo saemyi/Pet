@@ -20,6 +20,8 @@ $(() => {
     	} else {
     		if($('tr').length != 1) {
     		 	yesNoModal('반려견을 삭제하시겠습니까?')
+    		} else {
+    			confirmModal('반려견은 1마리 이상 등록되어 있어야 합니다.')
     		}
     	}
    })
@@ -51,7 +53,14 @@ $(() => {
                 url: url,
                 type: 'post',
                 data: formData,
-                success: getPets,
+                success: function() {
+                	 $('#image_container').empty();
+              	     $('#imageTxt').show();
+                     $('#petName').val('');
+                     $('#petIntro').val('');
+                     $('#UploadProfile').val('');
+                	getPets();
+                },
                 error: function (data) {
                 alert(data);
                 },
@@ -89,10 +98,11 @@ $('#fixBtn').click(() => {
         if($('#uploadProfile').val()) {
         	var petProfile = $('#uploadProfile')[0].files[0]
         } else {
-        	var petProfile = $('#petId:checked').parent().next().next().text()
+        	var petProfileName = $('#petId:checked').parent().next().next().text()
         }
         var formData = new FormData();
         formData.append('petProfile', petProfile);
+        formData.append('petProfileImageFilename', petProfileName);
         formData.append('petName', petName);
         formData.append('petIntro', petIntro);
         formData.append('petId', petId);
@@ -102,9 +112,11 @@ $('#fixBtn').click(() => {
             type: 'put',
             data: formData,
             success: function () {
-                $('#petName').val('');
-                $('#petIntro').val('');
-                $('#UploadProfile').val('');
+            	 $('#image_container').empty();
+          	   	 $('#imageTxt').show();
+                 $('#petName').val('');
+                 $('#petIntro').val('');
+                 $('#UploadProfile').val('');
                 getPets();
             },
             error: function (data) {

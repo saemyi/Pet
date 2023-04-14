@@ -97,18 +97,25 @@ function petJoin() {
 	$('#petForm').submit()
 }
 
-    function setThumbnail(event) {
-        var reader = new FileReader();
+function setThumbnail(event) {
+	 $('#image_container').empty();
+	$('.petProfileImage').hide();
+   var reader = new FileReader();
 
-        reader.onload = function(event) {
-          var img = document.createElement("img");
-          img.setAttribute("src", event.target.result);
-          img.setAttribute("class", 'img-fluid circle');
-          document.querySelector("div#image_container").appendChild(img);
-        };
+   reader.onload = function(event) {
+   	$('#imageTxt').hide();
+   	var div = document.createElement("div");
+   	div.setAttribute("class", "petProfileImage");
+     	var img = document.createElement("img");
+       img.setAttribute("src", event.target.result);
+       img.setAttribute("id", 'UploadProfileBtn');
+       img.setAttribute("class", 'img-fluid image-thumbnail');
+       img.setAttribute("style", 'width:130px; height:130px;');
+       document.querySelector("div#image_container").appendChild(div).appendChild(img);
+   };
 
-        reader.readAsDataURL(event.target.files[0]);
-      }
+   reader.readAsDataURL(event.target.files[0]);
+ }
 
 $(upLoadImg)
 
@@ -133,10 +140,12 @@ $(upLoadImg)
             <div class='col mb-3'>
                   <div class="wrapper d-flex justify-content-center">
                       <div id="uploadProfileBtn" type='button' class='box'>
+                      <p id='imageTxt' class='mt-5'>반려견 사진</p>
                           <div id="image_container"></div>
                       </div>
                   </div>
-              <input type='file' id='uploadProfile' name='PetProfile' hidden>
+              <input type="file" id="uploadProfile" class='image' name='PetProfile'  accept="image/*" onchange="setThumbnail(event);" hidden/>
+              
               </div>
           </div>
         <div class='row'>
