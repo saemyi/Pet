@@ -47,8 +47,6 @@ public class PetController {
 	@PostMapping("add")
 	public void addPet(Pet pet, PetDto petDto, HttpSession session) {
 		String userId = (String)session.getAttribute("userId");
-		System.out.println(pet);
-		System.out.println(petDto);
 		String filename = petDto.getPetProfile().getOriginalFilename();
 		saveFile(attachPath + "/" + filename,  petDto.getPetProfile());
 		pet.setPetProfileImageFilename(filename);
@@ -85,9 +83,14 @@ public class PetController {
 	public void fixPet(PetDto petDto, Pet pet, HttpSession session) {
 	   System.out.println(petDto);
 	   System.out.println(pet);
-	   String filename = petDto.getPetProfile().getOriginalFilename();
-	   saveFile(attachPath + "/" + filename, petDto.getPetProfile());
-	         pet.setPetProfileImageFilename(filename);
+	   if(petDto.getPetProfile() == null) {
+		   String filename = pet.getPetProfileImageFilename();
+				   System.out.println(filename);
+	   } else {
+		   String filename = petDto.getPetProfile().getOriginalFilename();
+		   saveFile(attachPath + "/" + filename, petDto.getPetProfile());
+		   pet.setPetProfileImageFilename(filename);
+	   }
 	   String userId = (String)session.getAttribute("userId");
 	   pet.setUserId(userId);
 	      petService.fixPet(pet);

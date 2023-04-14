@@ -15,10 +15,12 @@
 <script>
 $(() => {
     $('#delBtn').click(() => {
-    	if($('#petId').length == 1) {
-    		confirmModal('반려견은 1마리 이상 등록되어 있어야 합니다.')
+    	if(!$('#petId:checked').val()) {
+    		confirmModal('삭제할 반려견을 선택하세요.')
     	} else {
-    		 yesNoModal('정말로 삭제하시겠습니까?')
+    		if($('tr').length != 1) {
+    		 	yesNoModal('반려견을 삭제하시겠습니까?')
+    		}
     	}
    })
 
@@ -28,6 +30,8 @@ $(() => {
                url: '/pet/del/' + $('#petId:checked').val(),
                method: 'delete',
                success: function() {
+            	   $('#image_container').empty()
+            	   $('#imageTxt').show();
                    $('#petName').val('');
                    $('#petIntro').val('');
                    $('#UploadProfile').val('');
@@ -79,18 +83,22 @@ $(() => {
 
     //펫수정
 $('#fixBtn').click(() => {
-        var petId = $(':input:radio[name=pet]:checked').val();
-        var url = '/pet/fix/' + petId;
+        var petId = $('#petId:checked').val();
         var petName = $('#petName').val();
         var petIntro = $('#petIntro').val();
-        var petProfile = $('#UploadProfile')[0].files[0];
+        if($('#uploadProfile').val()) {
+        	var petProfile = $('#uploadProfile')[0].files[0]
+        } else {
+        	var petProfile = $('#petId:checked').parent().next().next().text()
+        }
         var formData = new FormData();
+        formData.append('petProfile', petProfile);
         formData.append('petName', petName);
         formData.append('petIntro', petIntro);
-        formData.append('petProfile', petProfile);
+        formData.append('petId', petId);
 
         $.ajax({
-            url: url,
+            url: '/pet/fix',
             type: 'put',
             data: formData,
             success: function () {
@@ -182,11 +190,12 @@ $(upLoadImg)
             <div class='col mb-3'>
                   <div class="wrapper d-flex justify-content-center">
                 <div id="uploadProfileBtn" type='button' class='box text-center'>
+                	<input type='text' id='반려견사진' class='form-control mb-3' hidden>
                 	<p id='imageTxt' class='mt-5'>반려견 사진</p>
                 	<div id="image_container"></div>
                 </div>
             </div>
-              <input type="file" id="uploadProfile" class='image' name='PetProfile'  accept="image/*" onchange="setThumbnail(event);" hidden/>
+              <input type="file" id="uploadProfile" class='image' name='PetProfile' accept="image/*" onchange="setThumbnail(event);" hidden/>
               </div>
           </div>
         <div class='row'>
