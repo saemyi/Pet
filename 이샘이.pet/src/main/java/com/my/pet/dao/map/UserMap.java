@@ -17,7 +17,7 @@ public interface UserMap {
 			 String phone, String email, String address, String detailedAddress,
 			 LocalDate birthdate, String pw, String nickname);
 	int updateUser(User user);
-	int deleteUser(String userId);
+	int deleteUser(String userId); 
 	int userCount();
 	int changeAdmin(User user);
 	int benUser(User user);

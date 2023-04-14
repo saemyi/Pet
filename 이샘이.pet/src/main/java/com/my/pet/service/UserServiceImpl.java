@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService{
    public void changeAdmin(User user) {
       userDao.changeAdmin(user);
    } 
-   
+    
    @Override
    public void delUser(String userId) {
 	   userDao.deleteUser(userId);

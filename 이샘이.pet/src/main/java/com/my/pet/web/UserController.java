@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -204,7 +203,7 @@ public class UserController {
 		int cnt = userService.duplicateCheckUserId(userId);
 		return cnt;
 	}
-	
+	 
 	//닉네임 중복체크
 	@PostMapping("nicknameCheck")
 	@ResponseBody

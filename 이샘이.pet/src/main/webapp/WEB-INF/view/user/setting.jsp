@@ -13,9 +13,8 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>설정</title>
 <style>
- 
 </style>
-<script>
+<script> 
    $(() => {
     $('#logout').click(() => {
         yesNoModal('로그아웃 하시겠습니까?','../logout')})

@@ -55,7 +55,7 @@
       	select count(user_id)
       	from users
       	where has_admin_rights = 0
-      </select> 
+      </select>  
       
       <select id='search' resultType='user'>
       	select user_id, nickname, user_name, phone, email, is_suspended
