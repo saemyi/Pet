@@ -20,33 +20,9 @@
         while(true) yield petNum++
     }()
 
-function petName(input) {    
-    var regex=/^[a-zA-Z가-힣]{1,10}$/;
-    return (input != '' && input != 'undefined' && regex.test(input)); 
-}
+err("#petName", petName_check, ".result-petName", '<small class="errMsg">1자이상 10자이하 한글, 영어만 입력가능합니다.</small>')
  
   $(() => {
-	  
-	    $("#petName").blur(function(){
-	    var input = $(this).val();
-	    if( input == '' || input == 'undefined') return;
-	    if(!petName(input) ) {
-	        $(".result-petName").html('<small class="errMsg">1자이상 10자이하 영어소문자와 한글만 입력가능합니다.</small>').css('color', 'red');
-	        $(this).focus();
-	        return false;
-	    }else {
-	        $(".result-petName").text('');
-	    }
-	    });
-	
-	    $('#okBtn').click(() => {
-	        let petNum = $('#choice:checked').val()
-	        pets = pets.filter(pet => pet.petNum != petNum)
-	
-	        $('#modal').modal('hide')
-	        listPets()
-	    })
-	    
 	   $('#joinBtn').click(() => {
 		   if(isVal($("#petName")) && $(".errMsg").length == 0) {
 			   let user = {
@@ -71,28 +47,6 @@ function petName(input) {
 	    })
 	})
 
-
-function listPets() {
-        $('input').not(':radio').val('')
-        $('#pets').empty()
-
-        if(pets.length) {
-            const petArr = []
-
-            $.each(pets, (i, pet) => {
-                petArr.unshift(
-                    	'<tr><td>' + 
-                        '<input type="radio" value="' + pet.petNum + '"id="choice"/>' + '</td><td>'+ 
-                        pet.petProfile + '</td><td>' +
-                        pet.petName  + '</td><td>' + 
-                        pet.petIntro + '</td></tr>')
-            		})
-
-            $('#pets').append(petArr.join(''))
-        } else $('#pets').append (
-            `<tr><td colspan='3' class='text-center'>반려견을 등록해주세요.</td></tr>`)
-    }
-  
 function petJoin() {
 	$('#petForm').submit()
 }
