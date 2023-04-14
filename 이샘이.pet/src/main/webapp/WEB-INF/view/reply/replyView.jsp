@@ -42,7 +42,7 @@ textarea {
 		                     	<div class='col'>
 		                         <div class='row'>
 		                             <div class='col-auto pe-0'>
-		                                 <button type='button' class='border-0'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
+		                                 <button type='button' class='border-0 nickname\${comment.userId}'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
 		                             </div>
 		                             <div class='col'>
 		                                 <p style='font-size: 0.5rem;'>\${comment.commentTime}</p>
@@ -74,6 +74,8 @@ textarea {
 		                     </div>
 		                 </div><hr>`    
 		             )
+		             $('.nickname${userId}').removeAttr("onclick")
+	                 $('.nickname${userId}').attr("onclick","location.href='../user/mypage'")
 		             $('.dropmenu${userId}').removeAttr("style")    
 			},
 			error: function(){
@@ -99,7 +101,7 @@ textarea {
 									            	<i class="bi bi-arrow-return-right"></i>
 									        	</div>
 								                <div class='col-auto'>
-								                    <button type='button' class='border-0' onclick="location.href='../user/08.html'"><b style='font-size: 0.7rem;'>\${reply.nickname}</b></button>
+								                    <button type='button' class='border-0 nickname\${reply.userId}' onclick="location.href='../login'"><b style='font-size: 0.7rem;'>\${reply.nickname}</b></button>
 								                </div>
 								                <div class='col'>
 								                    <p style='font-size: 0.3rem;'>\${reply.replyTime}</p>
@@ -127,6 +129,8 @@ textarea {
 								  </div><hr>`)
 					 })					 
 					 $('#replies').append(replyArr.join(''))
+					 $('.nickname${userId}').removeAttr("onclick")
+	                 $('.nickname${userId}').attr("onclick","location.href='../user/mypage'")
 					 $('.dropmenu${userId}').removeAttr("style")
 				 } else $('#replies').append(
 		            '<tr><td colspan=4 class=text-center> 답글이 없습니다.</td></tr>')
