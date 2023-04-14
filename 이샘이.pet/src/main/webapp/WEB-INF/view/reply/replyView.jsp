@@ -38,7 +38,6 @@ textarea {
 			 url:'getComment/' +${commentId},
 			 dataType: 'json',
 			 success: comment => {
-				if(comment.commentId > 0){
 					 $('#comment').append(
 							 `<div class='row'>
 		                     	<div class='col'>
@@ -76,11 +75,13 @@ textarea {
 		                     </div>
 		                 </div><hr>`    
 		             )
-		             $('.dropmenu${userId}').removeAttr("style")   
-				} else getMeetingId()
-			}		 
+		             $('.dropmenu${userId}').removeAttr("style")    
+			},
+			error: function(){
+				location.href = document.referrer
+			}
 		 })	 
-		 
+	
 		 $.ajax({
 			 url:'get/' + ${commentId}, 
 			 dataType: 'json',
@@ -219,17 +220,6 @@ textarea {
     		}   		
     	})
     }
-    
-    function getMeetingId(){
-    	$.ajax({
-    		url:'getMeetingId/' + ${commentId},
-    		type: 'get',
-    		dataType: 'json',
-    		success: comment => {
-    			window.location.href = '/comment/' + comment.meetingId
-    		}          
-    	})
-    }
 
     function CommentDel(comId){   
         yesNoModal('댓글을 삭제하시겠습니까?')
@@ -237,7 +227,7 @@ textarea {
             $.ajax({
                 url: 'delComment/' + comId,
                 method: 'delete',
-                success: getMeetingId()
+                success: listReplies
             })
         })  
 	}
@@ -249,7 +239,7 @@ listReplies()
     <nav class="navbar fixed-top bg-orange p-3">
         <div class='row'>
             <div class='col d-flex justify-content-start'>
-                <i class='bi bi-chevron-left' onclick="getMeetingId()"></i>
+                <i class='bi bi-chevron-left' onclick="location.href = document.referrer"></i>
             </div>
         </div>
         <div class='col text-center me-4'>

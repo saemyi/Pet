@@ -11,7 +11,6 @@ import com.my.pet.domain.Reply;
 public interface ReplyMap {
 	Comment selectComment(@Param("commentId") int commentId);
 	List<Reply> selectReplies(@Param("commentId") int commentId);
-	Comment selectMeetingId(@Param("commentId") int commentId);
 	int insertReply(@Param("replyContent") String replyContent, @Param("replyTime") LocalDateTime replyTime,
 			@Param("userId") String userId, @Param("commentId") int commentId);
 	int updateReply(Reply reply);

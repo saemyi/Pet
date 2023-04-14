@@ -20,12 +20,6 @@
 		order by reply_id ASC 
 	</select>
 	
-	<select resultMap='commentMap' id='selectMeetingId'>
-		select meeting_id
-		from comments
-		where comment_id = #{commentId}
-	</select>
-	
 	<insert id='insertReply'>
 		insert into replies(reply_id, reply_content, reply_time, user_id, comment_id)
 		values(pet.reply_id_seq.nextVal, #{replyContent},
