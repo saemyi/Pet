@@ -1,4 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,21 +15,26 @@
 <script>
 $(() => {
     $('#delBtn').click(() => {
-    yesNoModal('정말로 삭제하시겠습니까?')})
+    	if($('#petId').length == 1) {
+    		confirmModal('반려견은 1마리 이상 등록되어 있어야 합니다.')
+    	} else {
+    		 yesNoModal('정말로 삭제하시겠습니까?')
+    	}
+   })
 
  //펫삭제
     $('#okBtn').click(() => {
-        $.ajax({
-            url: 'pet/del'/ + $(':input:radio[name=pet]:checked').val(),
-            method: 'delete',
-            success: function() {
-                g$('#petName').val('');
-                $('#petIntro').val('');
-                $('#UploadProfile').val('');
-                getPets();
-            }
-        })
-        //$('#modal').modal('hide')
+   		$.ajax({
+               url: '/pet/del/' + $('#petId:checked').val(),
+               method: 'delete',
+               success: function() {
+                   $('#petName').val('');
+                   $('#petIntro').val('');
+                   $('#UploadProfile').val('');
+                   getPets();
+               },
+               error: console.log($('#petId:checked').val())
+         })
     })
 
 //펫추가
@@ -53,6 +59,19 @@ $(() => {
     
     $('#pets').on({
     	change() {
+    		var petProfile = $(this).parent().next().next().text()
+    		if(petProfile != "") {
+			$('#image_container').empty()
+			$('#imageTxt').hide();
+	    	var div = document.createElement("div");
+	    	div.setAttribute("class", "petProfileImage");
+	      	var img = document.createElement("img");
+	        img.setAttribute("src", "/attach/" + petProfile);
+	        img.setAttribute("id", 'UploadProfileBtn');
+	        img.setAttribute("class", 'img-fluid image-thumbnail');
+	        img.setAttribute("style", 'width:130px; height:130px;');
+	        document.querySelector("div#image_container").appendChild(div).appendChild(img);
+    		}
     		$('#petName').val($(this).parent().next().text())
     		$('#petIntro').val($(this).parent().next().next().next().text())
     	}
@@ -116,15 +135,24 @@ function getPets() {
 }
 
 function setThumbnail(event) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-          var img = document.createElement("img");
-          img.setAttribute("src", event.target.result);
-          img.setAttribute("class", 'img-fluid circle');
-          document.querySelector("div#image_container").appendChild(img);
-        };
-        reader.readAsDataURL(event.target.files[0]);
-      }
+	 $('#image_container').empty();
+		$('.petProfileImage').hide();
+    var reader = new FileReader();
+
+    reader.onload = function(event) {
+    	$('#imageTxt').hide();
+    	var div = document.createElement("div");
+    	div.setAttribute("class", "petProfileImage");
+      	var img = document.createElement("img");
+        img.setAttribute("src", event.target.result);
+        img.setAttribute("id", 'UploadProfileBtn');
+        img.setAttribute("class", 'img-fluid image-thumbnail');
+        img.setAttribute("style", 'width:130px; height:130px;');
+        document.querySelector("div#image_container").appendChild(div).appendChild(img);
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  }
 
 $(getPets)
 $(upLoadImg)
@@ -153,11 +181,12 @@ $(upLoadImg)
         <div class='row'>
             <div class='col mb-3'>
                   <div class="wrapper d-flex justify-content-center">
-                      <div id="uploadProfileBtn" type='button' class='box'>
-                          <div id="image_container"></div>
-                      </div>
-                  </div>
-              <input type='file' id='uploadProfile' name='PetProfile' hidden>
+                <div id="uploadProfileBtn" type='button' class='box text-center'>
+                	<p id='imageTxt' class='mt-5'>반려견 사진</p>
+                	<div id="image_container"></div>
+                </div>
+            </div>
+              <input type="file" id="uploadProfile" class='image' name='PetProfile'  accept="image/*" onchange="setThumbnail(event);" hidden/>
               </div>
           </div>
         <div class='row'>

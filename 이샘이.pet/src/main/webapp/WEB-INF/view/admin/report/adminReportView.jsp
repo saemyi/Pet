@@ -134,9 +134,11 @@ $(() => {
                 <tr>
                     <th>신고사유</th><td class='text-start' id='reason'></td><td></td><td></td>
                 </tr>
-                <tr>
+                 <tr>
                     <th style='padding-top: 1rem;'>내용</th>
-                    <td class='text-start'>${report.reportContent }</td>
+                    <td class='text-start'>
+                    	<pre>${report.reportContent}</pre>
+                    </td>
                 </tr>
             </tbody>
         </table>
