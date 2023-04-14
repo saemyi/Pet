@@ -6,8 +6,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,5 +54,30 @@ public class PetController {
 	public List<Pet> getPets(HttpSession session) {
 		String userId = (String)session.getAttribute("userId");
 		return petService.getPets(userId);
+	}
+	
+	//펫삭제
+	@DeleteMapping("del/{petId}")
+	public void delPet(@PathVariable("petId") int petId) {
+	   petService.delPet(petId);
+	}
+	
+	@GetMapping("manage")
+	public ModelAndView petManage(ModelAndView mv) {
+		mv.setViewName("pet/petManage");
+		return mv;
+	}
+	
+	//펫수정
+	@PutMapping("fix")
+	public void fixPet(PetDto petDto, Pet pet, HttpSession session) {
+	   System.out.println(petDto);
+	   System.out.println(pet);
+	   String filename = petDto.getPetProfile().getOriginalFilename();
+	   saveFile(attachPath + "/" + filename, petDto.getPetProfile());
+	         pet.setPetProfileImageFilename(filename);
+	   String userId = (String)session.getAttribute("userId");
+	   pet.setUserId(userId);
+	      petService.fixPet(pet);
 	}
 }

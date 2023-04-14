@@ -22,7 +22,6 @@
 $(() => {
 	
 })
-
 	function mypage() { 
 		$.ajax({
 			url: '/getUser',

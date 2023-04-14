@@ -22,4 +22,14 @@ public class PetServiceImpl implements PetService {
 	public List<Pet> getPets(String userId) {
 		return petDao.selectPets(userId);
 	}
+	
+	@Override
+	public void delPet(int petId) {
+	   petDao.deletePet(petId);
+	}
+	
+	@Override
+	public void fixPet(Pet pet) {
+		petDao.updatePet(pet);
+	}
 }

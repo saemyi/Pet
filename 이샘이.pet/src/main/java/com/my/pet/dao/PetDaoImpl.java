@@ -22,4 +22,14 @@ public class PetDaoImpl implements PetDao {
 	public List<Pet> selectPets(String userId) {
 		return petMap.selectPets(userId);
 	}
+	
+	@Override
+	public int deletePet(int petId) {
+	   return petMap.deletePet(petId);
+	}
+	
+	@Override
+	public int updatePet(Pet pet) {
+		return petMap.updatePet(pet);
+	}
 }

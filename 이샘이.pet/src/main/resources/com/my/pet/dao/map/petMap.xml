@@ -12,4 +12,15 @@
 			from pets
 			where user_id = #{userId} 
 		</select>
+		
+		<delete id="deletePet">
+		   delete pets
+		   where pet_id = #{petId}
+		</delete>
+		
+		<update id='updatePet'>
+			update pets
+			set pet_name = #{petName}, pet_intro = #{petIntro}, pet_profile_image_filename = #{petProfileImageFilename}
+			where pet_id = #{petId}
+		</update>
 	</mapper> 

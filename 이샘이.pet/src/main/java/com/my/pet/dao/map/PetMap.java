@@ -8,4 +8,6 @@ public interface PetMap {
 	int insertPet(String petName, String petProfileImageFilename,
 			String petIntro, String userId);
 	List<Pet> selectPets(String userId);
+	int deletePet(int petId);
+	int updatePet(Pet pet);
 }

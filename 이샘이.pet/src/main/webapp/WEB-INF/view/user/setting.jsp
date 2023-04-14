@@ -43,7 +43,7 @@
                 <button type='button' class='btn btn-lightgray' onclick="location.href='../user/userFix'">회원정보수정</button>
             </div>
             <div class='row mb-3'>
-                <button type='button' class='btn btn-lightgray'onclick="location.href='../pet/02.html'">반려견 관리</button>
+                <button type='button' class='btn btn-lightgray'onclick="location.href='../pet/manage'">반려견 관리</button>
             </div>
             <div class='row mb-3'>
                 <button type='button' class='btn btn-lightgray' onclick="location.href='07.html'">비밀번호 변경</button>

@@ -8,4 +8,6 @@ public interface PetService {
 	int addPet(String petName, String petProfileImageFilename,
 			String petIntro, String userId);
 	List<Pet> getPets(String userId);
+	void delPet(int petId);
+	void fixPet(Pet pet);
 }
