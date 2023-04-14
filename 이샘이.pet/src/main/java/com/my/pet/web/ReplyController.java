@@ -47,12 +47,7 @@ public class ReplyController {
 	public List<Reply> getReplies(@PathVariable int commentId){
 		return replyService.getReplies(commentId);
 	}
-	
-	@GetMapping("getMeetingId/{commentId}")
-	public Comment getMeetingId(@PathVariable int commentId) {
-		return replyService.getMeetingId(commentId);
-	}
-	
+
 	@PostMapping("add")
 	public void addReply(String replyContent, LocalDateTime replyTime, String userId, int commentId) {
 		replyService.addReply(replyContent, replyTime, userId, commentId);

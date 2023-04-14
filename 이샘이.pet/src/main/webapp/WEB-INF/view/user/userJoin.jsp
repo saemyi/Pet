@@ -108,6 +108,8 @@
  })
  
       function setThumbnail(event) {
+		 $('#image_container').empty();
+		$('.userProfileImage').hide();
         var reader = new FileReader();
 
         reader.onload = function(event) {

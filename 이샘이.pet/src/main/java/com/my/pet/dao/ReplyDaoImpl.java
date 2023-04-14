@@ -23,11 +23,7 @@ public class ReplyDaoImpl implements ReplyDao{
 	public List<Reply> selectReplies(int commentId){
 		return replyMap.selectReplies(commentId);
 	} 
-	
-	@Override
-	public Comment selectMeetingId(int commentId) {
-		return replyMap.selectMeetingId(commentId);
-	}
+
 	@Override
 	public void insertReply(String replyContent, LocalDateTime replyTime, String userId, int commentId) {
 		replyMap.insertReply(replyContent, replyTime, userId, commentId);

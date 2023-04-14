@@ -9,7 +9,6 @@ import com.my.pet.domain.Reply;
 public interface ReplyDao {
 	Comment selectComment(int commentId);
 	List<Reply> selectReplies(int commentId);
-	Comment selectMeetingId(int commentId);
 	void insertReply(String replyContent, LocalDateTime	replyTime, String userId, int commentId);
 	void updateReply(Reply reply);
 	void updateComment(Comment comment);

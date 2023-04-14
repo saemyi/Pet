@@ -9,7 +9,6 @@ import com.my.pet.domain.Reply;
 public interface ReplyService {
 	Comment getComment(int commentId);
 	List<Reply> getReplies(int commentId);
-	Comment getMeetingId(int commentId);
 	void addReply(String replyContent, LocalDateTime replyTime, String userId, int commentId);
 	void fixReply(Reply reply);
 	void fixComment(Comment comment);

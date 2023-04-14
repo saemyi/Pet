@@ -127,8 +127,10 @@ textarea {
         	            contentType: 'application/json',
         	        	data: JSON.stringify(comment),
         	            success: function(){
-                        	window.location.href = '/comment/'+ ${meetingId} 
-                        }
+	       	            	listComments()
+	       	            	$('#modal').modal('hide'); 
+	       	             	$('#modal').hide(); 
+	                    }
         	        })
     		} else {
     				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)
@@ -144,9 +146,7 @@ textarea {
             $.ajax({
                 url: 'del/' + comId,
                 method: 'delete',
-                success: function(){
-                	window.location.href = '/comment/'+ ${meetingId} 
-                }
+                success: listComments
             })
         })  
     }
