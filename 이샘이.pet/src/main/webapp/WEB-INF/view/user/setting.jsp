@@ -21,7 +21,7 @@
         yesNoModal('로그아웃 하시겠습니까?','../logout')})
 
     $('#delUser').click(() => {
-    yesNoModal('회원탈퇴 후, 복구가 불가능합니다.<br>정말 탈퇴하시겠습니까?','01.html')})    
+    yesNoModal('회원탈퇴 후, 복구가 불가능합니다.<br>정말 탈퇴하시겠습니까?','../delUser')})    
 })
 </script>
 <body>

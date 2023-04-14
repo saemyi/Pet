@@ -102,13 +102,12 @@ public class UserController {
 	}
 	
 	//회원삭제
-	@DeleteMapping("delUser")
+	@GetMapping("delUser")
 	public ModelAndView delUser(ModelAndView mv, HttpSession session) {
 		String userId = (String)session.getAttribute("userId");
 		userService.delUser(userId);
 		session.invalidate();
-		mv.setViewName("user/login");
-		
+		mv.setViewName("redirect:login");
 		return mv;
 	}
 	
