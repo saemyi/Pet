@@ -137,7 +137,7 @@ $(() => {
                  <tr>
                     <th style='padding-top: 1rem;'>내용</th>
                     <td class='text-start'>
-                    	<pre>${report.reportContent }</pre>
+                    	<pre>${report.reportContent}</pre>
                     </td>
                 </tr>
             </tbody>
