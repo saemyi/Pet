@@ -73,7 +73,8 @@ $(() => {
     $('#pets').on({
     	change() {
     		var petProfile = $(this).parent().next().next().text()
-    		if(petProfile != "") {
+    		if(petProfile != "null") {
+    			console.log(petProfile)
 			$('#image_container').empty()
 			$('#imageTxt').hide();
 	    	var div = document.createElement("div");
@@ -84,6 +85,9 @@ $(() => {
 	        img.setAttribute("class", 'img-fluid image-thumbnail');
 	        img.setAttribute("style", 'width:130px; height:130px;');
 	        document.querySelector("div#image_container").appendChild(div).appendChild(img);
+    		} else {
+    			$('#image_container').empty()
+    			$('#imageTxt').show();
     		}
     		$('#petName').val($(this).parent().next().text())
     		$('#petIntro').val($(this).parent().next().next().next().text())
@@ -140,12 +144,10 @@ function getPets() {
                 if(petsList.length) {
                 pets = []
                 petsList.forEach(pet => {
-                    if(pet.petProfileImageFilename != null) {
-                        pets.unshift(
-                            "<tr><td style='text-align: start;'><input name='petId' id='petId' type='radio' value='" + pet.petId +"'/></td><td>" +
-                                pet.petName  + "</td><td hidden>" +pet.petProfileImageFilename + "</td><td hidden>"+pet.petIntro+"</td></tr>"
-                        )
-                    }
+                    pets.unshift(
+                        "<tr><td style='text-align: start;'><input name='petId' id='petId' type='radio' value='" + pet.petId +"'/></td><td>" +
+                            pet.petName  + "</td><td hidden>" +pet.petProfileImageFilename + "</td><td hidden>"+pet.petIntro+"</td></tr>"
+                    )
                 })
              $('#pets').append(pets.join(''))
             } else $('#pets').append(
