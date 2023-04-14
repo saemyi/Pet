@@ -40,6 +40,7 @@ function getParticipantData() {
 				$('#userProfileImage').html("<p class='mt-5'>프로필이미지</p>")
 			}
 			$('#userNickname').html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + participant.nickname)
+			if(!participant.userIntro) participant.userIntro = '유저 소개가 없습니다.'
 			$('#userIntro').text(participant.userIntro)
 		}
 	})
@@ -60,7 +61,7 @@ function getParticipantData() {
 									`<div class="col-7">
 										<h6><b>` + participant.nickname + `</b></h6>
 										<hr>
-										<p>` + participant.userIntro + `</p>
+										<p>` + ((!participant.userIntro) ? '유저 소개가 없습니다.' : participant.userIntro) + `</p>
 									</div>
 								</div>
 							</div>
