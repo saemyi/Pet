@@ -20,8 +20,8 @@ public class ReportController {
 	}
 	
 	@PostMapping("add")
-	public void addReport(String nickName, String reason, String reportContent) {
-		reportService.addReport(nickName, reason, reportContent);
+	public void addReport(String nickName, String reason, String reportContent, String userId) {
+		reportService.addReport(nickName, reason, reportContent, userId);
 	}
 	
 	@GetMapping("main")

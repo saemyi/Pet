@@ -58,7 +58,6 @@ $(NoticesList)
     p {
     font-size: 12px;
 }
-
 </style>
 </head>
 <body>
@@ -85,7 +84,6 @@ $(NoticesList)
         <div class='card-body'>
         <form action='noticeDetail'>
             <ul class='list-group list-group-flush' id='notices'>
-                                
             </ul>
         </form>
         </div>
@@ -94,21 +92,21 @@ $(NoticesList)
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../meeting/02.html'">
+            <li class="nav-item" type="button" onclick="location.href='../meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../main.html'">
+            <li class="nav-item" type="button" onclick="location.href='../'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../user/mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='../user/mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>

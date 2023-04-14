@@ -1,6 +1,7 @@
 <%@ page language='java' contentType='text/html; charset=UTF-8' pageEncoding='UTF-8'%>
 <%
-	String userId = (String)session.getAttribute("userId");
+	String savaUserId = (String)session.getAttribute("userId");
+	String saveNickName = (String)session.getAttribute("nickName");
 %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,9 @@ function moveMain(){
 	location.href='/';
 }
 
-function init() {
+function init() {	
+	$('#saveNickName').hide()
+	$('#saveUserId').hide()
 	$("#addReportBtn").click(() => {
 		var nickName = $('#nickName').val();
 		var reason = $('#reason option:selected').val();
@@ -39,9 +42,11 @@ function init() {
 			confirmModal('<small>신고내용을 입력하세요.</small>')
 		}	
 		else if( nickName == '' || nickName == 'undefined') {
-	         confirmModal('<small>닉네임을 입력하세요.</small>')
+	        confirmModal('<small>닉네임을 입력하세요.</small>')
 	   
-	    }else {
+	    }else if( nickName == $('#saveNickName').val() ){
+			confirmModal('<small>자기 자신을 신고 할 수 없습니다.<br>닉네임을 변경하세요.</small>')
+		}else {
 	    	$.ajax({
 	    		url:'./nicknameCheck',
 	    		type:'post',
@@ -61,10 +66,11 @@ function init() {
 	})
 	
     $("#okBtn").click(() => {
+    	console.log($('#saveUserId').val())
    		let report = {
    			reason: $('#reason option:selected').val(),
    			reportContent: $('#reportContent').val(),
-   			userId: "user",//"${userId}",  정상흐름연결후 바꿔 
+   			userId: $('#saveUserId').val(),  //정상흐름연결후 바꿔 
    			nickName: $('#nickName').val()
    		}
    		$.ajax({
@@ -100,6 +106,8 @@ $(init)
                         <div class='col'>
                         	<div class='d-grid gap-2 col-10 mx-auto'>
                         		<input type='text' class='form-control' id='nickName' placeholder='닉네임'>
+                        		<input id='saveNickName' type = 'text' value='<%=saveNickName %>'/>
+                        		<input id='saveUserId' type = 'text' value='<%=savaUserId %>'/>
                         	</div>
                              <div class="nickNameCheck d-flex justify-content-center"></div>
                         </div>

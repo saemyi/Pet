@@ -70,7 +70,7 @@ textarea {
 		                         </div>
 		                         <div class='row'>
 		                             <div class='col'>
-		                                 <input type='button' class='reply' onclick="location.href='/reply/\${comment.commentId}'" value='답글\${comment.replyCnt}'/>
+		                                 <input type='button' class='reply' value='답글\${comment.replyCnt}'/>
 		                             </div>
 		                         </div>
 		                     </div>
@@ -163,34 +163,36 @@ textarea {
 				let reply = {
 	    	    		replyId: repId,
 	    	    		replyContent: $('#replyContentFix'+ repId).val()
-	    	    	}	    	    	
+	    	    	}
+				
 	    	    	$.ajax({
 	    	            url: 'fix',
 	    	            method: 'put',
 	    	            contentType: 'application/json',
 	    	        	data: JSON.stringify(reply),
 	    	            success: function(){
-	                    	window.location.href = '/reply/'+ ${commentId} 
+	       	            	listReplies()
+	       	            	$('#modal').modal('hide'); 
+	       	             	$('#modal').hide(); 
 	                    }
 	    	        })
 			} else {
-					$('#modalErrMsg').text('답글을 입력해주세요').show().fadeOut(3000)
-					$('#confirmModal').removeAttr('data-bs-dismiss')	
+					$('#modalErrMsg').text('답글을 입력해주세요').show().fadeOut(3000)	
 			}		
 		})	
 	}
+	
 	function ReplyDel(repId){   
 	    yesNoModal('댓글을 삭제하시겠습니까?')
 	    $('#okBtn').click(() => {    	
 	        $.ajax({
 	            url: 'del/' + repId,
 	            method: 'delete',
-	            success: function(){
-	            	window.location.href = '/reply/' + ${commentId}
-	            }
+	            success: listReplies
 	        })
 	    })
 	}
+
     let comId = 0;   
     function CommentFix(comId){
     	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ comId +"'"+ "class='border-0' style='resize: none;' placeholder='댓글을 입력해주세요'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
@@ -207,12 +209,13 @@ textarea {
        	            contentType: 'application/json',
        	        	data: JSON.stringify(comment),
        	            success: function(){
-                       	window.location.href = '/reply/'+ ${commentId} 
+       	            	listReplies()
+       	            	$('#modal').modal('hide'); 
+       	             	$('#modal').hide(); 
                     }
        	       })
     		} else {
-    				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)
-    				$('#confirmModal').removeAttr('data-bs-dismiss')	
+    				$('#modalErrMsg').text('댓글을 입력해주세요').show().fadeOut(3000)	
     		}   		
     	})
     }
@@ -246,7 +249,7 @@ listReplies()
     <nav class="navbar fixed-top bg-orange p-3">
         <div class='row'>
             <div class='col d-flex justify-content-start'>
-                <i class='bi bi-chevron-left' onclick="location.href = document.referrer;"></i>
+                <i class='bi bi-chevron-left' onclick="getMeetingId()"></i>
             </div>
         </div>
         <div class='col text-center me-4'>
@@ -278,9 +281,9 @@ listReplies()
                 <p id='modalMsg'></p>
             </div>
             <div class='modal-footer' id='modalBtn'>
-                	<p id='modalErrMsg' class='text-danger'></p>
-                    <button type='button' class='btn btn-orange' id='confirmBtn'>수정</button>
-                </div>
+               	<p id='modalErrMsg' class='text-danger'></p>
+                <button type='button' class='btn btn-orange' id='confirmBtn'>수정</button>
+            </div>
             <div class='modal-footer' id='modalBtnDouble'>
                 <button type='button' class='btn btn-lightgray' id='noBtn' data-bs-dismiss="modal">
                     아니오

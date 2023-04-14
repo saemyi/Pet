@@ -18,8 +18,8 @@ public class ReportDaoImpl implements ReportDao{
 	}
 	
 	@Override
-	public void insertReport(String nickName, String reason, String reportContent) {
-		reportMap.insertReport(nickName, reason, reportContent);
+	public void insertReport(String nickName, String reason, String reportContent, String userId) {
+		reportMap.insertReport(nickName, reason, reportContent, userId);
 	}
 	
 	@Override
