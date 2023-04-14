@@ -33,7 +33,6 @@ textarea {
     function listComments() {   
         console.log("listComments 실행")
         $('#comments').empty()
-        $('#comments').empty()
         $.ajax({
 	        url:'get/' + ${meetingId}, 
 	        dataType: 'json',
@@ -79,7 +78,8 @@ textarea {
 	                        </div><hr>`    
 	                    )
 	                })  
-	                $('#comments').append(commentArr.join(''))  
+	                $('#comments').append(commentArr.join('')) 
+	                
 	                $('.dropmenu${userId}').removeAttr("style")               
 	            } else $('#comments').append(
 	                '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')            
@@ -114,7 +114,7 @@ textarea {
 	let comId = 0;   
     function CommentFix(comId){
     	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ comId +"'"+ "class='border-0' style='resize: none;' placeholder='댓글을 입력해주세요'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
-    	$('#confirmBtn').click(() => {
+    	$('#confirmBtn').off('click').on('click', function() {
     		if($('#commentContentFix'+ comId).val()){
     			let comment = {
         	    		commentId: comId,
@@ -127,7 +127,7 @@ textarea {
         	            contentType: 'application/json',
         	        	data: JSON.stringify(comment),
         	            success: function(){
-	       	            	listComments()
+        	            	listComments();
 	       	            	$('#modal').modal('hide'); 
 	       	             	$('#modal').hide(); 
 	                    }
@@ -141,7 +141,7 @@ textarea {
     
     function CommentDel(comId){   
         yesNoModal('댓글을 삭제하시겠습니까?')
-        $('#okBtn').click(() => { 
+        $('#okBtn').off('click').on('click', function() { 
         	console.log(comId)
             $.ajax({
                 url: 'del/' + comId,

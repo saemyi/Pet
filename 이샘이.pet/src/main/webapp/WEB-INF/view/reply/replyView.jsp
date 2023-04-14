@@ -31,9 +31,8 @@ textarea {
 
 </style>
 <script>
-	function listReplies() { 
-		 $('#replies').empty()
-		 $('#comment').empty()
+	function getComment(){
+		$('#comment').empty()
 		 $.ajax({
 			 url:'getComment/' +${commentId},
 			 dataType: 'json',
@@ -81,7 +80,10 @@ textarea {
 				location.href = document.referrer
 			}
 		 })	 
+	}
 	
+	function listReplies() { 
+		 $('#replies').empty()
 		 $.ajax({
 			 url:'get/' + ${commentId}, 
 			 dataType: 'json',
@@ -130,7 +132,7 @@ textarea {
 		            '<tr><td colspan=4 class=text-center> 답글이 없습니다.</td></tr>')
 			 }
 		 })
-	}   
+	}  
 	
 	function ReplySend(){ 
 		$('#replyErr').empty()
@@ -159,19 +161,18 @@ textarea {
 	let repId = 0;
 	function ReplyFix(repId){
 		confirmModal("<p><textarea cols='40' rows='3'id='replyContentFix"+ repId +"'"+ "class='border-0' placeholder='답글을 입력해주세요'>"+ $('#replyContent'+ repId).val() + "</textarea></p>")
-		$('#confirmBtn').click(() => {
+		$('#confirmBtn').off('click').on('click', function() {
 			if($('#replyContentFix'+ repId).val()){
 				let reply = {
 	    	    		replyId: repId,
 	    	    		replyContent: $('#replyContentFix'+ repId).val()
-	    	    	}
-				
+	    	    	}				
 	    	    	$.ajax({
 	    	            url: 'fix',
 	    	            method: 'put',
 	    	            contentType: 'application/json',
 	    	        	data: JSON.stringify(reply),
-	    	            success: function(){
+	    	            success: function(){    	            
 	       	            	listReplies()
 	       	            	$('#modal').modal('hide'); 
 	       	             	$('#modal').hide(); 
@@ -185,7 +186,7 @@ textarea {
 	
 	function ReplyDel(repId){   
 	    yesNoModal('댓글을 삭제하시겠습니까?')
-	    $('#okBtn').click(() => {    	
+	    $('#okBtn').off('click').on('click', function() {    	
 	        $.ajax({
 	            url: 'del/' + repId,
 	            method: 'delete',
@@ -197,7 +198,7 @@ textarea {
     let comId = 0;   
     function CommentFix(comId){
     	confirmModal("<p><textarea cols='40' rows='3'id='commentContentFix"+ comId +"'"+ "class='border-0' style='resize: none;' placeholder='댓글을 입력해주세요'>"+ $('#commentContent'+ comId).val() + "</textarea></p>")
-    	$('#confirmBtn').click(() => {
+    	$('#confirmBtn').off('click').on('click', function() {
     		if($('#commentContentFix'+ comId).val()){
     			let comment = {
         	    		commentId: comId,
@@ -210,7 +211,7 @@ textarea {
        	            contentType: 'application/json',
        	        	data: JSON.stringify(comment),
        	            success: function(){
-       	            	listReplies()
+       	            	getComment()
        	            	$('#modal').modal('hide'); 
        	             	$('#modal').hide(); 
                     }
@@ -223,16 +224,16 @@ textarea {
 
     function CommentDel(comId){   
         yesNoModal('댓글을 삭제하시겠습니까?')
-        $('#okBtn').click(() => {       	
+        $('#okBtn').off('click').on('click', function() {       	
             $.ajax({
                 url: 'delComment/' + comId,
                 method: 'delete',
-                success: listReplies
+                success: getComment
             })
         })  
 	}
-    
-listReplies()    
+$(getComment)
+$(listReplies)    
 </script>
 <body>
 <div class='row d-flex justify-content-end'>
