@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.pet.dao.UserDao;
-import com.my.pet.domain.MailDto;
 import com.my.pet.domain.User;
 
 @Service

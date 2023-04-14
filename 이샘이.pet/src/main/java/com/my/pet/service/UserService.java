@@ -3,7 +3,6 @@ package com.my.pet.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.my.pet.domain.MailDto;
 import com.my.pet.domain.User;
 
 public interface UserService {
@@ -24,4 +23,4 @@ public interface UserService {
 	void delUser(String userId);
 	void fixUserName(User user);
 	void fixUser(User user);
-}  
+}   

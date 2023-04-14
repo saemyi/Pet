@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.domain.Report;
-import com.my.pet.domain.User;
 import com.my.pet.service.ReportService;
 
 @RestController

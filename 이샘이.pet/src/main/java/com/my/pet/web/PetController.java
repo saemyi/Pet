@@ -44,6 +44,18 @@ public class PetController {
 		return mv;
 	}
 	
+	@PostMapping("add")
+	public void addPet(Pet pet, PetDto petDto, HttpSession session) {
+		String userId = (String)session.getAttribute("userId");
+		System.out.println(pet);
+		System.out.println(petDto);
+		String filename = petDto.getPetProfile().getOriginalFilename();
+		saveFile(attachPath + "/" + filename,  petDto.getPetProfile());
+		pet.setPetProfileImageFilename(filename);
+		petService.addPet(petDto.getPetName(), filename, petDto.getPetIntro(), userId);
+	}
+	
+	
 	private void saveFile(String filename, MultipartFile file) { 
 		try {
 			file.transferTo(new File(filename));
