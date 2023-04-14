@@ -14,6 +14,8 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
 $(() => {
+	err("#petName", petName_check, ".result-petName", '<small class="errMsg">1자이상 10자이하 한글, 영어만 입력가능합니다.</small>')
+	
     $('#delBtn').click(() => {
     	if(!$('#petId:checked').val()) {
     		confirmModal('반려견을 선택하세요.')
@@ -228,6 +230,7 @@ $(upLoadImg)
         <div class='row'>
             <div class='col'>
                 <input type='text' name='petName' id='petName' class='form-control mb-3'  placeholder='반려견 이름'>
+                <div id="errorMsg" class="result-petName result-check"></div>
             </div>
         </div>
         <div class='row mb-1'>
