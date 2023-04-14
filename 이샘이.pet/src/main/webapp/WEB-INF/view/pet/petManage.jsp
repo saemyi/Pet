@@ -16,7 +16,7 @@
 $(() => {
     $('#delBtn').click(() => {
     	if(!$('#petId:checked').val()) {
-    		confirmModal('삭제할 반려견을 선택하세요.')
+    		confirmModal('반려견을 선택하세요.')
     	} else {
     		if($('tr').length != 1) {
     		 	yesNoModal('반려견을 삭제하시겠습니까?')
@@ -45,29 +45,31 @@ $(() => {
 
 //펫추가
     $('#addBtn').click(() => {
-        var url = $("#petForm").attr("action");
-        var form = $('#petForm')[0];
-        var formData = new FormData(form);
+    	if(isVal($('#petName'))) {
+    		var url = $("#petForm").attr("action");
+            var form = $('#petForm')[0];
+            var formData = new FormData(form);
 
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: formData,
-                success: function() {
-                	 $('#image_container').empty();
-              	     $('#imageTxt').show();
-                     $('#petName').val('');
-                     $('#petIntro').val('');
-                     $('#UploadProfile').val('');
-                	getPets();
-                },
-                error: function (data) {
-                alert(data);
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-        })
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: formData,
+                    success: function() {
+                    	 $('#image_container').empty();
+                  	     $('#imageTxt').show();
+                         $('#petName').val('');
+                         $('#petIntro').val('');
+                         $('#UploadProfile').val('');
+                    	getPets();
+                    },
+                    error: function (data) {
+                    alert(data);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+            })
+    	}  
     })
     
     $('#pets').on({
@@ -90,46 +92,57 @@ $(() => {
     			$('#imageTxt').show();
     		}
     		$('#petName').val($(this).parent().next().text())
-    		$('#petIntro').val($(this).parent().next().next().next().text())
+    		var petIntro = $(this).parent().next().next().next().text()
+    		if(petIntro == "null") {
+    			$('#petIntro').val(null)
+    		} else {
+    			$('#petIntro').val($(this).parent().next().next().next().text())
+    		}
     	}
     }, '#petId')
 
     //펫수정
 $('#fixBtn').click(() => {
-        var petId = $('#petId:checked').val();
-        var petName = $('#petName').val();
-        var petIntro = $('#petIntro').val();
-        if($('#uploadProfile').val()) {
-        	var petProfile = $('#uploadProfile')[0].files[0]
-        } else {
-        	var petProfileName = $('#petId:checked').parent().next().next().text()
-        }
-        var formData = new FormData();
-        formData.append('petProfile', petProfile);
-        formData.append('petProfileImageFilename', petProfileName);
-        formData.append('petName', petName);
-        formData.append('petIntro', petIntro);
-        formData.append('petId', petId);
+		if($('#petId:checked').val()) {
+			if(isVal($('#petName'))) {
+				var petId = $('#petId:checked').val();
+		        var petName = $('#petName').val();
+		        var petIntro = $('#petIntro').val();
+		        if($('#uploadProfile').val()) {
+		        	var petProfile = $('#uploadProfile')[0].files[0]
+		        } else {
+		        	var petProfileName = $('#petId:checked').parent().next().next().text()
+		        }
+		        var formData = new FormData();
+		        if(petProfile != null) {
+		        	formData.append('petProfile', petProfile);
+		        }
+		        formData.append('petProfileImageFilename', petProfileName);
+		        formData.append('petName', petName);
+		        formData.append('petIntro', petIntro);
+		        formData.append('petId', petId);
 
-        $.ajax({
-            url: '/pet/fix',
-            type: 'put',
-            data: formData,
-            success: function () {
-            	 $('#image_container').empty();
-          	   	 $('#imageTxt').show();
-                 $('#petName').val('');
-                 $('#petIntro').val('');
-                 $('#UploadProfile').val('');
-                getPets();
-            },
-            error: function (data) {
-                alert(data);
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        })
+		        $.ajax({
+		            url: '/pet/fix',
+		            type: 'put',
+		            data: formData,
+		            success: function () {
+		            	 $('#image_container').empty();
+		          	   	 $('#imageTxt').show();
+		                 $('#petName').val('');
+		                 $('#petIntro').val('');
+		                 $('#UploadProfile').val('');
+		                getPets();
+		            },
+		            error: function (data) {
+		                alert(data);
+		            },
+		            cache: false,
+		            contentType: false,
+		            processData: false
+		        })
+			}  
+		} else confirmModal("반려견을 선택하세요.")
     })
 })
 
