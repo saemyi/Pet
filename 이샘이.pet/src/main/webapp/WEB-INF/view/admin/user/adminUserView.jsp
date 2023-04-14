@@ -342,7 +342,7 @@ function init() {
 					data: JSON.stringify(user),
 					success: goPage
 				})
-		}	
+		}
 	})
 	}
 	$(init)

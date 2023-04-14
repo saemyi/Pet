@@ -20,11 +20,8 @@ $(() => {
 })
 
 function goPage() {
-	//location.replace("../../notice")
-	history.pushState(null, null, location.href="../../notice");
-	window.onpopstate = function(event) {
-	}
-}
+	location.replace("../../notice")
+} 
 
 function init() {
 	$('#noticeDel').click(() => {
@@ -45,7 +42,7 @@ function init() {
 }
 $(init)
 </script>
-<style>
+<style> 
 </style>
 </head>
 <body>
@@ -117,7 +114,7 @@ $(init)
                 <tr>
                     <th>내용</th>
                     <td class='text-start' id='noticeContent'>
-						<pre>${notice.noticeContent }</pre>
+						<pre>${notice.noticeContent}</pre>
                     </td>
                 </tr>
             </tbody>

@@ -29,12 +29,12 @@ th {
     font-size: small;
 }
 
-.a-gray:hover{
+.a-gray:hover{ 
     color:orange;
 }
 
 .a-black{
-    color: black; 
+    color: black;  
     text-decoration: none;
 }
 
@@ -81,6 +81,13 @@ td textarea{
      outline: 0 none;
 }
 
+.currentPage{
+	color: #ffc23e;
+    border-color: #ffc23e;
+    box-shadow: 0 1px 1px 1px #ffc23e inset, 0 0 8px #ffc23e;
+    outline: 0 none;
+}
+
 textarea:focus,
 input[type="text"]:focus,
 input[type="search"]:focus,
@@ -94,9 +101,6 @@ input[type="search"]:focus,
     border-color: #ffc23e;
     box-shadow: 0 1px 1px #ffc23e inset, 0 0 8px #ffc23e;
     outline: 0 none;
-}
-.hover-cursor{
-    cursor: pointer
 }
 
 .btn-orange {
@@ -117,7 +121,6 @@ input[type="search"]:focus,
  
  .link-black {
     color: #000;
- 
  }
  
  .link-orange:hover, .link-orange:focus {
@@ -137,4 +140,17 @@ input[type="search"]:focus,
  a {
     text-decoration: none;
     color: black;
+}
+
+.image-box {
+    width:130px;
+    height:130px;
+    overflow:hidden;
+    margin:0 auto;
+}
+
+.image-thumbnail {
+    width:130px;
+    height:130px;
+    object-fit:cover;
 }
