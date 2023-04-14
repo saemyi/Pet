@@ -29,6 +29,6 @@ public class User {
     private int isNotifyMeetingClose;
     private int isNotifyComment;
     private int isNotifyReply;
-    private int isNotifyMeetingDeletion;
+    private int isNotifyMeetingDeletion; 
     private int isNotifyMeetingReOpening;
-}
+} 

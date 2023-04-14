@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
           LocalDate birthdate, String pw, String nickname) {
       return userDao.insertUser(userId, userName, profileImageFileName, phone, email, 
             address, detailedAddress, birthdate, pw, nickname);
-   }
+   } 
    
    @Override
       public List<User> admingetUsers() {

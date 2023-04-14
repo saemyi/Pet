@@ -74,7 +74,7 @@ public class UserDaoImpl implements UserDao{
    public void changeAdmin(User user) {
 	   userMap.changeAdmin(user);
    }
-   
+    
    @Override
    public void benUser(User user) {
 	   userMap.benUser(user);

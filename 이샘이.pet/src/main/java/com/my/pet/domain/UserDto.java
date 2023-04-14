@@ -32,4 +32,4 @@ public class UserDto {
     private int isNotifyReply; 
     private int isNotifyMeetingDeletion;
     private int isNotifyMeetingReOpening;
-} 
+}  

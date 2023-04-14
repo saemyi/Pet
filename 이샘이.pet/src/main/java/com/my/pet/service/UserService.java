@@ -25,4 +25,4 @@ public interface UserService {
 	void fixUserName(User user);
 	void fixUser(User user);
 	void fixPw(User user);
-}   
+}    

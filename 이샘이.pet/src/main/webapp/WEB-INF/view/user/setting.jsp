@@ -70,7 +70,7 @@
                 <span class="material-symbols-outlined">
                     add
                 </span>
-            </li>
+            </li> 
         </div>
         <div>
             <li class="nav-item" type="button" onclick="location.href='/'">

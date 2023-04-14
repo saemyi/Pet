@@ -221,7 +221,7 @@ public class UserController {
 		User user = userService.findUser(userId, pw);
 		if(user == null) {
 			return 0;
-		} else {
+		} else { 
 			return 1;
 		}
 	}

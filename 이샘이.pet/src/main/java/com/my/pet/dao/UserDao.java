@@ -23,4 +23,4 @@ public interface UserDao {
 	void benUser(User user);
 	void updateUserName(User user);
 	void updatePw(User user);
-}  
+}   

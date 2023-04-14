@@ -28,7 +28,7 @@
 			where phone = #{phone} and user_name = #{userName}
 		</select>
 		
-		<select id='selectNickname' resultType='int'>
+		<select id='selectNickname' resultType='int'> 
 			select count(nickname)
 			from users
 			where nickname = #{nickname}
