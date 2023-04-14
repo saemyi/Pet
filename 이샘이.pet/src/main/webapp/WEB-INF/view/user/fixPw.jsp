@@ -21,7 +21,7 @@ $(() => {
 			url: '/findUser',
 			method: 'post',
 			data: {pw:pw},
-			success: function(cnt) {
+			success: function(cnt) { 
 				if(cnt == 1) {
 					$.ajax({
 						url: '/fixPw',
@@ -49,6 +49,7 @@ $(() => {
     })
 })
 
+$(pwCheck)
 </script>
 <title>비밀번호 변경</title>
 <style>
@@ -73,17 +74,17 @@ $(() => {
 <div class='container'>
     <div class='row pt-3 mt-5'>
         <div class='col mt-5'>
-            <input type='text' class='form-control' name='pw' id='currentPw' placeholder='현재 비밀번호'/>
+            <input type='password' class='form-control' name='pw' id='currentPw' placeholder='현재 비밀번호' autocomplete="off"/>
         </div>
     </div>
     <div class='row mt-5'>
         <div class='col'>
-            <input type='password' class='form-control mb-3 pw' id='pw' placeholder='비밀번호'>
+            <input type='password' class='form-control mb-3 pw' id='pw' placeholder='비밀번호' autocomplete="off">
         </div>
     </div>
     <div class='row' id='confirmPw'>
-        <div class='col'>
-            <input type='password' class='form-control mb-3 pw' id='pwCheck' placeholder='비밀번호 재확인'>
+        <div class='col text-center'>
+            <input type='password' class='form-control mb-3 pw' id='pwCheck' placeholder='비밀번호 재확인' autocomplete="off"s>
         </div>
     </div>
 </div>
