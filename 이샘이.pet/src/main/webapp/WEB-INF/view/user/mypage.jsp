@@ -44,7 +44,11 @@ $(() => {
 					$('#userProfileImage').html("<p class='mt-5'>프로필이미지</p>")
 				}
 				$('#userNickname').text(user.nickname)
-				$('#userIntro').text(user.userIntro)
+				userIntro = user.userIntro
+				if(!userIntro) {
+					userIntro = '유저 소개가 없습니다.'
+				}
+				$('#userIntro').text(userIntro)
 			}
 		})
 	}
@@ -59,6 +63,10 @@ $(() => {
 				if(petsList.length) {
 					pets = []
 					petsList.forEach(pet => {
+						petIntro = pet.petIntro
+						if(!petIntro){
+							petIntro = '반려견 소개가 없습니다.'
+						}
 						if(pet.petProfileImageFilename != null) {
 							pets.unshift(
 								"<div class='card shadow mb-3'>" +
@@ -70,7 +78,7 @@ $(() => {
 					            "<div class='col-8'>" +
 					                "<h6><b>" + pet.petName + "</b></h6>" +
 					                "<hr>" +
-					                "<p>" + pet.petIntro + 
+					                "<p>" + petIntro + 
 					                "</p>" +
 					            "</div></div></div></div>")  
 						} else {
@@ -84,7 +92,7 @@ $(() => {
 					            "<div class='col-8'>" +
 					                "<h6><b>" + pet.petName + "</b></h6>" +
 					                "<hr>" +
-					                "<p>" + pet.petIntro + 
+					                "<p>" + petIntro + 
 					                "</p>" +
 					            "</div></div></div></div>"
 							)
