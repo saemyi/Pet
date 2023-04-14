@@ -21,6 +21,18 @@ $(() => {
     $('#fixLogo').click(() => {
         logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
         
+    let name = '${user.userProfileImageFilename}'
+    
+    if(name) {
+    	$('#profile').html(`<img class="image-thumbnail pt-1" src ="/attach/${user.userProfileImageFilename}"/>`)
+    }else {
+    	$('#profile').html(`<div class='box text-center image-box' id='userProfileImage'></div>
+		        <div class='col-7 mb-3'>
+	            <h5><b id='userNickname'></b></h5><hr>
+	            <p id='userIntro'></p>
+	        	</div>`)
+	    $('#profile').html("<p class='mt-5'>프로필이미지</p>")
+    }
     let isSuspended = ${user.isSuspended}
     let hasAdminRights = ${user.hasAdminRights}
     let str = '${user.phone}'
@@ -114,25 +126,45 @@ function adminPetList() {
 			if(petList.length){
 				pets = []
 				petList.forEach(pet => {
-					pets.unshift(
-					'<table class="table text-center mb-4">' +
-						'<tbody>' +
-							'<tr style="height: 1rem;">' + 
-		                    	'<td class="petBox image-box " rowspan="2" style="height: 7rem; width: 7rem; border: .1rem solid;">' +
-		                    		'<div class=image-box>' +
-										'<img class="image-thumbnail" src="/attach/' + pet.petProfileImageFilename + '"/>' +
-		                    		'</div>' +
-								'</td>' +
-		                    '<th style ="width: 10rem;">이름</th><td class="text-start">' + pet.petName + '</td>' +
-			                '</tr>' +
-			                '<tr>' +
-		                    	'<th>소개</th><td class="text-start">' + pet.petIntro + '</td>' +
-		    	            '</tr>' +
-		                '</tbody>' +
-		             '<table>'
-					)
-				})
-				$('#pets').append(pets.join(''))
+					let petProfileImageFilename = pet.petProfileImageFilename
+					
+					if(petProfileImageFilename) {
+						pets.unshift(
+								'<table class="table text-center mb-4">' +
+									'<tbody>' +
+										'<tr style="height: 1rem;">' + 
+					                    	'<td class="petBox image-box p-0" rowspan="2" style="height: 8rem; width: 8rem; border: .1rem solid;">' +
+					                    		'<div class=image-box>' +
+													'<img class="image-thumbnail" src="/attach/' + pet.petProfileImageFilename + '"/>' +
+					                    		'</div>' +
+											'</td>' +
+					                    '<th style ="width: 10rem;">이름</th><td class="text-start">' + pet.petName + '</td>' +
+						                '</tr>' +
+						                '<tr>' +
+					                    	'<th>소개</th><td class="text-start">' + pet.petIntro + '</td>' +
+					    	            '</tr>' +
+					                '</tbody>' +
+					             '<table>'
+								)
+					} else {
+						pets.unshift(
+								'<table class="table text-center mb-4">' +
+									'<tbody>' +
+										'<tr style="height: 1rem;">' + 
+					                    	'<td class="petBox image-box p-0" rowspan="2" style="height: 8rem; width: 8rem; border: .1rem solid;">' +
+					                    			'<p class="text-center mt-5">펫 프로필이미지</p>' +
+											'</td>' +
+					                    '<th style ="width: 10rem;">이름</th><td class="text-start">' + pet.petName + '</td>' +
+						                '</tr>' +
+						                '<tr>' +
+					                    	'<th>소개</th><td class="text-start"><pre>' + pet.petIntro + '</pre></td>' +
+					    	            '</tr>' +
+					                '</tbody>' +
+					             '<table>'
+								)
+							}
+							$('#pets').append(pets.join(''))
+					})
 			}else $('#pets').append(
 					`<p class="text-center">펫이 없습니다.</p>`
 			)
@@ -157,7 +189,7 @@ function adminMeetingList() {
 				`<table class="table text-center mb-4">
 					<tbody>
 						<tr>
-		                    <th style="width: 8rem;">제목</th><td class="text-start" style="width: 30rem;">` + meeting.meetingTitle + `</td> 
+		                    <th style="width: 8rem;">제목</th><td class="text-start">` + meeting.meetingTitle + `</td> 
 		                    <th>모임시간</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="` + meeting.meetingTime + `"disabled/></td>
 		                </tr>
 		                <tr>
@@ -166,9 +198,9 @@ function adminMeetingList() {
 		                </tr>
 		                <tr>
 		                    <th>내용</th>
-		                    <td class="text-start" colspan="3">` + 
+		                    <td class="text-start" colspan="3"><pre>` + 
 		                        meeting.meetingContent +
-		                    `</td>
+		                    `</pre></td>
 		                </tr>
 		             </tbody>
 	             </table>`
@@ -192,9 +224,9 @@ function goPage() {
 function init() {
 	$(adminPetList)
 	$(adminMeetingList)
-	let hasAdminRights = ${user.hasAdminRights}
+		let hasAdminRights = ${user.hasAdminRights}
 	$('#changeAdmin').click(() => {
-		if(hasAdminRights = 0){
+		if(hasAdminRights == 0){
 		$('#modalMsg').text('관리자 권한을 부여하시겠습니까?')
     	$('#modalBtn').hide()
     	$('#logoBtn').hide()
@@ -379,8 +411,8 @@ function init() {
             <tbody>
                 <tr>
                     <td class='pt-4' rowspan='5' style='border-right: .1rem solid; width: 9rem;'>
-                    <div class="image-box d-flex justify-content-center">
-                       <img class="image-thumbnail pt-1" src ="/attach/${user.userProfileImageFilename}"/> 
+                    <div class="image-box d-flex justify-content-center" id='profile'>
+                        
                     </div>
                     </td> 
                     <th style="width: 10rem;">이름</th><td><input type='text' style='border: none;' id='userName' placeholder='이름' value='${user.userName}'></td><th style='width: 15rem;'>생년월일</th><td>${user.birthdate}</td>
@@ -395,7 +427,7 @@ function init() {
                     <th>주소</th><td>${user.address}&nbsp;${user.detailedAddress}</td><th>관리자권한 및 이용정지</th><td id='isSuspended'></td>
                 </tr>
                 <tr>
-                    <th>소개</th><td colspan='3'>${user.userIntro}</td>
+                    <th>소개</th><td colspan='3'><pre>${user.userIntro}</pre></td>
                 </tr>
             </tbody>
         </table>

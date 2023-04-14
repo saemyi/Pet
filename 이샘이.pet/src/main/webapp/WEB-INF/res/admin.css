@@ -154,3 +154,7 @@ input[type="search"]:focus,
     height:130px;
     object-fit:cover;
 }
+
+pre {
+        font-family: var(--bs-font-sans-serif) !important;
+    }
