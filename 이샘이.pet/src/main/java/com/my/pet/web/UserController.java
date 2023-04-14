@@ -108,8 +108,8 @@ public class UserController {
 		userService.delUser(userId);
 		session.invalidate();
 		mv.setViewName("redirect:login");
-		return mv;
-	}
+		return mv;  
+	} 
 	
 	//아이디찾기
 	@GetMapping("findId")

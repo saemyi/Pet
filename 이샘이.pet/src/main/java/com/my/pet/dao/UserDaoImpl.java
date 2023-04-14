@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao{
 	public void deleteUser(String userId) {
 		userMap.deleteUser(userId);
 	}
-	
+	 
 	@Override
 	   public List<User> adminselectUsers() {
 	      return userMap.adminselectUsers();

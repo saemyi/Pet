@@ -24,4 +24,4 @@ public interface UserService {
 	void delUser(String userId);
 	void fixUserName(User user);
 	void fixUser(User user);
-}
+} 

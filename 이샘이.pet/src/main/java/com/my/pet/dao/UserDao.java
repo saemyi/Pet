@@ -22,4 +22,4 @@ public interface UserDao {
 	void changeAdmin(User user);
 	void benUser(User user);
 	void updateUserName(User user);
-}
+} 
