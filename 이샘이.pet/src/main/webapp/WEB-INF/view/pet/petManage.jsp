@@ -14,9 +14,11 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
 $(() => {
+	err("#petName", petName_check, ".result-petName", '<small class="errMsg">1자이상 10자이하 한글, 영어만 입력가능합니다.</small>')
+	
     $('#delBtn').click(() => {
     	if(!$('#petId:checked').val()) {
-    		confirmModal('삭제할 반려견을 선택하세요.')
+    		confirmModal('반려견을 선택하세요.')
     	} else {
     		if($('tr').length != 1) {
     		 	yesNoModal('반려견을 삭제하시겠습니까?')
@@ -45,35 +47,38 @@ $(() => {
 
 //펫추가
     $('#addBtn').click(() => {
-        var url = $("#petForm").attr("action");
-        var form = $('#petForm')[0];
-        var formData = new FormData(form);
+    	if(isVal($('#petName'))) {
+    		var url = $("#petForm").attr("action");
+            var form = $('#petForm')[0];
+            var formData = new FormData(form);
 
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: formData,
-                success: function() {
-                	 $('#image_container').empty();
-              	     $('#imageTxt').show();
-                     $('#petName').val('');
-                     $('#petIntro').val('');
-                     $('#UploadProfile').val('');
-                	getPets();
-                },
-                error: function (data) {
-                alert(data);
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-        })
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: formData,
+                    success: function() {
+                    	 $('#image_container').empty();
+                  	     $('#imageTxt').show();
+                         $('#petName').val('');
+                         $('#petIntro').val('');
+                         $('#UploadProfile').val('');
+                    	getPets();
+                    },
+                    error: function (data) {
+                    alert(data);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+            })
+    	}  
     })
     
     $('#pets').on({
     	change() {
     		var petProfile = $(this).parent().next().next().text()
-    		if(petProfile != "") {
+    		if(petProfile != "null") {
+    			console.log(petProfile)
 			$('#image_container').empty()
 			$('#imageTxt').hide();
 	    	var div = document.createElement("div");
@@ -84,48 +89,62 @@ $(() => {
 	        img.setAttribute("class", 'img-fluid image-thumbnail');
 	        img.setAttribute("style", 'width:130px; height:130px;');
 	        document.querySelector("div#image_container").appendChild(div).appendChild(img);
+    		} else {
+    			$('#image_container').empty()
+    			$('#imageTxt').show();
     		}
     		$('#petName').val($(this).parent().next().text())
-    		$('#petIntro').val($(this).parent().next().next().next().text())
+    		var petIntro = $(this).parent().next().next().next().text()
+    		if(petIntro == "null") {
+    			$('#petIntro').val(null)
+    		} else {
+    			$('#petIntro').val($(this).parent().next().next().next().text())
+    		}
     	}
     }, '#petId')
 
     //펫수정
 $('#fixBtn').click(() => {
-        var petId = $('#petId:checked').val();
-        var petName = $('#petName').val();
-        var petIntro = $('#petIntro').val();
-        if($('#uploadProfile').val()) {
-        	var petProfile = $('#uploadProfile')[0].files[0]
-        } else {
-        	var petProfileName = $('#petId:checked').parent().next().next().text()
-        }
-        var formData = new FormData();
-        formData.append('petProfile', petProfile);
-        formData.append('petProfileImageFilename', petProfileName);
-        formData.append('petName', petName);
-        formData.append('petIntro', petIntro);
-        formData.append('petId', petId);
+		if($('#petId:checked').val()) {
+			if(isVal($('#petName'))) {
+				var petId = $('#petId:checked').val();
+		        var petName = $('#petName').val();
+		        var petIntro = $('#petIntro').val();
+		        if($('#uploadProfile').val()) {
+		        	var petProfile = $('#uploadProfile')[0].files[0]
+		        } else {
+		        	var petProfileName = $('#petId:checked').parent().next().next().text()
+		        }
+		        var formData = new FormData();
+		        if(petProfile != null) {
+		        	formData.append('petProfile', petProfile);
+		        }
+		        formData.append('petProfileImageFilename', petProfileName);
+		        formData.append('petName', petName);
+		        formData.append('petIntro', petIntro);
+		        formData.append('petId', petId);
 
-        $.ajax({
-            url: '/pet/fix',
-            type: 'put',
-            data: formData,
-            success: function () {
-            	 $('#image_container').empty();
-          	   	 $('#imageTxt').show();
-                 $('#petName').val('');
-                 $('#petIntro').val('');
-                 $('#UploadProfile').val('');
-                getPets();
-            },
-            error: function (data) {
-                alert(data);
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        })
+		        $.ajax({
+		            url: '/pet/fix',
+		            type: 'put',
+		            data: formData,
+		            success: function () {
+		            	 $('#image_container').empty();
+		          	   	 $('#imageTxt').show();
+		                 $('#petName').val('');
+		                 $('#petIntro').val('');
+		                 $('#UploadProfile').val('');
+		                getPets();
+		            },
+		            error: function (data) {
+		                alert(data);
+		            },
+		            cache: false,
+		            contentType: false,
+		            processData: false
+		        })
+			}  
+		} else confirmModal("반려견을 선택하세요.")
     })
 })
 
@@ -140,12 +159,10 @@ function getPets() {
                 if(petsList.length) {
                 pets = []
                 petsList.forEach(pet => {
-                    if(pet.petProfileImageFilename != null) {
-                        pets.unshift(
-                            "<tr><td style='text-align: start;'><input name='petId' id='petId' type='radio' value='" + pet.petId +"'/></td><td>" +
-                                pet.petName  + "</td><td hidden>" +pet.petProfileImageFilename + "</td><td hidden>"+pet.petIntro+"</td></tr>"
-                        )
-                    }
+                    pets.unshift(
+                        "<tr><td style='text-align: start;'><input name='petId' id='petId' type='radio' value='" + pet.petId +"'/></td><td>" +
+                            pet.petName  + "</td><td hidden>" +pet.petProfileImageFilename + "</td><td hidden>"+pet.petIntro+"</td></tr>"
+                    )
                 })
              $('#pets').append(pets.join(''))
             } else $('#pets').append(
@@ -213,6 +230,7 @@ $(upLoadImg)
         <div class='row'>
             <div class='col'>
                 <input type='text' name='petName' id='petName' class='form-control mb-3'  placeholder='반려견 이름'>
+                <div id="errorMsg" class="result-petName result-check"></div>
             </div>
         </div>
         <div class='row mb-1'>
@@ -269,21 +287,21 @@ $(upLoadImg)
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../meeting/02.html'">
+            <li class="nav-item" type="button" onclick="location.href='../meeting/add'">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../user/main.html'">
+            <li class="nav-item" type="button" onclick="location.href='/'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../user/mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='/user/mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>

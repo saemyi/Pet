@@ -45,7 +45,7 @@ textarea {
 	                            <div class='col'>
 	                                <div class='row'>
 	                                    <div class='col-auto pe-0'>
-	                                        <button type='button' class='border-0'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
+	                                        <button type='button' class='border-0 nickname\${comment.userId}'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
 	                                    </div>
 	                                    <div class='col'>
 	                                        <p style='font-size: 0.5rem;'>\${comment.commentTime}</p>
@@ -79,7 +79,8 @@ textarea {
 	                    )
 	                })  
 	                $('#comments').append(commentArr.join('')) 
-	                
+	                $('.nickname${userId}').removeAttr("onclick")
+	                $('.nickname${userId}').attr("onclick","location.href='../user/mypage'")
 	                $('.dropmenu${userId}').removeAttr("style")               
 	            } else $('#comments').append(
 	                '<tr><td colspan=4 class=text-center> 댓글이 없습니다.</td></tr>')            
