@@ -33,6 +33,13 @@ $(() => {
 	        	</div>`)
 	    $('#profile').html("<p class='mt-5'>프로필이미지</p>")
     }
+    let userIntro = '${user.userIntro}'
+    
+    if(!userIntro) {
+    	userIntro = '유저 소개가 없습니다.'
+    	$('#userIntro').text(userIntro)
+    }
+    
     let isSuspended = ${user.isSuspended}
     let hasAdminRights = ${user.hasAdminRights}
     let str = '${user.phone}'
@@ -127,13 +134,16 @@ function adminPetList() {
 				pets = []
 				petList.forEach(pet => {
 					let petProfileImageFilename = pet.petProfileImageFilename
-					
+					let petIntro = pet.petIntro
+					if(!petIntro){
+						petIntro = '펫 소개가 없습니다.'
+					}
 					if(petProfileImageFilename) {
 						pets.unshift(
 								'<table class="table text-center mb-4">' +
 									'<tbody>' +
 										'<tr style="height: 1rem;">' + 
-					                    	'<td class="petBox image-box p-0" rowspan="2" style="height: 8rem; width: 8rem; border: .1rem solid;">' +
+					                    	'<td class="petBox image-box" rowspan="2" style="height: 8rem; width: 8rem; border: .1rem solid;">' +
 					                    		'<div class=image-box>' +
 													'<img class="image-thumbnail" src="/attach/' + pet.petProfileImageFilename + '"/>' +
 					                    		'</div>' +
@@ -141,7 +151,7 @@ function adminPetList() {
 					                    '<th style ="width: 10rem;">이름</th><td class="text-start">' + pet.petName + '</td>' +
 						                '</tr>' +
 						                '<tr>' +
-					                    	'<th>소개</th><td class="text-start">' + pet.petIntro + '</td>' +
+					                    	'<th>소개</th><td class="text-start"><pre>' + petIntro + '</pre></td>' +
 					    	            '</tr>' +
 					                '</tbody>' +
 					             '<table>'
@@ -151,13 +161,13 @@ function adminPetList() {
 								'<table class="table text-center mb-4">' +
 									'<tbody>' +
 										'<tr style="height: 1rem;">' + 
-					                    	'<td class="petBox image-box p-0" rowspan="2" style="height: 8rem; width: 8rem; border: .1rem solid;">' +
+					                    	'<td class="petBox image-box" rowspan="2" style="height: 8rem; width: 8rem; border: .1rem solid;">' +
 					                    			'<p class="text-center mt-5">펫 프로필이미지</p>' +
 											'</td>' +
 					                    '<th style ="width: 10rem;">이름</th><td class="text-start">' + pet.petName + '</td>' +
 						                '</tr>' +
 						                '<tr>' +
-					                    	'<th>소개</th><td class="text-start"><pre>' + pet.petIntro + '</pre></td>' +
+					                    	'<th>소개</th><td class="text-start"><pre>' + petIntro + '</pre></td>' +
 					    	            '</tr>' +
 					                '</tbody>' +
 					             '<table>'
@@ -427,7 +437,7 @@ function init() {
                     <th>주소</th><td>${user.address}&nbsp;${user.detailedAddress}</td><th>관리자권한 및 이용정지</th><td id='isSuspended'></td>
                 </tr>
                 <tr>
-                    <th>소개</th><td colspan='3'><pre>${user.userIntro}</pre></td>
+                    <th>소개</th><td colspan='3'><pre id='userIntro'></pre></td>
                 </tr>
             </tbody>
         </table>
