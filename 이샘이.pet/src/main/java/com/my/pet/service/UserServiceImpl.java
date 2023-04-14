@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService{
    }
    
    @Override
+   public User findUser(String userId, String pw) {
+	   return userDao.selectUser(userId, pw); 
+   }
+   
+   @Override
    public User searchUserId(String phone, String userName) {
       return userDao.findUserId(phone, userName); 
    }
@@ -91,5 +96,10 @@ public class UserServiceImpl implements UserService{
    @Override
    public void fixUser(User user) {
 	   userDao.updateUser(user);
+   }
+   
+   @Override
+   public void fixPw(User user) {
+	   userDao.updatePw(user);
    }
 } 

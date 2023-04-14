@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -128,6 +129,7 @@ public class UserController {
 		return userId;
 	}
 	
+	
 	//회원가입화면
 	@GetMapping("userJoin")
 	public ModelAndView joinIn(ModelAndView mv) {
@@ -194,8 +196,36 @@ public class UserController {
 		mv.setViewName("redirect:user/mypage");
 		return mv;
 	}
+	
+	//비밀번호변경
+	@GetMapping("fixPw")
+	public ModelAndView fixPwView(ModelAndView mv) {
+		mv.setViewName("user/fixPw");
+		return mv;
+	}
+	
+	
+	@PutMapping("fixPw")
+	public void fixPw(ModelAndView mv, HttpSession session, User user) {
+		System.out.println(user);
+		String userId = (String)session.getAttribute("userId");
+		user.setUserId(userId);
+		userService.fixPw(user);
+		System.out.println("성공");
+	}
 
-
+	//비밀번호 체크
+	@PostMapping("findUser")
+	public int findUser(HttpSession session, @RequestParam("pw") String pw) {
+		String userId = (String)session.getAttribute("userId");
+		User user = userService.findUser(userId, pw);
+		if(user == null) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+	
 	//아이디 중복체크
 	@PostMapping("idCheck")
 	@ResponseBody

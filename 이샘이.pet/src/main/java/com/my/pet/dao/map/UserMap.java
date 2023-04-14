@@ -22,4 +22,5 @@ public interface UserMap {
 	int changeAdmin(User user);
 	int benUser(User user);
 	int updateUserName(User user);
+	int updatePw(User user); 
 }  

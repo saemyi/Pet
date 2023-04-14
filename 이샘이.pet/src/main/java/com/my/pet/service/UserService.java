@@ -9,6 +9,7 @@ public interface UserService {
 	int duplicateCheckUserId(String userId);
 	int duplicateCheckNickname(String nickname);
 	User loginUser(String userId, String pw); 
+	User findUser(String userId, String pw); 
 	User getMypage(String userId);
 	User searchUserId(String phone, String userName);
 	int joinUser(String userId, String userName, String profileImageFileName,
@@ -23,4 +24,5 @@ public interface UserService {
 	void delUser(String userId);
 	void fixUserName(User user);
 	void fixUser(User user);
+	void fixPw(User user);
 }   

@@ -84,4 +84,9 @@ public class UserDaoImpl implements UserDao{
    public void updateUserName(User user) {
 	   userMap.updateUserName(user);
    }
+   
+   @Override
+   public void updatePw(User user) {
+	   userMap.updatePw(user);
+   }
 }

@@ -11,76 +11,90 @@
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<title>설정</title>
-<style>
-</style>
-<script> 
-   $(() => {
-    $('#logout').click(() => {
-        yesNoModal('로그아웃 하시겠습니까?','../logout')})
+<script>
 
-    $('#delUser').click(() => {
-    yesNoModal('회원탈퇴 후, 복구가 불가능합니다.<br>정말 탈퇴하시겠습니까?','../delUser')})    
+$(() => {
+    $('#fixBtn').click(() => {
+    	var pw = $('#currentPw').val()
+    	
+    	$.ajax({
+			url: '/findUser',
+			method: 'post',
+			data: {pw:pw},
+			success: function(cnt) {
+				if(cnt == 1) {
+					$.ajax({
+						url: '/fixPw',
+						method: 'put',
+						data: {pw: $('#pw').val()},
+						success: confirmModal("비밀번호 변경 완료! 다시 로그인해주세요.")
+					})
+				} else {
+					confirmModal("현재 비밀번호가 틀렸습니다. 다시 확인해주세요.")
+				}
+			}
+		})
+    })
+    
+    $('#bt')
 })
+
 </script>
+<title>비밀번호 변경</title>
+<style>
+    
+</style>
 <body>
-<div class='row d-flex justify-content-end'>
-    <nav class="navbar fixed-top bg-orange p-3">
-        <div class='row'>
-            <div class='col d-flex justify-content-start'>
-                <i class='bi bi-chevron-left' onclick="history.back();"></i>
-            </div>
-        </div>
-        <div class='col text-center me-4'>
-            <b>설정</b>
-        </div>
-    </nav>
-</div>
-<div class='container'>
-    <div class='row m-1'>
-        <div class='col'>
-            <div class='row mb-3'>
-                <button type='button' class='btn btn-lightgray' onclick="location.href='../user/userFix'">회원정보수정</button>
-            </div>
-            <div class='row mb-3'>
-                <button type='button' class='btn btn-lightgray'onclick="location.href='../pet/manage'">반려견 관리</button>
-            </div>
-            <div class='row mb-3'>
-                <button type='button' class='btn btn-lightgray' onclick="location.href='/fixPw'">비밀번호 변경</button>
-            </div>
-            <div class='row mb-3'>
-                <button type='button' class='btn btn-lightgray' onclick="location.href='../alarm/02.html'">알람설정</button>
-            </div>
-            <div class='row mb-3'>
-                <button type='button' class='btn btn-lightgray' onclick="location.href='/report'">신고</button>
-            </div>
-            <div class='row mb-3'>
-                <button type='button' class='btn btn-lightgray' id='logout'>로그아웃</button>
-            </div>
+    <div class='row d-flex justify-content-end'>
+        <nav class="navbar fixed-top bg-orange p-3">
             <div class='row'>
-                <button type='button' class='btn btn-lightgray' id='delUser'>회원탈퇴</button>
+                <div class='col-3 d-flex justify-content-start'>
+                    <i class='bi bi-chevron-left' onclick="history.back();"></i>
+                </div>
             </div>
+            <div class='col-6 text-end me-3'>
+                <b>비밀번호 변경</b>
+            </div>
+            <div class='col-3 d-flex justify-content-end'>
+                <button type='button' class='btn btn-muted' id='fixBtn'>변경</button>
+            </div>
+        </nav>
+    </div>
+<div class='container'>
+    <div class='row pt-3 mt-5'>
+        <div class='col mt-5'>
+            <input type='text' class='form-control' name='pw' id='currentPw' placeholder='현재 비밀번호'/>
+        </div>
+    </div>
+    <div class='row mt-5'>
+        <div class='col'>
+            <input type='password' class='form-control mb-3 pw' id='pw' placeholder='비밀번호'>
+        </div>
+    </div>
+    <div class='row' id='confirmPw'>
+        <div class='col'>
+            <input type='password' class='form-control mb-3 pw' id='pwCheck' placeholder='비밀번호 재확인'>
         </div>
     </div>
 </div>
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../meeting/add'">
+            <li class="nav-item" type="button" onclick="location.href='../meeting/02.html'">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='/'">
+            <li class="nav-item" type="button" onclick="location.href='../main.html'">
                 <span class="material-symbols-outlined">
                     format_list_bulleted
                 </span>
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='./mypage'">
+            <li class="nav-item" type="button" onclick="location.href='../user/mypage.html'">
                 <span class="material-symbols-outlined">
                     person
                 </span>
@@ -88,6 +102,7 @@
         </div>
     </div>
 </nav>
+</body>
 <div class='modal fade' id='modal'>
     <div class='modal-dialog modal-dialog-centered'>
         <div class='modal-content'>
@@ -109,5 +124,4 @@
         </div>
     </div>
 </div>
-</body>
 </html>

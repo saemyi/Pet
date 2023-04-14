@@ -104,17 +104,15 @@ function phone_check(input) {
 }
 //이메일 유효성검사
 function email_check(input) {    
-    var regex=/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
+    var regex=/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]$/; 
     return (input != '' && input != 'undefined' && regex.test(input)); 
 }
 
 //펫이름 유효성검사
 function petName_check(input) {    
-    var regex=/^[가-힣A-Za-z]{1,10}+/; 
+    var regex=/^[가-힣A-Za-z]{1,10}$/; 
     return (input != '' && input != 'undefined' && regex.test(input)); 
 }
-
-
 
 function isVal(field) {
     let isGood = false
