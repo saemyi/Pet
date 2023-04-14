@@ -121,7 +121,7 @@ p {
             </li>
         </div>
         <div>
-            <li class="nav-item" type="button" onclick="location.href='../user/mypage.html'">
+            <li class="nav-item" type="button" onclick="location.href='../user/mypage'">
                 <span class="material-symbols-outlined">
                     person
                 </span>
