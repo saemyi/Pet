@@ -22,8 +22,25 @@ function getParticipantData() {
 		url: 'getMeetingCreator',
 		dataType: 'json',
 		success: participant => {
-			$('.userId').eq(0).html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + participant.userId)
-			$('.userIntro').eq(0).text(participant.userIntro)
+			if(participant.userProfileImageFilename != null) {
+				$('#ownerProfile').html(
+					`<div class='box image-box m-0 p-0 d-flex justify-content-center' id='userProfileImage'></div>
+					<div class='col-7 mb-3'>
+						<h5><b id='userNickname'></b></h5><hr>
+						<p id='userIntro'></p>
+					</div>`)
+				$('#userProfileImage').html("<img src='/attach/" + participant.userProfileImageFilename + "' class='image-thumbnail'/>")
+			} else {
+				$('#ownerProfile').html(
+					`<div class='box text-center image-box' id='userProfileImage'></div>
+					<div class='col-7 mb-3'>
+						<h5><b id='userNickname'></b></h5><hr>
+						<p id='userIntro'></p>
+					</div>`)
+				$('#userProfileImage').html("<p class='mt-5'>프로필이미지</p>")
+			}
+			$('#userNickname').html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + participant.nickname)
+			$('#userIntro').text(participant.userIntro)
 		}
 	})
 	
@@ -38,14 +55,12 @@ function getParticipantData() {
 					participantArr.push(
 						`<div class="card shadow mb-3">
 							<div class="card-body">
-								<div class="row">
-									<div class='joinBox text-center p-3' onclick='location.href="../user/08.html"'>
-										<p class='mt-4'><small>프로필이미지</small></p>
-									</div>
-									<div class="col-8">
-										<h6><b class='userId'>` + participant.userId + `</b></h6>
+								<div class="row">` +
+									(participant.userProfileImageFilename != null ? `<div class='box image-box m-0 p-0 d-flex justify-content-center'><img src='/attach/` + participant.userProfileImageFilename + `' class='image-thumbnail'/></div>` : `<div class='box text-center image-box'><p class='mt-5'>프로필이미지</p></div>`) +
+									`<div class="col-7">
+										<h6><b>` + participant.nickname + `</b></h6>
 										<hr>
-										<p class='card-text userIntro'>` + participant.userIntro + `</p>
+										<p>` + participant.userIntro + `</p>
 									</div>
 								</div>
 							</div>
@@ -87,21 +102,14 @@ p {
     </div>
 <div class='container'>
 <div class='row'>
-    <div class='col'>
-        <input type='text' class='form-control text-center mb-3' style='border: none; background-color: none;' value='참여자' disabled/>
-        <div class='row p-3 d-flex justify-content-center'>
-            <div class='box text-center p-2' onclick='location.href="../user/08.html"'>
-                <p class='mt-5'>프로필이미지</p>
-            </div>
-            <div class='col-7 mb-3'>
-                <h5><b><span class='userId'></span></b></h5><hr>
-                <p class='card-text userIntro'></p>
-            </div>
-        </div>
-        <hr>
-        <div id='participants'>
-        </div>
-    </div>
+	<div class='col'>
+		<input type='text' class='form-control text-center mb-3' style='border: none; background-color: none;' value='참여자' disabled/>
+		<div class='row p-3 d-flex justify-content-center' id='ownerProfile'>
+		</div>
+		<hr>
+		<div id='participants'>
+		</div>
+	</div>
 </div>
 </div>
 <nav class="navbar fixed-bottom bg-orange">

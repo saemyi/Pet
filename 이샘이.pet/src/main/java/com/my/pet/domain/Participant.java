@@ -7,4 +7,5 @@ public class Participant {
 	private String userId;
 	private String userIntro;
 	private String userProfileImageFilename;
+	private String nickname;
 }

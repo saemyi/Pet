@@ -3,14 +3,14 @@
 	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 <mapper namespace='com.my.pet.dao.map.ParticipantMap'>
 	<select id='selectMeetingCreator' resultType='participant'>
-		select user_id, user_intro, user_profile_image_filename
+		select user_id, user_intro, user_profile_image_filename, nickname
 		from meetings m join users u
 		using (user_id)
 		where meeting_id = #{meetingId}
 	</select>
 	
 	<select id='selectParticipants' resultType='participant'>
-		select user_id, user_intro, user_profile_image_filename
+		select user_id, user_intro, user_profile_image_filename, nickname
 		from participants p join users u
 		using (user_id)
 		where meeting_id = #{meetingId}
