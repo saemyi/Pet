@@ -195,7 +195,7 @@ $(getPets)
 $(upLoadImg)
 </script>
 <title>반려견 관리</title>
-<style>
+<style>  
     
 </style>
 </head>
@@ -208,7 +208,7 @@ $(upLoadImg)
             </div>
         </div>
         <div class='col-6 text-end me-3'>
-            <b>반려견 수정</b>
+            <b>반려견 관리</b>
         </div>
         <div class='col-3'></div>
     </nav>

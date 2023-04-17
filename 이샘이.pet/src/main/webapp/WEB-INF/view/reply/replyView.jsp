@@ -31,7 +31,7 @@ textarea {
 
 </style>
 <script>
-	function getComment(){
+	function listReplies(){
 		$('#comment').empty()
 		 $.ajax({
 			 url:'getComment/' +${commentId},
@@ -42,7 +42,7 @@ textarea {
 		                     	<div class='col'>
 		                         <div class='row'>
 		                             <div class='col-auto pe-0'>
-		                                 <button type='button' class='border-0 nickname\${comment.userId}'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
+		                                 <button type='button' class='border-0 nickname\${comment.userId}'onclick="location.href='/profile/\${comment.userId}'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
 		                             </div>
 		                             <div class='col'>
 		                                 <p style='font-size: 0.5rem;'>\${comment.commentTime}</p>
@@ -81,11 +81,9 @@ textarea {
 			error: function(){
 				location.href = document.referrer
 			}
-		 })	 
-	}
-	
-	function listReplies() { 
-		 $('#replies').empty()
+		 })
+		 
+		  $('#replies').empty()
 		 $.ajax({
 			 url:'get/' + ${commentId}, 
 			 dataType: 'json',
@@ -101,7 +99,7 @@ textarea {
 									            	<i class="bi bi-arrow-return-right"></i>
 									        	</div>
 								                <div class='col-auto'>
-								                    <button type='button' class='border-0 nickname\${reply.userId}' onclick="location.href='../login'"><b style='font-size: 0.7rem;'>\${reply.nickname}</b></button>
+								                    <button type='button' class='border-0 nickname\${reply.userId}' onclick="location.href='/profile/\${reply.userId}'"><b style='font-size: 0.7rem;'>\${reply.nickname}</b></button>
 								                </div>
 								                <div class='col'>
 								                    <p style='font-size: 0.3rem;'>\${reply.replyTime}</p>
@@ -136,7 +134,7 @@ textarea {
 		            '<tr><td colspan=4 class=text-center> 답글이 없습니다.</td></tr>')
 			 }
 		 })
-	}  
+	}
 	
 	function ReplySend(){ 
 		$('#replyErr').empty()
@@ -215,7 +213,7 @@ textarea {
        	            contentType: 'application/json',
        	        	data: JSON.stringify(comment),
        	            success: function(){
-       	            	getComment()
+       	            	listReplies()
        	            	$('#modal').modal('hide'); 
        	             	$('#modal').hide(); 
                     }
@@ -232,11 +230,10 @@ textarea {
             $.ajax({
                 url: 'delComment/' + comId,
                 method: 'delete',
-                success: getComment
+                success: listReplies
             })
         })  
 	}
-$(getComment)
 $(listReplies)    
 </script>
 <body>
