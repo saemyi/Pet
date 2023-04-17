@@ -14,7 +14,9 @@
 <script type="application/javascript" src="../../res/hangjungdong.js"></script>
 <title>모임리스트</title>
 <style>
-
+ td {
+ 	font-size: 12px !important;
+ }
 </style>
 <script>
 let dataPerPage = 10;
@@ -108,7 +110,7 @@ function meetingList(currentPage, dataPerPage) {
 				totalData = meetingArr.length
 				viewPagination(totalData, dataPerPage, pageCount, currentPage)
 			} else {
-				$('#meetings').append('<tr><td colspan=7 class=text-center>모임이 없습니다.</td></tr>')
+				$('#meetings').append('<tr><td colspan=6 class=text-center>모임이 없습니다.</td></tr>')
 			}
 			
 			$('#sigugun').css("display", "none")
@@ -126,7 +128,6 @@ function fillMeetingsArray(meetings) {
 		
 		meetingArr.push(
 			`<tr>
-				<td></td>
 				<td><a href='/admin/meeting/` + meeting.meetingId + `' class='a-black'>` + meeting.meetingTitle + `</a></td> 
 				<td>` + $('#sido option:selected').text() + ' ' + $('#sigugun option:selected').text() + ' ' + $('#dong option:selected').text() + `</td>
 				<td><input type='datetime-local' class='form-control text-center' style='border:none; background: none; font-size: 12px; padding: 1px;' value='` + meeting.meetingTime + `' disabled/></td>
@@ -136,7 +137,7 @@ function fillMeetingsArray(meetings) {
 			</tr>`
 		)
 	})
-	
+	 
 	return meetingArr
 }
 
@@ -177,7 +178,7 @@ function search(currentPage, dataPerPage) {
 				totalData = meetingArr.length
 				searchPagination(totalData, dataPerPage, pageCount, currentPage)
 			} else {
-				$('#meetings').append('<tr><td colspan=7 class=text-center>모임이 없습니다.</td></tr>')
+				$('#meetings').append('<tr><td colspan=6 class=text-center>모임이 없습니다.</td></tr>')
 			}
 			
 			$('#sigugun').css("display", "none")
@@ -377,20 +378,22 @@ $(init)
 		</div>
 	</div>
 </div>
-<div class='row mt-4 sm'>
+<div class='row mt-4'>
     <div class='col'>
-        <table class='table text-center'>
-            <thead class='table sm'>
-                <tr><th></th><th style='width: 6rem;'>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
+        <table class='table text-center sm'>
+            <thead class='table'>
+                <tr><th style='width: 15rem;'>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
             </thead>
             <tbody id='meetings'>
             </tbody>
         </table>
+        <div class='row'>
         <div class='col gap-2 d-flex justify-content-center'>
             <nav aria-label="Page navigation example">
                 <ul class="pagination" id='pages'>
                 </ul>
             </nav>
+        </div>
         </div>
     </div>
 </div>

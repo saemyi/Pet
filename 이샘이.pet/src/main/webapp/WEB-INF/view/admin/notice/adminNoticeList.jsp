@@ -10,6 +10,9 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지리스트</title>
 <style>
+ td {
+ 	font-size: 12px !important;
+ }
 </style>
 <script>
 var totalData;
