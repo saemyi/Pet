@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.my.pet.domain.Logo;
 import com.my.pet.domain.LogoDto;
@@ -28,13 +27,11 @@ public class LogoController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView addLogo(ModelAndView mv, Logo logo, LogoDto logoDto) {
-		String filename = logoDto.getFile().getOriginalFilename(); 
+	public void addLogo(Logo logo, LogoDto logoDto) {
+		String filename = logoDto.getFile().getOriginalFilename();
 		saveFile(attachPath + "/" + filename, logoDto.getFile()); 
 		logo.setImageFilename(filename);
 		logoService.addLogo(filename); 
-		//mv.setViewName("redirect:/admin");
-		return mv;
 	}
 	
 	private void saveFile(String filename, MultipartFile file) {
@@ -42,5 +39,4 @@ public class LogoController {
 			file.transferTo(new File(filename));
 		} catch(IOException e) {}
 	}
-	
 }

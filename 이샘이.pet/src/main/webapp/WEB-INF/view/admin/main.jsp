@@ -20,23 +20,28 @@ let globalCurrentPage = 1;
 let imageFilename;
 $(() => {
 	$('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="/logo/add"  method="post">' + 
-        				'<input type="file" name="file" id="imageFilename"/>'+
+        logoModal( '<form id="logoForm" encType="multipart/form-data" action="/logo/add" method="post">' + 
+        				'<input type="file" name="file" id="imageFile" accept="image/*"/>'+
         		   '</form>' 
         )
     })
     
     $('#fixBtn').click(() => {
-    	 let logo ={
-    		imageFilename: $('#imageFilename').val() 
-    	} 
+    	 var form = $('#logoForm')[0];
+         var formData = new FormData(form);
+         
      	$.ajax({
          	url: 'logo/add',
          	method: 'post',
-         	data: logo,
-         	success: $('#logoForm').submit()  /* $('#logoForm').submit()  */	   
+         	data: formData,
+         	success: console.log("성공"),
+         	 error: function (data) {
+             alert(data);
+             },
+             cache: false,
+             contentType: false,
+             processData: false
     	 })
-    	 location.replace("/admin")
      })
 })
 

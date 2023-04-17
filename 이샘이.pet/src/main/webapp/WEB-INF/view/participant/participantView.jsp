@@ -30,6 +30,7 @@ function getParticipantData() {
 						<p id='userIntro'></p>
 					</div>`)
 				$('#userProfileImage').html("<img src='/attach/" + participant.userProfileImageFilename + "' class='image-thumbnail'/>")
+				$('#ownerProfile').attr('onclick', 'location="/profile/' + participant.userId +'"')
 			} else {
 				$('#ownerProfile').html(
 					`<div class='box text-center image-box' id='userProfileImage'></div>
@@ -38,6 +39,7 @@ function getParticipantData() {
 						<p id='userIntro'></p>
 					</div>`)
 				$('#userProfileImage').html("<p class='mt-5'>프로필이미지</p>")
+				$('#ownerProfile').attr('onclick', 'location="/profile/' + participant.userId +'"')
 			}
 			$('#userNickname').html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + participant.nickname)
 			if(!participant.userIntro) participant.userIntro = '유저 소개가 없습니다.'
@@ -54,7 +56,7 @@ function getParticipantData() {
 				
 				$.each(participants, (i, participant) => {
 					participantArr.push(
-						`<div class="card shadow mb-3">
+						`<div class="card shadow mb-3" id='participantProfile' type='button' onclick="location='/profile/\${participant.userId}'">
 							<div class="card-body">
 								<div class="row">` +
 									(participant.userProfileImageFilename != null ? `<div class='box image-box m-0 p-0 d-flex justify-content-center'><img src='/attach/` + participant.userProfileImageFilename + `' class='image-thumbnail'/></div>` : `<div class='box text-center image-box'><p class='mt-5'>프로필이미지</p></div>`) +
@@ -68,7 +70,6 @@ function getParticipantData() {
 						</div>`
 					)
 				})
-				
 				$('#participants').append(participantArr.join(''))
 			}
 		}
@@ -105,7 +106,7 @@ p {
 <div class='row'>
 	<div class='col'>
 		<input type='text' class='form-control text-center mb-3' style='border: none; background-color: none;' value='참여자' disabled/>
-		<div class='row p-3 d-flex justify-content-center' id='ownerProfile'>
+		<div class='row p-3 d-flex justify-content-center' id='ownerProfile' type='button'>
 		</div>
 		<hr>
 		<div id='participants'>

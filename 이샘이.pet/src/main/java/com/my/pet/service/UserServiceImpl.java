@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService{
    }
    
    @Override
+   public User userProfile(String userId) {
+	   return userDao.selectUser(userId, null);
+   }
+   
+   @Override
    public User loginUser(String userId, String pw) {
       return userDao.selectUser(userId, pw); 
    }

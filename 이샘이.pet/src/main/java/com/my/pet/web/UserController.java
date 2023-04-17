@@ -183,20 +183,17 @@ public class UserController {
 			mv.setViewName("user/userFix");
 			return mv;
 		}
-		 
-	//회원프로필조회
-		@GetMapping("user/{userId}")
-		public ModelAndView userView(ModelAndView mv) {
-			mv.setViewName("redirect: user/userProfile");
-			return mv;
-		}
 		
-		@PostMapping("userProfile")
+		@GetMapping("profile/{userId}")
 		public ModelAndView userProfile(ModelAndView mv, @PathVariable String userId, HttpSession session) {
-			if(userId == (String)session.getAttribute("userId")) {
-				mv.setViewName("user/mypage");
+			String myId = (String)session.getAttribute("userId");
+			if(userId == myId) {
+				System.out.println("저입니다.");
+				mv.setViewName("redirect:user/mypage");
 			} else {
-				mv.setViewName("user/" + userId);
+				User user = userService.userProfile(userId);
+				mv.addObject(user);
+				mv.setViewName("user/userProfile");
 			}
 			return mv;
 		}

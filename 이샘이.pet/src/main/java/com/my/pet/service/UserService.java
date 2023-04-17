@@ -11,6 +11,7 @@ public interface UserService {
 	User loginUser(String userId, String pw); 
 	User findUser(String userId, String pw); 
 	User getMypage(String userId);
+	User userProfile(String userId);
 	User searchUserId(String phone, String userName);
 	int joinUser(String userId, String userName, String profileImageFileName,
 			 String phone, String email, String address, String detailedAddress,
