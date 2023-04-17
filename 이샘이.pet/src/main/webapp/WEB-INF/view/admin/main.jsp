@@ -17,11 +17,29 @@ var dataList;
 let dataPerPage = 10;
 let pageCount = 10;
 let globalCurrentPage = 1;
+let imageFilename;
 $(() => {
-    $('#fixLogo').click(() => {
-        logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
+	$('#fixLogo').click(() => {
+        logoModal( '<form id="logoForm" encType="multipart/form-data" action="logo/add"  method="post">' + 
+        				'<input type="file" name="file" id="imageFilename"/>' +
+        		   '</form>' 
+        )
+    })
+    
+    $('#fixBtn').click(() => {
+    	 let logo ={
+    		imageFilename: $('#imageFilename').val() 
+    	} 
+     	$.ajax({
+         	url: 'logo/add',
+         	method: 'post',
+         	data: logo,
+         	success: $('#logoForm').submit() 	   
+    	 })
+     })
 })
-	function userCount() {
+
+function userCount() {
 	$.ajax({
 		url: 'admin/user/count',
 		success: userCount => {

@@ -41,5 +41,4 @@ public class ReportDaoImpl implements ReportDao{
 	public void changeProcessed(Report report) {
 		reportMap.changeProcessed(report);
 	}
-
 }

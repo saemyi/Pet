@@ -1,7 +1,5 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
-<%
-		
-%>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +27,21 @@ $(() => {
   	})  
 })
 
+function getImage(){
+	$.ajax({
+	   	url: 'logo/get',
+		success: logo => {
+			if(logo){
+				$('#getLogoImage').attr('src', '<c:url value="/attach/'+ logo.imageFilename +'"/>')
+				$('#emptyLogo').hide()
+			}else{
+				$('#emptyLogo').show()
+			}
+		}
+  	})
+}
+
+$(getImage)
 </script> 
 </head>
 <body>
@@ -38,9 +51,12 @@ $(() => {
         <form method='post' id='loginForm'>
             <div class='row'>
                 <div class='col d-flex justify-content-center'>
-                    <div class='logoBox p-5'>
+                    <div id='emptyLogo' class='logoBox p-5'>
                         <p class='d-flex text-center ms-3 mt-5 p-5'>로고이미지</p>
                     </div> 
+                    <div>
+                    	<img class='getLogoBox' id='getLogoImage'/>
+                    </div>
                 </div>
             </div>
             <div class='row mt-5 mb-2'>
