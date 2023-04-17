@@ -12,29 +12,6 @@
 <style>
 </style>
 <script>
-let imageFilename;
-$(() => {
-   	$('#fixLogo').click(() => {
-           logoModal( '<form id="logoForm" encType="multipart/form-data" action="../logo/add"  method="post">' + 
-           				'<input type="file" name="file" id="imageFilename"/>'+
-           		   '</form>' 
-           )
-      })
-      
-      $('#fixBtn').click(() => {
-       	 let logo ={
-       		imageFilename: $('#imageFilename').val() 
-       	} 
-       	 
-       	$.ajax({
-           	url: 'logo/add',
-           	method: 'post',
-           	data: logo,
-           	success: $('#logoForm').submit() 	   
-       	})
-       	location.replace("/admin/notice")
-	})
-})
 var totalData;
 var dataList; 
 let dataPerPage = 10;
@@ -281,6 +258,7 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	    searchData(selectedPage, dataPerPage);
 	  });
 }
+$(logoChange)
 $(init)
 </script>
 </head>
@@ -381,7 +359,7 @@ $(init)
                 <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
                     취소
                 </button>
-                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">등록</button>
             </div>
         </div>
     </div>

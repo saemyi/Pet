@@ -10,30 +10,9 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지상세</title>
 <script>
-let imageFilename;
 $(() => {
     $('#noticeDel').click(() => {
         yesNoModal('정말로 삭제 하시겠습니까?')})
-
-    $('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="../../../logo/add"  method="post">' + 
-        				'<input type="file" name="file" id="imageFilename"/>'+
-        		   '</form>' 
-        )
-    }) 
-    
-    $('#fixBtn').click(() => {
-    	 let logo ={
-    		imageFilename: $('#imageFilename').val() 
-    	} 
-     	$.ajax({
-         	url: 'logo/add',
-         	method: 'post',
-         	data: logo,
-         	success: $('#logoForm').submit() 	   
-    	 })
-    	 location.replace("/admin/notice")
-     })
 })
 
 function goPage() {
@@ -57,6 +36,7 @@ function init() {
 		$('#modal').modal('hide')
 	})
 }
+$(logoChange)
 $(init)
 </script>
 <style> 
@@ -160,7 +140,7 @@ $(init)
                 <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
                     취소
                 </button>
-                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">등록</button>
             </div>
         </div>
     </div>

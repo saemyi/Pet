@@ -19,48 +19,13 @@ var dataList;
 let dataPerPage = 10;
 let pageCount = 10;
 let globalCurrentPage = 1;
-let imageFilename;
-//console.log("totalData start :"+totalData)
-//console.log("dataList1 start :"+dataList)
-
-/* $(document).ready(function () {
- //글 목록 표시 호출 (테이블 생성)
-	displayData(1, dataPerPage);
-	
-}); */
-
-$(() => {
-	$('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="../logo/add"  method="post">' + 
-        				'<input type="file" name="file" id="imageFilename"/>'+
-        		   '</form>' 
-        )
-    })
-    
-    $('#fixBtn').click(() => {
-    	 let logo ={
-    		imageFilename: $('#imageFilename').val() 
-    	} 
-     	$.ajax({
-         	url: 'logo/add',
-         	method: 'post',
-         	data: logo,
-         	success: $('#logoForm').submit() 	   
-    	 })
-    	 location.replace("/admin/report")
-     })
-})
 
 function init() {
 	//글 목록 표시 호출 (테이블 생성)
-	//console.log("displayData start")
 	displayData(1, dataPerPage);
 	
-	// 검색test
 	$('#search').click(() => {
-		//console.log("searchData start")
 		searchData(1, dataPerPage);
-
 	})
 }
 
@@ -69,12 +34,8 @@ function displayData(currentPage, dataPerPage) {
 	$.ajax({
    		url: 'report/get',
    		success: reportList => {
-   			//console.log(reportList)
    			if(reportList.length){
    			reports = []
-   			
-   			//console.log(reports)
-   			
    			reportList.forEach(report => {
    				var processed
    				if(report.isProcessed == 0){
@@ -131,27 +92,19 @@ function displayData(currentPage, dataPerPage) {
 }
 
 function paging(totalData, dataPerPage, pageCount, currentPage) {
-	  //console.log("totalData " + totalData)
-	  //console.log("pageCount " + pageCount)
-	  //console.log("dataPerPage " + dataPerPage)
-	
-	  //console.log("currentPage " + currentPage)
 	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
-	  //console.log("paging totalPage : " + totalPage);
 	  if(totalPage < pageCount){
 	    pageCount = totalPage;
 	  }
 	  
 	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-	 // console.log("pageGroup "+pageGroup)
 	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-	  //console.log("last "+last)
+
 	  if (last > totalPage) {
 	    last = totalPage;
 	  }
 
 	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
-	 // console.log("first "+first)
 	  let next = last + 1;
 	  let prev = first - 1;
 	  
@@ -176,14 +129,7 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
 	  }
 
-	  //console.log("pageHtml:" + pageHtml)
 	  $("#pages").html(pageHtml);
-	  
-	  //상단 페이지 데이터 확인용
-	  /* let displayCount = "";
-	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
-	  $("#displayCount").text(displayCount); */
-
 
 	  //페이징 번호 클릭 이벤트 
 	  $("#pages li a").click(function () {
@@ -200,8 +146,7 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	    //글 목록 표시 재호출
 	    displayData(selectedPage, dataPerPage);
 	  });
-	  
-	  //console.log("totalData end :"+totalData)
+
 }
 
 function searchData(currentPage, dataPerPage){
@@ -255,12 +200,9 @@ function searchData(currentPage, dataPerPage){
    		url: 'report/search',
    		data: report,
    		success: reportList => {
-   			//console.log(reportList)
    			if(reportList.length){
    			reports = []
-   			
-   			//console.log(reports)
-   			
+   
    			reportList.forEach(report => {
    				var processed
    				if(report.isProcessed == 0){
@@ -319,27 +261,20 @@ function searchData(currentPage, dataPerPage){
 }
 
 function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
-	  //console.log("totalData " + totalData)
-	  //console.log("pageCount " + pageCount)
-	 // console.log("dataPerPage " + dataPerPage)
-	
-	  //console.log("currentPage " + currentPage)
 	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
-	 // console.log("paging totalPage : " + totalPage);
+	  
 	  if(totalPage < pageCount){
 	    pageCount = totalPage;
 	  }
 	  
 	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-	  //console.log("pageGroup "+pageGroup)
 	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-	  //console.log("last "+last)
+	 
 	  if (last > totalPage) {
 	    last = totalPage;
 	  }
 
 	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
-	  //console.log("first "+first)
 	  let next = last + 1;
 	  let prev = first - 1;
 	  
@@ -359,19 +294,13 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	      pageHtml += "<li class='page-item'><a href ='#' class = 'page-link' id='" + i + "'>" + i + "</a></li>";
 	    } 
 	  }
-	//페이징 다음 화살표
+	  //페이징 다음 화살표
 	  if (currentPage != totalPage) {
 	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
 	  }
 
 	  //console.log("pageHtml:" + pageHtml)
 	  $("#pages").html(pageHtml);
-	  
-	  //상단 페이지 데이터 확인용
-	  /* let displayCount = "";
-	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
-	  $("#displayCount").text(displayCount); */
-
 
 	  //페이징 번호 클릭 이벤트 
 	  $("#pages li a").click(function () {
@@ -388,63 +317,9 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	    //글 목록 표시 재호출
 	    searchData(selectedPage, dataPerPage);
 	  });
-	  
-	  //console.log("totalData end :"+totalData)
 }
-/* function ReportsList() {
-   	$.ajax({
-   		url: 'report/get',
-   		success: reportList => {
-   			console.log(reportList)
-   			if(reportList.length){
-   			reports = []
-   			
-   			console.log(reports)
-   			
-   			reportList.forEach(report => {
-   				var processed
-   				if(report.isProcessed == 0){
-   					processed = 'x'
-   				}else processed = 'o'
-   				
-   				var reason
-   				if(report.reason == '1'){
-   					reason = '광고/음란성 댓글'
-   				}else if(report.reason == '2'){
-   					reason = '욕설/반말/부적절한 언어'
-   				}else if(report.reason == '3'){
-   					reason = '회원 분란유도'
-   				}else if(report.reason == '4'){
-   					reason = '회원 비방'
-   				}else if(report.reason == '5'){
-   					reason = '지나친 정치/종교 논쟁'
-   				}else if(report.reason == '6'){
-   					reason = '도배성 댓글'
-   				}else if(report.reason == '7'){
-   					reason = '기타'
-   				}else reason = '사유 없음'
-   				
-   				reports.unshift(
-					'<tr>' +
-						'<td>' + report.reportId + '</td>' + 
-						'<td><a href=../user/userasd/ class = a-black>' + report.targetId + '</td>' + 
-						'<td><a href=../admin/report/adminReportView/'+ report.reportId +' class = a-black id= reason>' + reason + '</a></td>' + 
-						'<td>' + report.userId + '</td>' +
-						'<td>' + processed + '</td>' + 
-					'</tr>'
-   				)
-   				
-   			})
-   				$('#reports').append(reports.join(''))
-   			}else $('#reports').append(
-   				`<tr><td colspan='5' class='text-center'>신고글이 없습니다.</td></tr>`		
-   			)
-   		}
-   	})
-} */
 
-//$(ReportsList)
-
+$(logoChange)
 $(init)
 </script>
 </head>
@@ -564,7 +439,7 @@ $(init)
                 <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
                     취소
                 </button>
-                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">등록</button>
             </div>
         </div>
     </div>
