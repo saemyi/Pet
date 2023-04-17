@@ -20,7 +20,7 @@ let globalCurrentPage = 1;
 let imageFilename;
 $(() => {
 	$('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="logo/add"  method="post">' + 
+        logoModal( '<form id="logoForm" encType="multipart/form-data" action="/logo/add"  method="post">' + 
         				'<input type="file" name="file" id="imageFilename"/>'+
         		   '</form>' 
         )
