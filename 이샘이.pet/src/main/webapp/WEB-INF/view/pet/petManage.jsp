@@ -58,10 +58,11 @@ $(() => {
                     data: formData,
                     success: function() {
                     	 $('#image_container').empty();
-                  	     $('#imageTxt').show();
+                  	     $('#imageTxt').show(); 
                          $('#petName').val('');
                          $('#petIntro').val('');
                          $('#UploadProfile').val('');
+                         $('#petProfileImagefilename').val('');
                     	getPets();
                     },
                     error: function (data) {
