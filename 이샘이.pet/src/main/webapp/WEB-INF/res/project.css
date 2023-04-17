@@ -80,7 +80,14 @@ body {
 .logoBox{
    border: .1rem solid gray;
    background-color: gainsboro;
-   width:300px!important;
+   width:300px !important;
+   height:300px !important;
+}
+
+.getLogoBox{
+   border: .1rem none;
+   background-color: white;
+   width:300px !important;
    height:300px !important;
 }
 

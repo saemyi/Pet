@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.my.pet.dao.map.LogoMap'>
+	<select id='selectLogo' resultType='logo'>
+		select image_filename
+		from logos
+		where logo_id in(select max(logo_id)
+                    from logos)
+	</select>
+
+	<insert id='insertLogo'>
+		insert into logos (logo_id, image_filename)
+		values (logo_id_seq.nextval, #{imageFilename})
+	</insert>
+</mapper>

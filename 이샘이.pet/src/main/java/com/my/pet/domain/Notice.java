@@ -18,4 +18,3 @@ public class Notice {
 	private String noticeContent;
 	private String userId;
 }
-

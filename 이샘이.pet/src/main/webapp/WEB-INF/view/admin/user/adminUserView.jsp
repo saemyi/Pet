@@ -1,5 +1,4 @@
 <%@ page language='java' contentType='text/html; charset=utf-8' pageEncoding='utf-8'%>
-
 <html>
 <head>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -33,12 +32,11 @@ $(() => {
 	        	</div>`)
 	    $('#profile').html("<p class='mt-5'>프로필이미지</p>")
     }
-    let userIntro = '${user.userIntro}'
-    
+    let userIntro = `${user.userIntro}`
     if(!userIntro) {
     	userIntro = '유저 소개가 없습니다.'
-    	$('#userIntro').text(userIntro)
-    }
+    } 
+    $('#userIntro').text(userIntro)
     
     let isSuspended = ${user.isSuspended}
     let hasAdminRights = ${user.hasAdminRights}
@@ -136,8 +134,8 @@ function adminPetList() {
 					let petProfileImageFilename = pet.petProfileImageFilename
 					let petIntro = pet.petIntro
 					if(!petIntro){
-						petIntro = '펫 소개가 없습니다.'
-					}
+						petIntro = '반려견 소개가 없습니다.'
+					} else 
 					if(petProfileImageFilename) {
 						pets.unshift(
 								'<table class="table text-center mb-4">' +
@@ -161,7 +159,7 @@ function adminPetList() {
 								'<table class="table text-center mb-4">' +
 									'<tbody>' +
 										'<tr style="height: 1rem;">' + 
-					                    	'<td class="petBox image-box" rowspan="2" style="height: 8rem; width: 8rem; border: .1rem solid;">' +
+					                    	'<td class="petBox image-box" rowspan="2" style="height: 147px; width: 147px; border: .1rem solid;">' +
 					                    			'<p class="text-center mt-5">펫 프로필이미지</p>' +
 											'</td>' +
 					                    '<th style ="width: 10rem;">이름</th><td class="text-start">' + pet.petName + '</td>' +
@@ -188,7 +186,6 @@ function adminMeetingList() {
 		success: meetings => {
 			if(meetings.length){
 				const meetingArr = []
-				
 				$.each(meetings, (i, meeting) => {
 					$('#sido').val(meeting.sidoId).trigger('change')
 					$('#sigugun').val(meeting.sigunguId).trigger('change')
@@ -221,7 +218,6 @@ function adminMeetingList() {
 			}else $('#meetings').append(
 					`<p class="text-center">만든 모임이 없습니다.</p>`
 			)
-			
 			$('#sigugun').css("display", "none")
 		}
 	})

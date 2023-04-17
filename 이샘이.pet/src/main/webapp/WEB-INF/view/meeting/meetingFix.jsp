@@ -97,21 +97,6 @@ function getMeetingData() {
 		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
 		// method 생략: get
 		success: meeting => {
-			console.log("${lastMeetingId}")
-			console.log(meeting)
-			console.log()
-			
-			console.log(meeting.meetingTitle)
-			console.log(meeting.meetingContent)
-			console.log(meeting.meetingTime)
-			console.log(meeting.recruitmentNumber)
-			console.log(meeting.applicantNumber)
-			console.log(meeting.userId)
-			console.log(meeting.sidoId)
-			console.log(meeting.sigunguId)
-			console.log(meeting.dongId)
-			console.log()
-			
 			$('#meetingTitle').val(meeting.meetingTitle)
 			$('#meetingContent').val(meeting.meetingContent)
 			$('#meetingDateTime').val(meeting.meetingTime)
@@ -122,16 +107,6 @@ function getMeetingData() {
 			$('#sigugun').val(meeting.sigunguId).trigger('change')
 			$('#dong').val(meeting.dongId).trigger('change')
 			
-			console.log($('#meetingTitle').val())
-			console.log($('#meetingContent').val())
-			console.log($('#meetingDateTime').val())
-			console.log($('#recruitmentNumber').val())
-			console.log($('#applicantNumber').text())
-			console.log($('#userId').text())
-			console.log($('#sido').val())
-			console.log($('#sigugun').val())
-			console.log($('#dong').val())
-			
 			$('#applicantNumber').css("display", "none")
 		}
     })
@@ -141,16 +116,6 @@ function init() {
 	getMeetingData()
 	
     $('#submitBtn').click(() => {
-    	console.log($('#meetingTitle').val())
-    	console.log($('#meetingContent').val())
-    	console.log($('#meetingDateTime').val())
-    	console.log($('#recruitmentNumber').val())
-    	console.log($('#applicantNumber').text())
-    	console.log("${userId}")
-    	console.log($('#sido').val())
-    	console.log($('#sigugun').val())
-    	console.log($('#dong').val())
-    	console.log(isAddressComplete)
 		if (new Date() > new Date($('#meetingDateTime').val())) {
 			confirmModal("모임일시를 과거로 지정할 수 없습니다.")
 		} else if($('#meetingTitle').val() && $('#meetingContent').val()

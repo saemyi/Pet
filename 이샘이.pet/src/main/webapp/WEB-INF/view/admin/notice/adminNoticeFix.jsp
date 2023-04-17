@@ -7,7 +7,7 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='../../../res/projectJs.js'></script>
-<link rel='stylesheet' href='../../../res/admin.css'w>
+<link rel='stylesheet' href='../../../res/admin.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지수정</title>
 <style>
@@ -16,8 +16,8 @@
 $(() => {
    let noticeTitle = '${notice.noticeTitle}'
    let noticeContent = `${notice.noticeContent}`
-    $('.noticeTitle').val(noticeTitle)
-    $('.noticeContent').val(noticeContent)
+    $('#noticeTitle').val(noticeTitle)
+    $('#noticeContent').val(noticeContent)
 
     $('#noticeFix').click(() => {
        if(isVal($('#noticeTitle')) && isVal($('#noticeContent'))) {
@@ -102,12 +102,12 @@ function goPage() {
         <table class='table text-center'>
             <tbody>
                 <tr>
-                    <th style='width: 143px;'>제목</th><td class='text-start'><input type='text' class='noticeTitle' style='border: none; width: 35rem;' placeholder='제목' id='noticeTitle'></td>
+                    <th style='width: 143px;'>제목</th><td class='text-start'><input type='text' style='border: none; width: 35rem;' placeholder='제목' id='noticeTitle'></td>
                 </tr>
                 <tr>
                     <th>내용</th>
                     <td class='text-start'>
-                        <textarea class='text-start noticeContent pocus' style='resize: none; border: none; width: 35rem; height: 35rem;' placeholder='내용' id='noticeContent'></textarea>
+                        <textarea class='text-start' style='resize: none; border: none; width: 35rem; height: 35rem;' placeholder='내용' id='noticeContent'></textarea>
                     </td>
                 </tr>
             </tbody>

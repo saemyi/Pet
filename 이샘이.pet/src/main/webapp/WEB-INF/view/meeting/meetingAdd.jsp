@@ -93,15 +93,6 @@ function moveToMeetingView() {
 
 function init() {
 	$('#submitBtn').click(() => {
-		console.log($('#meetingTitle').val())
-		console.log($('#meetingContent').val())
-		console.log($('#meetingDateTime').val())
-		console.log($('#recruitmentNumber').val())
-		console.log("${userId}")
-		console.log($('#sido').val())
-		console.log($('#sigugun').val())
-		console.log($('#dong').val())
-		console.log(isAddressComplete)
 		if (new Date() > new Date($('#meetingDateTime').val())) {
 			confirmModal("모임일시를 과거로 지정할 수 없습니다.")
 		} else if($('#meetingTitle').val() && $('#meetingContent').val()

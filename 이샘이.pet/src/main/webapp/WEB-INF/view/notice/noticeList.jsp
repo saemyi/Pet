@@ -89,6 +89,7 @@ $(NoticesList)
         </div>
     </div>
 </div>
+</div>
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">
         <div>
