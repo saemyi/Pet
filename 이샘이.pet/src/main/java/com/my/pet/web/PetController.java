@@ -63,7 +63,7 @@ public class PetController {
 	@GetMapping("get")
 	public List<Pet> getPets(HttpSession session) {
 		String userId = (String)session.getAttribute("userId");
-		return petService.getPets(userId);
+		return petService.getPets(userId); 
 	}
 	
 	@PostMapping("getPets/{userId}")

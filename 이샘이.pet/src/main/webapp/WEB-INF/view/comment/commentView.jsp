@@ -38,7 +38,7 @@ textarea {
 	        dataType: 'json',
 	        success: comments => {
 	            if(comments.length) {
-	                const commentArr = []               
+	                const commentArr = []                 
 	                $.each(comments, (i, comment) => {
 	                    commentArr.unshift(
 	                        `<div class='row'>

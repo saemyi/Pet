@@ -148,7 +148,7 @@ public class UserController {
 			redirect.addFlashAttribute("user", user);
 			mv.setViewName("redirect:pet/petJoin");
 			return mv;
-	}
+	} 
 	
 	private void saveFile(String filename, MultipartFile file) {
 		try {

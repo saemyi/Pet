@@ -141,7 +141,7 @@ $(getPets)
     </div>
 <div id='pets'>
 </div>
-</div>
+</div>  
 </body>
 <footer>
     <nav class="navbar fixed-bottom bg-orange">

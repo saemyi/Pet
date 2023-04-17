@@ -195,7 +195,7 @@ $(getPets)
 $(upLoadImg)
 </script>
 <title>반려견 관리</title>
-<style>
+<style>  
     
 </style>
 </head>
