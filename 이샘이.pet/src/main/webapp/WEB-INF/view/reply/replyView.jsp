@@ -31,7 +31,7 @@ textarea {
 
 </style>
 <script>
-	function getComment(){
+	function listReplies(){
 		$('#comment').empty()
 		 $.ajax({
 			 url:'getComment/' +${commentId},
@@ -81,11 +81,9 @@ textarea {
 			error: function(){
 				location.href = document.referrer
 			}
-		 })	 
-	}
-	
-	function listReplies() { 
-		 $('#replies').empty()
+		 })
+		 
+		  $('#replies').empty()
 		 $.ajax({
 			 url:'get/' + ${commentId}, 
 			 dataType: 'json',
@@ -136,7 +134,7 @@ textarea {
 		            '<tr><td colspan=4 class=text-center> 답글이 없습니다.</td></tr>')
 			 }
 		 })
-	}  
+	}
 	
 	function ReplySend(){ 
 		$('#replyErr').empty()
@@ -215,7 +213,7 @@ textarea {
        	            contentType: 'application/json',
        	        	data: JSON.stringify(comment),
        	            success: function(){
-       	            	getComment()
+       	            	listReplies()
        	            	$('#modal').modal('hide'); 
        	             	$('#modal').hide(); 
                     }
@@ -232,11 +230,10 @@ textarea {
             $.ajax({
                 url: 'delComment/' + comId,
                 method: 'delete',
-                success: getComment
+                success: listReplies
             })
         })  
 	}
-$(getComment)
 $(listReplies)    
 </script>
 <body>
