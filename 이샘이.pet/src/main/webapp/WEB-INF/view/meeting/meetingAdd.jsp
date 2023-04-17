@@ -88,7 +88,7 @@ function fn_option(code, name) {
 }
 
 function moveToMeetingView() {
-	window.location.href = "view"
+	window.location.replace("view")
 }
 
 function init() {
