@@ -148,7 +148,7 @@ public class UserController {
 			redirect.addFlashAttribute("user", user);
 			mv.setViewName("redirect:pet/petJoin");
 			return mv;
-	}
+	} 
 	
 	private void saveFile(String filename, MultipartFile file) {
 		try {
@@ -184,6 +184,7 @@ public class UserController {
 			return mv;
 		}
 		
+		//유저 프로필 
 		@GetMapping("profile/{userId}")
 		public ModelAndView userProfile(ModelAndView mv, @PathVariable String userId, HttpSession session) {
 			String myId = (String)session.getAttribute("userId");
