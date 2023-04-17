@@ -189,7 +189,7 @@ textarea {
 	}
 	
 	function ReplyDel(repId){   
-	    yesNoModal('댓글을 삭제하시겠습니까?')
+	    yesNoModal('답글을 삭제하시겠습니까?')
 	    $('#okBtn').off('click').on('click', function() {    	
 	        $.ajax({
 	            url: 'del/' + repId,
