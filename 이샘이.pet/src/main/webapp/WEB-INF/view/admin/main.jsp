@@ -31,7 +31,7 @@ $(() => {
          var formData = new FormData(form);
          
      	$.ajax({
-         	url: 'logo/add',
+         	url: '/logo/add',
          	method: 'post',
          	data: formData,
          	success: console.log("성공"),
