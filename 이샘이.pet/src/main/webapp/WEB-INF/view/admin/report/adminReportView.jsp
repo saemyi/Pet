@@ -23,26 +23,6 @@ $(() => {
 		$('#changeProcessed').hide()
 	}
 	
-	$('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="../../../logo/add"  method="post">' + 
-        				'<input type="file" name="file" id="imageFilename"/>'+
-        		   '</form>' 
-        )
-    })
-    
-    $('#fixBtn').click(() => {
-    	 let logo ={
-    		imageFilename: $('#imageFilename').val() 
-    	} 
-     	$.ajax({
-         	url: 'logo/add',
-         	method: 'post',
-         	data: logo,
-         	success: $('#logoForm').submit() 	   
-    	 })
-    	 location.replace("/admin/report")
-     })
- 
     $('#changeProcessed').click(() => {
 	   	let isProcessed = ''
 	  
@@ -85,6 +65,7 @@ $(() => {
    		
    	$("#reason").text(reason)
 })
+$(logoChange)
 </script>
 </head>
 <body>
@@ -118,7 +99,7 @@ $(() => {
                     </ul>
                     </div>
                     <div>
-                        <a class="nav-link a-gray" id='isProcessed' href="../logout"><small>로그아웃</small></a>
+                        <a class="nav-link a-gray" id='isProcessed' href="../../../logout"><small>로그아웃</small></a>
                     </div>
                 </div>
             </nav>
@@ -184,7 +165,7 @@ $(() => {
                 <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
                     취소
                 </button>
-                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">등록</button>
             </div>
         </div>
     </div>

@@ -17,35 +17,6 @@ var dataList;
 let dataPerPage = 10;
 let pageCount = 10;
 let globalCurrentPage = 1;
-let imageFilename;
-$(() => {
-	$('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="/logo/add" method="post">' + 
-        				'<input type="file" name="file" id="imageFile" accept="image/*"/>'+
-        		   '</form>' 
-        )
-    })
-    
-    $('#fixBtn').click(() => {
-    	 var form = $('#logoForm')[0];
-         var formData = new FormData(form);
-         
-     	$.ajax({
-         	url: '/logo/add',
-         	method: 'post',
-         	data: formData,
-         	success: console.log("성공"),
-         	 error: function (data) {
-             alert(data);
-             },
-             cache: false,
-             contentType: false,
-             processData: false
-    	 })
-     })
-})
-
-
 function userCount() {
 	$.ajax({
 		url: 'admin/user/count',
@@ -109,27 +80,20 @@ function displayData(currentPage, dataPerPage){
 }
 
 function paging(totalData, dataPerPage, pageCount, currentPage) {
-	 // console.log("totalData " + totalData)
-	 // console.log("pageCount " + pageCount)
-	 // console.log("dataPerPage " + dataPerPage)
-	
-	  //console.log("currentPage " + currentPage)
 	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
-	 // console.log("paging totalPage : " + totalPage);
 	  if(totalPage < pageCount){
 	    pageCount = totalPage;
 	  }
 	  
 	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-	//  console.log("pageGroup "+pageGroup)
 	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-	 // console.log("last "+last)
+
 	  if (last > totalPage) {
 	    last = totalPage;
 	  }
 
 	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
-	  //console.log("first "+first)
+
 	  let next = last + 1;
 	  let prev = first - 1;
 	  
@@ -154,14 +118,7 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
 	  }
 
-	  //console.log("pageHtml:" + pageHtml)
 	  $("#pages").html(pageHtml);
-	  
-	  //상단 페이지 데이터 확인용
-	  /* let displayCount = "";
-	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
-	  $("#displayCount").text(displayCount); */
-
 
 	  //페이징 번호 클릭 이벤트 
 	  $("#pages li a").click(function () {
@@ -178,44 +135,8 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	    //글 목록 표시 재호출
 	    displayData(selectedPage, dataPerPage);
 	  });
-	  
-	  //console.log("totalData end :"+totalData)
+
 }
-	/*
-	function userList() {
-	$.ajax({
-		url: 'admin/user/get',
-		success: userList => {
-			if(userList.length){
-				users = []
-				userList.forEach(user => {
-					let isSuspended = user.isSuspended
-					let str = user.phone
-					let phone = str.substring(0,3) + '-' + str.substring(3,7) + '-' + str.substring(7,11)
-					console.log(phone)
-					let Sus = null
-					if(isSuspended == 0) {
-						Sus = 'x'
-					}else Sus = '○'
-					users.unshift(
-						'<tr class="hover-cursor">' + 
-		                    '<td><a href="admin/adminUserView/' + user.userId +'" class="a-black">'  + user.userId + '</a></td>' + 
-		                    '<td>' + user.nickname +'</td>' + 
-		                    '<td>' + user.userName +'</td>' +
-		                    '<td>'+ phone + '</td>' +
-		                    '<td>' + user.email + '</td>' +
-		                    '<td>' + Sus + '</td>' +
-		                '</tr>'		
-					)
-				})
-				$('#users').append(users.join(''))
-			}else $('#users').append(
-					`<tr><td colspan='6' class='text-center'>회원이 없습니다.</td></tr>`			
-			)
-		}
-	})
-}
-	*/
 
 function searchData(currentPage, dataPerPage){
 	$('#users').empty()
@@ -278,7 +199,7 @@ function searchData(currentPage, dataPerPage){
 			searchData(1, dataPerPage);
 		})
 	}
-	
+$(logoChange)
 $(init)
 </script>
 </head>
@@ -347,23 +268,6 @@ $(init)
         <div class='col gap-2 d-flex justify-content-center'>
             <nav aria-label="Page navigation example">
                 <ul class="pagination" id='pages'>
-                <!-- 
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item" ><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                     -->
                 </ul>
             </nav>
         </div>
@@ -391,7 +295,7 @@ $(init)
                 <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
                     취소
                 </button>
-                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">등록</button>
             </div>
         </div>
     </div>

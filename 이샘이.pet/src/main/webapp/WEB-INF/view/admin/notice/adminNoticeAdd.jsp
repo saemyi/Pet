@@ -14,26 +14,6 @@ let imageFilename;
 $(() => {
     $('#addNotice').click(() => {
         yesNoModal('공지를 추가하시겠습니까?')})
-
-    $('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="../../../logo/add"  method="post">' + 
-        				'<input type="file" name="file" id="imageFilename"/>'+
-        		   '</form>' 
-        )
-    })
-    
-    $('#fixBtn').click(() => {
-    	 let logo ={
-    		imageFilename: $('#imageFilename').val() 
-    	} 
-     	$.ajax({
-         	url: 'logo/add',
-         	method: 'post',
-         	data: logo,
-         	success: $('#logoForm').submit() 	   
-    	 })
-    	 location.replace("/admin/notice")
-     })
 })
 
 function goPage() {
@@ -57,6 +37,7 @@ function init() {
 		}
 	}) 
 }
+$(logoChange)
 $(init)
 </script>
 <style>
@@ -157,7 +138,7 @@ $(init)
                 <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
                     취소
                 </button>
-                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">등록</button>
             </div>
         </div>
     </div>

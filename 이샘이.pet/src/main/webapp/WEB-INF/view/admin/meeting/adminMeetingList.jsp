@@ -22,31 +22,6 @@ let pageCount = 10;
 let imageFilename;
 
 $(() => {
-	$('#fixLogo').click(() => {
-        logoModal( '<form id="logoForm" encType="multipart/form-data" action="/logo/add" method="post">' + 
-        				'<input type="file" name="file" id="imageFile" accept="image/*"/>'+
-        		   '</form>' 
-        )
-    })
-    
-    $('#fixBtn').click(() => {
-    	 var form = $('#logoForm')[0];
-         var formData = new FormData(form);
-         
-     	$.ajax({
-         	url: '/logo/add',
-         	method: 'post',
-         	data: formData,
-         	success: console.log("성공"),
-         	 error: function (data) {
-             alert(data);
-             },
-             cache: false,
-             contentType: false,
-             processData: false
-    	 })
-     })
-     
 	//sido option 추가
 	jQuery.each(hangjungdong.sido, function (idx, code) {
 		//append를 이용하여 option 하위에 붙여넣음
@@ -346,7 +321,7 @@ function init() {
        	location.replace("/admin/meeting/list")
 	})
 }
-
+$(logoChange)
 $(init)
 </script>
 </head>
@@ -414,28 +389,6 @@ $(init)
         <div class='col gap-2 d-flex justify-content-center'>
             <nav aria-label="Page navigation example">
                 <ul class="pagination" id='pages'>
-                	<!--
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                    <li class="page-item"><a class="page-link" href="#">10</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    -->
                 </ul>
             </nav>
         </div>
@@ -481,7 +434,7 @@ $(init)
                 <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
                     취소
                 </button>
-                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">등록</button>
             </div>
         </div>
     </div>
