@@ -119,7 +119,7 @@ public class UserController {
 		mv.setViewName("user/findUserId");
 		return mv;
 	}
-	
+	 
 	@PostMapping("findId")
 	public String findId(@RequestParam("userName") String userName, @RequestParam("phone") String phone) {
 		User user = userService.searchUserId(userName, phone);
