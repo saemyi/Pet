@@ -148,6 +148,26 @@ function init() {
 		
 		$('#modal').modal('hide')
 	})
+	
+	$('#fixLogo').click(() => {
+           logoModal( '<form id="logoForm" encType="multipart/form-data" action="../../logo/add"  method="post">' + 
+           				'<input type="file" name="file" id="imageFilename"/>'+
+           		   '</form>' 
+           )
+    })
+      
+    $('#fixBtn').click(() => {
+       	 let logo ={
+       		imageFilename: $('#imageFilename').val() 
+       	} 
+       	 
+       	$.ajax({
+           	url: 'logo/add',
+           	method: 'post',
+           	data: logo,
+           	success: $('#logoForm').submit() 	   
+       	})
+	})
 }
 
 $(init)

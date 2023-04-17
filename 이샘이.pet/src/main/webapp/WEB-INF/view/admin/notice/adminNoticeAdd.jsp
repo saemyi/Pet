@@ -10,12 +10,29 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지추가</title>
 <script>
+let imageFilename;
 $(() => {
     $('#addNotice').click(() => {
         yesNoModal('공지를 추가하시겠습니까?')})
 
     $('#fixLogo').click(() => {
-        logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
+        logoModal( '<form id="logoForm" encType="multipart/form-data" action="../../../logo/add"  method="post">' + 
+        				'<input type="file" name="file" id="imageFilename"/>'+
+        		   '</form>' 
+        )
+    })
+    
+    $('#fixBtn').click(() => {
+    	 let logo ={
+    		imageFilename: $('#imageFilename').val() 
+    	} 
+     	$.ajax({
+         	url: 'logo/add',
+         	method: 'post',
+         	data: logo,
+         	success: $('#logoForm').submit() 	   
+    	 })
+     })
 })
 
 function goPage() {

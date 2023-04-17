@@ -35,8 +35,28 @@ $(() => {
               success: goPage
               })
             }
-          })   
+          })
+          
+	$('#fixLogo').click(() => {
+           logoModal( '<form id="logoForm" encType="multipart/form-data" action="../../../logo/add"  method="post">' + 
+           				'<input type="file" name="file" id="imageFilename"/>'+
+           		   '</form>' 
+           )
       })
+      
+      $('#fixBtn').click(() => {
+       	 let logo ={
+       		imageFilename: $('#imageFilename').val() 
+       	} 
+       	 
+       	$.ajax({
+           	url: 'logo/add',
+           	method: 'post',
+           	data: logo,
+           	success: $('#logoForm').submit() 	   
+       	})
+	})          
+})
     
 function goPage() {
    location.replace("../adminNoticeView/" + ${notice.noticeId})
@@ -133,6 +153,12 @@ function goPage() {
                     아니오
                 </button>
                 <button type='button' class='btn btn-orange' id='okBtn' data-bs-dismiss="modal">네</button>
+            </div>
+            <div class='modal-footer' id='logoBtn'>
+                <button type='button' class='btn btn-lightgray' id='closeBtn' data-bs-dismiss="modal">
+                    취소
+                </button>
+                <button type='button' class='btn btn-orange' id='fixBtn' data-bs-dismiss="modal">변경</button>
             </div>
         </div>
     </div>
