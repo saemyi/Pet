@@ -42,7 +42,7 @@ function pwCheck() {
             if(pw1 == pw2) {
                 $('#pwCheck').after('<div id="checkMsg" style="color:green"><p>비밀번호가 일치합니다.</p></div>')
             } else {
-                $('#pwCheck').after('<div id="checkMsg" style="color:red"><p>비밀번호가 일치하지 않습니다.</p></div>')
+                $('#pwCheck').after('<div id="checkMsg" style="color:red"><p id="errPw">비밀번호가 일치하지 않습니다.</p></div>')
             }
         }
     })

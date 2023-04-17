@@ -62,6 +62,7 @@ $(() => {
                          $('#petName').val('');
                          $('#petIntro').val('');
                          $('#UploadProfile').val('');
+                         $('#petProfileImagefilename').val('');
                     	getPets();
                     },
                     error: function (data) {

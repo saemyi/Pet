@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -183,6 +184,23 @@ public class UserController {
 			return mv;
 		}
 		
+	//회원프로필조회
+		@GetMapping("user/{userId}")
+		public ModelAndView userView(ModelAndView mv) {
+			mv.setViewName("redirect: user/userProfile");
+			return mv;
+		}
+		
+		@PostMapping("userProfile")
+		public ModelAndView userProfile(ModelAndView mv, @PathVariable String userId, HttpSession session) {
+			if(userId == (String)session.getAttribute("userId")) {
+				mv.setViewName("user/mypage");
+			} else {
+				mv.setViewName("user/" + userId);
+			}
+			return mv;
+		}
+				
 	@PostMapping("fix")
 	public ModelAndView fixUser(ModelAndView mv, UserDto userDto, User user, HttpSession session) {
 		String filename = userDto.getUserProfile().getOriginalFilename();

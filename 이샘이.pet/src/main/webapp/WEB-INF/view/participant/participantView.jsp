@@ -14,9 +14,7 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
 $(() => {
-	$('#userProfileBtn').click(() => {
-		
-	})
+	
 })
 
 function getParticipantData() {
@@ -42,6 +40,7 @@ function getParticipantData() {
 				$('#userProfileImage').html("<p class='mt-5'>프로필이미지</p>")
 			}
 			$('#userNickname').html('&nbsp;<i class="fa-solid fa-crown"></i>&nbsp;' + participant.nickname)
+			if(!participant.userIntro) participant.userIntro = '유저 소개가 없습니다.'
 			$('#userIntro').text(participant.userIntro)
 		}
 	})
@@ -55,20 +54,21 @@ function getParticipantData() {
 				
 				$.each(participants, (i, participant) => {
 					participantArr.push(
-						`<div class="card shadow mb-3" type='button' id='userProfileBtn'>
+						`<div class="card shadow mb-3">
 							<div class="card-body">
 								<div class="row">` +
 									(participant.userProfileImageFilename != null ? `<div class='box image-box m-0 p-0 d-flex justify-content-center'><img src='/attach/` + participant.userProfileImageFilename + `' class='image-thumbnail'/></div>` : `<div class='box text-center image-box'><p class='mt-5'>프로필이미지</p></div>`) +
 									`<div class="col-7">
 										<h6><b>` + participant.nickname + `</b></h6>
 										<hr>
-										<p>` + participant.userIntro + `</p>
+										<p>` + ((!participant.userIntro) ? '유저 소개가 없습니다.' : participant.userIntro) + `</p>
 									</div>
 								</div>
 							</div>
 						</div>`
 					)
 				})
+				
 				$('#participants').append(participantArr.join(''))
 			}
 		}
@@ -105,7 +105,7 @@ p {
 <div class='row'>
 	<div class='col'>
 		<input type='text' class='form-control text-center mb-3' style='border: none; background-color: none;' value='참여자' disabled/>
-		<div class='row p-3 d-flex justify-content-center' id='ownerProfile' type='button' id='userProfileBtn'>
+		<div class='row p-3 d-flex justify-content-center' id='ownerProfile'>
 		</div>
 		<hr>
 		<div id='participants'>
