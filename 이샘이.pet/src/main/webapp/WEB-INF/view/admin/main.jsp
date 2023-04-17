@@ -34,10 +34,12 @@ $(() => {
          	url: 'logo/add',
          	method: 'post',
          	data: logo,
-         	success: $('#logoForm').submit() 	   
+         	success: $('#logoForm').submit()  /* $('#logoForm').submit()  */	   
     	 })
+    	 location.replace("/admin")
      })
 })
+
 
 function userCount() {
 	$.ajax({

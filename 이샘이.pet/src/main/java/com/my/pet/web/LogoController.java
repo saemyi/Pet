@@ -33,7 +33,7 @@ public class LogoController {
 		saveFile(attachPath + "/" + filename, logoDto.getFile()); 
 		logo.setImageFilename(filename);
 		logoService.addLogo(filename); 
-		mv.setViewName("redirect:/admin");
+		//mv.setViewName("redirect:/admin");
 		return mv;
 	}
 	

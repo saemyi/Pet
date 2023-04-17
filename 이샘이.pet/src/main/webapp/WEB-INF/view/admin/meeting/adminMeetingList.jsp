@@ -318,6 +318,7 @@ function init() {
            	data: logo,
            	success: $('#logoForm').submit() 	   
        	})
+       	location.replace("/admin/meeting/list")
 	})
 }
 

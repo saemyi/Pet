@@ -40,6 +40,7 @@ $(() => {
          	data: logo,
          	success: $('#logoForm').submit() 	   
     	 })
+    	 location.replace("/admin/report")
      })
  
     $('#changeProcessed').click(() => {

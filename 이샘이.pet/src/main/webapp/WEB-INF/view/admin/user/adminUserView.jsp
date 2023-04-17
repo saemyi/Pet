@@ -35,6 +35,7 @@ $(() => {
          	data: logo,
          	success: $('#logoForm').submit() 	   
     	 })
+    	 location.replace("/admin")
      })
         
     let name = '${user.userProfileImageFilename}'
