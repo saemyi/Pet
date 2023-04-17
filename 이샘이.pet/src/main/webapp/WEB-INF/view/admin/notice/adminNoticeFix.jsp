@@ -52,7 +52,7 @@ $(() => {
        	$.ajax({
            	url: 'logo/add',
            	method: 'post',
-           	data: logo,
+           	data: logo, 
            	success: $('#logoForm').submit() 	   
        	})
 	})          
