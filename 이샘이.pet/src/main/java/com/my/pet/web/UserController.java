@@ -190,7 +190,7 @@ public class UserController {
 			String myId = (String)session.getAttribute("userId");
 			System.out.println("my: " + myId);
 			System.out.println("user: " + userId);
-			if(userId == myId) {
+			if(userId.equals(myId)) {
 				mv.setViewName("redirect:/user/mypage");
 			} else {
 				User user = userService.userProfile(userId);
