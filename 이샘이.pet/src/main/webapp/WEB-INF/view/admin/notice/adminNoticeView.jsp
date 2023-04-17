@@ -20,7 +20,7 @@ $(() => {
         				'<input type="file" name="file" id="imageFilename"/>'+
         		   '</form>' 
         )
-    })
+    }) 
     
     $('#fixBtn').click(() => {
     	 let logo ={

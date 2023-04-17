@@ -15,6 +15,31 @@
 <title>모임상세</title>
 <script>
 $(() => {
+	$('#fixLogo').click(() => {
+        logoModal( '<form id="logoForm" encType="multipart/form-data" action="/logo/add" method="post">' + 
+        				'<input type="file" name="file" id="imageFile" accept="image/*"/>'+
+        		   '</form>' 
+        )
+    })
+    
+    $('#fixBtn').click(() => {
+    	 var form = $('#logoForm')[0];
+         var formData = new FormData(form);
+         
+     	$.ajax({
+         	url: '/logo/add',
+         	method: 'post',
+         	data: formData,
+         	success: console.log("성공"),
+         	 error: function (data) {
+             alert(data);
+             },
+             cache: false,
+             contentType: false,
+             processData: false
+    	 })
+     })
+     
 	//sido option 추가
 	jQuery.each(hangjungdong.sido, function (idx, code) {
 		//append를 이용하여 option 하위에 붙여넣음
