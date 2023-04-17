@@ -42,7 +42,7 @@ textarea {
 		                     	<div class='col'>
 		                         <div class='row'>
 		                             <div class='col-auto pe-0'>
-		                                 <button type='button' class='border-0 nickname\${comment.userId}'onclick="location.href='../login'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
+		                                 <button type='button' class='border-0 nickname\${comment.userId}'onclick="location.href='/profile/\${comment.userId}'"><b style='font-size: 0.8rem;'>\${comment.nickname}</b></button>
 		                             </div>
 		                             <div class='col'>
 		                                 <p style='font-size: 0.5rem;'>\${comment.commentTime}</p>
@@ -101,7 +101,7 @@ textarea {
 									            	<i class="bi bi-arrow-return-right"></i>
 									        	</div>
 								                <div class='col-auto'>
-								                    <button type='button' class='border-0 nickname\${reply.userId}' onclick="location.href='../login'"><b style='font-size: 0.7rem;'>\${reply.nickname}</b></button>
+								                    <button type='button' class='border-0 nickname\${reply.userId}' onclick="location.href='/profile/\${reply.userId}'"><b style='font-size: 0.7rem;'>\${reply.nickname}</b></button>
 								                </div>
 								                <div class='col'>
 								                    <p style='font-size: 0.3rem;'>\${reply.replyTime}</p>
