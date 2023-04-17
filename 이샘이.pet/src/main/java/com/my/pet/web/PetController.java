@@ -66,6 +66,12 @@ public class PetController {
 		return petService.getPets(userId);
 	}
 	
+	@PostMapping("getPets/{userId}")
+	public List<Pet> getPets(@PathVariable("userId") String userId) {
+		userId = "user";
+		return petService.getPets(userId);
+	}
+	
 	//펫삭제
 	@DeleteMapping("del/{petId}")
 	public void delPet(@PathVariable("petId") int petId) {

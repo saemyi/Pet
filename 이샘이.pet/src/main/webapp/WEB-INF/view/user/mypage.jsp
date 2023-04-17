@@ -140,37 +140,6 @@ $(getPets)
         </div>
     </div>
 <div id='pets'>
-<div class="card shadow mb-3">
-    <div class="card-body">
-        <div class="row">
-            <div class='petBox text-center p-3'>
-                <p class='mt-4'>펫이미지</p>
-            </div>
-            <div class="col-8">
-                <h6><b>뽀실이</b></h6>
-                <hr>
-                <p>말티즈 10살 남자아이에요! 개껌 먹는걸 제일 좋아한답니다!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="card shadow mb-3">
-    <div class="card-body">
-        <div class="row">
-            <div class='petBox text-center p-3'>
-                <p class='mt-4'>펫이미지</p>
-            </div>
-            <div class="col-8">
-                <h6><b>빵실이</b></h6>
-                <hr>
-                <p>뽀실이에게 여동생이 생겼어요!
-                    6개월 포메, 얌전하고 착해요.<br> 
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 </div>
 </body>
