@@ -14,7 +14,7 @@
 <script type="application/javascript" src="../../res/hangjungdong.js"></script>
 <title>모임리스트</title>
 <style>
- td {
+ td { 
  	font-size: 12px !important;
  }
 </style>

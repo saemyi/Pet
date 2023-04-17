@@ -12,7 +12,7 @@
 <style>
  td {
  	font-size: 12px !important;
- }
+ } 
 </style>
 <script>
 var totalData;
