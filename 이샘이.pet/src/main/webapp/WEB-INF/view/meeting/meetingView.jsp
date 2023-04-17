@@ -336,7 +336,7 @@ $(init)
 							</button>
 						</div>
 					</div>
-					<div class='col p-1' onclick="location.href='../comment/${lastMeetingId}'">
+					<div class='col p-1' onclick="location.replace(/comment/+ ${lastMeetingId})">
 						<small>댓글</small>
 						<i class="bi bi-chat-square-text"></i>
 					</div>

@@ -163,7 +163,7 @@ listComments()
         <nav class="navbar fixed-top bg-orange p-3">
             <div class='row'>
                 <div class='col d-flex justify-content-start'>
-                    <i class='bi bi-chevron-left' onclick="goMeeting()" ></i>
+                    <i class='bi bi-chevron-left' onclick="location.replace(/meeting/+ ${meetingId})" ></i>
                 </div>
             </div>
             <div class='col text-center me-4'>
