@@ -7,7 +7,7 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script src='../../../res/projectJs.js'></script>
-<link rel='stylesheet' href='../../../res/admin.css'w>
+<link rel='stylesheet' href='../../../res/admin.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지수정</title>
 <style>
@@ -40,6 +40,7 @@ $(() => {
     
 function goPage() {
    location.replace("../adminNoticeView/" + ${notice.noticeId})
+	}
 }
 </script>
 </head>

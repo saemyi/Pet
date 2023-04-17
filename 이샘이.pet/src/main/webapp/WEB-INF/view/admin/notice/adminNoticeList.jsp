@@ -10,7 +10,6 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>공지리스트</title>
 <style>
-    
 </style>
 <script>
     $(() => {
@@ -22,15 +21,7 @@ var dataList;
 let dataPerPage = 10;
 let pageCount = 10;
 let globalCurrentPage = 1;
-//console.log("totalData start :"+totalData)
-//console.log("dataList1 start :"+dataList)
-/*
-$(document).ready(function () {
- //글 목록 표시 호출 (테이블 생성)
-	displayData(1, dataPerPage);
-	
-});
-*/
+
 function init() {
 	displayData(1, dataPerPage);
 	
@@ -39,27 +30,18 @@ function init() {
 	})
 }
 function paging(totalData, dataPerPage, pageCount, currentPage) {
-	 // console.log("totalData " + totalData)
-	 // console.log("pageCount " + pageCount)
-	 // console.log("dataPerPage " + dataPerPage)
-	
-	  //console.log("currentPage " + currentPage)
 	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
-	 // console.log("paging totalPage : " + totalPage);
 	  if(totalPage < pageCount){
 	    pageCount = totalPage;
 	  }
 	  
 	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-	//  console.log("pageGroup "+pageGroup)
 	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-	 // console.log("last "+last)
 	  if (last > totalPage) {
 	    last = totalPage;
 	  }
 
 	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
-	  //console.log("first "+first)
 	  let next = last + 1;
 	  let prev = first - 1;
 	  
@@ -84,14 +66,7 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
 	  }
 
-	  //console.log("pageHtml:" + pageHtml)
 	  $("#pages").html(pageHtml);
-	  
-	  //상단 페이지 데이터 확인용
-	  /* let displayCount = "";
-	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
-	  $("#displayCount").text(displayCount); */
-
 
 	  //페이징 번호 클릭 이벤트 
 	  $("#pages li a").click(function () {
@@ -108,8 +83,6 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	    //글 목록 표시 재호출
 	    displayData(selectedPage, dataPerPage);
 	  });
-	  
-	  //console.log("totalData end :"+totalData)
 }
 
 function displayData(currentpage, dataPerPage) {
@@ -138,155 +111,117 @@ function displayData(currentpage, dataPerPage) {
  				) {
  					$('#notices').append(notices[i])
  				 }
- 			
  			totalData = noticeList.length;
  	        dataList = notices;
  	        //페이징 표시 호출
  			paging(totalData, dataPerPage, pageCount, currentPage);
-				
 			}else $('#notices').append(
 				`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
 			)
 		}
 	})
 }
-/*
-	function NoticesList() {
-    	$.ajax({
-    		url: 'notice/get', 
-    		success: noticeList => {
-    			if(noticeList.length){
-    			notices = []
-    			noticeList.forEach(notice => {
-    				notices.unshift(
-						'<tr>' +
-							'<td>' + notice.noticeId + '</td>' + 
-							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
-							'<td>' + notice.noticeTime + '</td>' +
-							'<td>' + notice.userId + '</td>' +
-						'</tr>'
-    				)
-    			})
-    			
-    				$('#notices').append(notices.join(''))
-    			}else $('#notices').append(
-    				`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
-    			)
-    		}
-    	})
-    }
-*/  
-	function searchData(currentPage, dataPerPage){
-    		$('#notices').empty()
-    		let select = $('#select option:selected').val()
-    		let notice = '';
-    		if(select == 1){
-    			notice ={
-    			    	noticeTitle : $('#searchValue').val()
-    	    		} 
-    			$.ajax({
-        			url: 'notice/search/title',
-        			data: notice,
-        			success: noticeList => {
-        				if(noticeList.length){
-        				notices = []
-        				noticeList.forEach(notice => {
-        					notices.unshift(
-        						'<tr>' +
-        							'<td>' + notice.noticeId + '</td>' + 
-        							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
-        							'<td>' + notice.noticeTime + '</td>' +
-        							'<td>' + notice.userId + '</td>' +
-        						'</tr>'
-        					)
-        				})
-        				currentPage = Number(currentPage);
-        	 			dataPerPage = 10;
-        	 			$('#notices').empty()
-        	 			 for (
-        	 				    var i = (currentPage - 1) * dataPerPage;
-        	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
-        	 				    i++
-        	 				) {
-        	 					$('#notices').append(notices[i])
-        	 				 }
-        	 			
-        	 			totalData = noticeList.length;
-        	 	        dataList = notices;
-        	 	        //페이징 표시 호출
-        	 			searchPaging(totalData, dataPerPage, pageCount, currentPage);
-        					
-        				}else $('#notices').append(
-        					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
-        				)
-        			}
-        		})
-    		} else { 
-    			notice = {
-    					userId : $('#searchValue').val()
-    			}
-    		$.ajax({
-    			url: 'notice/search/userId',
-    			data: notice,
-    			success: noticeList => {
-    				if(noticeList.length){
-    				notices = []
-    				noticeList.forEach(notice => {
-    					notices.unshift(
-    						'<tr>' +
-    							'<td>' + notice.noticeId + '</td>' + 
-    							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
-    							'<td>' + notice.noticeTime + '</td>' +
-    							'<td>' + notice.userId + '</td>' +
-    						'</tr>'
-    					)
-    				})
-    				currentPage = Number(currentPage);
-    	 			dataPerPage = 10;
-    	 			$('#notices').empty()
-    	 			 for (
-    	 				    var i = (currentPage - 1) * dataPerPage;
-    	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
-    	 				    i++
-    	 				) {
-    	 					$('#notices').append(notices[i])
-    	 				 }
-    	 			
-    	 			totalData = noticeList.length;
-    	 	        dataList = notices;
-    	 	        //페이징 표시 호출
-    	 			searchPaging(totalData, dataPerPage, pageCount, currentPage);
-    					
-    				}else $('#notices').append(
-    					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
-    				)
-    			}
-    		})
-    		}
-    	}
+  
+function searchData(currentPage, dataPerPage){
+   		$('#notices').empty()
+   		let select = $('#select option:selected').val()
+   		let notice = '';
+   		if(select == 1){
+   			notice ={
+   			    	noticeTitle : $('#searchValue').val()
+   	    		} 
+   			$.ajax({
+       			url: 'notice/search/title',
+       			data: notice,
+       			success: noticeList => {
+       				if(noticeList.length){
+       				notices = []
+       				noticeList.forEach(notice => {
+       					notices.unshift(
+       						'<tr>' +
+       							'<td>' + notice.noticeId + '</td>' + 
+       							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
+       							'<td>' + notice.noticeTime + '</td>' +
+       							'<td>' + notice.userId + '</td>' +
+       						'</tr>'
+       					)
+       				})
+       				currentPage = Number(currentPage);
+       	 			dataPerPage = 10;
+       	 			$('#notices').empty()
+       	 			 for (
+       	 				    var i = (currentPage - 1) * dataPerPage;
+       	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
+       	 				    i++
+       	 				) {
+       	 					$('#notices').append(notices[i])
+       	 				 }
+       	 			
+       	 			totalData = noticeList.length;
+       	 	        dataList = notices;
+       	 	        //페이징 표시 호출
+       	 			searchPaging(totalData, dataPerPage, pageCount, currentPage);
+       				}else $('#notices').append(
+       					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
+       				)
+       			}
+       		})
+   		} else { 
+   			notice = {
+   					userId : $('#searchValue').val()
+   			}
+   		$.ajax({
+   			url: 'notice/search/userId',
+   			data: notice,
+   			success: noticeList => {
+   				if(noticeList.length){
+   				notices = []
+   				noticeList.forEach(notice => {
+   					notices.unshift(
+   						'<tr>' +
+   							'<td>' + notice.noticeId + '</td>' + 
+   							'<td><a href="notice/adminNoticeView/' + notice.noticeId + '" class="a-black">' + notice.noticeTitle + '</a></td>' +
+   							'<td>' + notice.noticeTime + '</td>' +
+   							'<td>' + notice.userId + '</td>' +
+   						'</tr>'
+   					)
+   				})
+   				currentPage = Number(currentPage);
+   	 			dataPerPage = 10;
+   	 			$('#notices').empty()
+   	 			 for (
+   	 				    var i = (currentPage - 1) * dataPerPage;
+   	 				    i < (currentPage - 1) * dataPerPage + dataPerPage;
+   	 				    i++
+   	 				) {
+   	 					$('#notices').append(notices[i])
+   	 				 }
+   	 			
+   	 			totalData = noticeList.length;
+   	 	        dataList = notices;
+   	 	        //페이징 표시 호출
+   	 			searchPaging(totalData, dataPerPage, pageCount, currentPage);
+   				}else $('#notices').append(
+   					`<tr><td colspan='4' class='text-center'>공지가 없습니다.</td></tr>`		
+   				)
+   			}
+   		})
+   		}
+   	}
     
 function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
-	  //console.log("totalData " + totalData)
-	  //console.log("pageCount " + pageCount)
-	 // console.log("dataPerPage " + dataPerPage)
-	
-	  //console.log("currentPage " + currentPage)
 	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
-	 // console.log("paging totalPage : " + totalPage);
 	  if(totalPage < pageCount){
 	    pageCount = totalPage;
 	  }
 	  
 	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-	  //console.log("pageGroup "+pageGroup)
 	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-	  //console.log("last "+last)
 	  if (last > totalPage) {
 	    last = totalPage;
 	  }
 
 	  let first = (pageGroup - 1) * 10 + 1; //화면에 보여질 첫번째 페이지 번호
-	  //console.log("first "+first)
 	  let next = last + 1;
 	  let prev = first - 1;
 	  
@@ -296,7 +231,6 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	  if(currentPage != 1){
 		  pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Previous' id='prev'> <span aria-hidden='true'>&laquo;</span></a></li>"
 	  }
-	
 	 //페이징 번호 표시 
 	  for (var i = first; i <= last; i++) {
 	    if (currentPage == i) {
@@ -310,16 +244,8 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	  if (currentPage != totalPage) {
 	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
 	  }
-
-	  //console.log("pageHtml:" + pageHtml)
 	  $("#pages").html(pageHtml);
 	  
-	  //상단 페이지 데이터 확인용
-	  /* let displayCount = "";
-	  displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalData + "건";
-	  $("#displayCount").text(displayCount); */
-
-
 	  //페이징 번호 클릭 이벤트 
 	  $("#pages li a").click(function () {
 	    let $id = $(this).attr("id");
@@ -335,10 +261,8 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	    //글 목록 표시 재호출
 	    searchData(selectedPage, dataPerPage);
 	  });
-	  
-	  //console.log("totalData end :"+totalData)
 }
-    $(init)
+$(init)
 </script>
 </head>
 <body>
@@ -400,7 +324,6 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
                 <tr><th style='width: 6rem;'>공지번호</th><th>공지제목</th><th>공지시간</th><th>작성자</th>
             </thead>
             <tbody id='notices'>
-                
             </tbody>
         </table>
         <div class='row'>
@@ -410,23 +333,6 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
             <div class='col gap-2 d-flex justify-content-start'>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination"  id='pages'>
-                        <!-- 
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" ><a class="page-link" href="page1">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                         -->
                     </ul>
                 </nav>
             </div>

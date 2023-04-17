@@ -157,4 +157,5 @@ input[type="search"]:focus,
 
 pre {
     font-family: var(--bs-font-sans-serif) !important;
-    }
+    font-size: 12px;
+}
