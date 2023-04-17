@@ -183,7 +183,7 @@ public class UserController {
 			mv.setViewName("user/userFix");
 			return mv;
 		}
-		
+		 
 	//회원프로필조회
 		@GetMapping("user/{userId}")
 		public ModelAndView userView(ModelAndView mv) {

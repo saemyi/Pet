@@ -38,7 +38,7 @@ $(() => {
             	   $('#imageTxt').show();
                    $('#petName').val('');
                    $('#petIntro').val('');
-                   $('#UploadProfile').val('');
+                   $('#uploadProfile').val('');
                    getPets();
                },
                error: console.log($('#petId:checked').val())
@@ -61,8 +61,7 @@ $(() => {
                   	     $('#imageTxt').show(); 
                          $('#petName').val('');
                          $('#petIntro').val('');
-                         $('#UploadProfile').val('');
-                         $('#petProfileImagefilename').val('');
+                         $('#uploadProfile').val('');
                     	getPets();
                     },
                     error: function (data) {
@@ -134,7 +133,7 @@ $('#fixBtn').click(() => {
 		          	   	 $('#imageTxt').show();
 		                 $('#petName').val('');
 		                 $('#petIntro').val('');
-		                 $('#UploadProfile').val('');
+		                 $('#uploadProfile').val('');
 		                getPets();
 		            },
 		            error: function (data) {
@@ -220,7 +219,6 @@ $(upLoadImg)
             <div class='col mb-3'>
                   <div class="wrapper d-flex justify-content-center">
                 <div id="uploadProfileBtn" type='button' class='box text-center'>
-                	<input type='text' id='반려견사진' class='form-control mb-3' hidden>
                 	<p id='imageTxt' class='mt-5'>반려견 사진</p>
                 	<div id="image_container"></div>
                 </div>
