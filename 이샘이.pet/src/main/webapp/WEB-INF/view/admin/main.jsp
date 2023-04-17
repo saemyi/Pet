@@ -21,7 +21,7 @@ let imageFilename;
 $(() => {
 	$('#fixLogo').click(() => {
         logoModal( '<form id="logoForm" encType="multipart/form-data" action="logo/add"  method="post">' + 
-        				'<input type="file" name="file" id="imageFilename"/>' +
+        				'<input type="file" name="file" id="imageFilename"/>'+
         		   '</form>' 
         )
     })
