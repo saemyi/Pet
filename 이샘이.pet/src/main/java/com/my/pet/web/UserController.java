@@ -186,11 +186,12 @@ public class UserController {
 		
 		//유저 프로필 
 		@GetMapping("profile/{userId}")
-		public ModelAndView userProfile(ModelAndView mv, @PathVariable String userId, HttpSession session) {
+		public ModelAndView userProfile(ModelAndView mv, @PathVariable("userId") String userId, HttpSession session) {
 			String myId = (String)session.getAttribute("userId");
+			System.out.println("my: " + myId);
+			System.out.println("user: " + userId);
 			if(userId == myId) {
-				System.out.println("저입니다.");
-				mv.setViewName("redirect:user/mypage");
+				mv.setViewName("redirect:/user/mypage");
 			} else {
 				User user = userService.userProfile(userId);
 				mv.addObject(user);

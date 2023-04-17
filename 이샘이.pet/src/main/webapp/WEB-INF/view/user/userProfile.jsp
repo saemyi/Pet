@@ -20,11 +20,11 @@
 </style>
 <script>
 $(() => {
-	$('#userProfileImage').html("<img id='userImage' class='image-thumbnail'>")
+	
 	var userProfileImage = "${user.userProfileImageFilename}" 
 	if(userProfileImage == "") {
-		
 	} else {
+		$('#userProfileImage').html("<img id='userImage' class='image-thumbnail'/>")
 		$('#userImage').attr('src', "/attach/${user.userProfileImageFilename}")
 	}
 })
@@ -101,10 +101,9 @@ $(getPets)
     </div>
 <div class='container mb-5'>
     <div class='row p-3 d-flex justify-content-center mb-3'>
-        <div class='box image-box text-center' id='userProfileImage'>
+        <div class='col-5 box text-center m-0 p-0' id='userProfileImage'>
             <p class='mt-5'>프로필이미지</p>
         </div>
-        <input type='hidden' id='userId' name='userId' value='${user.userId}'/>
         <div class='col-7 mb-3'>
             <h5><b>${user.nickname}</b></h5><hr>
             <p>${user.userIntro}

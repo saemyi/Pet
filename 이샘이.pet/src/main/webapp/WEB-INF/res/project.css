@@ -68,6 +68,7 @@ body {
    background-color: gainsboro;
    width: 130px !important;
    height: 130px !important;
+   overflow:hidden;
  }
 
 .petBox{
@@ -75,6 +76,7 @@ body {
    background-color: gainsboro;
    width:100px !important;
    height:100px !important;
+   overflow:hidden;
 }
 
 .logoBox{
@@ -106,7 +108,7 @@ body {
 .joinBox{
    border: .1rem solid gray;
    background-color: gainsboro;
-   width:100px!important;
+   width:100px !important;
    height:100px !important;
 }
 
