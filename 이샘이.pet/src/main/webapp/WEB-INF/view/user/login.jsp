@@ -36,6 +36,7 @@ function getImage(){
 				$('#emptyLogo').hide()
 			}else{
 				$('#emptyLogo').show()
+				$('#getLogoImage').hide() 
 			}
 		}
   	})
