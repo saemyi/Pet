@@ -14,6 +14,7 @@
 <script>
 $(() => {
 })
+
 function fillMeetingsArray(meetings) {
 	const meetingArr = []
 	

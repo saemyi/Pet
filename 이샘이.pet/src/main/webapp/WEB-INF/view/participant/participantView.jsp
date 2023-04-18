@@ -16,6 +16,7 @@
 $(() => {
 	
 })
+
 function getParticipantData() {
 	$.ajax({
 		url: 'getMeetingCreator',
