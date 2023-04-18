@@ -79,7 +79,7 @@ textarea {
 		             $('.dropmenu${userId}').removeAttr("style")    
 			},
 			error: function(){
-				location.href = document.referrer
+				location.replace(location.href = document.referrer)
 			}
 		 })
 		 
