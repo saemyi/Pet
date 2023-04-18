@@ -70,7 +70,7 @@ textarea {
 	                                </div>
 	                                <div class='row'>
 	                                    <div class='col'>
-	                                        <input type='button' class='reply' onclick="location.href='/reply/\${comment.commentId}'" value='답글\${comment.replyCnt}'/>
+	                                        <input type='button' class='reply' onclick="location.replace(location.href='/reply/\${comment.commentId}')" value='답글\${comment.replyCnt}'/>
 	                                    </div>
 	                                </div>
 	                            </div>
