@@ -129,14 +129,14 @@ $(init)
 <body>
 <header>
     <div class='row d-flex justify-content-end'>
-        <nav class="navbar fixed-top bg-orange p-3">
+        <nav class="navbar fixed-top bg-orange">
             <div class='row'>
                 <div class='col d-flex justify-content-start'>
                     <i class='bi bi-chevron-left' onclick="location.href='../user/mypage'"></i>
                 </div>
             </div>
             <div class='col text-center ms-5'>
-                <b class='ms-3'>내 모임</b>
+                <b class='ms-4'>내 모임</b>
             </div>
         <li class="nav-item dropdown" style='list-style: none;'>
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" style='text-decoration: none; color: black;' role="button" aria-expanded="false">모임확인</a>
