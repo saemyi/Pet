@@ -163,6 +163,7 @@ $(init)
 <body onunload="">
 <div class='row d-flex justify-content-end'>
     <nav class="navbar fixed-top bg-orange p-2">
+    	<div class='col-2'></div>
         <div class='col text-center me-4'>
             <b>산책하개</b>
         </div>
