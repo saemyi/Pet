@@ -85,21 +85,6 @@ function getMeetingData() {
 		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
 		// method 생략: get
 		success: meeting => {
-			console.log("${lastMeetingId}")
-			console.log(meeting)
-			console.log()
-			
-			console.log(meeting.meetingTitle)
-			console.log(meeting.meetingContent)
-			console.log(meeting.meetingTime)
-			console.log(meeting.recruitmentNumber)
-			console.log(meeting.applicantNumber)
-			console.log(meeting.userId)
-			console.log(meeting.sidoId)
-			console.log(meeting.sigunguId)
-			console.log(meeting.dongId)
-			console.log()
-			
 			$('#meetingTitle').text(meeting.meetingTitle)
 			$('#meetingContent').val(meeting.meetingContent)
 			$('#meetingDateTime').val(meeting.meetingTime)
@@ -109,16 +94,6 @@ function getMeetingData() {
 			$('#sido').val(meeting.sidoId).trigger('change')
 			$('#sigugun').val(meeting.sigunguId).trigger('change')
 			$('#dong').val(meeting.dongId).trigger('change')
-			
-			console.log($('#meetingTitle').text())
-			console.log($('#meetingContent').val())
-			console.log($('#meetingDateTime').val())
-			console.log($('#recruitmentNumber').text())
-			console.log($('#applicantNumber').text())
-			console.log($('#userId').text())
-			console.log($('#sido').val())
-			console.log($('#sigugun').val())
-			console.log($('#dong').val())
 			
 		    let recruited = parseInt($('#applicantNumber').text())
 		    let totalRecruitment = parseInt($('#recruitmentNumber').text())

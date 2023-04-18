@@ -11,4 +11,3 @@ public interface CommentService {
 	void fixComment(Comment comment);
 	void delComment(int commentId);
 }
-  

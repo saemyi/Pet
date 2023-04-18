@@ -31,7 +31,6 @@ textarea {
 </style>
 <script>	
     function listComments() {   
-        console.log("listComments 실행")
         $('#comments').empty()
         $.ajax({
 	        url:'get/' + ${meetingId}, 
@@ -107,7 +106,6 @@ textarea {
                     success: listComments
                 })
            	} 
-            
             $('.comment').val('') 
     	}else $('#commentErr').text('댓글을 입력해주세요').show().fadeOut(3000)
 	}
@@ -121,7 +119,6 @@ textarea {
         	    		commentId: comId,
         	    		commentContent: $('#commentContentFix'+ comId).val()	
         	    	}
-        	    	
         	    	$.ajax({
         	            url: 'fix',
         	            method: 'put',
@@ -143,7 +140,6 @@ textarea {
     function CommentDel(comId){   
         yesNoModal('댓글을 삭제하시겠습니까?')
         $('#okBtn').off('click').on('click', function() { 
-        	console.log(comId)
             $.ajax({
                 url: 'del/' + comId,
                 method: 'delete',
@@ -152,9 +148,6 @@ textarea {
         })  
     }
     
-    function goMeeting(){
-    	window.location.href = '/meeting/'+ ${meetingId}
-    }
 listComments()
 </script>
 </html>

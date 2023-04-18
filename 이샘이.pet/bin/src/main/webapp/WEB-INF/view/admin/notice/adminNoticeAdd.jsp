@@ -18,14 +18,11 @@ $(() => {
         logoModal('<input type="file"/><br>로고 파일을 등록하세요.')})
 })
 
-
-
 function goPage() {
 	location.href="../notice"
 }
 
 function init() {
-	console.log("${userId}")
 	$('#noticeAdd').click(() => {
 		if(isVal($('#noticeTitle')) && isVal($('#noticeContent'))){
 			
@@ -33,12 +30,12 @@ function init() {
 			noticeTitle: $('#noticeTitle').val(),
 			noticeContent: $('#noticeContent ').val()
 		}
-		$.ajax({
-			url: 'add',
-			method: 'post',
-			data: notice,
-			success: goPage
-		})
+			$.ajax({
+				url: 'add',
+				method: 'post',
+				data: notice,
+				success: goPage
+			})
 		}
 	})
 }

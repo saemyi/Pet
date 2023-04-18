@@ -37,7 +37,6 @@ $(() => {
             }
      })       
 })
-    
 function goPage() {
    location.replace("../adminNoticeView/" + ${notice.noticeId})
 }

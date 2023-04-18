@@ -16,7 +16,6 @@
 <script type="application/javascript" src="res/hangjungdong.js"></script>
 <title>main</title>
 <style>
-
 </style>
 <script>
 $(() => {
@@ -146,7 +145,6 @@ function getMeetingsByAddress(sido, sigugun, dong) {
 						</div>`
 					)
 				})
-				
 				$('#meetings').append(meetingArr.join(''))
 			} else {
 				$('#meetings').append(`<p class='text-center text-secondary mt-3'>모임이 없습니다.</p>`)
@@ -165,15 +163,6 @@ $(init)
 <body onunload="">
 <div class='row d-flex justify-content-end'>
     <nav class="navbar fixed-top bg-orange p-2">
-    <%
-if(userId == null) {
-%>
-	 <form action='login'>
-	       <button type='submit' class="loginBtn navbar-brand link-black">로그인</button>   
-	 </form>
-<%} else {%>
- 	<a href='logout' class='logoutBtn'>로그아웃</a>
-<%} %>
         <div class='col text-center me-4'>
             <b>산책하개</b>
         </div>

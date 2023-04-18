@@ -13,13 +13,7 @@
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>반려견 등록</title>
-<script>
-    let pets = []
-    let petNum = function* genPetNum() {
-        let petNum = 1
-        while(true) yield petNum++
-    }()
-
+<script>  
 err("#petName", petName_check, ".result-petName", '<small class="errMsg">1자이상 10자이하 한글, 영어만 입력가능합니다.</small>')
  
   $(() => {
@@ -72,7 +66,6 @@ function setThumbnail(event) {
  }
 
 $(upLoadImg)
-
 </script>
 </head>
 <body>

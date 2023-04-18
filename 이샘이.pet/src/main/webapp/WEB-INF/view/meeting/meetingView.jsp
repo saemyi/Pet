@@ -144,14 +144,12 @@ function processMeetingData() {
 		data: info,
 		dataType: 'json',
 		error: meeting => {
-			console.log(meeting.meetingId)
 			isParticipationCancel = false
 			$('#participateBtn').text('참여신청')
 			$('#participateBtn').addClass('btn-orange')
 			$('#participateBtn').removeClass('btn-secondary')
 		},
 		success: meeting => {
-			console.log(meeting.meetingId)
 			isParticipationCancel = true
 			$('#participateBtn').text('참여취소')
 			$('#participateBtn').removeClass('btn-orange')
@@ -244,7 +242,6 @@ $(init)
 </script>
 <title>모임</title>
 <style>
-    
 </style>
 </head>
 <body>

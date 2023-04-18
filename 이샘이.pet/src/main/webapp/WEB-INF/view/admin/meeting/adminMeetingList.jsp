@@ -10,7 +10,6 @@
 <script src='../../res/projectJs.js'></script>
 <link rel='stylesheet' href='../../res/admin.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<!-- https://zelkun.tistory.com/entry/004-jQuery-%EC%8B%9C%EB%8F%84%EC%8B%9C%EA%B5%B0%EA%B5%AC%EC%9D%8D%EB%A9%B4%EB%8F%99%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-selectbox-%EC%A0%9C%EC%96%B4-with-%EA%B8%B0%EC%83%81%EC%B2%AD-%EB%8F%99%EB%84%A4%EC%98%88%EB%B3%B4 -->
 <script type="application/javascript" src="../../res/hangjungdong.js"></script>
 <title>모임리스트</title>
 <style>
@@ -22,7 +21,6 @@
 let dataPerPage = 10;
 let pageCount = 10;
 let imageFilename;
-
 $(() => {
 	//sido option 추가
 	jQuery.each(hangjungdong.sido, function (idx, code) {
@@ -137,7 +135,6 @@ function fillMeetingsArray(meetings) {
 			</tr>`
 		)
 	})
-	 
 	return meetingArr
 }
 
@@ -378,11 +375,11 @@ $(init)
 		</div>
 	</div>
 </div>
-<div class='row mt-4'>
+<div class='row mt-4 sm'>
     <div class='col'>
         <table class='table text-center sm'>
             <thead class='table'>
-                <tr><th style='width: 15rem;'>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
+                <tr><th>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
             </thead>
             <tbody id='meetings'>
             </tbody>

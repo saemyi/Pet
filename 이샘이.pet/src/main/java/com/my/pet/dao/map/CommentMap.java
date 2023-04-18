@@ -15,4 +15,3 @@ public interface CommentMap {
 	int updateComment(Comment comment);
 	int deleteComment(int commentId);
 }
- 

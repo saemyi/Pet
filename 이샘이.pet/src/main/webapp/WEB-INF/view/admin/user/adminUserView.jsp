@@ -188,8 +188,6 @@ function adminMeetingList() {
 					$('#sido').val(meeting.sidoId).trigger('change')
 					$('#sigugun').val(meeting.sigunguId).trigger('change')
 					$('#dong').val(meeting.dongId).trigger('change')
-					console.log(meeting.sidoId)
-					console.log($('#sido option:selected').text())
 					meetingArr.push(
 				`<table class="table text-center mb-4">
 					<tbody>

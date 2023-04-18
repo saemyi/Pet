@@ -20,19 +20,15 @@ function logoChange(){
     	var form = $('#logoForm')[0];
         var formData = new FormData(form);
          
-        $.ajax({
-            url: '/logo/add',
-            method: 'post',
-            data: formData,
-            success: console.log("성공"),
-             error: function (data) {
-             alert(data);
-             },
-             cache: false,
-             contentType: false,
-             processData: false
-        })
-     })
+	    $.ajax({
+	        url: '/logo/add',
+	        method: 'post',
+	        data: formData,
+	        cache: false,
+	        contentType: false,
+	        processData: false
+	    })
+	 })
 }
 
 

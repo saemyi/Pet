@@ -82,7 +82,6 @@ function displayData(currentPage, dataPerPage) {
 	 				) {
 	 					$('#reports').append(reports[i])
 	 				 }
-	 			
 	 			totalData = reportList.length;
 	 	        dataList = reports;
 	 	        //페이징 표시 호출
@@ -149,7 +148,6 @@ function paging(totalData, dataPerPage, pageCount, currentPage) {
 	    //글 목록 표시 재호출
 	    displayData(selectedPage, dataPerPage);
 	  });
-
 }
 
 function searchData(currentPage, dataPerPage){
@@ -238,7 +236,6 @@ function searchData(currentPage, dataPerPage){
 						'<td>' + processed + '</td>' + 
 					'</tr>'
    				)
-   				
    			})
    				currentPage = Number(currentPage);
 	 			dataPerPage = 10;
@@ -302,7 +299,6 @@ function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	    pageHtml += "<li class='page-item'><a href='#' class = 'page-link' aria-label='Next' id='next'> <span aria-hidden='true'>&raquo;</span> </a></li>";
 	  }
 
-	  //console.log("pageHtml:" + pageHtml)
 	  $("#pages").html(pageHtml);
 
 	  //페이징 번호 클릭 이벤트 

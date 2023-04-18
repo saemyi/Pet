@@ -22,7 +22,6 @@ $(() => {
 	}else{
 		$('#changeProcessed').hide()
 	}
-	
     $('#changeProcessed').click(() => {
 	   	let isProcessed = ''
 	  

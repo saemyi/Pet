@@ -77,7 +77,6 @@ maximum-scale=1.0, minimum-scale=1.0'>
 <script>
     function listComments() {   
         
-        console.log("listComments 실행");
         $('#comments').empty()
         
         $.ajax({

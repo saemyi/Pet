@@ -148,7 +148,6 @@ function petJoin() {
         			petIntro: pet.petIntro,
         			userId: "${user.userId}"
         		}
-        		console.log(petData);
         		$.ajax({
 	            	url: 'pet/add',
 	            	method: 'post',

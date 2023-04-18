@@ -63,8 +63,6 @@ public class UserController {
 	public ModelAndView login(ModelAndView mv, @ModelAttribute("user") UserDto user, String rememberMe,
 			HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 			User userData = userService.loginUser(user.getUserId(), user.getPw());
-			System.out.println(user.getUserId() + user.getPw());
-			System.out.println(userData);
 			if(userData != null) {
 				session.setAttribute("userId", user.getUserId());
 				session.setAttribute("nickName", userData.getNickname());
@@ -188,8 +186,6 @@ public class UserController {
 		@GetMapping("profile/{userId}")
 		public ModelAndView userProfile(ModelAndView mv, @PathVariable("userId") String userId, HttpSession session) {
 			String myId = (String)session.getAttribute("userId");
-			System.out.println("my: " + myId);
-			System.out.println("user: " + userId);
 			if(userId.equals(myId)) {
 				mv.setViewName("redirect:/user/mypage");
 			} else {
@@ -224,11 +220,9 @@ public class UserController {
 	
 	@PutMapping("fixPw")
 	public void fixPw(ModelAndView mv, HttpSession session, User user) {
-		System.out.println(user);
 		String userId = (String)session.getAttribute("userId");
 		user.setUserId(userId);
 		userService.fixPw(user);
-		System.out.println("성공");
 	}
 
 	//비밀번호 체크
@@ -264,7 +258,6 @@ public class UserController {
 	public void addUser(String userId, String userName, String profileImageFilename,
 			 String phone, String email, String address, String detailedAddress,
 			 @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate birthdate, String pw, String nickname) {
-		System.out.println("안녕 : " + userId + userName + profileImageFilename + phone + email + address + detailedAddress + birthdate + pw + nickname);
 		userService.joinUser(userId, userName, profileImageFilename, phone, email, address, detailedAddress, birthdate, pw, nickname);
 	}
 }

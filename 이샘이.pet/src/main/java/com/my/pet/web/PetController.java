@@ -53,7 +53,6 @@ public class PetController {
 		petService.addPet(petDto.getPetName(), filename, petDto.getPetIntro(), userId);
 	}
 	
-	
 	private void saveFile(String filename, MultipartFile file) { 
 		try {
 			file.transferTo(new File(filename));
@@ -80,18 +79,15 @@ public class PetController {
 	
 	@GetMapping("manage")
 	public ModelAndView petManage(ModelAndView mv) {
-		mv.setViewName("pet/petManage");
+		mv.setViewName("pet/petManage");	
 		return mv;
 	}
 	
 	//펫수정
 	@PutMapping("fix")
 	public void fixPet(PetDto petDto, Pet pet, HttpSession session) {
-	   System.out.println(petDto);
-	   System.out.println(pet);
 	   if(petDto.getPetProfile() == null) {
 		   String filename = pet.getPetProfileImageFilename();
-				   System.out.println(filename);
 	   } else {
 		   String filename = petDto.getPetProfile().getOriginalFilename();
 		   saveFile(attachPath + "/" + filename, petDto.getPetProfile());

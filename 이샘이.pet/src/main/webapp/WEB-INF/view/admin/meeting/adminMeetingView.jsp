@@ -10,12 +10,10 @@
 <script src='../../res/projectJs.js'></script>
 <link rel='stylesheet' href='../../res/admin.css'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<!-- https://zelkun.tistory.com/entry/004-jQuery-%EC%8B%9C%EB%8F%84%EC%8B%9C%EA%B5%B0%EA%B5%AC%EC%9D%8D%EB%A9%B4%EB%8F%99%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-selectbox-%EC%A0%9C%EC%96%B4-with-%EA%B8%B0%EC%83%81%EC%B2%AD-%EB%8F%99%EB%84%A4%EC%98%88%EB%B3%B4 -->
 <script type="application/javascript" src="../../res/hangjungdong.js"></script>
 <title>모임상세</title>
 <script>
 $(() => {
-	
 	//sido option 추가
 	jQuery.each(hangjungdong.sido, function (idx, code) {
 		//append를 이용하여 option 하위에 붙여넣음
@@ -88,21 +86,6 @@ function processMeetingData() {
 		dataType: 'json', // response body 안에 있는 데이터 타입. 생략가능
 		// method 생략: get
 		success: meeting => {
-			console.log("${lastMeetingId}")
-			console.log(meeting)
-			console.log()
-			
-			console.log(meeting.meetingTitle)
-			console.log(meeting.meetingContent)
-			console.log(meeting.meetingTime)
-			console.log(meeting.recruitmentNumber)
-			console.log(meeting.applicantNumber)
-			console.log(meeting.userId)
-			console.log(meeting.sidoId)
-			console.log(meeting.sigunguId)
-			console.log(meeting.dongId)
-			console.log()
-			
 			$('#meetingTitle').text(meeting.meetingTitle)
 			$('#meetingContent').text(meeting.meetingContent)
 			$('#meetingDateTime').val(meeting.meetingTime)
@@ -114,15 +97,6 @@ function processMeetingData() {
 			$('#sigugunNm').text($('#sigugun option:selected').text())
 			$('#dong').val(meeting.dongId).trigger('change')
 			$('#dongNm').text($('#dong option:selected').text())
-			
-			console.log($('#meetingTitle').text())
-			console.log($('#meetingContent').text())
-			console.log($('#meetingDateTime').val())
-			console.log($('#recruitmentNumber').text())
-			console.log($('#applicantNumber').text())
-			console.log($('#sidoNm').text())
-			console.log($('#sigugunNm').text())
-			console.log($('#dongNm').text())
 			
 			$('#sigugun').css("display", "none")
 		}
@@ -147,7 +121,6 @@ function init() {
 			method: 'delete',
 			success: moveToList
 		})
-		
 		$('#modal').modal('hide')
 	})
 	

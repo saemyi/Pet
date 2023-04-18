@@ -155,7 +155,6 @@ function searchData(currentPage, dataPerPage){
        	 				) {
        	 					$('#notices').append(notices[i])
        	 				 }
-       	 			
        	 			totalData = noticeList.length;
        	 	        dataList = notices;
        	 	        //페이징 표시 호출
@@ -205,9 +204,9 @@ function searchData(currentPage, dataPerPage){
    				)
    			}
    		})
-   		}
-   	}
-    
+	}
+}
+ 
 function searchPaging(totalData, dataPerPage, pageCount, currentPage) {
 	  totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
 	  if(totalPage < pageCount){

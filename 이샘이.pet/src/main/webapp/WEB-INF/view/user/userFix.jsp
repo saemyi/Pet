@@ -77,7 +77,6 @@ function getUser() {
 		url: '/getUser',
 		dataType: 'json',
 		success: user => {
-			console.log(user)
 			if(user.userProfileImageFilename != null) {
 				$('#userInfo').html('<div type="button" id="UploadProfileBtn" class="box text-align-center userProfileImage"></div>')
 				$('.userProfileImage').html("<img class='image-thumbnail userImage'/>")

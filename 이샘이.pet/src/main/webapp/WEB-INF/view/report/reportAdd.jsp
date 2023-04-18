@@ -17,7 +17,6 @@
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <title>신고</title>
 <style>
-   
 </style>
 <script>
 function moveMain(){
@@ -62,11 +61,9 @@ function init() {
 	    		}
 	    	})
 	    }
-		
 	})
 	
     $("#okBtn").click(() => {
-    	console.log($('#saveUserId').val())
    		let report = {
    			reason: $('#reason option:selected').val(),
    			reportContent: $('#reportContent').val(),
@@ -177,7 +174,6 @@ $(init)
         </div>
     </div>
 </div>
-
 </div>
 <nav class="navbar fixed-bottom bg-orange">
     <div class="container-fluid pt-3">

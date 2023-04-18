@@ -59,7 +59,6 @@ $(() => {
 		$.ajax({
 			url: '/pet/get',
 			success: petsList => {
-				console.log(petsList)
 				if(petsList.length) {
 					pets = []
 					petsList.forEach(pet => {

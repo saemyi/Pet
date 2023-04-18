@@ -14,7 +14,6 @@
 <script>
 $(() => {
 })
-
 function fillMeetingsArray(meetings) {
 	const meetingArr = []
 	
@@ -65,7 +64,6 @@ function fillMeetingsArray(meetings) {
 			</div>`
 		)
 	})
-	
 	return meetingArr
 }
 

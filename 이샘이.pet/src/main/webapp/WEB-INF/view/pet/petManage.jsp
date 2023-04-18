@@ -41,7 +41,6 @@ $(() => {
                    $('#uploadProfile').val('');
                    getPets();
                },
-               error: console.log($('#petId:checked').val())
          })
     })
 
@@ -78,7 +77,6 @@ $(() => {
     	change() {
     		var petProfile = $(this).parent().next().next().text()
     		if(petProfile != "null") {
-    			console.log(petProfile)
 			$('#image_container').empty()
 			$('#imageTxt').hide();
 	    	var div = document.createElement("div");
@@ -155,8 +153,7 @@ function getPets() {
     $.ajax({
         url: '/pet/get',
         success: petsList => {
-            console.log(petsList)
-                if(petsList.length) {
+            if(petsList.length) {
                 pets = []
                 petsList.forEach(pet => {
                     pets.unshift(
@@ -187,7 +184,6 @@ function setThumbnail(event) {
         img.setAttribute("style", 'width:130px; height:130px;');
         document.querySelector("div#image_container").appendChild(div).appendChild(img);
     };
-
     reader.readAsDataURL(event.target.files[0]);
   }
 
