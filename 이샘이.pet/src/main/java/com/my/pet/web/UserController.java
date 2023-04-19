@@ -233,7 +233,7 @@ public class UserController {
 		if(user == null) {
 			return 0;
 		} else { 
-			return 1;
+			return 1; 
 		}
 	}  
 	

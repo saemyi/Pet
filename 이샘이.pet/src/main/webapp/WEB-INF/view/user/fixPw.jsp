@@ -42,7 +42,7 @@ $(() => {
     $('#confirmBtn').click(() => {
     	if($('#modalMsg').text() == "비밀번호 변경 완료! 다시 로그인해주세요.") {
     		location.href='/logout'
-    	}
+    	} 
     })
 }) 
 
