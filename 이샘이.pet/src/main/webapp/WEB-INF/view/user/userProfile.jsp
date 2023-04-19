@@ -20,7 +20,6 @@
 </style>
 <script>
 $(() => {
-	
 	var userProfileImage = "${user.userProfileImageFilename}" 
 	if(userProfileImage == "") {
 	} else {
@@ -31,12 +30,9 @@ $(() => {
 
 function getPets() {
 		$('#pets').empty()
-		
-		var userId = $('#userId').val()
 		$.ajax({
-			url: '/pet/getPets/' + userId,
+			url: '/pet/getPets/' + $('#userId').val(),
 			method: "post",
-			data: userId,
 			success: petsList => {
 				if(petsList.length) {
 					pets = []
@@ -104,6 +100,7 @@ $(getPets)
             <p class='mt-5'>프로필이미지</p>
         </div>
         <div class='col-7 mb-3'>
+        <input type='text' id='userId' value='${user.userId}' hidden/>
             <h5><b>${user.nickname}</b></h5><hr>
             <p>${user.userIntro}
             </p>
