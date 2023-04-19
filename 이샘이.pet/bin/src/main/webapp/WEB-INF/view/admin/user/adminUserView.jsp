@@ -147,7 +147,7 @@ function adminMeetingList() {
 				'<table class="table text-center mb-4">' +
 					'<tbody>' +
 						'<tr>' +
-		                    '<th>제목</th><td class="text-start">' + meeting.meetingTitle + '</td>' + '<th>모임시간</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="' + meeting.meetingTime + '"disabled/> </td>' +
+		                    '<th>제목</th><td class="text-start">' + meeting.meetingTitle + '</td>' + '<th>모임시각</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="' + meeting.meetingTime + '"disabled/> </td>' +
 		                '</tr>' +
 		                '<tr>' +
 		                    '<th>장소</th><td class="text-start"><p id="addressText"></p></td><th>참석인원/모집인원</th><td class="text-start">' + meeting.applicantNumber  + '/' + meeting.recruitmentNumber + '</td>' +

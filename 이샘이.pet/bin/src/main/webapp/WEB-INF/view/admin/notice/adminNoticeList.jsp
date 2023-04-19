@@ -135,7 +135,7 @@
     <div class='col'>
         <table class='table text-center sm'>
             <thead class='table'>
-                <tr><th style='width: 6rem;'>공지번호</th><th>공지제목</th><th>공지시간</th><th>작성자</th>
+                <tr><th style='width: 6rem;'>공지번호</th><th>공지제목</th><th>공지시각</th><th>작성자</th>
             </thead>
             <tbody id='notices'>
                 

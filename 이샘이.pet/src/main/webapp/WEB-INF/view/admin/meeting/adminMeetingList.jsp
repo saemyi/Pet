@@ -379,7 +379,7 @@ $(init)
     <div class='col'>
         <table class='table text-center sm'>
             <thead class='table'>
-                <tr><th>제목</th><th>장소</th><th>시간</th><th>작성자</th><th>마감</th><th>완료</th></tr>
+                <tr><th>제목</th><th>장소</th><th>시각</th><th>작성자</th><th>마감</th><th>완료</th></tr>
             </thead>
             <tbody id='meetings'>
             </tbody>
