@@ -234,7 +234,7 @@ public class UserController {
 			return 0;
 		} else { 
 			return 1; 
-		}
+		} 
 	}  
 	
 	//아이디 중복체크
