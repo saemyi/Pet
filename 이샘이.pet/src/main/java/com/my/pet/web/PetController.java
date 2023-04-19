@@ -67,7 +67,6 @@ public class PetController {
 	
 	@PostMapping("getPets/{userId}")
 	public List<Pet> getPets(@PathVariable("userId") String userId) {
-		System.out.println(userId);
 		return petService.getPets(userId);
 	}
 	
