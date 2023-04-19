@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -217,9 +218,8 @@ public class UserController {
 		return mv;
 	}
 	
-	
 	@PutMapping("fixPw")
-	public void fixPw(ModelAndView mv, HttpSession session, User user) {
+	public void fixPw(ModelAndView mv, HttpSession session, @RequestBody User user) {
 		String userId = (String)session.getAttribute("userId");
 		user.setUserId(userId);
 		userService.fixPw(user);

@@ -14,7 +14,7 @@
 <script>
 
 $(() => {
-    $('#fixBtn').click(() => {  ///예외처리해야댐
+    $('#fixBtn').click(() => {
     	if($('#errPw').length == 0 && isVal($('#currentPw')) && isVal($('#password'))) {
 		var pw = $('#currentPw').val()
     	
@@ -24,16 +24,13 @@ $(() => {
 				data: {pw:pw},
 				success: function(cnt) { 
 					if(cnt == 1) {
-						$.ajax({
-							url: '/fixPw',
-							method: 'put',
-							data: {pw: $('#pw').val()},
-							success: confirmModal("비밀번호 변경 완료! 다시 로그인해주세요.")
-						})
-					} 
+						changePw()
+					} else {
+						confirmModal("헌재 비밀번호가 일치하지 않습니다.")
+					}
 				} 
 			})
-    	} else confirmModal("비밀번호가 일치하지 않습니다.")
+    	}
     })
     
     $('.btn-close').click(() => {
@@ -48,6 +45,19 @@ $(() => {
     	}
     })
 })
+
+function changePw() {
+	 let user = {
+         	pw: $('#password').val()
+         }
+	$.ajax({
+		url: '/fixPw',
+		method: 'put',
+		contentType: 'application/json',
+		data: JSON.stringify(user),
+		success: confirmModal("비밀번호 변경 완료! 다시 로그인해주세요.")
+	})
+}
 
 $(pwCheck)
 </script>
@@ -74,12 +84,12 @@ $(pwCheck)
 <div class='container'>
     <div class='row pt-3 mt-5'>
         <div class='col mt-5'>
-            <input type='password' class='form-control' name='pw' id='currentPw' placeholder='현재 비밀번호' autocomplete="off"/>
+            <input type='password' class='form-control' id='currentPw' placeholder='현재 비밀번호' autocomplete="off"/>
         </div>
     </div>
     <div class='row mt-5'>
         <div class='col'>
-            <input type='password' class='form-control mb-3 pw' id='password' placeholder='비밀번호' autocomplete="off">
+            <input type='password' class='form-control mb-3 pw' name='pw' id='password' placeholder='비밀번호' autocomplete="off">
         </div>
     </div>
     <div class='row' id='confirmPw'>
