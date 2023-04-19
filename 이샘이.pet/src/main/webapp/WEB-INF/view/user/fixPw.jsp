@@ -12,9 +12,9 @@
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'></script>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
 <script>
- 
+
 $(() => {
-    $('#fixBtn').click(() => {  ///예외처리해야댐
+    $('#fixBtn').click(() => {
     	if($('#errPw').length == 0 && isVal($('#currentPw')) && isVal($('#password'))) {
 		var pw = $('#currentPw').val()
     	
@@ -24,30 +24,40 @@ $(() => {
 				data: {pw:pw},
 				success: function(cnt) { 
 					if(cnt == 1) {
-						$.ajax({
-							url: '/fixPw',
-							method: 'put',
-							data: {pw: $('#pw').val()},
-							success: confirmModal("비밀번호 변경 완료! 다시 로그인해주세요.")
-						})
-					} 
+						changePw()
+					} else {
+						confirmModal("헌재 비밀번호가 일치하지 않습니다.")
+					}
 				} 
 			})
-    	} else confirmModal("비밀번호가 일치하지 않습니다.")
+    	}
     })
     
     $('.btn-close').click(() => {
     	if($('#modalMsg').text() == "비밀번호 변경 완료! 다시 로그인해주세요.") {
     		location.href='/logout'
     	}
-    })
+    }) 
     
     $('#confirmBtn').click(() => {
     	if($('#modalMsg').text() == "비밀번호 변경 완료! 다시 로그인해주세요.") {
     		location.href='/logout'
-    	}
+    	} 
     })
-})
+})  
+
+function changePw() {
+	 let user = {
+         	pw: $('#password').val()
+         }
+	$.ajax({
+		url: '/fixPw',
+		method: 'put',
+		contentType: 'application/json',
+		data: JSON.stringify(user),
+		success: confirmModal("비밀번호 변경 완료! 다시 로그인해주세요.")
+	})
+}
 
 $(pwCheck)
 </script>
@@ -57,7 +67,7 @@ $(pwCheck)
 </style>
 <body>
     <div class='row d-flex justify-content-end'>
-        <nav class="navbar fixed-top bg-orange">
+        <nav class="navbar fixed-top bg-orange p-3">
             <div class='row'>
                 <div class='col-3 d-flex justify-content-start'>
                     <i class='bi bi-chevron-left' onclick="history.back();"></i>
@@ -74,12 +84,12 @@ $(pwCheck)
 <div class='container'>
     <div class='row pt-3 mt-5'>
         <div class='col mt-5'>
-            <input type='password' class='form-control' name='pw' id='currentPw' placeholder='현재 비밀번호' autocomplete="off"/>
+            <input type='password' class='form-control' id='currentPw' placeholder='현재 비밀번호' autocomplete="off"/>
         </div>
     </div>
     <div class='row mt-5'>
         <div class='col'>
-            <input type='password' class='form-control mb-3 pw' id='password' placeholder='비밀번호' autocomplete="off">
+            <input type='password' class='form-control mb-3 pw' name='pw' id='password' placeholder='비밀번호' autocomplete="off">
         </div>
     </div>
     <div class='row' id='confirmPw'>
