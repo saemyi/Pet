@@ -195,7 +195,7 @@ function adminMeetingList() {
 					<tbody>
 						<tr>
 		                    <th style="width: 8rem;">제목</th><td class="text-start">` + meeting.meetingTitle + `</td> 
-		                    <th>모임시간</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="` + meeting.meetingTime + `"disabled/></td>
+		                    <th>모임시각</th><td class="text-start"><input type="datetime-local" style="border:none; background: none; font-size: 12px;" class="form-control p-0" value="` + meeting.meetingTime + `"disabled/></td>
 		                </tr>
 		                <tr>
 		                    <th>장소</th><td class="text-start">` + $("#sido option:selected").text() + " " + $("#sigugun option:selected").text() + " " + $("#dong option:selected").text() + 
@@ -218,7 +218,7 @@ function adminMeetingList() {
 			)
 			$('#sigugun').css("display", "none")
 		}
-	})
+	}) 
 }
 
 function goPage() {
