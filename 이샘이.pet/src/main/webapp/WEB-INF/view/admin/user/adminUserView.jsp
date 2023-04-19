@@ -133,7 +133,7 @@ function adminPetList() {
 					let petIntro = pet.petIntro
 					if(!petIntro){
 						petIntro = '반려견 소개가 없습니다.'
-					} else 
+					}
 					if(petProfileImageFilename) {
 						pets.unshift(
 								'<table class="table text-center mb-4">' +
@@ -169,8 +169,8 @@ function adminPetList() {
 					             '<table>'
 								)
 							}
-							$('#pets').append(pets.join(''))
 					})
+							$('#pets').append(pets.join(''))
 			}else $('#pets').append(
 					`<p class="text-center">펫이 없습니다.</p>`
 			)
@@ -188,6 +188,8 @@ function adminMeetingList() {
 					$('#sido').val(meeting.sidoId).trigger('change')
 					$('#sigugun').val(meeting.sigunguId).trigger('change')
 					$('#dong').val(meeting.dongId).trigger('change')
+					console.log(meeting.sidoId)
+					console.log($('#sido option:selected').text())
 					meetingArr.push(
 				`<table class="table text-center mb-4">
 					<tbody>
