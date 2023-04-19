@@ -19,7 +19,7 @@ $(() => {
 		var pw = $('#currentPw').val()
     	
 		   	$.ajax({
-				url: '/findUser', 
+				url: '/findUser',
 				method: 'post',
 				data: {pw:pw},
 				success: function(cnt) { 
