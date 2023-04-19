@@ -44,7 +44,7 @@ $(() => {
     		location.href='/logout'
     	}
     })
-})
+}) 
 
 function changePw() {
 	 let user = {

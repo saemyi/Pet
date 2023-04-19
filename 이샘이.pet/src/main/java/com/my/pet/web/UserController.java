@@ -235,7 +235,7 @@ public class UserController {
 		} else { 
 			return 1;
 		}
-	}
+	} 
 	
 	//아이디 중복체크
 	@PostMapping("idCheck")
