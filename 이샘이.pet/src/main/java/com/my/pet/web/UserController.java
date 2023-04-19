@@ -231,7 +231,7 @@ public class UserController {
 		String userId = (String)session.getAttribute("userId");
 		User user = userService.findUser(userId, pw);
 		if(user == null) {
-			return 0;
+			return 0; 
 		} else { 
 			return 1; 
 		} 
