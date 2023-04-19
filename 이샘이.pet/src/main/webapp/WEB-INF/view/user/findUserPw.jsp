@@ -24,7 +24,7 @@ $(() => {
 </head>
 <body>
 <div class='row d-flex justify-content-end'>
-    <nav class="navbar fixed-top bg-orange p-3">
+    <nav class="navbar fixed-top bg-orange">
         <div class='row'>
             <div class='col d-flex justify-content-start'>
                 <i class='bi bi-chevron-left' onclick="history.back();"></i>
