@@ -224,7 +224,7 @@ public class UserController {
 		user.setUserId(userId);
 		userService.fixPw(user);
 	}
-
+ 
 	//비밀번호 체크
 	@PostMapping("findUser")
 	public int findUser(HttpSession session, @RequestParam("pw") String pw) {
